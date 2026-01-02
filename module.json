@@ -2,15 +2,17 @@
   "id": "harbinger-house-pf2e",
   "title": "Harbinger House - PF2e Conversion",
   "description": "A conversion of the classic Planescape adventure 'Harbinger House' for Pathfinder 2nd Edition. Includes NPCs, items, and adventure content.",
-  "version": "1.0.0",
+  "version": "#{VERSION}#",
   "compatibility": {
-    "minimum": "13",
-    "verified": "13.351",
+    "minimum": "12",
+    "verified": "13",
     "maximum": "13"
   },
   "authors": [
     {
-      "name": "Antonio",
+      "name": "ModernCannabist",
+      "discord": "ModernCannabist",
+      "github": "Abourass",
       "flags": {}
     }
   ],
