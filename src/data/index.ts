@@ -4,19 +4,17 @@
  */
 
 // Re-export types
-export type { HarbingerNPC, NPCCategory } from './npcs';
+export type { HarbingerNPC, NPCCategory } from './harbinger-residents';
 
 // Import all NPC groups
-import { MAJOR_NPCS } from './npcs';
 import { HARBINGER_RESIDENTS } from './harbinger-residents';
 import { FIENDS, GENERIC_NPCS } from './generic-npcs';
 
 // Combined exports
-export { MAJOR_NPCS, HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
+export { HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
 
 // All NPCs combined
 export const ALL_NPCS = [
-  ...MAJOR_NPCS,
   ...HARBINGER_RESIDENTS,
   ...FIENDS,
   ...GENERIC_NPCS,
@@ -24,7 +22,6 @@ export const ALL_NPCS = [
 
 // NPCs grouped by category for UI display
 export const NPCS_BY_CATEGORY = {
-  'major-npc': MAJOR_NPCS,
   'harbinger-resident': HARBINGER_RESIDENTS,
   'fiend': FIENDS,
   'generic-npc': GENERIC_NPCS,

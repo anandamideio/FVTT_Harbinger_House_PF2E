@@ -631,7 +631,7 @@ export const XERO_BAOX: HarbingerNPC = {
     ),
     {
       name: 'Composite Longbow',
-      type: 'ranged',
+      type: 'melee',
       img: 'systems/pf2e/icons/default-icons/ranged.svg',
       system: {
         description: { value: '' },
