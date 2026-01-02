@@ -100,7 +100,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
             },
             sight: {
                 enabled: true,
-                range: npc.data.system?.perception?.spikedarvision ? 60 : 0
+                range: npc.data.system?.attributes?.perception?.spikedarvision ? 60 : 0
             },
             actorLink: npc.category === 'major-npc' // Link major NPCs
         };
@@ -151,7 +151,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
             'fiend': 'icons/svg/skull.svg',
             'cultist': 'icons/svg/cowled.svg'
         };
-        return defaults[npc.category] || 'icons/svg/mystery-man.svg';
+        return defaults[npc.category as NPCCategory] || 'icons/svg/mystery-man.svg';
     }
 
     /**
@@ -253,7 +253,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
         );
 
         if (!folder) {
-            folder = await Folder.create({
+            const result = await Folder.create({
                 name: name,
                 type: 'Actor',
                 folder: parent.id,
@@ -262,6 +262,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
                     [MODULE_ID]: { created: true }
                 }
             });
+            folder = Array.isArray(result) ? result[0] : result;
             log(`Created subfolder: ${name}`);
         }
 

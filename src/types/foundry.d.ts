@@ -12,6 +12,7 @@ declare global {
   const Dialog: typeof DialogClass;
   const Actor: typeof ActorClass;
   const Item: typeof ItemClass;
+  const Folder: typeof FolderClass;
   const Actors: Collection<ActorClass>;
   const Items: Collection<ItemClass>;
   const foundry: FoundryUtils;
@@ -28,6 +29,7 @@ declare global {
     packs: Collection<CompendiumCollection>;
     actors: Collection<ActorClass>;
     items: Collection<ItemClass>;
+    folders?: Collection<FolderClass>;
     ready: boolean;
   }
 
@@ -74,20 +76,23 @@ declare global {
   }
 
   interface ClientSettings {
-    register(module: string, key: string, data: SettingConfig): void;
+    register(module: string, key: string, data: SettingRegistration): void;
     get(module: string, key: string): unknown;
     set(module: string, key: string, value: unknown): Promise<unknown>;
   }
 
-  interface SettingConfig {
+  interface SettingRegistration {
     name?: string;
     hint?: string;
     scope: 'world' | 'client';
     config: boolean;
     type: typeof Boolean | typeof Number | typeof String | typeof Object;
-    default: unknown;
+    default?: unknown;
     onChange?: (value: unknown) => void;
   }
+
+  // Legacy alias for compatibility
+  type SettingConfig = SettingRegistration;
 
   interface Localization {
     localize(stringId: string): string;
@@ -268,6 +273,34 @@ declare global {
     toObject(): ItemData;
   }
 
+  // Folder
+  class FolderClass implements Document {
+    _id: string;
+    id: string;
+    name: string;
+    type: string;
+    img?: string;
+    system: Record<string, unknown>;
+    flags: Record<string, unknown>;
+    folder?: FolderClass | null;
+    color?: string;
+
+    constructor(data: FolderData, context?: object);
+    static create(data: FolderData | FolderData[], context?: object): Promise<FolderClass | FolderClass[]>;
+    update(data: Partial<FolderData>): Promise<this>;
+    delete(): Promise<this>;
+    toObject(): FolderData;
+  }
+
+  interface FolderData {
+    _id?: string;
+    name: string;
+    type: string;
+    color?: string;
+    folder?: string | null;
+    flags?: Record<string, unknown>;
+  }
+
   interface ItemData {
     _id?: string;
     name: string;
@@ -307,9 +340,11 @@ declare global {
       value: number;
       otherSpeeds: SpeedData[];
     };
-    perception: {
+    perception?: {
       value: number;
       details: string;
+      senses?: SenseData[];
+      spikedarvision?: boolean;
     };
     immunities?: ImmunityData[];
     weaknesses?: WeaknessData[];
@@ -425,12 +460,19 @@ declare global {
       damageType: string;
       modifier: number;
     };
+    damageRolls?: {
+      [key: string]: {
+        damage: string;
+        damageType: string;
+      };
+    };
     attackEffects?: {
       value: string[];
     };
     bonus?: {
       value: number;
     };
+    range?: number;
     // Spell specific
     level?: {
       value: number;
@@ -471,7 +513,22 @@ declare global {
     on(event: string, handler: (e: Event) => void): JQuery;
     [index: number]: HTMLElement;
   }
+
+  // NPC Categories for organization
+  type NPCCategory = 
+    | 'major-npc'
+    | 'harbinger-resident'
+    | 'generic-npc'
+    | 'fiend'
+    | 'cultist';
+
+  interface HarbingerNPC {
+    id: string;
+    category: NPCCategory;
+    data: ActorData;
+    items: ItemData[];
+  }
 }
 
 // Re-export types for use in other modules
-export type { ActorData, ItemData } from './foundry.d.ts';
+export type { ActorData, ItemData, HarbingerNPC, NPCCategory };

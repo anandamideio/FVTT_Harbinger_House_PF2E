@@ -9,6 +9,7 @@
  */
 
 import { MODULE_ID, log, logError } from '../config';
+import type { HarbingerHouseFlags } from '../types/module-flags';
 
 export interface ImportResult {
     success: boolean;
@@ -148,7 +149,7 @@ export abstract class BaseImporter<T> {
         
         // First, try to find by our module flag
         const byFlag = collection.find((doc: any) => 
-            doc.flags?.[MODULE_ID]?.sourceId === sourceId
+            doc.getFlag(MODULE_ID, 'sourceId') === sourceId
         );
         if (byFlag) return byFlag;
 
@@ -185,7 +186,7 @@ export abstract class BaseImporter<T> {
 
         if (!folder) {
             // Create the folder
-            folder = await Folder.create({
+            const result = await Folder.create({
                 name: name,
                 type: folderType,
                 color: '#6e0000', // Dark red for Planescape theme
@@ -193,6 +194,7 @@ export abstract class BaseImporter<T> {
                     [MODULE_ID]: { created: true }
                 }
             });
+            folder = (Array.isArray(result) ? result[0] : result) as any;
             log(`Created folder: ${name}`);
         }
 
@@ -205,7 +207,7 @@ export abstract class BaseImporter<T> {
     async deleteAllImported(): Promise<number> {
         const collection = this.getCollection();
         const toDelete = collection.filter((doc: any) => 
-            doc.flags?.[MODULE_ID]?.imported === true
+            doc.getFlag(MODULE_ID, 'imported') === true
         );
 
         let deleted = 0;
