@@ -532,13 +532,52 @@ declare global {
     | 'fiend'
     | 'cultist';
 
+  // System Item Reference Types (for compendium items)
+  interface SystemWeaponReference {
+    type: 'system-weapon';
+    uuid: string;
+    runes?: {
+      potency?: 1 | 2 | 3;
+      striking?: 'striking' | 'greaterStriking' | 'majorStriking';
+      property?: string[];
+    };
+    customName?: string;
+    customDescription?: string;
+  }
+
+  interface SystemSpellReference {
+    type: 'system-spell';
+    uuid: string;
+    heightenedLevel?: number;
+    tradition?: 'arcane' | 'divine' | 'occult' | 'primal';
+  }
+
+  interface SystemActionReference {
+    type: 'system-action';
+    uuid: string;
+    customDescription?: string;
+  }
+
+  /** Union type for any item that can be on an NPC */
+  type NPCItemEntry = ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference;
+
   interface HarbingerNPC {
     id: string;
     category: NPCCategory;
     data: ActorData;
-    items: ItemData[];
+    /** Items can be inline ItemData or references to system compendium items */
+    items: NPCItemEntry[];
   }
 }
 
 // Re-export types for use in other modules
-export type { ActorData, ItemData, HarbingerNPC, NPCCategory };
+export type { 
+  ActorData, 
+  ItemData, 
+  HarbingerNPC, 
+  NPCCategory,
+  NPCItemEntry,
+  SystemWeaponReference,
+  SystemSpellReference,
+  SystemActionReference,
+};
