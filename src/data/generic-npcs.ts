@@ -5,77 +5,7 @@
 
 import type { HarbingerNPC } from './npcs';
 import type { ItemData } from '../types/foundry.d.ts';
-
-// Helper functions
-function createStrike(
-  name: string,
-  bonus: number,
-  damage: { dice: number; die: string; type: string; modifier: number },
-  traits: string[] = [],
-  description: string = ''
-): ItemData {
-  return {
-    name,
-    type: 'melee',
-    img: 'systems/pf2e/icons/default-icons/melee.svg',
-    system: {
-      description: { value: description },
-      rules: [],
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      traits: { value: traits },
-      damageRolls: {
-        primary: {
-          damage: `${damage.dice}d${damage.die}+${damage.modifier}`,
-          damageType: damage.type,
-        },
-      },
-      bonus: { value: bonus },
-    },
-  };
-}
-
-function createAction(
-  name: string,
-  actionCost: number | null,
-  traits: string[] = [],
-  description: string = ''
-): ItemData {
-  return {
-    name,
-    type: 'action',
-    img: 'systems/pf2e/icons/default-icons/action.svg',
-    system: {
-      description: { value: description },
-      rules: [],
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      actionType: { value: actionCost === null ? 'passive' : 'action' },
-      actions: { value: actionCost },
-      traits: { value: traits },
-    },
-  };
-}
-
-function createSpell(
-  name: string,
-  level: number,
-  tradition: string,
-  traits: string[] = [],
-  description: string = ''
-): ItemData {
-  return {
-    name,
-    type: 'spell',
-    img: 'systems/pf2e/icons/default-icons/spell.svg',
-    system: {
-      description: { value: description },
-      rules: [],
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      level: { value: level },
-      traits: { value: traits },
-      traditions: { value: [tradition] },
-    },
-  };
-}
+import { createAction, createStrike, createSpell } from './utils';
 
 // =============================================================================
 // FIENDS AND MONSTERS
@@ -218,7 +148,7 @@ export const MANES: HarbingerNPC = {
     createStrike('Bite', 7, { dice: 1, die: '6', type: 'piercing', modifier: 1 }, []),
     createAction(
       'Death Burst',
-      null,
+      'passive',
       ['acid', 'divine', 'evocation'],
       `<p>When the manes dies, it explodes in a burst of acidic vapor. Each creature within 10 feet takes 1d6 acid damage (DC 14 basic Reflex save).</p>`
     ),
@@ -295,7 +225,7 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
     ),
     createAction(
       'Collective Intelligence',
-      null,
+      'passive',
       [],
       `<p>The swarm's Intelligence increases based on its remaining HP: full HP = Int +2, below 50% = Int +1, below 25% = Int −2. Their spell DCs and attack rolls adjust accordingly.</p>`
     ),
@@ -383,7 +313,7 @@ export const GRAY_OOZE: HarbingerNPC = {
     ),
     createAction(
       'Metal Corrosion',
-      null,
+      'passive',
       [],
       `<p>A creature struck by the gray ooze's pseudopod must succeed at a DC 21 Reflex save or their metal armor or weapon takes 1d6 acid damage (ignoring Hardness). On a critical failure, the item takes double damage.</p>`
     ),
@@ -456,19 +386,19 @@ export const DABUS: HarbingerNPC = {
     createStrike('Tool', 15, { dice: 2, die: '8', type: 'bludgeoning', modifier: 5 }, ['versatile']),
     createAction(
       'Rebus Communication',
-      null,
+      'passive',
       [],
       `<p>Dabus communicate through illusory rebuses that float in the air. Creatures must succeed at a DC 22 Society check to interpret their meaning.</p>`
     ),
     createAction(
       'Civic Duty',
-      null,
+      'passive',
       [],
       `<p>Dabus gain a +2 circumstance bonus to Crafting checks to repair structures or trim razorvine.</p>`
     ),
     createAction(
       "The Lady's Servants",
-      null,
+      'passive',
       [],
       `<p>If the dabus are attacked, they can call for reinforcements. 1d4 additional dabus arrive each round until the threat is neutralized.</p>`
     ),
@@ -532,10 +462,10 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
   },
   items: [
     createStrike('Scimitar', 14, { dice: 1, die: '6', type: 'slashing', modifier: 8 }, ['forceful', 'sweep']),
-    createAction('Attack of Opportunity', -1, [], `<p>Standard Attack of Opportunity reaction.</p>`),
+    createAction('Attack of Opportunity', 'reaction', [], `<p>Standard Attack of Opportunity reaction.</p>`),
     createAction(
       'Hardhead Tactics',
-      null,
+      'passive',
       [],
       `<p>When a Harmonium agent succeeds at an Athletics check to Shove, the target is also flat-footed until the end of the agent's next turn.</p>`
     ),
@@ -612,19 +542,19 @@ export const ANARCHIST: HarbingerNPC = {
     ),
     createAction(
       'Sneak Attack',
-      null,
+      'passive',
       [],
       `<p>The anarchist deals an extra 2d6 precision damage to flat-footed creatures.</p>`
     ),
     createAction(
       'Revolutionary Fervor',
-      null,
+      'passive',
       [],
       `<p>The anarchist gains a +2 circumstance bonus to saves against effects that would make them change their beliefs or follow authority.</p>`
     ),
     createAction(
       'Sudden Strike',
-      0, // Free action
+      'free',
       [],
       `<p><strong>Trigger</strong> The anarchist rolls initiative.</p>
 <p><strong>Effect</strong> The anarchist can Stride up to half their Speed.</p>`
@@ -715,7 +645,7 @@ export const XERO_BAOX: HarbingerNPC = {
         range: 100,
       },
     },
-    createAction('Attack of Opportunity', -1, [], `<p>Standard Attack of Opportunity reaction.</p>`),
+    createAction('Attack of Opportunity', 'reaction', [], `<p>Standard Attack of Opportunity reaction.</p>`),
     createAction(
       'Bard Slaying Arrow',
       1,
@@ -791,13 +721,13 @@ export const LADYS_CULTIST: HarbingerNPC = {
     createStrike('Fist', 3, { dice: 1, die: '4', type: 'bludgeoning', modifier: 0 }, ['agile', 'nonlethal']),
     createAction(
       'Devoted',
-      null,
+      'passive',
       [],
       `<p>The cultist gains a +2 circumstance bonus to saves against fear effects related to the Lady of Pain.</p>`
     ),
     createAction(
       'Willing Sacrifice',
-      null,
+      'passive',
       [],
       `<p>The cultist does not attempt to flee or defend themselves against the Lady of Pain or her servants.</p>`
     ),
@@ -861,13 +791,13 @@ export const BARMY: HarbingerNPC = {
     createStrike('Fist', 8, { dice: 1, die: '4', type: 'bludgeoning', modifier: 4 }, ['agile', 'nonlethal']),
     createAction(
       'Addled Mind',
-      null,
+      'passive',
       [],
       `<p>The barmy's chaotic thought patterns grant them a +2 circumstance bonus to Will saves against mental effects but a −2 penalty to initiative (already included in Perception).</p>`
     ),
     createAction(
       'Innate Spark',
-      null,
+      'passive',
       [],
       `<p>Each barmy in Harbinger House has a minor supernatural ability marking them as a "power-to-be" (specific ability varies).</p>`
     ),
@@ -933,13 +863,13 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
     createStrike('Fist', 4, { dice: 1, die: '4', type: 'bludgeoning', modifier: 1 }, ['agile', 'nonlethal']),
     createAction(
       "Believer's Patience",
-      null,
+      'passive',
       [],
       `<p>The Godsman gains a +2 circumstance bonus to Diplomacy checks to calm distressed individuals and to Medicine checks to treat mental conditions.</p>`
     ),
     createAction(
       'Source Philosophy',
-      null,
+      'passive',
       [],
       `<p>The Godsman believes all beings are on a path toward ultimate ascension and treats even the most disturbed residents with respect and care.</p>`
     ),

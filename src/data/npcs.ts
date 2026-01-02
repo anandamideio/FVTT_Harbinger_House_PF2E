@@ -7,6 +7,7 @@
  */
 
 import type { ActorData, ItemData } from '../types/foundry.d.ts';
+import { createAction, createStrike, createSpell } from './utils';
 
 // NPC Categories for organization
 export type NPCCategory = 
@@ -21,80 +22,6 @@ export interface HarbingerNPC {
   category: NPCCategory;
   data: ActorData;
   items: ItemData[];
-}
-
-// Helper to create strike items for NPCs
-function createStrike(
-  name: string,
-  bonus: number,
-  damage: { dice: number; die: string; type: string; modifier: number },
-  traits: string[] = [],
-  description: string = ''
-): ItemData {
-  return {
-    name,
-    type: 'melee',
-    img: 'systems/pf2e/icons/default-icons/melee.svg',
-    system: {
-      description: { value: description },
-      rules: [],
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      traits: { value: traits },
-      damageRolls: {
-        primary: {
-          damage: `${damage.dice}d${damage.die}+${damage.modifier}`,
-          damageType: damage.type,
-        },
-      },
-      bonus: { value: bonus },
-      attackEffects: { value: [] },
-    },
-  };
-}
-
-// Helper to create spell items
-function createSpell(
-  name: string,
-  level: number,
-  tradition: string,
-  traits: string[] = [],
-  description: string = ''
-): ItemData {
-  return {
-    name,
-    type: 'spell',
-    img: 'systems/pf2e/icons/default-icons/spell.svg',
-    system: {
-      description: { value: description },
-      rules: [],
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      level: { value: level },
-      traits: { value: traits },
-      traditions: { value: [tradition] },
-    },
-  };
-}
-
-// Helper to create action items
-function createAction(
-  name: string,
-  actionCost: number | null,
-  traits: string[] = [],
-  description: string = ''
-): ItemData {
-  return {
-    name,
-    type: 'action',
-    img: 'systems/pf2e/icons/default-icons/action.svg',
-    system: {
-      description: { value: description },
-      rules: [],
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
-      actionType: { value: actionCost === null ? 'passive' : 'action' },
-      actions: { value: actionCost },
-      traits: { value: traits },
-    },
-  };
 }
 
 // =============================================================================
@@ -174,7 +101,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
     ),
     createAction(
       'Field of Fellowship',
-      null,
+      'passive',
       ['aura', 'emotion', 'enchantment', 'mental'],
       `<p><strong>Aura</strong> 10 feet</p>
 <p>Creatures that enter the aura or start their turn there must succeed at a DC 29 Will save or be unable to harm Trolan (as sanctuary). On a critical failure, the creature becomes helpful toward Trolan for 1 minute.</p>`
@@ -187,7 +114,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
     ),
     createAction(
       "Lady's Beloved",
-      null,
+      'passive',
       [],
       `<p>Trolan believes himself beloved by the Lady of Pain. He gains a +2 circumstance bonus to saves against effects that would make him doubt this belief.</p>`
     ),
@@ -267,7 +194,7 @@ export const CRIMJAK: HarbingerNPC = {
     ),
     createAction(
       'Never Surprised',
-      null,
+      'passive',
       [],
       `<p>Crimjak is never flat-footed to creatures that are hidden from him.</p>`
     ),
@@ -362,7 +289,7 @@ export const NARCOVI: HarbingerNPC = {
     ),
     createAction(
       'Attack of Opportunity',
-      -1, // Reaction
+      'reaction',
       [],
       `<p><strong>Trigger</strong> A creature within Narcovi's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>
 <p><strong>Effect</strong> Narcovi makes a melee Strike against the triggering creature.</p>`
@@ -381,7 +308,7 @@ export const NARCOVI: HarbingerNPC = {
     ),
     createAction(
       'Hardhead Interrogation',
-      null,
+      'passive',
       [],
       `<p>When Narcovi Coerces or Requests information from a creature, she gains a +2 circumstance bonus to the check.</p>`
     ),
@@ -485,7 +412,7 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
     ),
     createAction(
       'Ritual Murder',
-      null,
+      'passive',
       ['divine', 'necromancy'],
       `<p>When Sougad kills a lawful creature with his law slayer, he absorbs planar energy. After killing 13 lawful creatures in the proper ritual, he ascends to godhood.</p>`
     ),
