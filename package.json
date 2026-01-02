@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "clean": "rm -rf scripts/*.js scripts/*.js.map",
+    "clean": "rm -rf dist/*.js dist/*.js.map",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
