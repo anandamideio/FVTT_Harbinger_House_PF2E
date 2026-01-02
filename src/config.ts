@@ -80,6 +80,22 @@ export function registerSettings(): void {
     default: true,
   });
 
+  // Register menu button to launch importer
+  game.settings.registerMenu(MODULE_ID, 'importMenu', {
+    name: localize('settings.importMenu.name'),
+    label: localize('settings.importMenu.label'),
+    hint: localize('settings.importMenu.hint'),
+    icon: 'fas fa-file-import',
+    type: class ImportMenuButton extends FormApplication {
+      async _updateObject(): Promise<void> {
+        // Import showImportDialog dynamically to avoid circular dependency
+        const { showImportDialog } = await import('./ui');
+        showImportDialog();
+      }
+    } as any,
+    restricted: true,
+  });
+
   // Track imported NPCs (internal)
   game.settings.register(MODULE_ID, SETTINGS.IMPORTED_NPCS, {
     name: 'Imported NPCs',

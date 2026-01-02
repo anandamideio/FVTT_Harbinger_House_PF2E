@@ -111,13 +111,14 @@ Hooks.once('ready', async () => {
     );
 
     if (existingImports && existingImports.length > 0) {
-        log(`Found ${existingImports.length} previously imported NPCs`);
+        log(`Found ${existingImports.length} previously imported NPCs, skipping auto-import`);
+        log('Use the sidebar button or module settings to manually run the importer');
         // Show a simpler welcome dialog instead
         // showWelcomeDialog();
         return;
     }
 
-    // Show the main import dialog
+    // Show the main import dialog on first load
     showImportDialog({
         onComplete: (result) => {
             log('Import completed', result);

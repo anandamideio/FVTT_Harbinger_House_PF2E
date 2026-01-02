@@ -4,6 +4,11 @@
             "showImportDialog": {
                 "name": "Show Import Dialog",
                 "hint": "Show the import dialog when loading a world. Disable this if you don't want to be prompted."
+            },
+            "importMenu": {
+                "name": "Import Content",
+                "label": "Run Importer",
+                "hint": "Click to manually open the import dialog and import or update Harbinger House content."
             }
         },
         "import": {

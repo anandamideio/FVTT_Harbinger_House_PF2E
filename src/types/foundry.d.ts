@@ -77,6 +77,7 @@ declare global {
 
   interface ClientSettings {
     register(module: string, key: string, data: SettingRegistration): void;
+    registerMenu(module: string, key: string, data: SettingMenuRegistration): void;
     get(module: string, key: string): unknown;
     set(module: string, key: string, value: unknown): Promise<unknown>;
   }
@@ -89,6 +90,15 @@ declare global {
     type: typeof Boolean | typeof Number | typeof String | typeof Object;
     default?: unknown;
     onChange?: (value: unknown) => void;
+  }
+
+  interface SettingMenuRegistration {
+    name: string;
+    label: string;
+    hint: string;
+    icon: string;
+    type: typeof FormApplication;
+    restricted: boolean;
   }
 
   // Legacy alias for compatibility
