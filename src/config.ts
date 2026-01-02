@@ -87,10 +87,34 @@ export function registerSettings(): void {
     hint: localize('settings.importMenu.hint'),
     icon: 'fas fa-file-import',
     type: class ImportMenuButton extends FormApplication {
-      async _updateObject(): Promise<void> {
+      constructor(object?: any, options?: any) {
+        super(object, options);
+        // Immediately trigger the import dialog and close this form
+        this.triggerImport();
+      }
+
+      async triggerImport(): Promise<void> {
         // Import showImportDialog dynamically to avoid circular dependency
         const { showImportDialog } = await import('./ui');
         showImportDialog();
+        // Close this empty form
+        this.close();
+      }
+
+      static override get defaultOptions(): any {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+          template: 'templates/generic/form.html',
+          width: 0,
+          height: 0,
+        });
+      }
+
+      override async getData(): Promise<any> {
+        return {};
+      }
+
+      override async _updateObject(): Promise<void> {
+        // No-op since we trigger import in constructor
       }
     } as any,
     restricted: true,
