@@ -11,11 +11,6 @@ import { MAJOR_NPCS } from './npcs';
 import { HARBINGER_RESIDENTS } from './harbinger-residents';
 import { FIENDS, GENERIC_NPCS } from './generic-npcs';
 
-// Re-export individual NPCs for direct access
-export * from './npcs';
-export * from './harbinger-residents';
-export * from './generic-npcs';
-
 // Combined exports
 export { MAJOR_NPCS, HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
 

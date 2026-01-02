@@ -14,7 +14,7 @@
     "outDir": "./scripts",
     "rootDir": "./src",
     "paths": {"*": ["./*"]},
-    "types": ["node"],
+    "types": ["node", "@league-of-foundry-developers/foundry-vtt-types"],
     "noEmit": true
   },
   "include": ["src/**/*.ts"],

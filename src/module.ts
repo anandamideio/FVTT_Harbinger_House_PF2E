@@ -13,6 +13,7 @@ import { MODULE_ID, registerSettings, log, logError, localize } from './config';
 import { showImportDialog, showWelcomeDialog, showDeleteConfirmDialog } from './ui';
 import { npcImporter, type ImportResult } from './importers';
 import { ALL_NPCS, NPCS_BY_CATEGORY, getNPCById, getCategoryLabel, type NPCCategory } from './data';
+import type { HarbingerHouseFlags } from './types/module-flags';
 
 /**
  * Module API
@@ -106,11 +107,11 @@ Hooks.once('ready', async () => {
 
     // Check if we've already imported NPCs
     const existingImports = game.actors?.filter(
-        (a: any) => a.flags?.[MODULE_ID]?.imported === true
+        (a: any) => a.getFlag(MODULE_ID, 'imported') === true
     );
 
-    if (existingImports && existingImports.size > 0) {
-        log(`Found ${existingImports.size} previously imported NPCs`);
+    if (existingImports && existingImports.length > 0) {
+        log(`Found ${existingImports.length} previously imported NPCs`);
         // Show a simpler welcome dialog instead
         // showWelcomeDialog();
         return;
@@ -130,7 +131,9 @@ Hooks.once('ready', async () => {
 /**
  * Add context menu options for actors sidebar
  */
-Hooks.on('getActorDirectoryEntryContext', (html: JQuery, options: any[]) => {
+Hooks.on('getActorDirectoryEntryContext', (...args: unknown[]) => {
+    const [html, options] = args as [JQuery, any[]];
+    
     // Add option to re-import/update an NPC
     options.push({
         name: localize('contextMenu.updateFromModule'),
@@ -138,12 +141,12 @@ Hooks.on('getActorDirectoryEntryContext', (html: JQuery, options: any[]) => {
         condition: (li: JQuery) => {
             const actorId = li.data('documentId');
             const actor = game.actors?.get(actorId);
-            return actor?.flags?.[MODULE_ID]?.imported === true;
+            return actor?.getFlag(MODULE_ID, 'imported') === true;
         },
         callback: async (li: JQuery) => {
             const actorId = li.data('documentId');
             const actor = game.actors?.get(actorId);
-            const sourceId = actor?.flags?.[MODULE_ID]?.sourceId;
+            const sourceId = actor?.getFlag(MODULE_ID, 'sourceId') as string | undefined;
 
             if (sourceId) {
                 const npc = getNPCById(sourceId);
@@ -163,7 +166,9 @@ Hooks.on('getActorDirectoryEntryContext', (html: JQuery, options: any[]) => {
 /**
  * Add module controls to the sidebar
  */
-Hooks.on('renderSidebarTab', (app: any, html: JQuery) => {
+Hooks.on('renderSidebarTab', (...args: unknown[]) => {
+    const [app, html] = args as [any, JQuery];
+    
     // Only add to actors tab
     if (app.tabName !== 'actors') return;
     if (!game.user?.isGM) return;

@@ -110,7 +110,7 @@ export abstract class BaseImporter<T> {
                 docData.flags[MODULE_ID] = {
                     sourceId: this.getItemId(item),
                     imported: true,
-                    version: game.modules.get(MODULE_ID)?.version || '1.0.0'
+                    version: (game.modules.get(MODULE_ID) as any)?.version ?? '1.0.0'
                 };
 
                 let doc: any;
@@ -179,7 +179,7 @@ export abstract class BaseImporter<T> {
         const folderType = this.documentType;
         
         // Look for existing folder
-        let folder = game.folders?.find(
+        let folder = (game as any).folders?.find(
             (f: any) => f.name === name && f.type === folderType
         );
 

@@ -40,6 +40,7 @@ declare global {
   interface Module {
     id: string;
     active: boolean;
+    version: string;
     flags: Record<string, unknown>;
   }
 
@@ -217,6 +218,13 @@ declare global {
       data: ItemData[],
       options?: object
     ): Promise<ItemClass[]>;
+    getFlag(scope: string, key: string): unknown;
+    setFlag(scope: string, key: string, value: unknown): Promise<this>;
+  }
+
+  // Flag configuration for type-safe flag access
+  interface FlagConfig {
+    Actor: Record<string, unknown>;
   }
 
   interface ActorData {
@@ -465,4 +473,5 @@ declare global {
   }
 }
 
-export {};
+// Re-export types for use in other modules
+export type { ActorData, ItemData } from './foundry.d.ts';
