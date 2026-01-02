@@ -1,0 +1,88 @@
+{
+  "id": "harbinger-house-pf2e",
+  "title": "Harbinger House - PF2e Conversion",
+  "description": "A conversion of the classic Planescape adventure 'Harbinger House' for Pathfinder 2nd Edition. Includes NPCs, items, and adventure content.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13.351",
+    "maximum": "13"
+  },
+  "authors": [
+    {
+      "name": "Antonio",
+      "flags": {}
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "6.0.0"
+        }
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/module.js"
+  ],
+  "styles": [
+    "styles/module.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "harbinger-house-npcs",
+      "label": "Harbinger House NPCs",
+      "path": "packs/harbinger-house-npcs",
+      "type": "Actor",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "pf2e",
+      "flags": {}
+    },
+    {
+      "name": "harbinger-house-items",
+      "label": "Harbinger House Items",
+      "path": "packs/harbinger-house-items",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "pf2e",
+      "flags": {}
+    },
+    {
+      "name": "harbinger-house-hazards",
+      "label": "Harbinger House Hazards",
+      "path": "packs/harbinger-house-hazards",
+      "type": "Actor",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "pf2e",
+      "flags": {}
+    }
+  ],
+  "flags": {
+    "harbinger-house-pf2e": {
+      "importPromptShown": false
+    }
+  },
+  "socket": false,
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

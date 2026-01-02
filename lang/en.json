@@ -1,0 +1,62 @@
+{
+    "HARBINGER-HOUSE": {
+        "settings": {
+            "showImportDialog": {
+                "name": "Show Import Dialog",
+                "hint": "Show the import dialog when loading a world. Disable this if you don't want to be prompted."
+            }
+        },
+        "import": {
+            "dialogTitle": "Harbinger House - Import Content",
+            "title": "Import Harbinger House Content",
+            "description": "This module contains PF2e-converted NPCs, items, and hazards from the Harbinger House adventure. Select what you'd like to import below.",
+            "npcsAvailable": "Available NPCs",
+            "totalNpcs": "{count} NPCs ready to import",
+            "options": "Import Options",
+            "organizeByCategory": "Organize into category subfolders",
+            "updateExisting": "Update existing actors (overwrites changes)",
+            "preparing": "Preparing import...",
+            "importing": "Importing: {name} ({current}/{total})",
+            "importButton": "Import Selected",
+            "laterButton": "Later",
+            "neverButton": "Don't Ask Again",
+            "noCategoriesSelected": "Please select at least one category to import.",
+            "success": "Successfully imported {count} NPCs!",
+            "partial": "Imported {imported} NPCs, but {failed} failed. Check console for details.",
+            "allFailed": "Import failed. Check the console for error details.",
+            "failed": "Import failed due to an unexpected error.",
+            "updated": "Updated {name} from module data."
+        },
+        "welcome": {
+            "title": "Harbinger House",
+            "message": "Welcome back to Harbinger House! The import dialog has been disabled.",
+            "instructions": "You can always import more content using the button in the Actors sidebar, or by running game.harbingerHouse.showImportDialog() in the console.",
+            "importNow": "Import Now",
+            "gotIt": "Got It"
+        },
+        "delete": {
+            "title": "Delete Imported Content",
+            "confirm": "Are you sure you want to delete all NPCs imported from the Harbinger House module? This cannot be undone.",
+            "deleteButton": "Delete All",
+            "cancelButton": "Cancel"
+        },
+        "sidebar": {
+            "importButton": "Harbinger House",
+            "importTooltip": "Import NPCs from Harbinger House module"
+        },
+        "contextMenu": {
+            "updateFromModule": "Update from Harbinger House"
+        },
+        "categories": {
+            "major-npc": "Major NPCs",
+            "harbinger-resident": "Harbinger House Residents",
+            "generic-npc": "Generic NPCs",
+            "fiend": "Fiends & Monsters",
+            "cultist": "Cultists & Common Folk"
+        },
+        "errors": {
+            "notGM": "Only the GM can import Harbinger House content.",
+            "pf2eRequired": "The PF2e game system is required for this module."
+        }
+    }
+}

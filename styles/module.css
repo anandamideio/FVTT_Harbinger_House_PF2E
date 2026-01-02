@@ -1,0 +1,267 @@
+/**
+ * Harbinger House Module Styles
+ * 
+ * Color scheme inspired by Planescape's dark, cosmic horror aesthetic
+ * Primary: Deep crimson (#6e0000)
+ * Secondary: Dark gray (#2a2a2a)
+ * Accent: Amber (#d4a017)
+ */
+
+/* ================================
+   Import Dialog
+   ================================ */
+
+.harbinger-dialog {
+    --harbinger-primary: #6e0000;
+    --harbinger-secondary: #2a2a2a;
+    --harbinger-accent: #d4a017;
+    --harbinger-text: #e0e0e0;
+    --harbinger-border: #4a4a4a;
+}
+
+.harbinger-dialog .window-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    color: var(--harbinger-text);
+}
+
+.harbinger-dialog .dialog-content {
+    padding: 0;
+}
+
+.harbinger-import-dialog {
+    padding: 1rem;
+}
+
+.harbinger-import-dialog .import-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--harbinger-primary);
+}
+
+.harbinger-import-dialog .import-header h2 {
+    color: var(--harbinger-accent);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.harbinger-import-dialog .import-description {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    margin: 0;
+}
+
+/* Summary Section */
+.harbinger-import-dialog .import-summary {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.harbinger-import-dialog .import-summary h3 {
+    color: var(--harbinger-accent);
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    border-bottom: 1px solid var(--harbinger-border);
+    padding-bottom: 0.25rem;
+}
+
+.harbinger-import-dialog .total-count {
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    margin: 0 0 0.75rem 0;
+}
+
+.harbinger-import-dialog .category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.harbinger-import-dialog .category-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.harbinger-import-dialog .category-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.harbinger-import-dialog .category-item input[type="checkbox"] {
+    margin: 0;
+    accent-color: var(--harbinger-primary);
+}
+
+.harbinger-import-dialog .category-name {
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+.harbinger-import-dialog .category-count {
+    font-size: 0.8rem;
+    color: #808080;
+}
+
+/* Options Section */
+.harbinger-import-dialog .import-options {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.harbinger-import-dialog .import-options h3 {
+    color: var(--harbinger-accent);
+    font-size: 1rem;
+    margin: 0 0 0.75rem 0;
+    border-bottom: 1px solid var(--harbinger-border);
+    padding-bottom: 0.25rem;
+}
+
+.harbinger-import-dialog .option-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+    cursor: pointer;
+}
+
+.harbinger-import-dialog .option-item input[type="checkbox"] {
+    margin: 0;
+    accent-color: var(--harbinger-primary);
+}
+
+.harbinger-import-dialog .option-item span {
+    font-size: 0.9rem;
+}
+
+/* Progress Section */
+.harbinger-import-dialog .import-progress {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.harbinger-import-dialog .progress-bar {
+    height: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--harbinger-border);
+}
+
+.harbinger-import-dialog .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--harbinger-primary) 0%, #a00000 100%);
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+.harbinger-import-dialog .progress-text {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    margin: 0.5rem 0 0 0;
+}
+
+/* Dialog Buttons */
+.harbinger-dialog .dialog-buttons {
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid var(--harbinger-border);
+    padding: 0.75rem 1rem;
+    margin: 0;
+}
+
+.harbinger-dialog .dialog-buttons button {
+    background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+    border: 1px solid var(--harbinger-border);
+    color: var(--harbinger-text);
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.harbinger-dialog .dialog-buttons button:hover {
+    background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 100%);
+    border-color: #5a5a5a;
+}
+
+.harbinger-dialog .dialog-buttons button.default {
+    background: linear-gradient(180deg, var(--harbinger-primary) 0%, #4a0000 100%);
+    border-color: #8a0000;
+}
+
+.harbinger-dialog .dialog-buttons button.default:hover {
+    background: linear-gradient(180deg, #8a0000 0%, var(--harbinger-primary) 100%);
+}
+
+.harbinger-dialog .dialog-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ================================
+   Sidebar Button
+   ================================ */
+
+.harbinger-import-btn {
+    background: linear-gradient(180deg, #6e0000 0%, #4a0000 100%);
+    border: 1px solid #8a0000;
+    color: #e0e0e0;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+    margin-left: 4px;
+}
+
+.harbinger-import-btn:hover {
+    background: linear-gradient(180deg, #8a0000 0%, #6e0000 100%);
+    box-shadow: 0 0 4px rgba(138, 0, 0, 0.5);
+}
+
+.harbinger-import-btn i {
+    font-size: 0.8rem;
+}
+
+/* ================================
+   Welcome Dialog
+   ================================ */
+
+.harbinger-welcome-dialog {
+    padding: 1rem;
+    text-align: center;
+}
+
+.harbinger-welcome-dialog p {
+    margin: 0 0 1rem 0;
+    color: #b0b0b0;
+    line-height: 1.5;
+}
+
+/* ================================
+   Utility Classes
+   ================================ */
+
+.harbinger-accent {
+    color: var(--harbinger-accent);
+}
+
+.harbinger-muted {
+    color: #808080;
+}

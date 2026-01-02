@@ -1,0 +1,54 @@
+/**
+ * NPC Data Index
+ * Exports all NPCs from the module for easy importing
+ */
+
+// Re-export types
+export type { HarbingerNPC, NPCCategory } from './npcs';
+
+// Import all NPC groups
+import { MAJOR_NPCS } from './npcs';
+import { HARBINGER_RESIDENTS } from './harbinger-residents';
+import { FIENDS, GENERIC_NPCS } from './generic-npcs';
+
+// Re-export individual NPCs for direct access
+export * from './npcs';
+export * from './harbinger-residents';
+export * from './generic-npcs';
+
+// Combined exports
+export { MAJOR_NPCS, HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
+
+// All NPCs combined
+export const ALL_NPCS = [
+  ...MAJOR_NPCS,
+  ...HARBINGER_RESIDENTS,
+  ...FIENDS,
+  ...GENERIC_NPCS,
+];
+
+// NPCs grouped by category for UI display
+export const NPCS_BY_CATEGORY = {
+  'major-npc': MAJOR_NPCS,
+  'harbinger-resident': HARBINGER_RESIDENTS,
+  'fiend': FIENDS,
+  'generic-npc': GENERIC_NPCS,
+  'cultist': GENERIC_NPCS.filter(npc => npc.category === 'cultist'),
+};
+
+// Get human-readable category names
+export function getCategoryLabel(category: string): string {
+  const labels: Record<string, string> = {
+    'major-npc': 'Major NPCs',
+    'harbinger-resident': 'Harbinger House Residents',
+    'fiend': 'Fiends & Monsters',
+    'generic-npc': 'Generic NPCs',
+    'cultist': 'Cultists & Common NPCs',
+  };
+  return labels[category] || category;
+}
+
+// Quick lookup by ID
+export function getNPCById(id: string) {
+  return ALL_NPCS.find(npc => npc.id === id);
+}
