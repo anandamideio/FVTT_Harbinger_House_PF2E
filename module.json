@@ -84,7 +84,7 @@
     }
   },
   "socket": false,
-  "url": "",
-  "manifest": "",
-  "download": ""
+  "manifest": "#{MANIFEST}#",
+  "download": "#{DOWNLOAD}#",
+  "url": "#{URL}#"
 }
