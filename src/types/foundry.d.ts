@@ -532,41 +532,16 @@ declare global {
     | 'fiend'
     | 'cultist';
 
-  // System Item Reference Types (for compendium items)
-  interface SystemWeaponReference {
-    type: 'system-weapon';
-    uuid: string;
-    runes?: {
-      potency?: 1 | 2 | 3;
-      striking?: 'striking' | 'greaterStriking' | 'majorStriking';
-      property?: string[];
-    };
-    customName?: string;
-    customDescription?: string;
-  }
-
-  interface SystemSpellReference {
-    type: 'system-spell';
-    uuid: string;
-    heightenedLevel?: number;
-    tradition?: 'arcane' | 'divine' | 'occult' | 'primal';
-  }
-
-  interface SystemActionReference {
-    type: 'system-action';
-    uuid: string;
-    customDescription?: string;
-  }
-
-  /** Union type for any item that can be on an NPC */
-  type NPCItemEntry = ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference;
+  // Note: SystemWeaponReference, SystemSpellReference, SystemActionReference types 
+  // are defined in src/data/system-items.ts as the canonical source
+  // They are re-exported from src/data/harbinger-residents.ts as NPCItemEntry
 
   interface HarbingerNPC {
     id: string;
     category: NPCCategory;
     data: ActorData;
     /** Items can be inline ItemData or references to system compendium items */
-    items: NPCItemEntry[];
+    items: unknown[]; // Use unknown[] here - actual type is NPCItemEntry from harbinger-residents.ts
   }
 }
 
@@ -576,8 +551,4 @@ export type {
   ItemData, 
   HarbingerNPC, 
   NPCCategory,
-  NPCItemEntry,
-  SystemWeaponReference,
-  SystemSpellReference,
-  SystemActionReference,
 };

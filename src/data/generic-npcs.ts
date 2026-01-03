@@ -3,9 +3,9 @@
  * These are common enemies and NPCs encountered throughout the adventure
  */
 
-import type { HarbingerNPC } from './npcs';
+import type { HarbingerNPC } from './harbinger-residents';
 import type { ItemData } from '../types/foundry.d.ts';
-import { createAction, createStrike, createSpell } from './utils';
+import { createAction, createStrike, createSpell, systemWeapon, systemSpell, systemAction } from './utils';
 
 // =============================================================================
 // FIENDS AND MONSTERS
@@ -78,8 +78,8 @@ export const DRETCH: HarbingerNPC = {
 <p><strong>Failure</strong> The creature is sickened 1.</p>
 <p><strong>Critical Failure</strong> The creature is sickened 2.</p>`
     ),
-    createSpell('Darkness', 2, 'divine', ['darkness', 'evocation']),
-    createSpell('Fear', 1, 'divine', ['emotion', 'enchantment', 'fear', 'mental']),
+    systemSpell('darkness', 2, 'divine'),
+    systemSpell('fear', 1, 'divine'),
   ],
 };
 
@@ -229,9 +229,9 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
       [],
       `<p>The swarm's Intelligence increases based on its remaining HP: full HP = Int +2, below 50% = Int +1, below 25% = Int −2. Their spell DCs and attack rolls adjust accordingly.</p>`
     ),
-    createSpell('Hideous Laughter', 2, 'occult', ['emotion', 'enchantment', 'mental']),
-    createSpell('Color Spray', 1, 'occult', ['illusion', 'incapacitation', 'visual']),
-    createSpell('Command', 1, 'occult', ['auditory', 'enchantment', 'linguistic', 'mental']),
+    systemSpell('hideousLaughter', 2, 'occult'),
+    systemSpell('colorSpray', 1, 'occult'),
+    systemSpell('command', 1, 'occult'),
   ],
 };
 
@@ -461,8 +461,8 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
     },
   },
   items: [
-    createStrike('Scimitar', 14, { dice: 1, die: '6', type: 'slashing', modifier: 8 }, ['forceful', 'sweep']),
-    createAction('Attack of Opportunity', 'reaction', [], `<p>Standard Attack of Opportunity reaction.</p>`),
+    systemWeapon('scimitar'),
+    systemAction('attackOfOpportunity'),
     createAction(
       'Hardhead Tactics',
       'passive',
@@ -534,12 +534,7 @@ export const ANARCHIST: HarbingerNPC = {
     },
   },
   items: [
-    createStrike(
-      'Short Sword',
-      17,
-      { dice: 1, die: '6', type: 'piercing', modifier: 8 },
-      ['agile', 'finesse', 'versatile-s']
-    ),
+    systemWeapon('shortsword'),
     createAction(
       'Sneak Attack',
       'passive',
@@ -622,30 +617,9 @@ export const XERO_BAOX: HarbingerNPC = {
     },
   },
   items: [
-    createStrike(
-      'Longsword',
-      25,
-      { dice: 2, die: '8', type: 'slashing', modifier: 11 },
-      ['magical', 'versatile-p'],
-      '+1 striking longsword'
-    ),
-    {
-      name: 'Composite Longbow',
-      type: 'melee',
-      img: 'systems/pf2e/icons/default-icons/ranged.svg',
-      system: {
-        description: { value: '' },
-        rules: [],
-        slug: 'composite-longbow',
-        traits: { value: ['deadly-d10', 'propulsive', 'volley-30'] },
-        damageRolls: {
-          primary: { damage: '1d8+8', damageType: 'piercing' },
-        },
-        bonus: { value: 23 },
-        range: 100,
-      },
-    },
-    createAction('Attack of Opportunity', 'reaction', [], `<p>Standard Attack of Opportunity reaction.</p>`),
+    systemWeapon('longsword', { potency: 1, striking: 'striking' }),
+    systemWeapon('compositeLongbow'),
+    systemAction('attackOfOpportunity'),
     createAction(
       'Bard Slaying Arrow',
       1,

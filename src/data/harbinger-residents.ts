@@ -7,7 +7,12 @@
  */
 
 import type { ActorData, ItemData } from '../types/foundry.d.ts';
-import { createAction, createStrike, createSpell } from './utils';
+import { createAction, createStrike, createSpell, systemWeapon, systemSpell, systemAction } from './utils';
+import type { 
+  SystemWeaponReference, 
+  SystemSpellReference, 
+  SystemActionReference 
+} from './system-items';
 
 // NPC Categories for organization
 export type NPCCategory = 
@@ -17,11 +22,15 @@ export type NPCCategory =
   | 'fiend'
   | 'cultist';
 
+/** Union type for any item that can be on an NPC */
+export type NPCItemEntry = ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference;
+
 export interface HarbingerNPC {
   id: string;
   category: NPCCategory;
   data: ActorData;
-  items: ItemData[];
+  /** Items can be inline ItemData or references to system compendium items */
+  items: NPCItemEntry[];
 }
 
 // =============================================================================
@@ -92,13 +101,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
     },
   },
   items: [
-    createStrike(
-      'Short Sword',
-      21,
-      { dice: 2, die: '6', type: 'piercing', modifier: 5 },
-      ['agile', 'finesse', 'magical', 'versatile-s'],
-      '+1 striking short sword'
-    ),
+    systemWeapon('shortsword', { potency: 1, striking: 'striking' }),
     createAction(
       'Field of Fellowship',
       'passive',
@@ -118,10 +121,10 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
       [],
       `<p>Trolan believes himself beloved by the Lady of Pain. He gains a +2 circumstance bonus to saves against effects that would make him doubt this belief.</p>`
     ),
-    createSpell('Charm', 4, 'occult', ['emotion', 'enchantment', 'incapacitation', 'mental']),
-    createSpell('Suggestion', 4, 'occult', ['enchantment', 'incapacitation', 'linguistic', 'mental']),
-    createSpell('Crushing Despair', 5, 'occult', ['emotion', 'enchantment', 'mental']),
-    createSpell('Synaesthesia', 5, 'occult', ['divination', 'mental']),
+    systemSpell('charm', 4, 'occult'),
+    systemSpell('suggestion', 4, 'occult'),
+    systemSpell('crushingDespair', 5, 'occult'),
+    systemSpell('synaesthesia', 5, 'occult'),
   ],
 };
 
@@ -185,13 +188,7 @@ export const CRIMJAK: HarbingerNPC = {
     },
   },
   items: [
-    createStrike(
-      'Longsword',
-      22,
-      { dice: 2, die: '8', type: 'slashing', modifier: 12 },
-      ['magical', 'versatile-p'],
-      '+1 striking longsword. Deals an additional 1d6 evil damage.'
-    ),
+    systemWeapon('longsword', { potency: 1, striking: 'striking' }, undefined, 'Deals an additional 1d6 evil damage.'),
     createAction(
       'Never Surprised',
       'passive',
@@ -210,10 +207,10 @@ export const CRIMJAK: HarbingerNPC = {
       ['divine', 'evocation', 'fire'],
       `<p>Crimjak unleashes a burst of Abyssal flame in a 20-foot emanation. Creatures in the area take 8d6 fire damage (DC 27 basic Reflex save). Crimjak can't use Abyssal Wrath again for 1d4 rounds.</p>`
     ),
-    createSpell('Dimension Door', 5, 'arcane', ['conjuration', 'teleportation']),
-    createSpell('Darkness', 4, 'arcane', ['darkness', 'evocation']),
-    createSpell('Fly', 4, 'arcane', ['transmutation']),
-    createSpell('Fireball', 3, 'arcane', ['evocation', 'fire']),
+    systemSpell('dimensionDoor', 5, 'arcane'),
+    systemSpell('darkness', 4, 'arcane'),
+    systemSpell('fly', 4, 'arcane'),
+    systemSpell('fireball', 3, 'arcane'),
   ],
 };
 
@@ -280,20 +277,8 @@ export const NARCOVI: HarbingerNPC = {
     },
   },
   items: [
-    createStrike(
-      'Longsword',
-      21,
-      { dice: 2, die: '8', type: 'slashing', modifier: 10 },
-      ['magical', 'versatile-p'],
-      '+1 striking longsword'
-    ),
-    createAction(
-      'Attack of Opportunity',
-      'reaction',
-      [],
-      `<p><strong>Trigger</strong> A creature within Narcovi's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>
-<p><strong>Effect</strong> Narcovi makes a melee Strike against the triggering creature.</p>`
-    ),
+    systemWeapon('longsword', { potency: 1, striking: 'striking' }),
+    systemAction('attackOfOpportunity'),
     createAction(
       "Investigator's Eye",
       1,
@@ -482,13 +467,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
     },
   },
   items: [
-    createStrike(
-      'Morningstar',
-      23,
-      { dice: 2, die: '6', type: 'bludgeoning', modifier: 9 },
-      ['magical', 'versatile-p'],
-      '+1 striking morningstar'
-    ),
+    systemWeapon('morningstar', { potency: 1, striking: 'striking' }),
     createAction(
       'Sermon of Madness',
       2,
@@ -499,12 +478,12 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 <p><strong>Failure</strong> The creature is confused for 1 round.</p>
 <p><strong>Critical Failure</strong> The creature is confused for 1 minute.</p>`
     ),
-    createSpell('Gust of Wind', 3, 'primal', ['air', 'evocation']),
-    createSpell('Ice Storm', 4, 'primal', ['cold', 'evocation']),
-    createSpell('Wall of Wind', 3, 'primal', ['air', 'evocation']),
-    createSpell('Blade Barrier', 6, 'divine', ['evocation', 'force']),
-    createSpell('Harm', 6, 'divine', ['necromancy', 'negative']),
-    createSpell('Flame Strike', 5, 'divine', ['evocation', 'fire']),
+    systemSpell('gustOfWind', 3, 'primal'),
+    systemSpell('iceStorm', 4, 'primal'),
+    systemSpell('wallOfWind', 3, 'primal'),
+    systemSpell('bladeBarrier', 6, 'divine'),
+    systemSpell('harm', 6, 'divine'),
+    systemSpell('flameStrike', 5, 'divine'),
   ],
 };
 
@@ -585,13 +564,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
       ['agile', 'finesse', 'magical'],
       'Deals an additional 1d6 evil damage.'
     ),
-    createStrike(
-      'Longsword',
-      21,
-      { dice: 2, die: '8', type: 'slashing', modifier: 8 },
-      ['magical', 'versatile-p'],
-      '+1 striking longsword'
-    ),
+    systemWeapon('longsword', { potency: 1, striking: 'striking' }),
     createAction(
       'Embrace',
       1,
@@ -608,11 +581,11 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
       ['concentrate', 'divine', 'polymorph', 'transmutation'],
       `<p>Nari can take on the appearance of any Small or Medium humanoid. She has practiced appearing as the Lady of Pain, gaining a +4 circumstance bonus to Deception checks to maintain this specific disguise.</p>`
     ),
-    createSpell('Dominate', 6, 'divine', ['enchantment', 'incapacitation', 'mental']),
-    createSpell('Dimension Door', 5, 'divine', ['conjuration', 'teleportation']),
-    createSpell('Charm', 4, 'divine', ['emotion', 'enchantment', 'incapacitation', 'mental']),
-    createSpell('Suggestion', 4, 'divine', ['enchantment', 'incapacitation', 'linguistic', 'mental']),
-    createSpell('Mind Reading', 3, 'divine', ['detection', 'divination', 'mental']),
+    systemSpell('dominate', 6, 'divine'),
+    systemSpell('dimensionDoor', 5, 'divine'),
+    systemSpell('charm', 4, 'divine'),
+    systemSpell('suggestion', 4, 'divine'),
+    systemSpell('mindReading', 3, 'divine'),
   ],
 };
 

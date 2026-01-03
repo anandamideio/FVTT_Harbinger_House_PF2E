@@ -4,7 +4,20 @@
  */
 
 // Re-export types
-export type { HarbingerNPC, NPCCategory } from './harbinger-residents';
+export type { HarbingerNPC, NPCCategory, NPCItemEntry } from './harbinger-residents';
+
+// Re-export system item utilities
+export * from './system-items';
+export { 
+  systemWeapon, 
+  systemSpell, 
+  systemAction,
+  isSystemItemReference,
+  isSystemWeaponReference,
+  isSystemSpellReference,
+  isSystemActionReference,
+  generateRuneWeaponName,
+} from './utils';
 
 // Import all NPC groups
 import { HARBINGER_RESIDENTS } from './harbinger-residents';
