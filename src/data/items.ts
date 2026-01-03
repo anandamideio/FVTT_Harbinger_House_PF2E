@@ -39,7 +39,7 @@ const THE_PLANARITY: HarbingerItem = {
   data: {
     name: 'The Planarity',
     type: 'equipment',
-    img: 'icons/commodities/gems/gem-faceted-round-blue.webp',
+    img: 'icons/commodities/gems/gem-cluster-blue-white.webp',
     system: {
       description: {
         value: `<p>This deep-blue stone sphere fits perfectly in the palm of a hand. At rest, it appears perfectly round and smooth. However, when within 50 feet of a planar portal, the planarity reacts with visible excitement—spiky protrusions emerge and retract from its surface, and a storm of multicolored energy rises from its depths to dance along the inner surface.</p>
@@ -58,7 +58,7 @@ const THE_PLANARITY: HarbingerItem = {
       slug: 'the-planarity',
       level: { value: 20 },
       traits: {
-        value: ['unique', 'artifact', 'conjuration', 'divination', 'magical'],
+        value: ['artifact', 'magical', 'arcane'],
         rarity: 'unique'
       },
       usage: { value: 'held-in-one-hand' },
@@ -74,7 +74,7 @@ const THE_FOCRUX: HarbingerItem = {
   data: {
     name: 'The Focrux',
     type: 'equipment',
-    img: 'icons/commodities/gems/gem-cluster-blue-white.webp',
+    img: 'icons/commodities/gems/pearl-blue-gold.webp',
     system: {
       description: {
         value: `<p>This massive globe, approximately 15 feet in diameter, is a larger version of the planarity. It appears to be made of deep-blue stone with constantly shifting protrusions and an internal storm of planar energy. The focrux serves as the spiritual core of Harbinger House, acting as a conduit for planar energies.</p>
@@ -105,7 +105,7 @@ const THE_FOCRUX: HarbingerItem = {
       slug: 'the-focrux',
       level: { value: 22 },
       traits: {
-        value: ['unique', 'artifact', 'abjuration', 'conjuration', 'magical'],
+        value: ['artifact', 'magical'],
         rarity: 'unique'
       },
       bulk: { value: '-' }
@@ -127,7 +127,7 @@ const LAW_SLAYER: HarbingerItem = {
     system: {
       description: {
         value: `<p>This dark longsword radiates an aura of primal chaos. Its blade seems to shimmer with barely contained anarchic energy, and when it strikes a lawful creature, that energy erupts in a burst of destructive force.</p>
-<p>The law slayer functions as a <strong>+2 greater striking anarchic longsword</strong>. Against lawful creatures, it deals an additional <strong>2d6 chaotic damage</strong> beyond the normal anarchic property.</p>
+<p>The law slayer functions as a <strong>+2 greater striking anarchic longsword</strong>. Against lawful creatures, it deals an additional <strong>2d6 unholy damage</strong> beyond the normal anarchic property.</p>
 <hr/>
 <h3>Ritual Conduit</h3>
 <p>The law slayer was forged to serve as a conduit for Sougad's ascension ritual. When used to slay lawful creatures in the proper ritual fashion (with specific spell components and blood-written parchments), it absorbs their spiritual essence. After 13 such ritual killings in proximity to the focrux, the wielder can use the sword to open a conduit to godhood.</p>
@@ -138,15 +138,15 @@ const LAW_SLAYER: HarbingerItem = {
         {
           key: 'FlatModifier',
           selector: 'damage',
-          value: '2d6[chaotic]',
-          predicate: ['target:trait:lawful'],
-          label: 'Extra Chaotic Damage vs Lawful'
+          value: '2d6[unholy]',
+          predicate: ['target:trait:holy'],
+          label: 'Extra Unholy Damage vs Holy'
         }
       ],
       slug: 'law-slayer',
       level: { value: 14 },
       traits: {
-        value: ['unique', 'magical', 'chaotic', 'evocation'],
+        value: ['magical', 'unholy', 'aberration', 'demon'],
         rarity: 'unique'
       },
       usage: { value: 'held-in-one-hand' },
@@ -154,9 +154,11 @@ const LAW_SLAYER: HarbingerItem = {
       baseItem: 'longsword',
       damage: { dice: 3, die: 'd8', damageType: 'slashing' },
       bonus: { value: 2 },
-      potencyRune: { value: 2 },
-      strikingRune: { value: 'greaterStriking' },
-      propertyRune1: { value: 'anarchic' },
+      runes: {
+        potency: 2,
+        striking: 2,
+        property: ['astral (greater)']
+      },
       group: 'sword',
       category: 'martial',
       equipped: { carryType: 'held', handsHeld: 1 }
@@ -190,7 +192,7 @@ const LONG_SWORD_OF_THE_PLANES: HarbingerItem = {
       level: { value: 12 },
       price: { value: { gp: 4000 } },
       traits: {
-        value: ['rare', 'magical', 'evocation'],
+        value: ['magical', 'astral'],
         rarity: 'rare'
       },
       usage: { value: 'held-in-one-hand' },
@@ -198,8 +200,10 @@ const LONG_SWORD_OF_THE_PLANES: HarbingerItem = {
       baseItem: 'longsword',
       damage: { dice: 2, die: 'd8', damageType: 'slashing' },
       bonus: { value: 1 },
-      potencyRune: { value: 1 },
-      strikingRune: { value: 'striking' },
+      runes: {
+        potency: 1,
+        striking: 1
+      },
       group: 'sword',
       category: 'martial',
       equipped: { carryType: 'held', handsHeld: 1 }
@@ -814,7 +818,7 @@ const ABYSSAL_LEECH: HarbingerItem = {
   data: {
     name: 'Abyssal Leech',
     type: 'consumable',
-    img: 'icons/creatures/invertebrates/leech-worm-teal.webp',
+    img: 'icons/creatures/invertebrates/leech-attack-green.webp',
     system: {
       description: {
         value: `<p>These writhing, sickly-pale leeches from the Abyss are used as spell components in certain chaotic and evil rituals. Sougad uses them as part of his ritual murders.</p>
@@ -837,7 +841,7 @@ const ABYSSAL_LEECH: HarbingerItem = {
       level: { value: 3 },
       price: { value: { gp: 10 } },
       traits: {
-        value: ['uncommon', 'consumable', 'magical', 'conjuration'],
+        value: ['consumable', 'magical', 'unholy', 'void'],
         rarity: 'uncommon'
       },
       consumableType: { value: 'other' },

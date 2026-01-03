@@ -3,6 +3,10 @@
  * This is a subset of types needed for this module
  */
 
+import type { PF2eTrait } from "./pf2e-traits";
+import type { WeaponTrait } from "./pf2e-traits";
+import type { WeaponRune } from "./pf2e-runes";
+
 // Foundry Global Types
 declare global {
   const game: Game;
@@ -620,8 +624,44 @@ declare global {
       value: number;
     };
     traits?: {
-      value: string[];
+      value: PF2eTrait[];
       rarity?: 'common' | 'uncommon' | 'rare' | 'unique';
+    };
+    quantity?: number;
+    price?: {
+      per?: number;
+      sizeSensitive?: boolean;
+      value: {
+        cp?: number;
+        sp?: number;
+        gp?: number;
+        pp?: number;
+      }
+    }
+    publication?: {
+      authors?: string;
+      title?: string;
+    }
+    identification?: {
+      status: 'identified' | 'unidentified' | 'partiallyIdentified';
+      unidentified?: {
+        name: string;
+        img: string;
+        data: {
+          description: {
+            value: string;
+          };
+        };
+      };
+      identified?: {
+        name: string;
+        img: string;
+        data: {
+          description: {
+            value: string;
+          };
+        };
+      };
     };
   }
 
@@ -646,11 +686,17 @@ declare global {
     usage?: { value: string };
     bulk?: { value: number | string };
     baseItem?: string;
+    size?: string;
     damage?: {
       dice: number;
       die: string;
       damageType: string;
       modifier?: number;
+      persistent?: {
+        dice: number;
+        die: string;
+        damageType: string;
+      };
     };
     damageRolls?: {
       [key: string]: {
@@ -664,15 +710,25 @@ declare global {
     bonus?: {
       value: number;
     };
+    bonusDamage?: {
+      value: number;
+    };
     range?: number;
     group?: string;
+    hardness?: number;
+    hp?: { value: number; max: number; brokenThreshold: number };
+    material?: {
+      type: string;
+      grade: string;
+      effects?: string[];
+    }
     category?: string;
-    potencyRune?: { value: number };
-    strikingRune?: { value: string };
-    propertyRune1?: { value: string };
-    propertyRune2?: { value: string };
-    propertyRune3?: { value: string };
-    propertyRune4?: { value: string };
+    runes?: {
+      effects?: string[];
+      potency?: number;
+      property?: Array<WeaponRune>;
+      striking?: number;
+    }
     equipped?: {
       carryType: 'held' | 'worn' | 'stowed';
       handsHeld?: number;
