@@ -454,8 +454,10 @@ declare global {
     slug?: string;
     traits?: {
       value: string[];
-      rarity?: string;
+      rarity?: 'common' | 'uncommon' | 'rare' | 'unique';
     };
+    usage?: { value: string };
+    bulk?: { value: number | string };
     // Action/Strike specific
     actionType?: {
       value: string;
@@ -464,11 +466,12 @@ declare global {
       value: number | null;
     };
     // Weapon/Attack specific
+    baseItem?: string;
     damage?: {
       dice: number;
       die: string;
       damageType: string;
-      modifier: number;
+      modifier?: number;
     };
     damageRolls?: {
       [key: string]: {
@@ -487,9 +490,6 @@ declare global {
     level?: {
       value: number;
     };
-    category?: {
-      value: string;
-    };
     traditions?: {
       value: string[];
     };
@@ -497,18 +497,29 @@ declare global {
       value: string;
     };
     // Equipment specific
+    consumableType?: { value: string };
+    uses?: { value: number; max: number; autoDestroy: boolean };
     quantity?: number;
+    group?: string;
+    category?: string;
+    acBonus?: number;
     price?: {
       value: {
-        gp: number;
+        pp?: number;
+        gp?: number;
         sp?: number;
         cp?: number;
       };
     };
+    potencyRune?: { value: number };
+    strikingRune?: { value: string };
+    propertyRune1?: { value: string };
     equipped?: {
-      carryType: string;
-      handsHeld: number;
+      carryType: 'held' | 'worn' | 'stowed';
+      handsHeld?: number;
+      invested?: boolean;
     };
+    spell?: { name: string; level: number };
   }
 
   // jQuery (minimal subset used by Foundry)
