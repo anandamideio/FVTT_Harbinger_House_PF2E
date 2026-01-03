@@ -17,6 +17,7 @@ import { FIENDS, GENERIC_NPCS } from './generic-npcs';
 import { ALL_ITEMS } from './items';
 import { ALL_SPELLS } from './spells';
 import { ALL_HAZARDS } from './hazards';
+import { ALL_JOURNALS } from './journals';
 
 // Re-export individual NPCs for direct access
 export * from './harbinger-residents';
@@ -104,6 +105,18 @@ export {
 } from './hazards';
 
 // ============================================================================
+// Journal Data
+// ============================================================================
+
+export type { HarbingerJournal, JournalPage, JournalFolder } from './journals';
+
+export {
+  ALL_JOURNALS,
+  JOURNALS_BY_FOLDER,
+  getFolderLabel
+} from './journals';
+
+// ============================================================================
 // Summary Statistics
 // ============================================================================
 
@@ -113,7 +126,8 @@ export function getContentSummary() {
     items: ALL_ITEMS.length,
     spells: ALL_SPELLS.length,
     hazards: ALL_HAZARDS.length,
-    total: ALL_NPCS.length + ALL_ITEMS.length + ALL_SPELLS.length + ALL_HAZARDS.length
+    journals: ALL_JOURNALS.length,
+    total: ALL_NPCS.length + ALL_ITEMS.length + ALL_SPELLS.length + ALL_HAZARDS.length + ALL_JOURNALS.length
   };
 }
 

@@ -7,6 +7,7 @@ import { npcImporter } from './npc-importer';
 import { itemImporter } from './item-importer';
 import { spellImporter } from './spell-importer';
 import { hazardImporter } from './hazard-importer';
+import { journalImporter } from './journal-importer';
 
 // Base importer
 export { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
@@ -34,6 +35,7 @@ export async function importAllContent(options?: {
   items?: boolean;
   spells?: boolean;
   hazards?: boolean;
+  journals?: boolean;
   onProgress?: (current: number, total: number, name: string) => void;
 }) {
   const {
@@ -41,6 +43,7 @@ export async function importAllContent(options?: {
     items = true,
     spells = true,
     hazards = true,
+    journals = true,
     onProgress
   } = options || {};
 
@@ -48,7 +51,8 @@ export async function importAllContent(options?: {
     npcs: { imported: 0, failed: 0 },
     items: { imported: 0, failed: 0 },
     spells: { imported: 0, failed: 0 },
-    hazards: { imported: 0, failed: 0 }
+    hazards: { imported: 0, failed: 0 },
+    journals: { imported: 0, failed: 0 }
   };
 
   // Import NPCs
@@ -79,6 +83,13 @@ export async function importAllContent(options?: {
     results.hazards.failed = hazardResult.failed;
   }
 
+  // Import Journals
+  if (journals) {
+    const journalResult = await journalImporter.importAll({ onProgress });
+    results.journals.imported = journalResult.imported;
+    results.journals.failed = journalResult.failed;
+  }
+
   return results;
 }
 
@@ -90,13 +101,15 @@ export async function deleteAllImportedContent() {
     npcs: 0,
     items: 0,
     spells: 0,
-    hazards: 0
+    hazards: 0,
+    journals: 0
   };
 
   results.npcs = await npcImporter.deleteAllImported();
   results.items = await itemImporter.deleteAllImported();
   results.spells = await spellImporter.deleteAllImported();
   results.hazards = await hazardImporter.deleteAllImported();
+  results.journals = await journalImporter.deleteAllImported();
 
   return results;
 }

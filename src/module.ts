@@ -11,21 +11,22 @@
 
 import { MODULE_ID, registerSettings, log, logError, localize, SETTINGS } from './config';
 import { showImportDialog, showWelcomeDialog, showDeleteConfirmDialog } from './ui';
-import { 
-  npcImporter, 
-  itemImporter, 
-  spellImporter, 
+import {
+  npcImporter,
+  itemImporter,
+  spellImporter,
   hazardImporter,
+  journalImporter,
   importAllContent,
   deleteAllImportedContent,
-  type ImportResult 
+  type ImportResult
 } from './importers';
-import { 
+import {
   // NPC data
-  ALL_NPCS, 
-  NPCS_BY_CATEGORY, 
-  getNPCById, 
-  getCategoryLabel, 
+  ALL_NPCS,
+  NPCS_BY_CATEGORY,
+  getNPCById,
+  getCategoryLabel,
   type NPCCategory,
   // Item data
   ALL_ITEMS,
@@ -42,6 +43,11 @@ import {
   getHazardById,
   getHazardCategoryLabel,
   type HazardCategory,
+  // Journal data
+  ALL_JOURNALS,
+  JOURNALS_BY_FOLDER,
+  getFolderLabel,
+  type JournalFolder,
   // Summary
   getContentSummary
 } from './data';
@@ -65,18 +71,21 @@ interface HarbingerHouseAPI {
   importSpells: typeof spellImporter.importAll;
   importHazards: typeof hazardImporter.importAll;
   importHazardsByCategory: typeof hazardImporter.importByCategory;
+  importJournals: typeof journalImporter.importAll;
+  importJournalsByFolder: typeof journalImporter.importFolder;
   importAll: typeof importAllContent;
-  
+
   // UI functions
   showImportDialog: typeof showImportDialog;
-  
+
   // Delete functions
   deleteAllNPCs: () => Promise<number>;
   deleteAllItems: () => Promise<number>;
   deleteAllSpells: () => Promise<number>;
   deleteAllHazards: () => Promise<number>;
+  deleteAllJournals: () => Promise<number>;
   deleteAll: typeof deleteAllImportedContent;
-  
+
   // Data access
   getAllNPCs: () => typeof ALL_NPCS;
   getNPCsByCategory: () => typeof NPCS_BY_CATEGORY;
@@ -89,15 +98,18 @@ interface HarbingerHouseAPI {
   getAllHazards: () => typeof ALL_HAZARDS;
   getHazardsByCategory: () => typeof HAZARDS_BY_CATEGORY;
   getHazardById: typeof getHazardById;
-  
+  getAllJournals: () => typeof ALL_JOURNALS;
+  getJournalsByFolder: () => typeof JOURNALS_BY_FOLDER;
+
   // Summary
   getContentSummary: typeof getContentSummary;
-  
+
   // Importer instances (for advanced use)
   npcImporter: typeof npcImporter;
   itemImporter: typeof itemImporter;
   spellImporter: typeof spellImporter;
   hazardImporter: typeof hazardImporter;
+  journalImporter: typeof journalImporter;
 }
 
 // Store the API on the module
@@ -127,11 +139,13 @@ Hooks.once('init', async () => {
     importSpells: spellImporter.importAll.bind(spellImporter),
     importHazards: hazardImporter.importAll.bind(hazardImporter),
     importHazardsByCategory: hazardImporter.importByCategory.bind(hazardImporter),
+    importJournals: journalImporter.importAll.bind(journalImporter),
+    importJournalsByFolder: journalImporter.importFolder.bind(journalImporter),
     importAll: importAllContent,
-    
+
     // UI functions
     showImportDialog,
-    
+
     // Delete functions
     deleteAllNPCs: async () => {
       const count = await npcImporter.deleteAllImported();
@@ -153,8 +167,13 @@ Hooks.once('init', async () => {
       log(`Deleted ${count} imported hazards`);
       return count;
     },
+    deleteAllJournals: async () => {
+      const count = await journalImporter.deleteAllImported();
+      log(`Deleted ${count} imported journals`);
+      return count;
+    },
     deleteAll: deleteAllImportedContent,
-    
+
     // Data access
     getAllNPCs: () => ALL_NPCS,
     getNPCsByCategory: () => NPCS_BY_CATEGORY,
@@ -167,15 +186,18 @@ Hooks.once('init', async () => {
     getAllHazards: () => ALL_HAZARDS,
     getHazardsByCategory: () => HAZARDS_BY_CATEGORY,
     getHazardById,
-    
+    getAllJournals: () => ALL_JOURNALS,
+    getJournalsByFolder: () => JOURNALS_BY_FOLDER,
+
     // Summary
     getContentSummary,
-    
+
     // Importer instances
     npcImporter,
     itemImporter,
     spellImporter,
-    hazardImporter
+    hazardImporter,
+    journalImporter
   };
 
   log('Harbinger House API registered on game.harbingerHouse');
@@ -199,7 +221,7 @@ Hooks.once('ready', async () => {
 
   // Log content summary
   const summary = getContentSummary();
-  log(`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards`);
+  log(`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards, ${summary.journals} journals`);
 
   // Only show dialog if:
   // 1. User is a GM
@@ -234,6 +256,7 @@ export {
   itemImporter,
   spellImporter,
   hazardImporter,
+  journalImporter,
   importAllContent,
   deleteAllImportedContent
 };
