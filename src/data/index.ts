@@ -8,7 +8,7 @@
 // ============================================================================
 
 // Re-export types
-export type { HarbingerNPC, NPCCategory } from './npcs';
+export type { HarbingerNPC, NPCCategory } from './harbinger-residents';
 
 // Import all NPC groups (assuming these files exist in your project)
 // If they don't exist, you'll need to create them or import from a single file

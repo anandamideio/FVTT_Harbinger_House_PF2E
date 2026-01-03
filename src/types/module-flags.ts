@@ -11,12 +11,3 @@ export interface HarbingerHouseFlags {
     /** Import timestamp */
     importedAt?: number;
 }
-
-/** Extend Foundry's actor flags type */
-declare global {
-    interface FlagConfig {
-        Actor: {
-            'harbinger-house-pf2e'?: HarbingerHouseFlags;
-        };
-    }
-}
