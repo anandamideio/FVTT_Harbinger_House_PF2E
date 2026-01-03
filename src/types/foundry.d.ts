@@ -445,27 +445,46 @@ declare global {
     };
   }
 
-  // PF2e Item System (for attacks, spells, etc.)
-  interface PF2eItemSystem {
+  // PF2e Item System Types
+  // ==========================================================================
+  // Base interface shared by all item types
+  // ==========================================================================
+
+  interface PF2eItemSystemBase {
     description: {
       value: string;
     };
     rules?: object[];
     slug?: string;
+    level?: {
+      value: number;
+    };
     traits?: {
       value: string[];
       rarity?: 'common' | 'uncommon' | 'rare' | 'unique';
     };
-    usage?: { value: string };
-    bulk?: { value: number | string };
-    // Action/Strike specific
+  }
+
+  // ==========================================================================
+  // Action/Ability System
+  // ==========================================================================
+
+  interface PF2eActionSystem extends PF2eItemSystemBase {
     actionType?: {
       value: string;
     };
     actions?: {
       value: number | null;
     };
-    // Weapon/Attack specific
+  }
+
+  // ==========================================================================
+  // Weapon/Attack System
+  // ==========================================================================
+
+  interface PF2eWeaponSystem extends PF2eItemSystemBase {
+    usage?: { value: string };
+    bulk?: { value: number | string };
     baseItem?: string;
     damage?: {
       dice: number;
@@ -486,23 +505,47 @@ declare global {
       value: number;
     };
     range?: number;
-    // Spell specific
-    level?: {
-      value: number;
-    };
-    traditions?: {
-      value: string[];
-    };
-    spellType?: {
-      value: string;
-    };
-    // Equipment specific
-    consumableType?: { value: string };
-    uses?: { value: number; max: number; autoDestroy: boolean };
-    quantity?: number;
     group?: string;
     category?: string;
+    potencyRune?: { value: number };
+    strikingRune?: { value: string };
+    propertyRune1?: { value: string };
+    propertyRune2?: { value: string };
+    propertyRune3?: { value: string };
+    propertyRune4?: { value: string };
+    equipped?: {
+      carryType: 'held' | 'worn' | 'stowed';
+      handsHeld?: number;
+      invested?: boolean;
+    };
+  }
+
+  // ==========================================================================
+  // Armor System
+  // ==========================================================================
+
+  interface PF2eArmorSystem extends PF2eItemSystemBase {
+    usage?: { value: string };
+    bulk?: { value: number | string };
+    baseItem?: string;
     acBonus?: number;
+    dexCap?: number;
+    checkPenalty?: number;
+    speedPenalty?: number;
+    strength?: number;
+    potencyRune?: { value: number };
+    resiliencyRune?: { value: string };
+    propertyRune1?: { value: string };
+    propertyRune2?: { value: string };
+    propertyRune3?: { value: string };
+    propertyRune4?: { value: string };
+    group?: string;
+    category?: string;
+    equipped?: {
+      carryType: 'held' | 'worn' | 'stowed';
+      handsHeld?: number;
+      invested?: boolean;
+    };
     price?: {
       value: {
         pp?: number;
@@ -511,16 +554,122 @@ declare global {
         cp?: number;
       };
     };
-    potencyRune?: { value: number };
-    strikingRune?: { value: string };
-    propertyRune1?: { value: string };
+  }
+
+  // ==========================================================================
+  // Equipment System (Wondrous items, artifacts, etc.)
+  // ==========================================================================
+
+  interface PF2eEquipmentSystem extends PF2eItemSystemBase {
+    usage?: { value: string };
+    bulk?: { value: number | string };
     equipped?: {
       carryType: 'held' | 'worn' | 'stowed';
       handsHeld?: number;
       invested?: boolean;
     };
-    spell?: { name: string; level: number };
+    price?: {
+      value: {
+        pp?: number;
+        gp?: number;
+        sp?: number;
+        cp?: number;
+      };
+    };
+    quantity?: number;
   }
+
+  // ==========================================================================
+  // Consumable System (Potions, scrolls, elixirs, etc.)
+  // ==========================================================================
+
+  interface PF2eConsumableSystem extends PF2eItemSystemBase {
+    usage?: { value: string };
+    bulk?: { value: number | string };
+    consumableType?: { value: string };
+    uses?: { value: number; max: number; autoDestroy: boolean };
+    quantity?: number;
+    spell?: { name: string; level: number };
+    price?: {
+      value: {
+        pp?: number;
+        gp?: number;
+        sp?: number;
+        cp?: number;
+      };
+    };
+  }
+
+  // ==========================================================================
+  // Spell System
+  // ==========================================================================
+
+  interface PF2eSpellSystem extends PF2eItemSystemBase {
+    traditions?: {
+      value: string[];
+    };
+    time?: {
+      value: string;
+    };
+    components?: {
+      value: string[];
+    };
+    area?: {
+      value: number;
+      type: 'emanation' | 'burst' | 'cone' | 'line' | 'cylinder';
+    };
+    range?: {
+      value: string;
+    };
+    target?: {
+      value: string;
+    };
+    defense?: {
+      save?: {
+        statistic: 'fortitude' | 'reflex' | 'will';
+        basic: boolean;
+      };
+    };
+    duration?: {
+      value: string;
+      sustained?: boolean;
+    };
+    damage?: {
+      formula?: string;
+      type?: string;
+      dice?: number;
+      die?: string;
+      damageType?: string;
+    };
+    heightening?: {
+      type: 'interval' | 'fixed';
+      interval?: number;
+      damage?: {
+        formula: string;
+        type: string;
+      };
+      levels?: Record<number, object>;
+    };
+    spellType?: {
+      value: string;
+    };
+    cost?: {
+      value: string;
+    };
+  }
+
+  // ==========================================================================
+  // Union Type for All Item Systems
+  // ==========================================================================
+
+  type PF2eItemSystem = 
+    | PF2eItemSystemBase
+    | PF2eActionSystem
+    | PF2eWeaponSystem
+    | PF2eArmorSystem
+    | PF2eEquipmentSystem
+    | PF2eConsumableSystem
+    | PF2eSpellSystem;
 
   // jQuery (minimal subset used by Foundry)
   interface JQuery {
@@ -562,4 +711,13 @@ export type {
   ItemData, 
   HarbingerNPC, 
   NPCCategory,
+  // Item system types
+  PF2eItemSystemBase,
+  PF2eActionSystem,
+  PF2eWeaponSystem,
+  PF2eArmorSystem,
+  PF2eEquipmentSystem,
+  PF2eConsumableSystem,
+  PF2eSpellSystem,
+  PF2eItemSystem,
 };

@@ -9,7 +9,7 @@
  * - Confirmation dialogs
  */
 
-import { MODULE_ID, MODULE_NAME, localize, log, logError } from './config';
+import { MODULE_ID, MODULE_NAME, localize, log, logError } from '../config';
 import { 
   npcImporter, 
   itemImporter, 
@@ -17,7 +17,7 @@ import {
   hazardImporter,
   importAllContent,
   deleteAllImportedContent
-} from './importers';
+} from '../importers';
 import { 
   NPCS_BY_CATEGORY, 
   getCategoryLabel,
@@ -27,7 +27,7 @@ import {
   getHazardCategoryLabel,
   ALL_SPELLS,
   getContentSummary
-} from './data';
+} from '../data';
 
 /**
  * CSS styles for the Planescape-themed UI
@@ -398,14 +398,14 @@ export function showImportDialog(): void {
     buttons: {},
     render: (html: JQuery) => {
       // Toggle category visibility based on main checkbox
-      html.find('#import-npcs').on('change', function() {
-        html.find('#npc-categories').toggle($(this).is(':checked'));
+      html.find('#import-npcs').on('change', (event) => {
+        html.find('#npc-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
       });
-      html.find('#import-items').on('change', function() {
-        html.find('#item-categories').toggle($(this).is(':checked'));
+      html.find('#import-items').on('change', (event) => {
+        html.find('#item-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
       });
-      html.find('#import-hazards').on('change', function() {
-        html.find('#hazard-categories').toggle($(this).is(':checked'));
+      html.find('#import-hazards').on('change', (event) => {
+        html.find('#hazard-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
       });
 
       // Import button

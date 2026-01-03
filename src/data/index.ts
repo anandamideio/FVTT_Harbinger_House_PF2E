@@ -12,21 +12,21 @@ export type { HarbingerNPC, NPCCategory } from './npcs';
 
 // Import all NPC groups (assuming these files exist in your project)
 // If they don't exist, you'll need to create them or import from a single file
-import { MAJOR_NPCS } from './npcs';
 import { HARBINGER_RESIDENTS } from './harbinger-residents';
 import { FIENDS, GENERIC_NPCS } from './generic-npcs';
+import { ALL_ITEMS } from './items';
+import { ALL_SPELLS } from './spells';
+import { ALL_HAZARDS } from './hazards';
 
 // Re-export individual NPCs for direct access
-export * from './npcs';
 export * from './harbinger-residents';
 export * from './generic-npcs';
 
 // Combined NPC exports
-export { MAJOR_NPCS, HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
+export { HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
 
 // All NPCs combined
 export const ALL_NPCS = [
-  ...MAJOR_NPCS,
   ...HARBINGER_RESIDENTS,
   ...FIENDS,
   ...GENERIC_NPCS,
@@ -34,7 +34,6 @@ export const ALL_NPCS = [
 
 // NPCs grouped by category for UI display
 export const NPCS_BY_CATEGORY = {
-  'major-npc': MAJOR_NPCS,
   'harbinger-resident': HARBINGER_RESIDENTS,
   'fiend': FIENDS,
   'generic-npc': GENERIC_NPCS,
@@ -44,7 +43,6 @@ export const NPCS_BY_CATEGORY = {
 // Get human-readable NPC category names
 export function getCategoryLabel(category: string): string {
   const labels: Record<string, string> = {
-    'major-npc': 'Major NPCs',
     'harbinger-resident': 'Harbinger House Residents',
     'fiend': 'Fiends & Monsters',
     'generic-npc': 'Generic NPCs',
@@ -118,3 +116,32 @@ export function getContentSummary() {
     total: ALL_NPCS.length + ALL_ITEMS.length + ALL_SPELLS.length + ALL_HAZARDS.length
   };
 }
+
+// ============================================================================
+// Re-export utility functions and types from utils.ts
+// ============================================================================
+
+export {
+  isSystemItemReference,
+  isSystemWeaponReference,
+  isSystemSpellReference,
+  isSystemActionReference,
+  generateRuneWeaponName,
+} from './utils';
+
+export type { NPCItemEntry } from './harbinger-residents';
+
+// ============================================================================
+// Re-export system item types and constants from system-items.ts
+// ============================================================================
+
+export {
+  PROPERTY_RUNES,
+} from './system-items';
+
+export type {
+  SystemWeaponReference,
+  SystemSpellReference,
+  SystemActionReference,
+  WeaponRuneConfig,
+} from './system-items';

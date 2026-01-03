@@ -101,7 +101,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 
         // Get or create folder
         const folder = options.folderName 
-            ? await this.getOrCreateFolder(options.folderName)
+            ? await this.getOrCreateFolder(options.folderName, 'Actor')
             : null;
 
         for (const npc of items) {
@@ -169,13 +169,15 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
                         resolved.push(resolvedItem);
                     }
                 } else {
-                    // Regular inline item
+                    // Regular inline item (ItemData)
+                    // Type narrowing: if it's not a system reference, it's ItemData
+                    const itemData = item as ItemData;
                     resolved.push({
-                        name: item.name,
-                        type: item.type,
-                        img: item.img || this.getItemDefaultImage(item.type),
-                        system: item.system,
-                        flags: item.flags || {}
+                        name: itemData.name,
+                        type: itemData.type,
+                        img: itemData.img || this.getItemDefaultImage(itemData.type),
+                        system: itemData.system,
+                        flags: itemData.flags || {}
                     });
                 }
             } catch (error) {
@@ -253,11 +255,12 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 
             // Apply striking rune
             if (ref.runes.striking) {
-                const strikingLevel = {
+                const strikingLevelMap: Record<string, number> = {
                     striking: 1,
                     greaterStriking: 2,
                     majorStriking: 3
-                }[ref.runes.striking];
+                };
+                const strikingLevel = strikingLevelMap[ref.runes.striking];
                 itemData.system.runes.striking = strikingLevel;
             }
 
@@ -450,7 +453,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
         };
 
         // Get parent folder
-        const parentFolder = await this.getOrCreateFolder('Harbinger House');
+        const parentFolder = await this.getOrCreateFolder('Harbinger House', 'Actor');
 
         // Import each category
         const categories = options.categories || 
