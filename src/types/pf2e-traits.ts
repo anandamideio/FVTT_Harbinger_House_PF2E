@@ -247,16 +247,18 @@ export const HAZARD_TRAITS = [
   'air', 'earth', 'fire', 'metal', 'water', 'wood',
   // Damage/Energy traits
   'acid', 'cold', 'electricity', 'force', 'sonic', 'vitality', 'void',
-  'holy', 'unholy', 'mental', 'poison', 'spirit',
+  'holy', 'unholy', 'mental', 'poison', 'spirit', 'radiation',
   // Hazard types
-  'environmental', 'haunt', 'magical', 'trap',
+  'consumable', 'curse', 'environmental', 'haunt', 'mechanical', 'nightmare',
+  'snare', 'steam', 'technological', 'trap',
   // Creature-like traits (for living hazards)
   'construct', 'fungus', 'plant', 'undead',
   // Effect descriptors
-  'auditory', 'curse', 'darkness', 'death', 'disease', 'emotion', 'extradimensional',
-  'fear', 'light', 'olfactory', 'teleportation', 'visual',
-  // Materials
-  'alchemical', 'clockwork',
+  'alchemical', 'auditory', 'darkness', 'death', 'disease', 'emotion',
+  'extradimensional', 'fear', 'illusion', 'inhaled', 'light', 'magical',
+  'olfactory', 'polymorph', 'teleportation', 'virulent', 'visual',
+  // Materials and mechanisms
+  'clockwork',
 ] as const;
 
 export type HazardTrait = typeof HAZARD_TRAITS[number];

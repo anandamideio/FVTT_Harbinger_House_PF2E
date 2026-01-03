@@ -445,6 +445,166 @@ declare global {
     };
   }
 
+  // ==========================================================================
+  // PF2e Hazard System
+  // ==========================================================================
+
+  /** IWR (Immunity/Weakness/Resistance) Type Labels */
+  type IWRType = 
+    // Materials
+    | 'abysium' | 'adamantine' | 'cold-iron' | 'dawnsilver' | 'djezet' | 'duskwood'
+    | 'inubrix' | 'noqual' | 'orichalcum' | 'peachwood' | 'siccatite' | 'silver'
+    // Alignment
+    | 'holy' | 'unholy'
+    // Traditions
+    | 'arcane' | 'divine' | 'occult' | 'primal'
+    // Damage types
+    | 'acid' | 'aging' | 'air' | 'alchemical' | 'area-damage' | 'auditory' | 'bleed'
+    | 'blinded' | 'bludgeoning' | 'clumsy' | 'cold' | 'confused' | 'controlled'
+    | 'critical-hits' | 'curse' | 'dazzled' | 'deafened' | 'death-effects'
+    | 'detection' | 'disease' | 'doomed' | 'drained' | 'earth' | 'electricity'
+    | 'emotion' | 'energy' | 'enfeebled' | 'fascinated' | 'fatigued' | 'fear-effects'
+    | 'fire' | 'fleeing' | 'force' | 'fortune-effects' | 'frightened' | 'grabbed'
+    | 'healing' | 'illusion' | 'immobilized' | 'inhaled' | 'light' | 'magic'
+    | 'mental' | 'metal' | 'misfortune-effects' | 'non-magical' | 'nonlethal-attacks'
+    | 'object-immunities' | 'off-guard' | 'olfactory' | 'paralyzed' | 'persistent-damage'
+    | 'petrified' | 'physical' | 'piercing' | 'plant' | 'poison' | 'polymorph'
+    | 'possession' | 'precision' | 'prediction' | 'prone' | 'radiation' | 'restrained'
+    | 'salt-water' | 'scrying' | 'sickened' | 'slashing' | 'sleep' | 'slowed'
+    | 'sonic' | 'spell-deflection' | 'spirit' | 'stunned' | 'stupefied'
+    | 'swarm-attacks' | 'swarm-mind' | 'time' | 'trip' | 'unarmed-attacks'
+    | 'unconscious' | 'visual' | 'vitality' | 'void' | 'water' | 'wood' | 'wounded'
+    | 'custom';
+
+  /** Extended immunity data with type labels - simplified for flexibility */
+  interface ImmunityDataExtended {
+    type: IWRType;
+    exceptions?: string[];
+    definition?: unknown | null;
+    source?: unknown | null;
+    typeLabels?: Record<string, string>;
+  }
+
+  /** Extended weakness data with type labels - simplified for flexibility */
+  interface WeaknessDataExtended {
+    type: string; // More flexible to allow any string
+    value: number;
+    exceptions?: string[];
+    definition?: unknown | null;
+    source?: unknown | null;
+    typeLabels?: Record<string, string>;
+  }
+
+  /** Extended resistance data with type labels - simplified for flexibility */
+  interface ResistanceDataExtended {
+    type: string; // More flexible to allow any string
+    value: number;
+    exceptions?: string[];
+    definition?: unknown | null;
+    source?: unknown | null;
+    doubleVs?: string[];
+    typeLabels?: Record<string, string>;
+  }
+
+  /** Statistic modifiers used in hazards */
+  interface StatisticModifier {
+    slug: string;
+    label: string;
+    domains: string[];
+    modifier: number;
+    type: string;
+    ability: string | null;
+    adjustments: unknown[];
+    force: boolean;
+    enabled: boolean;
+    ignored: boolean;
+    source: string | null;
+    custom: boolean;
+    damageType: string | null;
+    damageCategory: string | null;
+    critical: unknown | null;
+    tags: string[];
+    hideIfDisabled: boolean;
+    kind: 'modifier';
+    predicate: unknown[];
+  }
+
+  /** Hazard statistic (AC, Stealth, etc.) - can be simple or complex */
+  interface HazardStatistic {
+    slug?: string;
+    label?: string;
+    value: number;
+    totalModifier?: number;
+    dc: number;
+    attribute?: string | null;
+    breakdown?: string;
+    modifiers?: StatisticModifier[];
+    details: string;
+  }
+
+  /** Hazard HP data - all fields optional except value and max */
+  interface HazardHP {
+    value: number;
+    max: number;
+    temp?: number;
+    details?: string;
+    negativeHealing?: boolean;
+    unrecoverable?: number;
+    brokenThreshold?: number;
+  }
+
+  /** Hazard flanking properties */
+  interface HazardFlanking {
+    canFlank: boolean;
+    canGangUp: unknown[];
+    flankable: boolean;
+    offGuardable: boolean;
+  }
+
+  /** PF2e Hazard System Data */
+  interface PF2eHazardSystem {
+    description: {
+      value: string;
+      gm?: string;
+    };
+    rules?: unknown[];
+    slug: string;
+    traits: {
+      value: string[];
+      rarity?: 'common' | 'uncommon' | 'rare' | 'unique';
+    };
+    details: {
+      level: { value: number };
+      disable?: string;
+      reset?: string;
+      routine?: string;
+      isComplex: boolean;
+      publication?: {
+        title: string;
+        authors: string;
+        license: string;
+        remaster: boolean;
+      };
+    };
+    attributes: {
+      hp?: HazardHP | { value: number; max: number };
+      ac?: HazardStatistic | { value: number };
+      hardness?: number | { value: number };
+      stealth?: HazardStatistic | { value: number; dc: number; details: string };
+      emitsSound?: 'encounter' | 'always' | 'never';
+      flanking?: HazardFlanking;
+      hasHealth?: boolean;
+    };
+    saves?: {
+      fortitude?: { value: number; saveDetail?: string };
+      reflex?: { value: number; saveDetail?: string };
+      will?: { value: number; saveDetail?: string };
+    };
+    immunities?: ImmunityDataExtended[] | { value: string[] };
+    weaknesses?: WeaknessDataExtended[] | Array<{ type: string; value: number }>;
+    resistances?: ResistanceDataExtended[] | Array<{ type: string; value: number }>;
+  }
+
   // PF2e Item System Types
   // ==========================================================================
   // Base interface shared by all item types
@@ -720,4 +880,14 @@ export type {
   PF2eConsumableSystem,
   PF2eSpellSystem,
   PF2eItemSystem,
+  // Hazard system types
+  PF2eHazardSystem,
+  HazardHP,
+  HazardStatistic,
+  HazardFlanking,
+  IWRType,
+  ImmunityDataExtended,
+  WeaknessDataExtended,
+  ResistanceDataExtended,
+  StatisticModifier,
 };

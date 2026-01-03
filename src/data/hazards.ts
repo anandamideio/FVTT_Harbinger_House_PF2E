@@ -12,7 +12,7 @@
  * - aura: Persistent magical effects around NPCs or locations
  */
 
-import type { ItemData } from '../types/foundry';
+import type { PF2eHazardSystem } from '../types/foundry';
 
 // Hazard categories for organization
 export type HazardCategory =
@@ -33,36 +33,7 @@ export interface HazardData {
   name: string;
   type: 'hazard';
   img?: string;
-  system: {
-    description: { value: string };
-    rules?: unknown[];
-    slug: string;
-    traits: {
-      value: string[];
-      rarity?: string;
-    };
-    details: {
-      level: { value: number };
-      disable?: string;
-      reset?: string;
-      routine?: string;
-      isComplex: boolean;
-    };
-    attributes: {
-      ac?: { value: number };
-      hp?: { value: number; max: number };
-      hardness?: { value: number };
-      stealth?: { value: number; dc: number; details: string };
-    };
-    saves?: {
-      fortitude?: { value: number };
-      reflex?: { value: number };
-      will?: { value: number };
-    };
-    immunities?: { value: string[] };
-    weaknesses?: Array<{ type: string; value: number }>;
-    resistances?: Array<{ type: string; value: number }>;
-  };
+  system: PF2eHazardSystem;
 }
 
 // ============================================================================
