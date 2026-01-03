@@ -10,22 +10,25 @@
  */
 
 import { MODULE_ID, MODULE_NAME, localize, log, logError } from '../config';
-import { 
-  npcImporter, 
-  itemImporter, 
-  spellImporter, 
+import {
+  npcImporter,
+  itemImporter,
+  spellImporter,
   hazardImporter,
+  journalImporter,
   importAllContent,
   deleteAllImportedContent
 } from '../importers';
-import { 
-  NPCS_BY_CATEGORY, 
+import {
+  NPCS_BY_CATEGORY,
   getCategoryLabel,
   ITEMS_BY_CATEGORY,
   getItemCategoryLabel,
   HAZARDS_BY_CATEGORY,
   getHazardCategoryLabel,
   ALL_SPELLS,
+  JOURNALS_BY_FOLDER,
+  getFolderLabel,
   getContentSummary
 } from '../data';
 
@@ -232,6 +235,7 @@ export function showWelcomeDialog(): void {
             <li><strong>${summary.items}</strong> Items (artifacts, weapons, consumables)</li>
             <li><strong>${summary.spells}</strong> Custom Spells</li>
             <li><strong>${summary.hazards}</strong> Hazards (traps, environmental dangers)</li>
+            <li><strong>${summary.journals}</strong> Journal Entries (adventure content)</li>
           </ul>
         </div>
         
@@ -308,6 +312,17 @@ export function showImportDialog(): void {
       </label>
     `).join('');
 
+  // Build Journal folders HTML
+  const journalFoldersHtml = Object.entries(JOURNALS_BY_FOLDER)
+    .filter(([_, journals]) => journals.length > 0)
+    .map(([folder, journals]) => `
+      <label class="category-item">
+        <input type="checkbox" name="journal-${folder}" checked>
+        ${getFolderLabel(folder as any)}
+        <span class="category-count">(${journals.length})</span>
+      </label>
+    `).join('');
+
   const content = `
     <div class="harbinger-house-dialog">
       <div class="dialog-content">
@@ -368,7 +383,21 @@ export function showImportDialog(): void {
             ${hazardCategoriesHtml}
           </div>
         </div>
-        
+
+        <!-- Journals Section -->
+        <div class="content-section">
+          <div class="section-title">
+            <i class="fas fa-book"></i>
+            Journals
+            <label style="margin-left: auto; font-weight: normal; font-size: 12px;">
+              <input type="checkbox" id="import-journals" checked> Import
+            </label>
+          </div>
+          <div class="category-grid" id="journal-folders">
+            ${journalFoldersHtml}
+          </div>
+        </div>
+
         <!-- Progress -->
         <div class="progress-container" id="progress-container">
           <div class="progress-bar">
@@ -407,6 +436,9 @@ export function showImportDialog(): void {
       html.find('#import-hazards').on('change', (event) => {
         html.find('#hazard-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
       });
+      html.find('#import-journals').on('change', (event) => {
+        html.find('#journal-folders').toggle($(event.currentTarget as HTMLElement).is(':checked'));
+      });
 
       // Import button
       html.find('#hh-do-import').on('click', async () => {
@@ -423,6 +455,7 @@ export function showImportDialog(): void {
           const importItems = html.find('#import-items').is(':checked');
           const importSpells = html.find('#import-spells').is(':checked');
           const importHazards = html.find('#import-hazards').is(':checked');
+          const importJournals = html.find('#import-journals').is(':checked');
 
           let totalImported = 0;
           let totalFailed = 0;
@@ -483,13 +516,32 @@ export function showImportDialog(): void {
             const selectedCategories = html.find('#hazard-categories input:checked')
               .map(function() { return $(this).attr('name')?.replace('hazard-', ''); })
               .get();
-            
+
             const result = await hazardImporter.importByCategory({
               categories: selectedCategories as any[],
               onProgress: (current, total, name) => {
                 const percent = Math.round((current / total) * 100);
                 progressFill.css('width', `${percent}%`);
                 progressText.text(`Importing Hazard: ${name}`);
+              }
+            });
+            totalImported += result.imported;
+            totalFailed += result.failed;
+          }
+
+          // Import Journals
+          if (importJournals) {
+            progressText.text('Importing Journals...');
+            const selectedFolders = html.find('#journal-folders input:checked')
+              .map(function() { return $(this).attr('name')?.replace('journal-', ''); })
+              .get();
+
+            const result = await journalImporter.importAll({
+              folders: selectedFolders as any[],
+              onProgress: (current, total, name) => {
+                const percent = Math.round((current / total) * 100);
+                progressFill.css('width', `${percent}%`);
+                progressText.text(`Importing Journal: ${name}`);
               }
             });
             totalImported += result.imported;
@@ -545,7 +597,7 @@ export function showDeleteConfirmDialog(): void {
           This will delete ALL content imported by the Harbinger House module.
         </p>
         <p style="text-align: center; font-size: 13px;">
-          This includes all NPCs, Items, Spells, and Hazards that were imported.<br>
+          This includes all NPCs, Items, Spells, Hazards, and Journals that were imported.<br>
           <strong>This action cannot be undone.</strong>
         </p>
         
@@ -576,8 +628,8 @@ export function showDeleteConfirmDialog(): void {
           try {
             progressText.text('Deleting content...');
             const results = await deleteAllImportedContent();
-            
-            const total = results.npcs + results.items + results.spells + results.hazards;
+
+            const total = results.npcs + results.items + results.spells + results.hazards + results.journals;
             progressFill.css('width', '100%');
             progressText.text(`Deleted ${total} items.`);
             
