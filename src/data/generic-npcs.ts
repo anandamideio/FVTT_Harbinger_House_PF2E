@@ -71,7 +71,7 @@ export const DRETCH: HarbingerNPC = {
     createAction(
       'Stinking Cloud',
       2,
-      ['conjuration', 'divine', 'poison'],
+      ['divine', 'poison'],
       `<p><strong>Frequency</strong> once per day</p>
 <p>The dretch creates a 10-foot burst of nauseating vapor within 30 feet. Creatures in the area must attempt a DC 18 Fortitude save.</p>
 <p><strong>Success</strong> The creature is unaffected.</p>
@@ -149,7 +149,7 @@ export const MANES: HarbingerNPC = {
     createAction(
       'Death Burst',
       'passive',
-      ['acid', 'divine', 'evocation'],
+      ['acid', 'divine'],
       `<p>When the manes dies, it explodes in a burst of acidic vapor. Each creature within 10 feet takes 1d6 acid damage (DC 14 basic Reflex save).</p>`
     ),
   ],
@@ -302,7 +302,7 @@ export const GRAY_OOZE: HarbingerNPC = {
       'Pseudopod',
       12,
       { dice: 1, die: '6', type: 'bludgeoning', modifier: 5 },
-      ['grab'],
+      [],
       'Plus 1d6 acid and Grab'
     ),
     createAction(
@@ -383,7 +383,7 @@ export const DABUS: HarbingerNPC = {
     },
   },
   items: [
-    createStrike('Tool', 15, { dice: 2, die: '8', type: 'bludgeoning', modifier: 5 }, ['versatile']),
+    createStrike('Tool', 15, { dice: 2, die: '8', type: 'bludgeoning', modifier: 5 }, ['versatile-s']),
     createAction(
       'Rebus Communication',
       'passive',

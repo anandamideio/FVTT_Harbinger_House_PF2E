@@ -105,7 +105,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
     createAction(
       'Field of Fellowship',
       'passive',
-      ['aura', 'emotion', 'enchantment', 'mental'],
+      ['aura', 'emotion', 'mental'],
       `<p><strong>Aura</strong> 10 feet</p>
 <p>Creatures that enter the aura or start their turn there must succeed at a DC 29 Will save or be unable to harm Trolan (as sanctuary). On a critical failure, the creature becomes helpful toward Trolan for 1 minute.</p>`
     ),
@@ -198,13 +198,13 @@ export const CRIMJAK: HarbingerNPC = {
     createAction(
       'Change Shape',
       1,
-      ['concentrate', 'divine', 'polymorph', 'transmutation'],
+      ['concentrate', 'divine', 'polymorph'],
       `<p>Crimjak can take on the appearance of any Medium humanoid. This doesn't change his Speed or attack and damage modifiers.</p>`
     ),
     createAction(
       'Abyssal Wrath',
       2,
-      ['divine', 'evocation', 'fire'],
+      ['divine', 'fire'],
       `<p>Crimjak unleashes a burst of Abyssal flame in a 20-foot emanation. Creatures in the area take 8d6 fire damage (DC 27 basic Reflex save). Crimjak can't use Abyssal Wrath again for 1d4 rounds.</p>`
     ),
     systemSpell('translocate', 5, 'arcane'),
@@ -368,37 +368,37 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
       'Law Slayer',
       26,
       { dice: 3, die: '8', type: 'slashing', modifier: 11 },
-      ['magical', 'versatile-p', 'chaotic'],
-      `+2 greater striking anarchic longsword. Deals 2d6 chaotic damage (4d6 vs. lawful creatures).`
+      ['magical', 'versatile-p', 'unholy'],
+      `+2 greater striking anarchic longsword. Deals 2d6 spirit damage (4d6 vs. lawful creatures).`
     ),
     createAction(
       'Know Alignment',
       1,
-      ['divination', 'divine'],
+      ['divine', 'detection'],
       `<p>Sougad learns the alignment of a creature within 30 feet (Will DC 30 negates).</p>`
     ),
     createAction(
       'Cause Fear',
       2,
-      ['divine', 'emotion', 'enchantment', 'fear', 'mental'],
+      ['divine', 'emotion', 'fear', 'mental'],
       `<p>A creature within 30 feet must succeed at a DC 30 Will save or become frightened 2 (frightened 3 on critical failure).</p>`
     ),
     createAction(
       'Shocking Grasp',
       2,
-      ['electricity', 'evocation'],
+      ['electricity'],
       `<p>Sougad makes a melee Strike. On a hit, the target takes an additional 4d12 electricity damage and is stunned 1.</p>`
     ),
     createAction(
       'Dimension Door',
       2,
-      ['conjuration', 'teleportation'],
+      ['teleportation'],
       `<p>As the spell. Usable once per day.</p>`
     ),
     createAction(
       'Ritual Murder',
       'passive',
-      ['divine', 'necromancy'],
+      ['divine'],
       `<p>When Sougad kills a lawful creature with his law slayer, he absorbs planar energy. After killing 13 lawful creatures in the proper ritual, he ascends to godhood.</p>`
     ),
   ],
@@ -471,7 +471,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
     createAction(
       'Sermon of Madness',
       2,
-      ['auditory', 'divine', 'enchantment', 'mental'],
+      ['auditory', 'divine', 'mental'],
       `<p>Browen delivers a maddening sermon. Each creature within 30 feet that can hear him must attempt a DC 30 Will save.</p>
 <p><strong>Critical Success</strong> The creature is unaffected.</p>
 <p><strong>Success</strong> The creature is stupefied 1 for 1 round.</p>
@@ -568,7 +568,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
     createAction(
       'Embrace',
       1,
-      ['divine', 'emotion', 'enchantment', 'incapacitation', 'mental'],
+      ['divine', 'emotion', 'incapacitation', 'mental'],
       `<p>The succubus attempts to embrace a creature within reach. If the creature allows the embrace or is grabbed, it must attempt a DC 30 Will save.</p>
 <p><strong>Critical Success</strong> The creature is unaffected.</p>
 <p><strong>Success</strong> The creature is stupefied 1 for 1 round.</p>
@@ -578,7 +578,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
     createAction(
       'Change Shape',
       1,
-      ['concentrate', 'divine', 'polymorph', 'transmutation'],
+      ['concentrate', 'divine', 'polymorph'],
       `<p>Nari can take on the appearance of any Small or Medium humanoid. She has practiced appearing as the Lady of Pain, gaining a +4 circumstance bonus to Deception checks to maintain this specific disguise.</p>`
     ),
     systemSpell('dominate', 6, 'divine'),

@@ -3,6 +3,7 @@
  */
 
 import type { ItemData } from '../types/foundry.d.ts';
+import type { ActionTrait, NPCAttackTrait, MagicTradition } from '../types/pf2e-traits';
 import {
   SYSTEM_WEAPONS,
   SYSTEM_SPELLS,
@@ -36,14 +37,14 @@ export type ActionType = 1 | 2 | 3 | 'reaction' | 'free' | 'passive';
  * 
  * @param name - The name of the action
  * @param actionType - The type of action: number (1-3) for standard actions, or 'reaction'/'free'/'passive'
- * @param traits - Array of trait tags for the action
+ * @param traits - Array of valid PF2e action traits
  * @param description - HTML description of what the action does
  * @returns ItemData object configured for PF2e system
  */
 export function createAction(
   name: string,
   actionType: ActionType,
-  traits: string[] = [],
+  traits: ActionTrait[] = [],
   description: string = ''
 ): ItemData {
   // Determine the actionType value and actions cost based on input
@@ -81,7 +82,7 @@ export function createAction(
  * @param name - The name of the strike
  * @param bonus - Attack bonus modifier
  * @param damage - Damage configuration object
- * @param traits - Array of trait tags for the strike
+ * @param traits - Array of valid PF2e NPC attack traits
  * @param description - HTML description of the strike
  * @returns ItemData object configured for PF2e system
  */
@@ -89,7 +90,7 @@ export function createStrike(
   name: string,
   bonus: number,
   damage: { dice: number; die: string; type: string; modifier: number },
-  traits: string[] = [],
+  traits: NPCAttackTrait[] = [],
   description: string = ''
 ): ItemData {
   return {
@@ -211,7 +212,7 @@ export function systemWeapon(
 export function systemSpell(
   spell: SystemSpellKey | string,
   heightenedLevel?: number,
-  tradition?: 'arcane' | 'divine' | 'occult' | 'primal'
+  tradition?: MagicTradition
 ): SystemSpellReference {
   const uuid = resolveSpellUUID(spell);
   return {
