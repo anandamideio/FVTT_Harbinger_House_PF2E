@@ -10,6 +10,7 @@ export const MODULE_NAME = 'Harbinger House PF2e';
 export const PACKS = {
   NPCS: `${MODULE_ID}.harbinger-house-npcs`,
   ITEMS: `${MODULE_ID}.harbinger-house-items`,
+  SPELLS: `${MODULE_ID}.harbinger-house-spells`,
   HAZARDS: `${MODULE_ID}.harbinger-house-hazards`,
 } as const;
 
@@ -18,6 +19,8 @@ export const SETTINGS = {
   SHOW_IMPORT_DIALOG: 'showImportDialog',
   IMPORTED_NPCS: 'importedNpcs',
   IMPORTED_ITEMS: 'importedItems',
+  IMPORTED_SPELLS: 'importedSpells',
+  IMPORTED_HAZARDS: 'importedHazards',
   DEBUG_MODE: 'debugMode',
 } as const;
 
@@ -38,116 +41,96 @@ export const LANG_PREFIX = 'HARBINGER-HOUSE';
  */
 export function localize(key: string, data?: Record<string, unknown>): string {
   const fullKey = `${LANG_PREFIX}.${key}`;
-  
   if (data) {
     return game.i18n.format(fullKey, data);
   }
   return game.i18n.localize(fullKey);
 }
 
-// Logging utilities
+/**
+ * Log a message to the console with module prefix
+ */
 export function log(...args: unknown[]): void {
   console.log(`${MODULE_NAME} |`, ...args);
 }
 
-export function warn(...args: unknown[]): void {
-  console.warn(`${MODULE_NAME} |`, ...args);
-}
-
+/**
+ * Log an error to the console with module prefix
+ */
 export function logError(...args: unknown[]): void {
   console.error(`${MODULE_NAME} |`, ...args);
 }
 
-export function debug(...args: unknown[]): void {
-  try {
-    if (game.settings.get(MODULE_ID, SETTINGS.DEBUG_MODE)) {
-      console.debug(`${MODULE_NAME} |`, ...args);
-    }
-  } catch {
-    // Settings not yet registered, skip debug logging
-  }
+/**
+ * Log a warning to the console with module prefix
+ */
+export function logWarn(...args: unknown[]): void {
+  console.warn(`${MODULE_NAME} |`, ...args);
 }
 
-// Register module settings
+/**
+ * Register all module settings
+ * 
+ * Why use settings?
+ * - Persists user preferences across sessions
+ * - Allows GMs to control module behavior
+ * - Enables tracking of what's been imported
+ */
 export function registerSettings(): void {
-  // Show import dialog setting (user-configurable)
-  game.settings.register(MODULE_ID, 'showImportDialog', {
+  // Show import dialog on load
+  game.settings.register(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG, {
     name: localize('settings.showImportDialog.name'),
     hint: localize('settings.showImportDialog.hint'),
     scope: 'world',
     config: true,
     type: Boolean,
-    default: true,
+    default: true
   });
 
-  // Register menu button to launch importer
-  game.settings.registerMenu(MODULE_ID, 'importMenu', {
-    name: localize('settings.importMenu.name'),
-    label: localize('settings.importMenu.label'),
-    hint: localize('settings.importMenu.hint'),
-    icon: 'fas fa-file-import',
-    type: class ImportMenuButton extends FormApplication {
-      constructor(object?: any, options?: any) {
-        super(object, options);
-        // Immediately trigger the import dialog and close this form
-        this.triggerImport();
-      }
-
-      async triggerImport(): Promise<void> {
-        // Import showImportDialog dynamically to avoid circular dependency
-        const { showImportDialog } = await import('./ui');
-        showImportDialog();
-        // Close this empty form
-        this.close();
-      }
-
-      static override get defaultOptions(): any {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-          template: 'templates/generic/form.html',
-          width: 0,
-          height: 0,
-        });
-      }
-
-      override async getData(): Promise<any> {
-        return {};
-      }
-
-      override async _updateObject(): Promise<void> {
-        // No-op since we trigger import in constructor
-      }
-    } as any,
-    restricted: true,
-  });
-
-  // Track imported NPCs (internal)
+  // Track imported NPCs
   game.settings.register(MODULE_ID, SETTINGS.IMPORTED_NPCS, {
     name: 'Imported NPCs',
-    hint: 'List of NPC IDs that have been imported',
     scope: 'world',
     config: false,
     type: Object,
-    default: {},
+    default: {}
   });
 
-  // Track imported items (internal)
+  // Track imported Items
   game.settings.register(MODULE_ID, SETTINGS.IMPORTED_ITEMS, {
     name: 'Imported Items',
-    hint: 'List of Item IDs that have been imported',
     scope: 'world',
     config: false,
     type: Object,
-    default: {},
+    default: {}
   });
 
-  // Debug mode (user-configurable)
+  // Track imported Spells
+  game.settings.register(MODULE_ID, SETTINGS.IMPORTED_SPELLS, {
+    name: 'Imported Spells',
+    scope: 'world',
+    config: false,
+    type: Object,
+    default: {}
+  });
+
+  // Track imported Hazards
+  game.settings.register(MODULE_ID, SETTINGS.IMPORTED_HAZARDS, {
+    name: 'Imported Hazards',
+    scope: 'world',
+    config: false,
+    type: Object,
+    default: {}
+  });
+
+  // Debug mode
   game.settings.register(MODULE_ID, SETTINGS.DEBUG_MODE, {
-    name: 'Debug Mode',
-    hint: 'Enable debug logging to the console',
+    name: localize('settings.debugMode.name'),
+    hint: localize('settings.debugMode.hint'),
     scope: 'client',
     config: true,
     type: Boolean,
-    default: false,
+    default: false
   });
 
   log('Settings registered');
