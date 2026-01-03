@@ -12,6 +12,7 @@ export const PACKS = {
   ITEMS: `${MODULE_ID}.harbinger-house-items`,
   SPELLS: `${MODULE_ID}.harbinger-house-spells`,
   HAZARDS: `${MODULE_ID}.harbinger-house-hazards`,
+  JOURNALS: `${MODULE_ID}.harbinger-house-journals`,
 } as const;
 
 // Settings keys
@@ -21,6 +22,7 @@ export const SETTINGS = {
   IMPORTED_ITEMS: 'importedItems',
   IMPORTED_SPELLS: 'importedSpells',
   IMPORTED_HAZARDS: 'importedHazards',
+  IMPORTED_JOURNALS: 'importedJournals',
   DEBUG_MODE: 'debugMode',
 } as const;
 
@@ -121,6 +123,16 @@ export function registerSettings(): void {
     config: false,
     type: Object,
     default: {}
+  });
+
+  // Track imported journals (internal)
+  game.settings.register(MODULE_ID, SETTINGS.IMPORTED_JOURNALS, {
+    name: 'Imported Journals',
+    hint: 'List of Journal IDs that have been imported',
+    scope: 'world',
+    config: false,
+    type: Object,
+    default: {},
   });
 
   // Debug mode

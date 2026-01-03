@@ -23,6 +23,9 @@ export { SpellImporter, spellImporter, type SpellImportOptions } from './spell-i
 // Hazard Importer
 export { HazardImporter, hazardImporter, type HazardImportOptions } from './hazard-importer';
 
+// Journal Importer
+export { JournalImporter, journalImporter, type JournalImportOptions } from './journal-importer';
+
 /**
  * Convenience function to import all content at once
  */

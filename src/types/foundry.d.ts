@@ -863,7 +863,66 @@ declare global {
     /** Items can be inline ItemData or references to system compendium items */
     items: unknown[]; // Use unknown[] here - actual type is NPCItemEntry from harbinger-residents.ts
   }
+
+    // JournalEntry (V13 structure with pages)
+  class JournalEntryClass implements Document {
+    _id: string;
+    id: string;
+    name: string;
+    type: 'JournalEntry';
+    img?: string;
+    pages: JournalEntryPageData[];
+    folder?: string;
+    sort?: number;
+    ownership?: Record<string, number>;
+    flags: Record<string, unknown>;
+    
+    static create(data: JournalEntryData): Promise<JournalEntryClass>;
+    static createDocuments(data: JournalEntryData[]): Promise<JournalEntryClass[]>;
+    update(data: Partial<JournalEntryData>): Promise<this>;
+    delete(): Promise<this>;
+    toObject(): object;
+    get system(): Record<string, unknown>;
+    get items(): undefined;
+  }
+
+  interface JournalEntryData {
+    _id?: string;
+    name: string;
+    pages?: JournalEntryPageData[];
+    folder?: string;
+    sort?: number;
+    ownership?: Record<string, number>;
+    flags?: Record<string, unknown>;
+  }
+
+  interface JournalEntryPageData {
+    _id?: string;
+    name: string;
+    type: 'text' | 'image' | 'pdf' | 'video';
+    title?: {
+      show: boolean;
+      level: number;
+    };
+    text?: {
+      content: string;
+      format: number; // 1 = HTML, 2 = Markdown
+      markdown?: string;
+    };
+    src?: string;
+    video?: {
+      controls: boolean;
+      loop: boolean;
+      autoplay: boolean;
+      volume: number;
+    };
+    sort?: number;
+    ownership?: Record<string, number>;
+    flags?: Record<string, unknown>;
+  }
 }
+
+
 
 // Re-export types for use in other modules
 export type { 
