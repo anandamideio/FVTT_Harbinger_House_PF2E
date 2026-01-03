@@ -123,8 +123,8 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
     ),
     systemSpell('charm', 4, 'occult'),
     systemSpell('suggestion', 4, 'occult'),
-    systemSpell('crushingDespair', 5, 'occult'),
-    systemSpell('synaesthesia', 5, 'occult'),
+    systemSpell('waveOfDespair', 5, 'occult'),
+    systemSpell('synesthesia', 5, 'occult'),
   ],
 };
 
@@ -207,7 +207,7 @@ export const CRIMJAK: HarbingerNPC = {
       ['divine', 'evocation', 'fire'],
       `<p>Crimjak unleashes a burst of Abyssal flame in a 20-foot emanation. Creatures in the area take 8d6 fire damage (DC 27 basic Reflex save). Crimjak can't use Abyssal Wrath again for 1d4 rounds.</p>`
     ),
-    systemSpell('dimensionDoor', 5, 'arcane'),
+    systemSpell('translocate', 5, 'arcane'),
     systemSpell('darkness', 4, 'arcane'),
     systemSpell('fly', 4, 'arcane'),
     systemSpell('fireball', 3, 'arcane'),
@@ -582,7 +582,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
       `<p>Nari can take on the appearance of any Small or Medium humanoid. She has practiced appearing as the Lady of Pain, gaining a +4 circumstance bonus to Deception checks to maintain this specific disguise.</p>`
     ),
     systemSpell('dominate', 6, 'divine'),
-    systemSpell('dimensionDoor', 5, 'divine'),
+    systemSpell('translocate', 5, 'divine'),
     systemSpell('charm', 4, 'divine'),
     systemSpell('suggestion', 4, 'divine'),
     systemSpell('mindReading', 3, 'divine'),

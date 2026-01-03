@@ -244,7 +244,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
         // Apply runes if configured
         if (ref.runes) {
             itemData.system = itemData.system || {};
-            itemData.system.rpiunes = itemData.system.runes || {};
+            itemData.system.runes = itemData.system.runes || {};
             
             // Apply potency rune
             if (ref.runes.potency) {

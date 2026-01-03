@@ -229,8 +229,8 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
       [],
       `<p>The swarm's Intelligence increases based on its remaining HP: full HP = Int +2, below 50% = Int +1, below 25% = Int −2. Their spell DCs and attack rolls adjust accordingly.</p>`
     ),
-    systemSpell('hideousLaughter', 2, 'occult'),
-    systemSpell('colorSpray', 1, 'occult'),
+    systemSpell('laughingFit', 2, 'occult'),
+    systemSpell('dizzyingColors', 1, 'occult'),
     systemSpell('command', 1, 'occult'),
   ],
 };
