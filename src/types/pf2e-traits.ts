@@ -239,6 +239,29 @@ export const CREATURE_TRAITS = [
 export type CreatureTrait = typeof CREATURE_TRAITS[number];
 
 // =============================================================================
+// HAZARD TRAITS
+// =============================================================================
+
+export const HAZARD_TRAITS = [
+  // Element traits
+  'air', 'earth', 'fire', 'metal', 'water', 'wood',
+  // Damage/Energy traits
+  'acid', 'cold', 'electricity', 'force', 'sonic', 'vitality', 'void',
+  'holy', 'unholy', 'mental', 'poison', 'spirit',
+  // Hazard types
+  'environmental', 'haunt', 'magical', 'trap',
+  // Creature-like traits (for living hazards)
+  'construct', 'fungus', 'plant', 'undead',
+  // Effect descriptors
+  'auditory', 'curse', 'darkness', 'death', 'disease', 'emotion', 'extradimensional',
+  'fear', 'light', 'olfactory', 'teleportation', 'visual',
+  // Materials
+  'alchemical', 'clockwork',
+] as const;
+
+export type HazardTrait = typeof HAZARD_TRAITS[number];
+
+// =============================================================================
 // DAMAGE TYPES
 // =============================================================================
 
@@ -398,6 +421,13 @@ export function isValidCreatureTrait(trait: string): trait is CreatureTrait {
 }
 
 /**
+ * Check if a string is a valid hazard trait
+ */
+export function isValidHazardTrait(trait: string): trait is HazardTrait {
+  return (HAZARD_TRAITS as readonly string[]).includes(trait);
+}
+
+/**
  * Check if a string is a valid PF2e trait (any category)
  */
 export function isValidTrait(trait: string): trait is PF2eTrait {
@@ -423,4 +453,11 @@ export function filterValidWeaponTraits(traits: string[]): WeaponTrait[] {
  */
 export function filterValidNPCAttackTraits(traits: string[]): NPCAttackTrait[] {
   return traits.filter(isValidNPCAttackTrait);
+}
+
+/**
+ * Filter an array of strings to only include valid hazard traits
+ */
+export function filterValidHazardTraits(traits: string[]): HazardTrait[] {
+  return traits.filter(isValidHazardTrait);
 }

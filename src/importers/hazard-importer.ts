@@ -86,7 +86,7 @@ export class HazardImporter extends BaseImporter<HarbingerHazard> {
         attributes: {
           ac: data.system.attributes?.ac || { value: 0 },
           hp: data.system.attributes?.hp || { value: 0, max: 0 },
-          hardness: data.system.attributes?.hardness || { value: 0 },
+          hardness: data.system.attributes?.hardness?.value ?? 0,
           stealth: {
             value: data.system.attributes?.stealth?.value || 0,
             dc: data.system.attributes?.stealth?.dc || 0,

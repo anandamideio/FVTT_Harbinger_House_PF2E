@@ -102,7 +102,7 @@ const KAYDIS_MIND_TRAP: HarbingerHazard = {
       rules: [],
       slug: 'kaydis-mind-trap',
       traits: {
-        value: ['unique', 'magical', 'trap', 'enchantment', 'mental'],
+        value: ['magical', 'trap', 'mental'],
         rarity: 'unique'
       },
       details: {
@@ -143,7 +143,7 @@ const REPEATING_FIREBALL_TRAP: HarbingerHazard = {
       rules: [],
       slug: 'repeating-fireball-trap',
       traits: {
-        value: ['magical', 'trap', 'evocation', 'fire'],
+        value: ['magical', 'trap', 'fire'],
         rarity: 'common'
       },
       details: {
@@ -194,7 +194,7 @@ const MIRROR_OF_MORTALITY_TRAP: HarbingerHazard = {
       rules: [],
       slug: 'mirror-of-mortality-trap',
       traits: {
-        value: ['unique', 'magical', 'trap', 'necromancy', 'negative', 'visual'],
+        value: ['magical', 'trap', 'death', 'visual'],
         rarity: 'unique'
       },
       details: {
@@ -241,7 +241,7 @@ const THE_ENDLESS_STAIRS: HarbingerHazard = {
       rules: [],
       slug: 'the-endless-stairs',
       traits: {
-        value: ['magical', 'environmental', 'trap', 'conjuration', 'teleportation'],
+        value: ['magical', 'environmental', 'trap', 'teleportation'],
         rarity: 'uncommon'
       },
       details: {
@@ -333,7 +333,7 @@ const FOCRUX_EXPLOSION: HarbingerHazard = {
       rules: [],
       slug: 'focrux-explosion',
       traits: {
-        value: ['unique', 'magical', 'trap', 'evocation', 'force'],
+        value: ['magical', 'trap', 'force'],
         rarity: 'unique'
       },
       details: {
@@ -380,7 +380,7 @@ const CHANCES_FIELD_OF_BAD_LUCK: HarbingerHazard = {
       rules: [],
       slug: 'field-of-bad-luck',
       traits: {
-        value: ['unique', 'magical', 'aura', 'enchantment', 'misfortune'],
+        value: ['magical'],
         rarity: 'unique'
       },
       details: {
