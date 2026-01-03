@@ -9,40 +9,102 @@
  * 3. Provide API for programmatic access
  */
 
-import { MODULE_ID, registerSettings, log, logError, localize } from './config';
+import { MODULE_ID, registerSettings, log, logError, localize, SETTINGS } from './config';
 import { showImportDialog, showWelcomeDialog, showDeleteConfirmDialog } from './ui';
-import { npcImporter, type ImportResult } from './importers';
-import { ALL_NPCS, NPCS_BY_CATEGORY, getNPCById, getCategoryLabel, type NPCCategory } from './data';
-import type { HarbingerHouseFlags } from './types/module-flags';
+import { 
+  npcImporter, 
+  itemImporter, 
+  spellImporter, 
+  hazardImporter,
+  importAllContent,
+  deleteAllImportedContent,
+  type ImportResult 
+} from './importers';
+import { 
+  // NPC data
+  ALL_NPCS, 
+  NPCS_BY_CATEGORY, 
+  getNPCById, 
+  getCategoryLabel, 
+  type NPCCategory,
+  // Item data
+  ALL_ITEMS,
+  ITEMS_BY_CATEGORY,
+  getItemById,
+  getItemCategoryLabel,
+  type ItemCategory,
+  // Spell data
+  ALL_SPELLS,
+  getSpellById,
+  // Hazard data
+  ALL_HAZARDS,
+  HAZARDS_BY_CATEGORY,
+  getHazardById,
+  getHazardCategoryLabel,
+  type HazardCategory,
+  // Summary
+  getContentSummary
+} from './data';
 
 /**
  * Module API
  * Exposed on the module for external access
+ * 
+ * This comprehensive API allows other modules or macros to:
+ * - Import specific content types
+ * - Query available content
+ * - Delete imported content
+ * - Access raw data for custom use
  */
 interface HarbingerHouseAPI {
-    /** Import NPCs with options */
-    importNPCs: typeof npcImporter.importAll;
-    /** Import NPCs organized by category */
-    importNPCsByCategory: typeof npcImporter.importByCategory;
-    /** Show the import dialog */
-    showImportDialog: typeof showImportDialog;
-    /** Delete all imported content */
-    deleteImported: () => Promise<number>;
-    /** Get all available NPCs */
-    getAllNPCs: () => typeof ALL_NPCS;
-    /** Get NPCs by category */
-    getNPCsByCategory: () => typeof NPCS_BY_CATEGORY;
-    /** Get a specific NPC by ID */
-    getNPCById: typeof getNPCById;
-    /** Get the NPC importer instance */
-    npcImporter: typeof npcImporter;
+  // Import functions
+  importNPCs: typeof npcImporter.importAll;
+  importNPCsByCategory: typeof npcImporter.importByCategory;
+  importItems: typeof itemImporter.importAll;
+  importItemsByCategory: typeof itemImporter.importByCategory;
+  importSpells: typeof spellImporter.importAll;
+  importHazards: typeof hazardImporter.importAll;
+  importHazardsByCategory: typeof hazardImporter.importByCategory;
+  importAll: typeof importAllContent;
+  
+  // UI functions
+  showImportDialog: typeof showImportDialog;
+  
+  // Delete functions
+  deleteAllNPCs: () => Promise<number>;
+  deleteAllItems: () => Promise<number>;
+  deleteAllSpells: () => Promise<number>;
+  deleteAllHazards: () => Promise<number>;
+  deleteAll: typeof deleteAllImportedContent;
+  
+  // Data access
+  getAllNPCs: () => typeof ALL_NPCS;
+  getNPCsByCategory: () => typeof NPCS_BY_CATEGORY;
+  getNPCById: typeof getNPCById;
+  getAllItems: () => typeof ALL_ITEMS;
+  getItemsByCategory: () => typeof ITEMS_BY_CATEGORY;
+  getItemById: typeof getItemById;
+  getAllSpells: () => typeof ALL_SPELLS;
+  getSpellById: typeof getSpellById;
+  getAllHazards: () => typeof ALL_HAZARDS;
+  getHazardsByCategory: () => typeof HAZARDS_BY_CATEGORY;
+  getHazardById: typeof getHazardById;
+  
+  // Summary
+  getContentSummary: typeof getContentSummary;
+  
+  // Importer instances (for advanced use)
+  npcImporter: typeof npcImporter;
+  itemImporter: typeof itemImporter;
+  spellImporter: typeof spellImporter;
+  hazardImporter: typeof hazardImporter;
 }
 
 // Store the API on the module
 declare global {
-    interface Game {
-        harbingerHouse?: HarbingerHouseAPI;
-    }
+  interface Game {
+    harbingerHouse?: HarbingerHouseAPI;
+  }
 }
 
 /**
@@ -50,28 +112,73 @@ declare global {
  * Called on the 'init' hook - before game data is loaded
  */
 Hooks.once('init', async () => {
-    log('Initializing Harbinger House module');
+  log('Initializing Harbinger House module');
 
-    // Register module settings
-    registerSettings();
+  // Register module settings
+  registerSettings();
 
-    // Register API on game object for external access
-    game.harbingerHouse = {
-        importNPCs: npcImporter.importAll.bind(npcImporter),
-        importNPCsByCategory: npcImporter.importByCategory.bind(npcImporter),
-        showImportDialog,
-        deleteImported: async () => {
-            const count = await npcImporter.deleteAllImported();
-            log(`Deleted ${count} imported NPCs`);
-            return count;
-        },
-        getAllNPCs: () => ALL_NPCS,
-        getNPCsByCategory: () => NPCS_BY_CATEGORY,
-        getNPCById,
-        npcImporter
-    };
+  // Register API on game object for external access
+  game.harbingerHouse = {
+    // Import functions
+    importNPCs: npcImporter.importAll.bind(npcImporter),
+    importNPCsByCategory: npcImporter.importByCategory.bind(npcImporter),
+    importItems: itemImporter.importAll.bind(itemImporter),
+    importItemsByCategory: itemImporter.importByCategory.bind(itemImporter),
+    importSpells: spellImporter.importAll.bind(spellImporter),
+    importHazards: hazardImporter.importAll.bind(hazardImporter),
+    importHazardsByCategory: hazardImporter.importByCategory.bind(hazardImporter),
+    importAll: importAllContent,
+    
+    // UI functions
+    showImportDialog,
+    
+    // Delete functions
+    deleteAllNPCs: async () => {
+      const count = await npcImporter.deleteAllImported();
+      log(`Deleted ${count} imported NPCs`);
+      return count;
+    },
+    deleteAllItems: async () => {
+      const count = await itemImporter.deleteAllImported();
+      log(`Deleted ${count} imported items`);
+      return count;
+    },
+    deleteAllSpells: async () => {
+      const count = await spellImporter.deleteAllImported();
+      log(`Deleted ${count} imported spells`);
+      return count;
+    },
+    deleteAllHazards: async () => {
+      const count = await hazardImporter.deleteAllImported();
+      log(`Deleted ${count} imported hazards`);
+      return count;
+    },
+    deleteAll: deleteAllImportedContent,
+    
+    // Data access
+    getAllNPCs: () => ALL_NPCS,
+    getNPCsByCategory: () => NPCS_BY_CATEGORY,
+    getNPCById,
+    getAllItems: () => ALL_ITEMS,
+    getItemsByCategory: () => ITEMS_BY_CATEGORY,
+    getItemById,
+    getAllSpells: () => ALL_SPELLS,
+    getSpellById,
+    getAllHazards: () => ALL_HAZARDS,
+    getHazardsByCategory: () => HAZARDS_BY_CATEGORY,
+    getHazardById,
+    
+    // Summary
+    getContentSummary,
+    
+    // Importer instances
+    npcImporter,
+    itemImporter,
+    spellImporter,
+    hazardImporter
+  };
 
-    log('Harbinger House API registered on game.harbingerHouse');
+  log('Harbinger House API registered on game.harbingerHouse');
 });
 
 /**
@@ -79,7 +186,7 @@ Hooks.once('init', async () => {
  * Called after init, when localization is available
  */
 Hooks.once('setup', async () => {
-    log('Setting up Harbinger House module');
+  log('Setting up Harbinger House module');
 });
 
 /**
@@ -88,122 +195,45 @@ Hooks.once('setup', async () => {
  * This is where we show the import dialog
  */
 Hooks.once('ready', async () => {
-    log('Harbinger House module ready');
+  log('Harbinger House module ready');
 
-    // Only show dialog if:
-    // 1. User is a GM
-    // 2. Setting allows it
-    // 3. No NPCs have been imported yet
-    if (!game.user?.isGM) {
-        log('Not GM, skipping import dialog');
-        return;
-    }
+  // Log content summary
+  const summary = getContentSummary();
+  log(`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards`);
 
-    const showDialog = game.settings.get(MODULE_ID, 'showImportDialog') as boolean;
-    if (!showDialog) {
-        log('Import dialog disabled by user setting');
-        return;
-    }
+  // Only show dialog if:
+  // 1. User is a GM
+  // 2. Setting allows it
+  // 3. PF2e system is active
+  if (!game.user?.isGM) {
+    log('Not a GM, skipping import dialog');
+    return;
+  }
 
-    // Check if we've already imported NPCs
-    const existingImports = game.actors?.filter(
-        (a: any) => a.getFlag(MODULE_ID, 'imported') === true
-    );
+  if (game.system.id !== 'pf2e') {
+    logError('This module requires the Pathfinder 2e system');
+    ui.notifications?.error(localize('errors.wrongSystem'));
+    return;
+  }
 
-    if (existingImports && existingImports.length > 0) {
-        log(`Found ${existingImports.length} previously imported NPCs, skipping auto-import`);
-        log('Use the sidebar button or module settings to manually run the importer');
-        // Show a simpler welcome dialog instead
-        // showWelcomeDialog();
-        return;
-    }
-
-    // Show the main import dialog on first load
-    showImportDialog({
-        onComplete: (result) => {
-            log('Import completed', result);
-        },
-        onCancel: () => {
-            log('Import cancelled by user');
-        }
-    });
+  const showDialog = game.settings.get(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG);
+  if (showDialog) {
+    // Small delay to ensure UI is ready
+    setTimeout(() => {
+      showWelcomeDialog();
+    }, 500);
+  }
 });
 
 /**
- * Add context menu options for actors sidebar
+ * Export for direct access if needed
  */
-Hooks.on('getActorDirectoryEntryContext', (...args: unknown[]) => {
-    const [html, options] = args as [JQuery, any[]];
-    
-    // Add option to re-import/update an NPC
-    options.push({
-        name: localize('contextMenu.updateFromModule'),
-        icon: '<i class="fas fa-sync"></i>',
-        condition: (li: JQuery) => {
-            const actorId = li.data('documentId');
-            const actor = game.actors?.get(actorId);
-            return actor?.getFlag(MODULE_ID, 'imported') === true;
-        },
-        callback: async (li: JQuery) => {
-            const actorId = li.data('documentId');
-            const actor = game.actors?.get(actorId);
-            const sourceId = actor?.getFlag(MODULE_ID, 'sourceId') as string | undefined;
-
-            if (sourceId) {
-                const npc = getNPCById(sourceId);
-                if (npc) {
-                    const result = await npcImporter.importItems([npc], {
-                        updateExisting: true
-                    });
-                    if (result.success) {
-                        ui.notifications?.info(localize('import.updated', { name: npc.data.name }));
-                    }
-                }
-            }
-        }
-    });
-});
-
-/**
- * Add module controls to the sidebar
- */
-Hooks.on('renderSidebarTab', (...args: unknown[]) => {
-    const [app, html] = args as [any, JQuery];
-    
-    // Only add to actors tab
-    if (app.tabName !== 'actors') return;
-    if (!game.user?.isGM) return;
-
-    // Check if button already exists
-    if (html.find('.harbinger-import-btn').length > 0) return;
-
-    // Add import button to the header
-    const headerActions = html.find('.directory-header .header-actions');
-    const importButton = $(`
-        <button class="harbinger-import-btn" title="${localize('sidebar.importTooltip')}">
-            <i class="fas fa-dungeon"></i>
-            ${localize('sidebar.importButton')}
-        </button>
-    `);
-
-    importButton.on('click', () => {
-        showImportDialog();
-    });
-
-    headerActions.append(importButton);
-});
-
-/**
- * Log module version on startup
- */
-Hooks.once('ready', () => {
-    const module = game.modules.get(MODULE_ID);
-    if (module) {
-        console.log(
-            `%c Harbinger House PF2e v${module.version} ` +
-            `%c Loaded successfully!`,
-            'background: #6e0000; color: #fff; padding: 2px 4px; border-radius: 2px;',
-            'color: #6e0000;'
-        );
-    }
-});
+export {
+  MODULE_ID,
+  npcImporter,
+  itemImporter,
+  spellImporter,
+  hazardImporter,
+  importAllContent,
+  deleteAllImportedContent
+};
