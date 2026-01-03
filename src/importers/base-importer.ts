@@ -1,11 +1,6 @@
 /**
  * Base Importer Class
  * Provides common functionality for importing content into FoundryVTT
- * 
- * Why a base class?
- * - Standardizes the import process across different content types (NPCs, Items, Hazards)
- * - Handles folder creation, progress tracking, and error handling in one place
- * - Makes it easy to add new content types later (just extend this class)
  */
 
 import { MODULE_ID, log, logError } from '../config';

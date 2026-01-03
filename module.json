@@ -76,6 +76,18 @@
       },
       "system": "pf2e",
       "flags": {}
+    },
+        {
+      "name": "harbinger-house-journals",
+      "label": "Harbinger House Adventure",
+      "path": "packs/harbinger-house-journals",
+      "type": "JournalEntry",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "pf2e",
+      "flags": {}
     }
   ],
   "flags": {
