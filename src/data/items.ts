@@ -159,6 +159,9 @@ const LAW_SLAYER: HarbingerItem = {
         striking: 2,
         property: ['astral (greater)']
       },
+      material: {
+        type: 'warpglass'
+      },
       group: 'sword',
       category: 'martial',
       equipped: { carryType: 'held', handsHeld: 1 }
@@ -238,7 +241,7 @@ const SHORT_SWORD_OF_QUICKNESS: HarbingerItem = {
       slug: 'short-sword-of-quickness',
       level: { value: 10 },
       traits: {
-        value: ['rare', 'magical', 'transmutation'],
+        value: ['magical', 'finesse'],
         rarity: 'rare'
       },
       usage: { value: 'held-in-one-hand' },
@@ -246,8 +249,10 @@ const SHORT_SWORD_OF_QUICKNESS: HarbingerItem = {
       baseItem: 'shortsword',
       damage: { dice: 2, die: 'd6', damageType: 'piercing' },
       bonus: { value: 2 },
-      potencyRune: { value: 2 },
-      strikingRune: { value: 'striking' },
+      runes: {
+        potency: 2,
+        striking: 1
+      },
       group: 'sword',
       category: 'martial',
       equipped: { carryType: 'held', handsHeld: 1 }
@@ -273,7 +278,7 @@ const AZTRALS_SPOON: HarbingerItem = {
       slug: 'aztrals-spoon-of-absorption',
       level: { value: 8 },
       traits: {
-        value: ['unique', 'magical', 'transmutation'],
+        value: ['magical'],
         rarity: 'unique'
       },
       usage: { value: 'held-in-one-hand' },
@@ -281,8 +286,10 @@ const AZTRALS_SPOON: HarbingerItem = {
       baseItem: 'club',
       damage: { dice: 2, die: 'd6', damageType: 'bludgeoning' },
       bonus: { value: 1 },
-      potencyRune: { value: 1 },
-      strikingRune: { value: 'striking' },
+      runes: {
+        potency: 1,
+        striking: 1
+      },
       group: 'club',
       category: 'simple',
       equipped: { carryType: 'held', handsHeld: 1 }
@@ -323,7 +330,7 @@ const CLOAK_OF_FIGMENTS: HarbingerItem = {
       slug: 'cloak-of-figments',
       level: { value: 10 },
       traits: {
-        value: ['unique', 'magical', 'conjuration', 'illusion'],
+        value: ['magical', 'illusion'],
         rarity: 'unique'
       },
       category: 'light',
@@ -359,7 +366,7 @@ const BRACERS_OF_ARMOR: HarbingerItem = {
       level: { value: 9 },
       price: { value: { gp: 750 } },
       traits: {
-        value: ['magical', 'abjuration', 'invested'],
+        value: ['magical', 'invested'],
         rarity: 'common'
       },
       usage: { value: 'worn-bracers' },
@@ -402,7 +409,7 @@ const STAFF_OF_WITHERING: HarbingerItem = {
       level: { value: 12 },
       price: { value: { gp: 1800 } },
       traits: {
-        value: ['magical', 'necromancy', 'staff'],
+        value: ['magical', 'staff', 'unholy'],
         rarity: 'common'
       },
       usage: { value: 'held-in-one-hand' },
@@ -410,8 +417,10 @@ const STAFF_OF_WITHERING: HarbingerItem = {
       baseItem: 'staff',
       damage: { dice: 2, die: 'd4', damageType: 'bludgeoning' },
       bonus: { value: 2 },
-      potencyRune: { value: 2 },
-      strikingRune: { value: 'striking' },
+      runes: {
+        potency: 2,
+        striking: 1
+      },
       group: 'club',
       category: 'simple',
       equipped: { carryType: 'held', handsHeld: 1 }
@@ -443,7 +452,7 @@ const VORINAS_HEALING_MIRROR: HarbingerItem = {
       slug: 'vorinas-healing-mirror',
       level: { value: 6 },
       traits: {
-        value: ['unique', 'magical', 'necromancy', 'positive'],
+        value: ['magical', 'unholy', 'vitality'],
         rarity: 'unique'
       },
       usage: { value: 'mounted' },
@@ -477,7 +486,7 @@ const TEELAS_MIRROR_OF_MORTALITY: HarbingerItem = {
       slug: 'teelas-mirror-of-mortality',
       level: { value: 10 },
       traits: {
-        value: ['unique', 'magical', 'necromancy', 'negative'],
+        value: ['magical', 'unholy', 'void'],
         rarity: 'unique'
       },
       usage: { value: 'mounted' },
@@ -514,7 +523,7 @@ const LUCKY_CHARM_LIZARD_CLAW: HarbingerItem = {
       level: { value: 5 },
       price: { value: { gp: 150 } },
       traits: {
-        value: ['magical', 'divination', 'fortune'],
+        value: ['magical', 'scrying', 'fortune'],
         rarity: 'common'
       },
       usage: { value: 'worn' },
@@ -552,7 +561,7 @@ const LUCKY_CHARM_BLUE_FEATHER: HarbingerItem = {
       level: { value: 5 },
       price: { value: { gp: 150 } },
       traits: {
-        value: ['magical', 'divination', 'fortune'],
+        value: ['magical', 'scrying', 'fortune'],
         rarity: 'common'
       },
       usage: { value: 'worn' },
@@ -750,7 +759,7 @@ const SCROLL_STONE_TO_FLESH: HarbingerItem = {
       level: { value: 11 },
       price: { value: { gp: 300 } },
       traits: {
-        value: ['consumable', 'magical', 'scroll', 'transmutation'],
+        value: ['consumable', 'magical', 'scroll'],
         rarity: 'common'
       },
       consumableType: { value: 'scroll' },
@@ -798,7 +807,7 @@ const SOUGADS_RITUAL_SCROLL: HarbingerItem = {
       slug: 'sougads-ritual-scroll',
       level: { value: 15 },
       traits: {
-        value: ['unique', 'magical', 'necromancy', 'evil'],
+        value: ['magical', 'unholy', 'void', 'scroll'],
         rarity: 'unique'
       },
       consumableType: { value: 'other' },

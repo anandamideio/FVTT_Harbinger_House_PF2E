@@ -718,8 +718,8 @@ declare global {
     hardness?: number;
     hp?: { value: number; max: number; brokenThreshold: number };
     material?: {
-      type: string;
-      grade: string;
+      type: 'adamantine' | 'cold-iron' | 'silver' | 'mithral' | 'orichalcum' | 'peachwood' | 'duskwood' | 'djezet' | 'inubrix' | 'noqual' | 'abysium' | 'dawnsilver' | 'siccatite' | 'warpglass' | 'other';
+      grade?: 'low' | 'standard' | 'high';
       effects?: string[];
     }
     category?: string;
