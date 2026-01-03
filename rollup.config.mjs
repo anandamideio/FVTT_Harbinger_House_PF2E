@@ -1,5 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
+import markdownPlugin from './rollup-plugin-markdown.mjs';
 
 export default {
   input: 'src/module.ts',
@@ -9,6 +10,7 @@ export default {
     sourcemap: true,
   },
   plugins: [
+    markdownPlugin(), // Inject markdown content at build time
     resolve(),
     typescript({
       tsconfig: './tsconfig.json',

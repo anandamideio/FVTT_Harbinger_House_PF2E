@@ -221,23 +221,14 @@ function markdownToHTML(markdown: string): string {
 }
 
 // Export the journal data from the markdown file
-import { readFileSync } from 'fs';
-import { join } from 'path';
+// The markdown content is injected at build time by the rollup-plugin-markdown
+import MARKDOWN_CONTENT from 'virtual:harbinger-markdown';
 
-// This will be replaced with actual data when building
-let JOURNAL_DATA: HarbingerJournal[] = [];
-
-// Load the markdown file and parse it
-// Note: This happens at build time via Rollup, not runtime
-try {
-  // In development, read from project files
-  const markdownPath = join(process.cwd(), 'harbinger_house_complete.md');
-  const markdown = readFileSync(markdownPath, 'utf-8');
-  JOURNAL_DATA = parseMarkdownToJournals(markdown);
-} catch (error) {
-  console.warn('Could not load harbinger_house_complete.md:', error);
-  JOURNAL_DATA = [];
-}
+// Parse the markdown content into journal entries
+// This happens once when the module loads
+const JOURNAL_DATA: HarbingerJournal[] = MARKDOWN_CONTENT
+  ? parseMarkdownToJournals(MARKDOWN_CONTENT)
+  : [];
 
 export const ALL_JOURNALS = JOURNAL_DATA;
 
