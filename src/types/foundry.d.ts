@@ -749,12 +749,12 @@ declare global {
     checkPenalty?: number;
     speedPenalty?: number;
     strength?: number;
-    potencyRune?: { value: number };
-    resiliencyRune?: { value: string };
-    propertyRune1?: { value: string };
-    propertyRune2?: { value: string };
-    propertyRune3?: { value: string };
-    propertyRune4?: { value: string };
+    runes?: {
+      effects?: string[];
+      potency?: number;
+      resiliency?: string;
+      property?: Array<WeaponRune>;
+    };
     group?: string;
     category?: string;
     equipped?: {
