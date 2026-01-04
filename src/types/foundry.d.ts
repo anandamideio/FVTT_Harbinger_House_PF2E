@@ -762,14 +762,6 @@ declare global {
       handsHeld?: number;
       invested?: boolean;
     };
-    price?: {
-      value: {
-        pp?: number;
-        gp?: number;
-        sp?: number;
-        cp?: number;
-      };
-    };
   }
 
   // ==========================================================================
@@ -783,14 +775,6 @@ declare global {
       carryType: 'held' | 'worn' | 'stowed';
       handsHeld?: number;
       invested?: boolean;
-    };
-    price?: {
-      value: {
-        pp?: number;
-        gp?: number;
-        sp?: number;
-        cp?: number;
-      };
     };
     quantity?: number;
   }
@@ -806,14 +790,6 @@ declare global {
     uses?: { value: number; max: number; autoDestroy: boolean };
     quantity?: number;
     spell?: { name: string; level: number };
-    price?: {
-      value: {
-        pp?: number;
-        gp?: number;
-        sp?: number;
-        cp?: number;
-      };
-    };
   }
 
   // ==========================================================================

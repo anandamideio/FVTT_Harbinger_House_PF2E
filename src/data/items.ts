@@ -123,7 +123,7 @@ const LAW_SLAYER: HarbingerItem = {
   data: {
     name: 'Law Slayer',
     type: 'weapon',
-    img: 'icons/weapons/swords/sword-guard-purple.webp',
+    img: 'icons/weapons/swords/sword-flanged-lightning.webp',
     system: {
       description: {
         value: `<p>This dark longsword radiates an aura of primal chaos. Its blade seems to shimmer with barely contained anarchic energy, and when it strikes a lawful creature, that energy erupts in a burst of destructive force.</p>
@@ -146,7 +146,7 @@ const LAW_SLAYER: HarbingerItem = {
       slug: 'law-slayer',
       level: { value: 14 },
       traits: {
-        value: ['magical', 'unholy', 'aberration', 'demon'],
+        value: ['magical', 'unholy', 'death'],
         rarity: 'unique'
       },
       usage: { value: 'held-in-one-hand' },
@@ -157,10 +157,11 @@ const LAW_SLAYER: HarbingerItem = {
       runes: {
         potency: 2,
         striking: 2,
-        property: ['astral (greater)']
+        property: ['greaterAstral']
       },
       material: {
-        type: 'warpglass'
+        type: 'warpglass',
+        grade: 'high'
       },
       group: 'sword',
       category: 'martial',
