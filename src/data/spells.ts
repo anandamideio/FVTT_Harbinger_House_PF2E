@@ -28,7 +28,7 @@ const WORD_OF_CHAOS: HarbingerSpell = {
   data: {
     name: 'Word of Chaos',
     type: 'spell',
-    img: 'icons/magic/symbols/rune-sigil-purple.webp',
+    img: 'icons/magic/symbols/mask-metal-silver-white.webp',
     system: {
       description: {
         value: `<p>You speak a word of pure chaos that disrupts the minds of lawful creatures. Non-chaotic creatures in the area must attempt a Will save.</p>
@@ -46,7 +46,7 @@ const WORD_OF_CHAOS: HarbingerSpell = {
       slug: 'word-of-chaos',
       level: { value: 7 },
       traits: {
-        value: ['uncommon', 'auditory', 'chaotic', 'divine', 'enchantment', 'mental'],
+        value: ['auditory', 'divine', 'mental'],
         rarity: 'uncommon'
       },
       traditions: { value: ['divine', 'occult'] },
@@ -74,7 +74,7 @@ const DREAM_STORM: HarbingerSpell = {
   data: {
     name: 'Dream Storm',
     type: 'spell',
-    img: 'icons/magic/perception/eye-ringed-glow-blue-purple.webp',
+    img: 'icons/magic/perception/hand-eye-pink.webp',
     system: {
       description: {
         value: `<p>This spell is available only to Kaydi if she is killed and ascends to become a demipower of sleep prematurely.</p>
@@ -91,7 +91,7 @@ const DREAM_STORM: HarbingerSpell = {
       slug: 'dream-storm',
       level: { value: 5 },
       traits: {
-        value: ['rare', 'enchantment', 'incapacitation', 'mental', 'sleep'],
+        value: ['incapacitation', 'mental', 'sleep'],
         rarity: 'rare'
       },
       traditions: { value: ['occult'] },

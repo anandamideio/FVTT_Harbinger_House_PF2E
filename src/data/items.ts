@@ -221,7 +221,7 @@ const SHORT_SWORD_OF_QUICKNESS: HarbingerItem = {
   data: {
     name: 'Short Sword of Quickness',
     type: 'weapon',
-    img: 'icons/weapons/swords/shortsword-guard-purple.webp',
+    img: 'icons/weapons/swords/shortsword-guard-green.webp',
     system: {
       description: {
         value: `<p>This finely balanced blade seems to anticipate its wielder's movements, allowing for incredibly swift strikes.</p>
@@ -267,7 +267,7 @@ const AZTRALS_SPOON: HarbingerItem = {
   data: {
     name: "Aztral's Spoon of Absorption",
     type: 'weapon',
-    img: 'icons/tools/cooking/spoon-ladle-brown.webp',
+    img: 'icons/tools/cooking/soup-ladle.webp',
     system: {
       description: {
         value: `<p>This large wooden cooking spoon glows with a faint silvery light. In Aztral's hands, it serves as both a focus for his absorption ability and a surprisingly effective weapon.</p>
@@ -387,7 +387,7 @@ const STAFF_OF_WITHERING: HarbingerItem = {
   data: {
     name: 'Staff of Withering',
     type: 'weapon',
-    img: 'icons/weapons/staves/staff-ornate-skull.webp',
+    img: 'icons/weapons/staves/staff-skull-feathers-brown.webp',
     system: {
       description: {
         value: `<p>This gnarled black staff is cold to the touch and seems to drain warmth from its surroundings. In the hands of a spellcaster devoted to death and entropy, it becomes a fearsome weapon.</p>
@@ -439,7 +439,7 @@ const VORINAS_HEALING_MIRROR: HarbingerItem = {
   data: {
     name: "Vorina's Healing Mirror",
     type: 'equipment',
-    img: 'icons/sundries/misc/mirror-golden.webp',
+    img: 'icons/tools/scribal/lens-blue.webp',
     system: {
       description: {
         value: `<p>This ornate mirror hangs in Vorina's kitchen within Harbinger House. Rather than showing a true reflection, it displays the viewer at their most vital and alive—skin glowing with health, eyes bright, posture perfect. The mirror amplifies the viewer's life force.</p>
@@ -468,7 +468,7 @@ const TEELAS_MIRROR_OF_MORTALITY: HarbingerItem = {
   data: {
     name: "Teela's Mirror of Mortality",
     type: 'equipment',
-    img: 'icons/sundries/misc/mirror-cracked.webp',
+    img: 'icons/tools/scribal/lens-grey-red.webp',
     system: {
       description: {
         value: `<p>This dark mirror hangs in Teela's kitchen within Harbinger House. It reflects viewers not as they are, but as Teela sees them—showing the slow decay of flesh, the ebbing of life force, the inevitable march toward death. Bodies appear pale, sickly, skeletal, or rotting depending on the viewer's age and health.</p>
@@ -502,7 +502,7 @@ const LUCKY_CHARM_LIZARD_CLAW: HarbingerItem = {
   data: {
     name: "Lucky Charm (Lizard's Claw)",
     type: 'equipment',
-    img: 'icons/commodities/claws/claw-green.webp',
+    img: 'icons/commodities/claws/claw-blue-grey.webp',
     system: {
       description: {
         value: `<p>This preserved lizard's claw has been enchanted to bring good fortune to its bearer. While carrying it, you gain a <strong>+1 item bonus to all saving throws</strong>.</p>
@@ -582,7 +582,7 @@ const ELIXIR_OF_HEALTH: HarbingerItem = {
   data: {
     name: 'Elixir of Health',
     type: 'consumable',
-    img: 'icons/consumables/potions/potion-bottle-corked-glowing-white.webp',
+    img: 'icons/consumables/potions/bottle-pear-corked-pink.webp',
     system: {
       description: {
         value: `<p>This crystal-clear elixir purifies the mind and body of afflictions.</p>
@@ -613,7 +613,7 @@ const ELIXIR_OF_MADNESS: HarbingerItem = {
   data: {
     name: 'Elixir of Madness',
     type: 'consumable',
-    img: 'icons/consumables/potions/potion-bottle-corked-swirl-purple.webp',
+    img: 'icons/consumables/potions/bottle-round-flask-fumes-purple.webp',
     system: {
       description: {
         value: `<p>This swirling, iridescent liquid smells faintly of burning metal and seems to whisper at the edge of hearing.</p>
@@ -652,20 +652,20 @@ const POTION_HEALING_MINOR: HarbingerItem = {
   data: {
     name: 'Potion of Healing (Minor)',
     type: 'consumable',
-    img: 'icons/consumables/potions/potion-bottle-corked-red.webp',
+    img: 'icons/consumables/potions/potion-tube-corked-red.webp',
     system: {
       description: {
-        value: `<p>A simple healing potion that restores a small amount of health.</p>
+        value: `<p>Activate <span class="action-glyph">1</span> (manipulate)</p>
 <hr/>
-<p><strong>Activate</strong> <span class="action-glyph">1</span> (Interact)</p>
-<p><strong>Effect</strong> You regain <strong>1d8 Hit Points</strong>.</p>`
+<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly.
+When you drink a healing potion, you regain @Damage[1d12[healing]] Hit Points.</p>`
       },
       rules: [],
       slug: 'potion-of-healing-minor',
       level: { value: 1 },
       price: { value: { gp: 4 } },
       traits: {
-        value: ['consumable', 'healing', 'magical', 'potion'],
+        value: ['consumable', 'healing', 'magical', 'potion', 'vitality'],
         rarity: 'common'
       },
       consumableType: { value: 'potion' },
@@ -681,20 +681,20 @@ const POTION_HEALING_LESSER: HarbingerItem = {
   data: {
     name: 'Potion of Healing (Lesser)',
     type: 'consumable',
-    img: 'icons/consumables/potions/potion-bottle-corked-red.webp',
+    img: 'icons/consumables/potions/potion-tube-corked-glowing-red.webp',
     system: {
       description: {
-        value: `<p>A healing potion that restores a moderate amount of health.</p>
+        value: `<p>Activate <span class="action-glyph">1</span> (manipulate)</p>
 <hr/>
-<p><strong>Activate</strong> <span class="action-glyph">1</span> (Interact)</p>
-<p><strong>Effect</strong> You regain <strong>2d8+5 Hit Points</strong>.</p>`
+<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly.
+When you drink a healing potion, you regain @Damage[2d12+8[healing]] Hit Points.</p>`
       },
       rules: [],
       slug: 'potion-of-healing-lesser',
       level: { value: 3 },
       price: { value: { gp: 12 } },
       traits: {
-        value: ['consumable', 'healing', 'magical', 'potion'],
+        value: ['consumable', 'healing', 'magical', 'potion', 'vitality'],
         rarity: 'common'
       },
       consumableType: { value: 'potion' },
@@ -710,20 +710,20 @@ const POTION_HEALING_MODERATE: HarbingerItem = {
   data: {
     name: 'Potion of Healing (Moderate)',
     type: 'consumable',
-    img: 'icons/consumables/potions/potion-bottle-corked-red.webp',
+    img: 'icons/consumables/potions/potion-tube-corked-bat-gold-red.webp',
     system: {
       description: {
-        value: `<p>A potent healing potion that restores significant health. This is equivalent to AD&D's "potion of extra healing".</p>
+        value: `<p>Activate <span class="action-glyph">1</span> (manipulate)</p>
 <hr/>
-<p><strong>Activate</strong> <span class="action-glyph">1</span> (Interact)</p>
-<p><strong>Effect</strong> You regain <strong>3d8+10 Hit Points</strong>.</p>`
+<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly.
+When you drink a healing potion, you regain @Damage[3d12+12[healing]] Hit Points.</p>`
       },
       rules: [],
       slug: 'potion-of-healing-moderate',
       level: { value: 6 },
       price: { value: { gp: 50 } },
       traits: {
-        value: ['consumable', 'healing', 'magical', 'potion'],
+        value: ['consumable', 'healing', 'magical', 'potion', 'vitality'],
         rarity: 'common'
       },
       consumableType: { value: 'potion' },
