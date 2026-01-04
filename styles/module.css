@@ -292,6 +292,23 @@
         inset 0 0 120px rgba(0, 0, 0, 0.05);
 }
 
+.journal-sheet.harbinger-journal section.journal-entry-content.flexcol {
+  position: relative;
+  z-index: 1;
+}
+
+.journal-sheet.harbinger-journal section.journal-entry-content.flexcol::before {
+  background: no-repeat center/cover url('http://www.myfreetextures.com/wp-content/uploads/2011/06/another-rough-old-and-worn-parchment-paper.jpg');
+  opacity: 0.65;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
 /* Journal entry content */
 .journal-sheet.harbinger-journal .journal-entry-content,
 .journal-sheet.harbinger-journal .editor-content {
@@ -302,6 +319,10 @@
     line-height: 1.7;
     padding: 2rem;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+span.page-title {
+  color: #373535;
 }
 
 /* Headers in journal */
