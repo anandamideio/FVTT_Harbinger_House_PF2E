@@ -51,12 +51,13 @@ export class JournalImporter extends BaseImporter<HarbingerJournal> {
 
   /**
    * Convert a HarbingerJournal to FoundryVTT Journal Entry data
-   * 
+   *
    * Key aspects:
    * - Creates a journal entry with multiple pages
    * - Each page represents a section of the adventure
    * - Preserves formatting and structure from the markdown
    * - Sets appropriate ownership (GM-only by default)
+   * - Applies the harbinger-journal CSS class for themed styling
    */
   toDocumentData(journal: HarbingerJournal): any {
     return {
@@ -76,7 +77,12 @@ export class JournalImporter extends BaseImporter<HarbingerJournal> {
       ownership: {
         default: 0 // GM only by default
       },
-      sort: journal.sort || 0
+      sort: journal.sort || 0,
+      flags: {
+        [MODULE_ID]: {
+          themed: true // Mark as a themed journal
+        }
+      }
     };
   }
 

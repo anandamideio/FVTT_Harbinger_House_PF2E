@@ -212,7 +212,7 @@ Hooks.once('setup', async () => {
 });
 
 /**
- * Ready hook  
+ * Ready hook
  * Called when the game is fully loaded and ready
  * This is where we show the import dialog
  */
@@ -244,6 +244,25 @@ Hooks.once('ready', async () => {
     setTimeout(() => {
       showWelcomeDialog();
     }, 500);
+  }
+});
+
+/**
+ * Apply themed styling to Harbinger House journals
+ * This hook automatically adds the harbinger-journal CSS class to journals
+ * created by this module, giving them an aged manuscript appearance
+ */
+Hooks.on('renderJournalSheet', (...args: any[]) => {
+  const [app, html] = args;
+
+  // Check if this journal was created by our module
+  const journal = app.object;
+  const isHarbingerJournal = journal?.flags?.[MODULE_ID]?.themed;
+
+  if (isHarbingerJournal) {
+    // Add the harbinger-journal class to the sheet
+    html.closest('.journal-sheet').addClass('harbinger-journal');
+    log(`Applied themed styling to journal: ${journal.name || 'Unknown'}`);
   }
 });
 

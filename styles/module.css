@@ -265,3 +265,206 @@
 .harbinger-muted {
     color: #808080;
 }
+
+/* ================================
+   Journal Windows
+   ================================ */
+
+/* Apply Harbinger House theme to journal windows */
+.journal-sheet.harbinger-journal {
+    --harbinger-primary: #6e0000;
+    --harbinger-secondary: #2a2a2a;
+    --harbinger-accent: #d4a017;
+    --harbinger-text: #3a2a1a;
+    --harbinger-parchment: #f4e8d0;
+    --harbinger-parchment-dark: #d4c4a8;
+}
+
+/* Window frame with aged appearance */
+.journal-sheet.harbinger-journal .window-content {
+    background: linear-gradient(
+        135deg,
+        var(--harbinger-parchment) 0%,
+        var(--harbinger-parchment-dark) 100%
+    );
+    box-shadow:
+        inset 0 0 60px rgba(110, 0, 0, 0.1),
+        inset 0 0 120px rgba(0, 0, 0, 0.05);
+}
+
+/* Journal entry content */
+.journal-sheet.harbinger-journal .journal-entry-content,
+.journal-sheet.harbinger-journal .editor-content {
+    background: transparent;
+    color: var(--harbinger-text);
+    font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 2rem;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Headers in journal */
+.journal-sheet.harbinger-journal h1,
+.journal-sheet.harbinger-journal .journal-entry-content h1 {
+    color: var(--harbinger-primary);
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 1.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px double var(--harbinger-primary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.journal-sheet.harbinger-journal h2,
+.journal-sheet.harbinger-journal .journal-entry-content h2 {
+    color: var(--harbinger-primary);
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1.25rem 0 0.75rem 0;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid rgba(110, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+.journal-sheet.harbinger-journal h3,
+.journal-sheet.harbinger-journal .journal-entry-content h3 {
+    color: var(--harbinger-secondary);
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+/* Paragraph styling */
+.journal-sheet.harbinger-journal p {
+    margin-bottom: 1rem;
+    text-indent: 1.5em;
+}
+
+.journal-sheet.harbinger-journal p:first-of-type::first-letter {
+    font-size: 3em;
+    line-height: 0.9;
+    float: left;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--harbinger-primary);
+    font-weight: bold;
+}
+
+/* Blockquotes - like found notes or inscriptions */
+.journal-sheet.harbinger-journal blockquote {
+    background: rgba(110, 0, 0, 0.05);
+    border-left: 4px solid var(--harbinger-primary);
+    margin: 1.5rem 2rem;
+    padding: 1rem 1.5rem;
+    font-style: italic;
+    font-family: 'Quattrocento', 'Georgia', serif;
+    color: #2a1a0a;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tables - like stat blocks or inventories */
+.journal-sheet.harbinger-journal table {
+    background: rgba(0, 0, 0, 0.03);
+    border: 2px solid var(--harbinger-secondary);
+    margin: 1rem auto;
+}
+
+.journal-sheet.harbinger-journal th {
+    background: var(--harbinger-secondary);
+    color: var(--harbinger-parchment);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem;
+    border: 1px solid #1a1a1a;
+}
+
+.journal-sheet.harbinger-journal td {
+    padding: 0.5rem;
+    border: 1px solid rgba(42, 42, 42, 0.3);
+}
+
+.journal-sheet.harbinger-journal tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Links - like references to other entries */
+.journal-sheet.harbinger-journal a {
+    color: var(--harbinger-primary);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.journal-sheet.harbinger-journal a:hover {
+    color: #a00000;
+    text-shadow: 0 0 2px rgba(110, 0, 0, 0.5);
+}
+
+/* Lists */
+.journal-sheet.harbinger-journal ul,
+.journal-sheet.harbinger-journal ol {
+    margin: 1rem 0 1rem 2rem;
+}
+
+.journal-sheet.harbinger-journal li {
+    margin-bottom: 0.5rem;
+}
+
+/* Horizontal rules as section dividers */
+.journal-sheet.harbinger-journal hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--harbinger-primary),
+        transparent
+    );
+    margin: 2rem 0;
+    opacity: 0.5;
+}
+
+/* Secret text styling (Foundry's secret blocks) */
+.journal-sheet.harbinger-journal .secret {
+    background: rgba(110, 0, 0, 0.1);
+    border: 1px dashed var(--harbinger-primary);
+    padding: 0.25rem 0.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* Images in journals - like illustrations */
+.journal-sheet.harbinger-journal img {
+    border: 3px solid var(--harbinger-secondary);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: 1rem auto;
+    display: block;
+    max-width: 100%;
+}
+
+/* Window title bar */
+.journal-sheet.harbinger-journal .window-header {
+    background: linear-gradient(
+        180deg,
+        var(--harbinger-secondary) 0%,
+        #1a1a1a 100%
+    );
+    border-bottom: 2px solid var(--harbinger-primary);
+}
+
+.journal-sheet.harbinger-journal .window-title {
+    color: var(--harbinger-accent);
+    font-family: 'Cinzel', serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+}
