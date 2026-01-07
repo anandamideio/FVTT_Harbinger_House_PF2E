@@ -80,7 +80,14 @@
     gap: 0.5rem;
 }
 
-.harbinger-import-dialog .category-item {
+.harbinger-import-dialog .content-type-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.harbinger-import-dialog .category-item,
+.harbinger-import-dialog .content-type-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -91,23 +98,34 @@
     transition: background 0.15s ease;
 }
 
-.harbinger-import-dialog .category-item:hover {
+.harbinger-import-dialog .category-item:hover,
+.harbinger-import-dialog .content-type-item:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.harbinger-import-dialog .category-item input[type="checkbox"] {
+.harbinger-import-dialog .category-item input[type="checkbox"],
+.harbinger-import-dialog .content-type-item input[type="checkbox"] {
     margin: 0;
     accent-color: var(--harbinger-primary);
 }
 
-.harbinger-import-dialog .category-name {
+.harbinger-import-dialog .content-icon {
+    width: 20px;
+    text-align: center;
+    color: var(--harbinger-accent);
+    font-size: 0.9rem;
+}
+
+.harbinger-import-dialog .category-name,
+.harbinger-import-dialog .content-name {
     flex: 1;
     font-size: 0.9rem;
 }
 
-.harbinger-import-dialog .category-count {
-    font-size: 0.8rem;
-    color: #808080;
+.harbinger-import-dialog .category-count,
+.harbinger-import-dialog .content-count {
+    font-size: 0.85rem;
+    color: #888;
 }
 
 /* Options Section */
