@@ -88,6 +88,18 @@
       },
       "system": "pf2e",
       "flags": {}
+    },
+    {
+      "name": "harbinger-house-scenes",
+      "label": "Harbinger House Maps",
+      "path": "packs/harbinger-house-scenes",
+      "type": "Scene",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "pf2e",
+      "flags": {}
     }
   ],
   "flags": {

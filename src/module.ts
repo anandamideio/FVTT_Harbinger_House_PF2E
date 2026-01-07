@@ -17,6 +17,7 @@ import {
   spellImporter,
   hazardImporter,
   journalImporter,
+  sceneImporter,
   importAllContent,
   deleteAllImportedContent,
   type ImportResult
@@ -48,6 +49,8 @@ import {
   JOURNALS_BY_FOLDER,
   getFolderLabel,
   type JournalFolder,
+  // Scene data
+  ALL_SCENES,
   // Summary
   getContentSummary
 } from './data';
@@ -73,6 +76,7 @@ interface HarbingerHouseAPI {
   importHazardsByCategory: typeof hazardImporter.importByCategory;
   importJournals: typeof journalImporter.importAll;
   importJournalsByFolder: typeof journalImporter.importFolder;
+  importScenes: typeof sceneImporter.importAll;
   importAll: typeof importAllContent;
 
   // UI functions
@@ -84,6 +88,7 @@ interface HarbingerHouseAPI {
   deleteAllSpells: () => Promise<number>;
   deleteAllHazards: () => Promise<number>;
   deleteAllJournals: () => Promise<number>;
+  deleteAllScenes: () => Promise<number>;
   deleteAll: typeof deleteAllImportedContent;
 
   // Data access
@@ -100,6 +105,7 @@ interface HarbingerHouseAPI {
   getHazardById: typeof getHazardById;
   getAllJournals: () => typeof ALL_JOURNALS;
   getJournalsByFolder: () => typeof JOURNALS_BY_FOLDER;
+  getAllScenes: () => typeof ALL_SCENES;
 
   // Summary
   getContentSummary: typeof getContentSummary;
@@ -110,6 +116,7 @@ interface HarbingerHouseAPI {
   spellImporter: typeof spellImporter;
   hazardImporter: typeof hazardImporter;
   journalImporter: typeof journalImporter;
+  sceneImporter: typeof sceneImporter;
 }
 
 // Store the API on the module
@@ -141,6 +148,7 @@ Hooks.once('init', async () => {
     importHazardsByCategory: hazardImporter.importByCategory.bind(hazardImporter),
     importJournals: journalImporter.importAll.bind(journalImporter),
     importJournalsByFolder: journalImporter.importFolder.bind(journalImporter),
+    importScenes: sceneImporter.importAll.bind(sceneImporter),
     importAll: importAllContent,
 
     // UI functions
@@ -172,6 +180,11 @@ Hooks.once('init', async () => {
       log(`Deleted ${count} imported journals`);
       return count;
     },
+    deleteAllScenes: async () => {
+      const count = await sceneImporter.deleteAllImported();
+      log(`Deleted ${count} imported scenes`);
+      return count;
+    },
     deleteAll: deleteAllImportedContent,
 
     // Data access
@@ -188,6 +201,7 @@ Hooks.once('init', async () => {
     getHazardById,
     getAllJournals: () => ALL_JOURNALS,
     getJournalsByFolder: () => JOURNALS_BY_FOLDER,
+    getAllScenes: () => ALL_SCENES,
 
     // Summary
     getContentSummary,
@@ -197,7 +211,8 @@ Hooks.once('init', async () => {
     itemImporter,
     spellImporter,
     hazardImporter,
-    journalImporter
+    journalImporter,
+    sceneImporter
   };
 
   log('Harbinger House API registered on game.harbingerHouse');

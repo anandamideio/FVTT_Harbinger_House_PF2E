@@ -230,7 +230,75 @@ const JOURNAL_DATA: HarbingerJournal[] = MARKDOWN_CONTENT
   ? parseMarkdownToJournals(MARKDOWN_CONTENT)
   : [];
 
-export const ALL_JOURNALS = JOURNAL_DATA;
+/**
+ * Handouts Journal with Image Assets
+ * Contains all handout images and artwork for the adventure
+ */
+const HANDOUTS_JOURNAL: HarbingerJournal = {
+  id: 'journal-handouts',
+  name: 'Handouts & Artwork',
+  folder: 'Reference',
+  sort: 9000,
+  pages: [
+    {
+      name: 'Harbinger House Exterior',
+      type: 'image',
+      src: 'modules/harbinger-house-pf2e/assets/Harbinger_House_Exterior.png',
+      title: {
+        show: true,
+        level: 1
+      }
+    },
+    {
+      name: 'Harbinger House Gate',
+      type: 'image',
+      src: 'modules/harbinger-house-pf2e/assets/Harbinger_House_Gate.png',
+      title: {
+        show: true,
+        level: 1
+      }
+    },
+    {
+      name: 'Aerial View',
+      type: 'image',
+      src: 'modules/harbinger-house-pf2e/assets/aerial_view.png',
+      title: {
+        show: true,
+        level: 1
+      }
+    },
+    {
+      name: 'Exterior North',
+      type: 'image',
+      src: 'modules/harbinger-house-pf2e/assets/exterior_north.png',
+      title: {
+        show: true,
+        level: 1
+      }
+    },
+    {
+      name: 'Exterior West',
+      type: 'image',
+      src: 'modules/harbinger-house-pf2e/assets/exterior_west.png',
+      title: {
+        show: true,
+        level: 1
+      }
+    },
+    {
+      name: 'Perspective View',
+      type: 'image',
+      src: 'modules/harbinger-house-pf2e/assets/perspective.png',
+      title: {
+        show: true,
+        level: 1
+      }
+    }
+  ]
+};
+
+// Combine parsed journals with handouts journal
+export const ALL_JOURNALS = [...JOURNAL_DATA, HANDOUTS_JOURNAL];
 
 export const JOURNALS_BY_FOLDER = JOURNAL_DATA.reduce((acc, journal) => {
   const folder = journal.folder || 'Reference';

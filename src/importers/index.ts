@@ -8,6 +8,7 @@ import { itemImporter } from './item-importer';
 import { spellImporter } from './spell-importer';
 import { hazardImporter } from './hazard-importer';
 import { journalImporter } from './journal-importer';
+import { sceneImporter } from './scene-importer';
 
 // Base importer
 export { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
@@ -27,6 +28,9 @@ export { HazardImporter, hazardImporter, type HazardImportOptions } from './haza
 // Journal Importer
 export { JournalImporter, journalImporter, type JournalImportOptions } from './journal-importer';
 
+// Scene Importer
+export { SceneImporter, sceneImporter, type SceneImportOptions } from './scene-importer';
+
 /**
  * Convenience function to import all content at once
  */
@@ -36,6 +40,7 @@ export async function importAllContent(options?: {
   spells?: boolean;
   hazards?: boolean;
   journals?: boolean;
+  scenes?: boolean;
   onProgress?: (current: number, total: number, name: string) => void;
 }) {
   const {
@@ -44,6 +49,7 @@ export async function importAllContent(options?: {
     spells = true,
     hazards = true,
     journals = true,
+    scenes = true,
     onProgress
   } = options || {};
 
@@ -52,7 +58,8 @@ export async function importAllContent(options?: {
     items: { imported: 0, failed: 0 },
     spells: { imported: 0, failed: 0 },
     hazards: { imported: 0, failed: 0 },
-    journals: { imported: 0, failed: 0 }
+    journals: { imported: 0, failed: 0 },
+    scenes: { imported: 0, failed: 0 }
   };
 
   // Import NPCs
@@ -90,6 +97,13 @@ export async function importAllContent(options?: {
     results.journals.failed = journalResult.failed;
   }
 
+  // Import Scenes
+  if (scenes) {
+    const sceneResult = await sceneImporter.importAll({ onProgress });
+    results.scenes.imported = sceneResult.imported;
+    results.scenes.failed = sceneResult.failed;
+  }
+
   return results;
 }
 
@@ -102,7 +116,8 @@ export async function deleteAllImportedContent() {
     items: 0,
     spells: 0,
     hazards: 0,
-    journals: 0
+    journals: 0,
+    scenes: 0
   };
 
   results.npcs = await npcImporter.deleteAllImported();
@@ -110,6 +125,7 @@ export async function deleteAllImportedContent() {
   results.spells = await spellImporter.deleteAllImported();
   results.hazards = await hazardImporter.deleteAllImported();
   results.journals = await journalImporter.deleteAllImported();
+  results.scenes = await sceneImporter.deleteAllImported();
 
   return results;
 }

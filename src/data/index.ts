@@ -18,10 +18,15 @@ import { ALL_ITEMS } from './items';
 import { ALL_SPELLS } from './spells';
 import { ALL_HAZARDS } from './hazards';
 import { ALL_JOURNALS } from './journals';
+import { ALL_SCENES } from './scenes';
 
 // Re-export individual NPCs for direct access
 export * from './harbinger-residents';
 export * from './generic-npcs';
+
+// Re-export scenes
+export * from './scenes';
+export { ALL_SCENES };
 
 // Combined NPC exports
 export { HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
@@ -127,7 +132,8 @@ export function getContentSummary() {
     spells: ALL_SPELLS.length,
     hazards: ALL_HAZARDS.length,
     journals: ALL_JOURNALS.length,
-    total: ALL_NPCS.length + ALL_ITEMS.length + ALL_SPELLS.length + ALL_HAZARDS.length + ALL_JOURNALS.length
+    scenes: ALL_SCENES.length,
+    total: ALL_NPCS.length + ALL_ITEMS.length + ALL_SPELLS.length + ALL_HAZARDS.length + ALL_JOURNALS.length + ALL_SCENES.length
   };
 }
 
