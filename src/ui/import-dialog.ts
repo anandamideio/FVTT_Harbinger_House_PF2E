@@ -10,12 +10,21 @@
  */
 
 import { MODULE_ID, localize, log, logError } from '../config';
-import { npcImporter, type ImportResult } from '../importers';
-import { NPCS_BY_CATEGORY, getCategoryLabel, type NPCCategory } from '../data';
+import { 
+  npcImporter, 
+  itemImporter, 
+  spellImporter, 
+  hazardImporter, 
+  journalImporter, 
+  sceneImporter,
+  importAllContent,
+  type ImportResult 
+} from '../importers';
+import { getContentSummary } from '../data';
 
 interface ImportDialogOptions {
     /** Called after successful import */
-    onComplete?: (result: ImportResult) => void;
+    onComplete?: (results: any) => void;
     /** Called if user cancels */
     onCancel?: () => void;
 }
@@ -24,43 +33,64 @@ interface ImportDialogOptions {
  * Show the main import dialog
  */
 export async function showImportDialog(options: ImportDialogOptions = {}): Promise<void> {
-    const summary = npcImporter.getSummary();
-    const totalNPCs = npcImporter.getTotalCount();
+    const summary = getContentSummary();
 
     const content = `
         <div class="harbinger-import-dialog">
             <div class="import-header">
-                <h2>${localize('import.title')}</h2>
-                <p class="import-description">${localize('import.description')}</p>
+                <h2>Import Harbinger House Content</h2>
+                <p class="import-description">Select which content types to import into your world.</p>
             </div>
 
             <div class="import-summary">
-                <h3>${localize('import.npcsAvailable')}</h3>
-                <p class="total-count">${localize('import.totalNpcs', { count: totalNPCs })}</p>
+                <h3>Available Content</h3>
+                <p class="total-count">${summary.total} items available</p>
                 
-                <div class="category-list">
-                    ${Object.entries(summary).map(([category, data]) => `
-                        <label class="category-item">
-                            <input type="checkbox" 
-                                   name="category" 
-                                   value="${category}" 
-                                   checked>
-                            <span class="category-name">${getCategoryLabel(category as NPCCategory)}</span>
-                            <span class="category-count">(${data.count})</span>
-                        </label>
-                    `).join('')}
+                <div class="content-type-list">
+                    <label class="content-type-item">
+                        <input type="checkbox" name="content-type" value="npcs" checked>
+                        <span class="content-icon"><i class="fas fa-users"></i></span>
+                        <span class="content-name">NPCs & Creatures</span>
+                        <span class="content-count">(${summary.npcs})</span>
+                    </label>
+                    <label class="content-type-item">
+                        <input type="checkbox" name="content-type" value="items" checked>
+                        <span class="content-icon"><i class="fas fa-sword"></i></span>
+                        <span class="content-name">Items & Equipment</span>
+                        <span class="content-count">(${summary.items})</span>
+                    </label>
+                    <label class="content-type-item">
+                        <input type="checkbox" name="content-type" value="spells" checked>
+                        <span class="content-icon"><i class="fas fa-sparkles"></i></span>
+                        <span class="content-name">Spells</span>
+                        <span class="content-count">(${summary.spells})</span>
+                    </label>
+                    <label class="content-type-item">
+                        <input type="checkbox" name="content-type" value="hazards" checked>
+                        <span class="content-icon"><i class="fas fa-skull-crossbones"></i></span>
+                        <span class="content-name">Hazards</span>
+                        <span class="content-count">(${summary.hazards})</span>
+                    </label>
+                    <label class="content-type-item">
+                        <input type="checkbox" name="content-type" value="journals" checked>
+                        <span class="content-icon"><i class="fas fa-book"></i></span>
+                        <span class="content-name">Journals & Handouts</span>
+                        <span class="content-count">(${summary.journals})</span>
+                    </label>
+                    <label class="content-type-item">
+                        <input type="checkbox" name="content-type" value="scenes" checked>
+                        <span class="content-icon"><i class="fas fa-map"></i></span>
+                        <span class="content-name">Scenes & Maps</span>
+                        <span class="content-count">(${summary.scenes})</span>
+                    </label>
                 </div>
             </div>
 
             <div class="import-options">
-                <h3>${localize('import.options')}</h3>
-                <label class="option-item">
-                    <input type="checkbox" name="organizeByCategory" checked>
-                    <span>${localize('import.organizeByCategory')}</span>
-                </label>
+                <h3>Import Options</h3>
                 <label class="option-item">
                     <input type="checkbox" name="updateExisting">
-                    <span>${localize('import.updateExisting')}</span>
+                    <span>Update existing content if already imported</span>
                 </label>
             </div>
 
@@ -68,25 +98,25 @@ export async function showImportDialog(options: ImportDialogOptions = {}): Promi
                 <div class="progress-bar">
                     <div class="progress-fill"></div>
                 </div>
-                <p class="progress-text">${localize('import.preparing')}</p>
+                <p class="progress-text">Preparing import...</p>
             </div>
         </div>
     `;
 
     const dialog = new Dialog({
-        title: localize('import.dialogTitle'),
+        title: 'Import Harbinger House',
         content: content,
         buttons: {
             import: {
                 icon: '<i class="fas fa-download"></i>',
-                label: localize('import.importButton'),
+                label: 'Import Selected',
                 callback: async (html: JQuery) => {
                     await handleImport(html, options);
                 }
             },
             later: {
                 icon: '<i class="fas fa-clock"></i>',
-                label: localize('import.laterButton'),
+                label: 'Import Later',
                 callback: () => {
                     log('Import postponed by user');
                     options.onCancel?.();
@@ -94,7 +124,7 @@ export async function showImportDialog(options: ImportDialogOptions = {}): Promi
             },
             never: {
                 icon: '<i class="fas fa-times"></i>',
-                label: localize('import.neverButton'),
+                label: 'Don\'t Show Again',
                 callback: () => {
                     // Set a flag to not show this dialog again
                     game.settings.set(MODULE_ID, 'showImportDialog', false);
@@ -112,7 +142,7 @@ export async function showImportDialog(options: ImportDialogOptions = {}): Promi
             options.onCancel?.();
         }
     }, {
-        width: 500,
+        width: 550,
         height: 'auto',
         classes: ['harbinger-import-dialog-window']
     });
@@ -124,19 +154,18 @@ export async function showImportDialog(options: ImportDialogOptions = {}): Promi
  * Handle the import process
  */
 async function handleImport(html: JQuery, options: ImportDialogOptions): Promise<void> {
-    // Get selected categories
-    const selectedCategories: NPCCategory[] = [];
-    html.find('input[name="category"]:checked').each((_, el) => {
-        selectedCategories.push((el as HTMLInputElement).value as NPCCategory);
+    // Get selected content types
+    const selectedTypes: string[] = [];
+    html.find('input[name="content-type"]:checked').each((_, el) => {
+        selectedTypes.push((el as HTMLInputElement).value);
     });
 
-    if (selectedCategories.length === 0) {
-        ui.notifications?.warn(localize('import.noCategoriesSelected'));
+    if (selectedTypes.length === 0) {
+        ui.notifications?.warn('No content types selected for import');
         return;
     }
 
     // Get options
-    const organizeByCategory = html.find('input[name="organizeByCategory"]').is(':checked');
     const updateExisting = html.find('input[name="updateExisting"]').is(':checked');
 
     // Show progress
@@ -150,62 +179,151 @@ async function handleImport(html: JQuery, options: ImportDialogOptions): Promise
     html.closest('.dialog').find('button').prop('disabled', true);
 
     try {
-        const result = organizeByCategory 
-            ? await npcImporter.importByCategory({
-                categories: selectedCategories,
+        const results: any = {
+            npcs: { imported: 0, failed: 0 },
+            items: { imported: 0, failed: 0 },
+            spells: { imported: 0, failed: 0 },
+            hazards: { imported: 0, failed: 0 },
+            journals: { imported: 0, failed: 0 },
+            scenes: { imported: 0, failed: 0 }
+        };
+
+        let totalSteps = selectedTypes.length;
+        let currentStep = 0;
+
+        // Import NPCs
+        if (selectedTypes.includes('npcs')) {
+            currentStep++;
+            progressText.text(`Importing NPCs... (${currentStep}/${totalSteps})`);
+            const result = await npcImporter.importByCategory({
                 updateExisting,
                 onProgress: (current, total, name) => {
-                    const percent = (current / total) * 100;
+                    const percent = ((currentStep - 1) / totalSteps + (current / total) / totalSteps) * 100;
                     progressFill.css('width', `${percent}%`);
-                    progressText.text(localize('import.importing', { name, current, total }));
-                }
-            })
-            : await npcImporter.importAll({
-                categories: selectedCategories,
-                updateExisting,
-                folderName: 'Harbinger House NPCs',
-                onProgress: (current, total, name) => {
-                    const percent = (current / total) * 100;
-                    progressFill.css('width', `${percent}%`);
-                    progressText.text(localize('import.importing', { name, current, total }));
+                    progressText.text(`Importing ${name}... (${currentStep}/${totalSteps})`);
                 }
             });
+            results.npcs = { imported: result.imported, failed: result.failed };
+        }
+
+        // Import Items
+        if (selectedTypes.includes('items')) {
+            currentStep++;
+            progressText.text(`Importing Items... (${currentStep}/${totalSteps})`);
+            const result = await itemImporter.importByCategory({
+                updateExisting,
+                onProgress: (current, total, name) => {
+                    const percent = ((currentStep - 1) / totalSteps + (current / total) / totalSteps) * 100;
+                    progressFill.css('width', `${percent}%`);
+                    progressText.text(`Importing ${name}... (${currentStep}/${totalSteps})`);
+                }
+            });
+            results.items = { imported: result.imported, failed: result.failed };
+        }
+
+        // Import Spells
+        if (selectedTypes.includes('spells')) {
+            currentStep++;
+            progressText.text(`Importing Spells... (${currentStep}/${totalSteps})`);
+            const result = await spellImporter.importAll({
+                updateExisting,
+                onProgress: (current, total, name) => {
+                    const percent = ((currentStep - 1) / totalSteps + (current / total) / totalSteps) * 100;
+                    progressFill.css('width', `${percent}%`);
+                    progressText.text(`Importing ${name}... (${currentStep}/${totalSteps})`);
+                }
+            });
+            results.spells = { imported: result.imported, failed: result.failed };
+        }
+
+        // Import Hazards
+        if (selectedTypes.includes('hazards')) {
+            currentStep++;
+            progressText.text(`Importing Hazards... (${currentStep}/${totalSteps})`);
+            const result = await hazardImporter.importByCategory({
+                updateExisting,
+                onProgress: (current, total, name) => {
+                    const percent = ((currentStep - 1) / totalSteps + (current / total) / totalSteps) * 100;
+                    progressFill.css('width', `${percent}%`);
+                    progressText.text(`Importing ${name}... (${currentStep}/${totalSteps})`);
+                }
+            });
+            results.hazards = { imported: result.imported, failed: result.failed };
+        }
+
+        // Import Journals
+        if (selectedTypes.includes('journals')) {
+            currentStep++;
+            progressText.text(`Importing Journals... (${currentStep}/${totalSteps})`);
+            const result = await journalImporter.importAll({
+                updateExisting,
+                onProgress: (current, total, name) => {
+                    const percent = ((currentStep - 1) / totalSteps + (current / total) / totalSteps) * 100;
+                    progressFill.css('width', `${percent}%`);
+                    progressText.text(`Importing ${name}... (${currentStep}/${totalSteps})`);
+                }
+            });
+            results.journals = { imported: result.imported, failed: result.failed };
+        }
+
+        // Import Scenes
+        if (selectedTypes.includes('scenes')) {
+            currentStep++;
+            progressText.text(`Importing Scenes... (${currentStep}/${totalSteps})`);
+            const result = await sceneImporter.importAll({
+                updateExisting,
+                onProgress: (current, total, name) => {
+                    const percent = ((currentStep - 1) / totalSteps + (current / total) / totalSteps) * 100;
+                    progressFill.css('width', `${percent}%`);
+                    progressText.text(`Importing ${name}... (${currentStep}/${totalSteps})`);
+                }
+            });
+            results.scenes = { imported: result.imported, failed: result.failed };
+        }
+
+        // Complete
+        progressFill.css('width', '100%');
+        progressText.text('Import complete!');
 
         // Show results
-        showImportResults(result);
-        options.onComplete?.(result);
+        showMultiImportResults(results);
+        options.onComplete?.(results);
 
     } catch (error) {
         logError('Import failed:', error);
-        ui.notifications?.error(localize('import.failed'));
+        ui.notifications?.error('Import failed. Check console for details.');
     }
 }
 
 /**
  * Show import results notification
  */
-function showImportResults(result: ImportResult): void {
-    if (result.success && result.failed === 0) {
+function showMultiImportResults(results: any): void {
+    const totalImported = Object.values(results).reduce((sum: number, r: any) => sum + r.imported, 0);
+    const totalFailed = Object.values(results).reduce((sum: number, r: any) => sum + r.failed, 0);
+
+    if (totalFailed === 0 && totalImported > 0) {
         ui.notifications?.info(
-            localize('import.success', { count: result.imported })
+            `Successfully imported ${totalImported} items into your world!`
         );
-    } else if (result.imported > 0) {
+    } else if (totalImported > 0) {
         ui.notifications?.warn(
-            localize('import.partial', { 
-                imported: result.imported, 
-                failed: result.failed 
-            })
+            `Imported ${totalImported} items with ${totalFailed} failures. Check console for details.`
         );
     } else {
-        ui.notifications?.error(localize('import.allFailed'));
+        ui.notifications?.error('Import failed. Check console for details.');
     }
 
-    // Log detailed errors
-    if (result.errors.length > 0) {
-        console.group('Harbinger House Import Errors');
-        result.errors.forEach(err => console.error(err));
-        console.groupEnd();
-    }
+    // Log summary
+    console.group('Harbinger House Import Summary');
+    console.log(`NPCs: ${results.npcs.imported} imported, ${results.npcs.failed} failed`);
+    console.log(`Items: ${results.items.imported} imported, ${results.items.failed} failed`);
+    console.log(`Spells: ${results.spells.imported} imported, ${results.spells.failed} failed`);
+    console.log(`Hazards: ${results.hazards.imported} imported, ${results.hazards.failed} failed`);
+    console.log(`Journals: ${results.journals.imported} imported, ${results.journals.failed} failed`);
+    console.log(`Scenes: ${results.scenes.imported} imported, ${results.scenes.failed} failed`);
+    console.log(`Total: ${totalImported} imported, ${totalFailed} failed`);
+    console.groupEnd();
 }
 
 /**
