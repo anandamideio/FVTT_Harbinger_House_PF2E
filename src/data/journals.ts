@@ -243,52 +243,52 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
     {
       name: 'Harbinger House Exterior',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger_House_Exterior.png',
+      src: 'modules/harbinger-house-pf2e/src/assets/Harbinger_House_Exterior.jpg',
       title: {
         show: true,
         level: 1
       }
     },
     {
-      name: 'Harbinger House Gate',
+      name: 'Lady of Pain with Worshipers',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger_House_Gate.png',
+      src: 'modules/harbinger-house-pf2e/src/assets/Lady_of_Pain_with_worshipers.jpg',
       title: {
         show: true,
         level: 1
       }
     },
     {
-      name: 'Aerial View',
+      name: 'Lawkiller Strikes Again',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/aerial_view.png',
+      src: 'modules/harbinger-house-pf2e/src/assets/Lawkiller_Strikes_Again.webp',
       title: {
         show: true,
         level: 1
       }
     },
     {
-      name: 'Exterior North',
+      name: 'Artwork 1',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/exterior_north.png',
+      src: 'modules/harbinger-house-pf2e/src/assets/art_01.jpg',
       title: {
         show: true,
         level: 1
       }
     },
     {
-      name: 'Exterior West',
+      name: 'Artwork 2',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/exterior_west.png',
+      src: 'modules/harbinger-house-pf2e/src/assets/art_02.jpg',
       title: {
         show: true,
         level: 1
       }
     },
     {
-      name: 'Perspective View',
+      name: 'Artwork 3',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/perspective.png',
+      src: 'modules/harbinger-house-pf2e/src/assets/art_03.jpg',
       title: {
         show: true,
         level: 1

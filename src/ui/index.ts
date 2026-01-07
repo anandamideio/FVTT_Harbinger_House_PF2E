@@ -411,7 +411,7 @@ export function showImportDialog(): void {
             </label>
           </div>
           <p style="font-size: 12px; color: #b0a8b9; margin: 4px 0;">
-            ${ALL_SCENES.length} battlemaps with pre-configured grids (First Floor, Second Floor, Third Floor, Attic, Basement, Tunnels, Sub-Basement, Grounds, Overview)
+            ${ALL_SCENES.length} battlemaps: First Floor, Common Area, Doors & Kaydi's Room, Final Chamber (2 versions), Hall of Mirrors, Mind Trap, Statues & Gardens, Vorina & Teela's Area
           </p>
         </div>
 
