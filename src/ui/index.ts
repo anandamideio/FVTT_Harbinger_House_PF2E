@@ -16,6 +16,7 @@ import {
   spellImporter,
   hazardImporter,
   journalImporter,
+  sceneImporter,
   importAllContent,
   deleteAllImportedContent
 } from '../importers';
@@ -29,6 +30,7 @@ import {
   ALL_SPELLS,
   JOURNALS_BY_FOLDER,
   getFolderLabel,
+  ALL_SCENES,
   getContentSummary
 } from '../data';
 
@@ -236,6 +238,7 @@ export function showWelcomeDialog(): void {
             <li><strong>${summary.spells}</strong> Custom Spells</li>
             <li><strong>${summary.hazards}</strong> Hazards (traps, environmental dangers)</li>
             <li><strong>${summary.journals}</strong> Journal Entries (adventure content)</li>
+            <li><strong>${summary.scenes}</strong> Scenes & Maps (ready-to-use battlemaps)</li>
           </ul>
         </div>
         
@@ -398,6 +401,20 @@ export function showImportDialog(): void {
           </div>
         </div>
 
+        <!-- Scenes Section -->
+        <div class="content-section">
+          <div class="section-title">
+            <i class="fas fa-map"></i>
+            Scenes & Maps
+            <label style="margin-left: auto; font-weight: normal; font-size: 12px;">
+              <input type="checkbox" id="import-scenes" checked> Import
+            </label>
+          </div>
+          <p style="font-size: 12px; color: #b0a8b9; margin: 4px 0;">
+            ${ALL_SCENES.length} battlemaps with pre-configured grids (First Floor, Second Floor, Third Floor, Attic, Basement, Tunnels, Sub-Basement, Grounds, Overview)
+          </p>
+        </div>
+
         <!-- Progress -->
         <div class="progress-container" id="progress-container">
           <div class="progress-bar">
@@ -456,6 +473,7 @@ export function showImportDialog(): void {
           const importSpells = html.find('#import-spells').is(':checked');
           const importHazards = html.find('#import-hazards').is(':checked');
           const importJournals = html.find('#import-journals').is(':checked');
+          const importScenes = html.find('#import-scenes').is(':checked');
 
           let totalImported = 0;
           let totalFailed = 0;
@@ -548,6 +566,20 @@ export function showImportDialog(): void {
             totalFailed += result.failed;
           }
 
+          // Import Scenes
+          if (importScenes) {
+            progressText.text('Importing Scenes...');
+            const result = await sceneImporter.importAll({
+              onProgress: (current, total, name) => {
+                const percent = Math.round((current / total) * 100);
+                progressFill.css('width', `${percent}%`);
+                progressText.text(`Importing Scene: ${name}`);
+              }
+            });
+            totalImported += result.imported;
+            totalFailed += result.failed;
+          }
+
           // Complete
           progressFill.css('width', '100%');
           progressText.text(`Complete! Imported ${totalImported} items.`);
@@ -597,7 +629,7 @@ export function showDeleteConfirmDialog(): void {
           This will delete ALL content imported by the Harbinger House module.
         </p>
         <p style="text-align: center; font-size: 13px;">
-          This includes all NPCs, Items, Spells, Hazards, and Journals that were imported.<br>
+          This includes all NPCs, Items, Spells, Hazards, Journals, and Scenes that were imported.<br>
           <strong>This action cannot be undone.</strong>
         </p>
         
@@ -629,7 +661,7 @@ export function showDeleteConfirmDialog(): void {
             progressText.text('Deleting content...');
             const results = await deleteAllImportedContent();
 
-            const total = results.npcs + results.items + results.spells + results.hazards + results.journals;
+            const total = results.npcs + results.items + results.spells + results.hazards + results.journals + results.scenes;
             progressFill.css('width', '100%');
             progressText.text(`Deleted ${total} items.`);
             
