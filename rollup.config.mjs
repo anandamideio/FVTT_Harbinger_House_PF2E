@@ -1,5 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
+import copy from 'rollup-plugin-copy';
 import markdownPlugin from './rollup-plugin-markdown.mjs';
 
 export default {
@@ -19,5 +20,10 @@ export default {
         declaration: false,
       },
     }),
+    copy({
+      targets: [
+        { src: 'src/assets/**/*', dest: 'dist/assets' }
+      ]
+    })
   ],
 };
