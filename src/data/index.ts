@@ -42,7 +42,7 @@ export const ALL_NPCS = [
 export const NPCS_BY_CATEGORY = {
   'harbinger-resident': HARBINGER_RESIDENTS,
   'fiend': FIENDS,
-  'generic-npc': GENERIC_NPCS,
+  'generic-npc': GENERIC_NPCS.filter(npc => npc.category === 'generic-npc'),
   'cultist': GENERIC_NPCS.filter(npc => npc.category === 'cultist'),
 };
 

@@ -136,9 +136,16 @@ export class ItemImporter extends BaseImporter<HarbingerItem> {
       documents: []
     };
 
-    // Get categories to import
-    const categoriesToImport = options.categories || 
-      (Object.keys(ITEMS_BY_CATEGORY) as ItemCategory[]);
+    // Get categories to import (filter out empty categories)
+    const categoriesToImport = (options.categories || 
+      (Object.keys(ITEMS_BY_CATEGORY) as ItemCategory[]))
+      .filter(cat => ITEMS_BY_CATEGORY[cat]?.length > 0);
+
+    // Only create parent folder if we have items to import
+    if (categoriesToImport.length === 0) {
+      log('No items to import');
+      return result;
+    }
 
     // Create parent folder
     const parentFolder = await this.getOrCreateFolder('Harbinger House Items', 'Item');

@@ -455,13 +455,16 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
         // Get parent folder
         const parentFolder = await this.getOrCreateFolder('Harbinger House', 'Actor');
 
-        // Import each category
+        // Import each category - use only categories that exist in NPCS_BY_CATEGORY
         const categories = options.categories || 
-            (['major-npc', 'harbinger-resident', 'generic-npc', 'fiend', 'cultist'] as NPCCategory[]);
+            (['harbinger-resident', 'fiend', 'generic-npc', 'cultist'] as NPCCategory[]);
 
         for (const category of categories) {
             const categoryNPCs = (NPCS_BY_CATEGORY as Record<string, HarbingerNPC[]>)[category] || [];
-            if (categoryNPCs.length === 0) continue;
+            if (categoryNPCs.length === 0) {
+                log(`Skipping empty category: ${category}`);
+                continue;
+            }
 
             // Create subfolder for this category
             const subfolder = await this.getOrCreateSubfolder(

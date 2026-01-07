@@ -193,6 +193,12 @@ export class HazardImporter extends BaseImporter<HarbingerHazard> {
       (Object.keys(HAZARDS_BY_CATEGORY) as HazardCategory[]))
       .filter(cat => HAZARDS_BY_CATEGORY[cat]?.length > 0);
 
+    // Only create parent folder if we have hazards to import
+    if (categoriesToImport.length === 0) {
+      log('No hazards to import');
+      return result;
+    }
+
     // Create parent folder
     const parentFolder = await this.getOrCreateFolder('Harbinger House Hazards', 'Actor');
 
