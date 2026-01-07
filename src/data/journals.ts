@@ -243,7 +243,7 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
     {
       name: 'Harbinger House Exterior',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger_House_Exterior.jpg',
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger_House_Exterior.jpg',
       title: {
         show: true,
         level: 1
@@ -252,7 +252,7 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
     {
       name: 'Lady of Pain with Worshipers',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/Lady_of_Pain_with_worshipers.jpg',
+      src: 'modules/harbinger-house-pf2e/dist/assets/Lady_of_Pain_with_worshipers.jpg',
       title: {
         show: true,
         level: 1
@@ -261,7 +261,7 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
     {
       name: 'Lawkiller Strikes Again',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/Lawkiller_Strikes_Again.webp',
+      src: 'modules/harbinger-house-pf2e/dist/assets/Lawkiller_Strikes_Again.webp',
       title: {
         show: true,
         level: 1
@@ -270,7 +270,7 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
     {
       name: 'Artwork 1',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/art_01.jpg',
+      src: 'modules/harbinger-house-pf2e/dist/assets/art_01.jpg',
       title: {
         show: true,
         level: 1
@@ -279,7 +279,7 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
     {
       name: 'Artwork 2',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/art_02.jpg',
+      src: 'modules/harbinger-house-pf2e/dist/assets/art_02.jpg',
       title: {
         show: true,
         level: 1
@@ -288,7 +288,7 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
     {
       name: 'Artwork 3',
       type: 'image',
-      src: 'modules/harbinger-house-pf2e/assets/art_03.jpg',
+      src: 'modules/harbinger-house-pf2e/dist/assets/art_03.jpg',
       title: {
         show: true,
         level: 1

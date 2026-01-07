@@ -50,9 +50,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-first-floor',
     name: 'Harbinger House - First Floor',
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House 01 - First Floor.png',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House 01 - First Floor.png',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House 01 - First Floor.png'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House 01 - First Floor.png'
     },
     grid: {
       type: 1, // Square grid
@@ -65,8 +65,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 1546,
+    height: 927,
     navigation: true,
     navOrder: 1,
     folder: 'Harbinger House',
@@ -75,9 +75,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-common-area',
     name: 'Harbinger House - Common Area',
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Common Area.png',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Common Area.png',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Common Area.png'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Common Area.png'
     },
     grid: {
       type: 1,
@@ -90,8 +90,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 1844,
+    height: 1434,
     navigation: true,
     navOrder: 2,
     folder: 'Harbinger House',
@@ -100,9 +100,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-doors-kaydis-room',
     name: "Harbinger House - Doors and Kaydi's Room",
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Doors and Kaydi\'s Room.png',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Doors and Kaydi\'s Room.png',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Doors and Kaydi\'s Room.png'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Doors and Kaydi\'s Room.png'
     },
     grid: {
       type: 1,
@@ -115,8 +115,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 1639,
+    height: 2356,
     navigation: true,
     navOrder: 3,
     folder: 'Harbinger House',
@@ -125,9 +125,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-final-chamber-bigger',
     name: 'Harbinger House - Final Chamber (Bigger Ritual)',
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Final Chamber Bigger Ritual.jpeg',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Final Chamber Bigger Ritual.jpeg',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Final Chamber Bigger Ritual.jpeg'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Final Chamber Bigger Ritual.jpeg'
     },
     grid: {
       type: 1,
@@ -140,8 +140,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 3776,
+    height: 3553,
     navigation: true,
     navOrder: 4,
     folder: 'Harbinger House',
@@ -150,9 +150,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-final-chamber',
     name: 'Harbinger House - Final Chamber',
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Final Chamber.jpeg',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Final Chamber.jpeg',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Final Chamber.jpeg'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Final Chamber.jpeg'
     },
     grid: {
       type: 1,
@@ -165,8 +165,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 3776,
+    height: 3553,
     navigation: true,
     navOrder: 5,
     folder: 'Harbinger House',
@@ -175,9 +175,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-hall-of-mirrors',
     name: "Harbinger House - Hall of Mirrors & Chance's Room",
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Hall of Mirrors & Chance\'s Room.png',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Hall of Mirrors & Chance\'s Room.png',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Hall of Mirrors & Chance\'s Room.png'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Hall of Mirrors & Chance\'s Room.png'
     },
     grid: {
       type: 1,
@@ -190,8 +190,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 2458,
+    height: 1689,
     navigation: true,
     navOrder: 6,
     folder: 'Harbinger House',
@@ -200,9 +200,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-mind-trap',
     name: 'Harbinger House - Inside Mind Trap',
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Inside Mind Trap.jpeg',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Inside Mind Trap.jpeg',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Inside Mind Trap.jpeg'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Inside Mind Trap.jpeg'
     },
     grid: {
       type: 1,
@@ -215,8 +215,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 2420,
+    height: 2420,
     navigation: true,
     navOrder: 7,
     folder: 'Harbinger House',
@@ -225,9 +225,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-statues-gardens',
     name: 'Harbinger House - Statues and Gardens',
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Statues and Gardens.jpeg',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Statues and Gardens.jpeg',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Statues and Gardens.jpeg'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Statues and Gardens.jpeg'
     },
     grid: {
       type: 1,
@@ -240,8 +240,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 3072,
+    height: 1945,
     navigation: true,
     navOrder: 8,
     folder: 'Harbinger House',
@@ -250,9 +250,9 @@ export const ALL_SCENES: HarbingerScene[] = [
   {
     id: 'scene-vorina-teela',
     name: "Harbinger House - Vorina and Teela's Area",
-    img: 'modules/harbinger-house-pf2e/assets/Harbinger House Vorina and Teela\'s Area.jpeg',
+    img: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Vorina and Teela\'s Area.jpeg',
     background: {
-      src: 'modules/harbinger-house-pf2e/assets/Harbinger House Vorina and Teela\'s Area.jpeg'
+      src: 'modules/harbinger-house-pf2e/dist/assets/Harbinger House Vorina and Teela\'s Area.jpeg'
     },
     grid: {
       type: 1,
@@ -265,8 +265,8 @@ export const ALL_SCENES: HarbingerScene[] = [
       y: null,
       scale: 1
     },
-    width: 4200,
-    height: 4200,
+    width: 2560,
+    height: 1843,
     navigation: true,
     navOrder: 0, // First in navigation
     folder: 'Harbinger House',
