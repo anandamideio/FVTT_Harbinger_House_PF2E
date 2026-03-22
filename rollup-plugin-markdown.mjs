@@ -4,8 +4,8 @@
  * This plugin reads harbinger_house_complete.md and makes it available
  * as a virtual module that can be imported by the journal data file.
  */
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export default function markdownPlugin() {
   const virtualModuleId = 'virtual:harbinger-markdown';
