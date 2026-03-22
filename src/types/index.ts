@@ -5,8 +5,13 @@
 // Re-export Foundry/PF2e types
 export type {
 	ActorData,
-	HarbingerNPC,
+	DocumentClass,
+	DocumentDataFor,
+	DocumentInstanceFor,
+	DocumentTypeName,
+	FolderData,
 	ItemData,
+	JournalEntryData,
 	NPCCategory,
 	PF2eActionSystem,
 	PF2eArmorSystem,
@@ -16,6 +21,7 @@ export type {
 	PF2eItemSystemBase,
 	PF2eSpellSystem,
 	PF2eWeaponSystem,
+	SceneData,
 } from './foundry';
 
 // Re-export module flag types

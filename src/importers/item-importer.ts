@@ -16,6 +16,7 @@ import {
 	ITEMS_BY_CATEGORY,
 	type ItemCategory,
 } from '../data/items';
+import type { ItemData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
 export interface ItemImportOptions extends ImportOptions {
@@ -25,8 +26,8 @@ export interface ItemImportOptions extends ImportOptions {
 	itemIds?: string[];
 }
 
-export class ItemImporter extends BaseImporter<HarbingerItem> {
-	protected documentType = 'Item';
+export class ItemImporter extends BaseImporter<HarbingerItem, typeof ItemClass> {
+	protected documentType = 'Item' as const;
 	protected documentClass = Item;
 
 	/**
@@ -58,8 +59,8 @@ export class ItemImporter extends BaseImporter<HarbingerItem> {
 	/**
 	 * Convert HarbingerItem to Foundry Item data
 	 */
-	toDocumentData(item: HarbingerItem): any {
-		const itemData: any = {
+	toDocumentData(item: HarbingerItem): ItemData {
+		const itemData: ItemData = {
 			name: item.data.name,
 			type: item.data.type,
 			img: item.data.img || this.getDefaultImage(item),
@@ -195,7 +196,7 @@ export class ItemImporter extends BaseImporter<HarbingerItem> {
 
 		try {
 			// Find all items with our module flag
-			const importedItems = game.items?.filter((item: any) => item.flags?.[MODULE_ID]?.imported === true) || [];
+			const importedItems = game.items?.filter((item: ItemClass) => item.flags?.[MODULE_ID]?.imported === true) || [];
 
 			for (const item of importedItems) {
 				try {

@@ -10,23 +10,23 @@ export interface ImportResult {
 	imported: number;
 	failed: number;
 	errors: string[];
-	documents: any[];
+	documents: FoundryDocument[];
 }
 
 export interface ImportOptions {
 	/** Target folder name for imported content */
 	folderName?: string;
 	/** Pre-created folder to place documents in (takes precedence over folderName) */
-	folder?: any;
+	folder?: FolderClass | null;
 	/** Whether to update existing documents or skip them */
 	updateExisting?: boolean;
 	/** Callback for progress updates */
 	onProgress?: (current: number, total: number, name: string) => void;
 }
 
-export abstract class BaseImporter<T> {
-	protected abstract documentType: string;
-	protected abstract documentClass: any;
+export abstract class BaseImporter<T, C extends DocumentClass = DocumentClass> {
+	protected abstract documentType: DocumentTypeName;
+	protected abstract documentClass: C;
 
 	/**
 	 * Get all items available for import
@@ -36,7 +36,7 @@ export abstract class BaseImporter<T> {
 	/**
 	 * Convert a source item to Foundry document data
 	 */
-	abstract toDocumentData(item: T): any;
+	abstract toDocumentData(item: T): DocumentDataFor<C>;
 
 	/**
 	 * Get a unique identifier for the item (used for duplicate detection)
@@ -76,7 +76,7 @@ export abstract class BaseImporter<T> {
 		log(`Starting import of ${items.length} ${this.documentType}(s)`);
 
 		// Get or create the target folder
-		let folder: any = options.folder || null;
+		let folder: FolderClass | null = options.folder || null;
 		if (!folder && options.folderName) {
 			folder = await this.getOrCreateFolder(options.folderName, this.documentType);
 		}
@@ -104,16 +104,19 @@ export abstract class BaseImporter<T> {
 
 				// Add folder reference if we have one
 				if (folder) {
-					documentData.folder = folder.id;
+					(documentData as unknown as Record<string, unknown>).folder = folder.id;
 				}
 
 				// Create or update the document
-				let document: any;
+				let document: FoundryDocument;
 				if (existing && options.updateExisting) {
 					document = await existing.update(documentData);
 					log(`Updated ${this.documentType}: ${itemName}`);
 				} else {
-					document = await this.documentClass.create(documentData);
+					const created = await (
+						this.documentClass as unknown as { create(data: DocumentDataFor<C>): Promise<FoundryDocument> }
+					).create(documentData);
+					document = Array.isArray(created) ? created[0] : created;
 					log(`Created ${this.documentType}: ${itemName}`);
 				}
 
@@ -142,35 +145,35 @@ export abstract class BaseImporter<T> {
 	 * Hook for subclasses to perform async processing on document data
 	 * before it is created. Called after toDocumentData().
 	 */
-	protected async preProcessDocumentData(_item: T, documentData: any): Promise<any> {
+	protected async preProcessDocumentData(_item: T, documentData: DocumentDataFor<C>): Promise<DocumentDataFor<C>> {
 		return documentData;
 	}
 
 	/**
 	 * Find an existing document by our module's source ID flag
 	 */
-	protected async findExistingDocument(sourceId: string): Promise<any | null> {
+	protected async findExistingDocument(sourceId: string): Promise<FoundryDocument | null> {
 		// Get the appropriate collection based on document type
 		const collection = this.getCollection();
 		if (!collection) return null;
 
 		// Find document with matching source ID in our module flags
-		return collection.find((doc: any) => doc.flags?.[MODULE_ID]?.sourceId === sourceId) || null;
+		return collection.find((doc) => doc.flags?.[MODULE_ID]?.sourceId === sourceId) || null;
 	}
 
 	/**
 	 * Get the appropriate collection for this document type
 	 */
-	protected getCollection(): any {
+	protected getCollection(): Collection<FoundryDocument> | null {
 		switch (this.documentType) {
 			case 'Actor':
-				return game.actors;
+				return game.actors as unknown as Collection<FoundryDocument>;
 			case 'Item':
-				return game.items;
+				return game.items as unknown as Collection<FoundryDocument>;
 			case 'JournalEntry':
-				return (game as any).journal;
+				return (game.journal as unknown as Collection<FoundryDocument>) ?? null;
 			case 'Scene':
-				return (game as any).scenes;
+				return (game.scenes as unknown as Collection<FoundryDocument>) ?? null;
 			default:
 				return null;
 		}
@@ -183,11 +186,11 @@ export abstract class BaseImporter<T> {
 	 * @param type - The document type ('Actor', 'Item', etc.)
 	 * @param parentId - Optional parent folder ID for nested folders
 	 */
-	async getOrCreateFolder(name: string, type: string, parentId?: string): Promise<any | null> {
+	async getOrCreateFolder(name: string, type: string, parentId?: string): Promise<FolderClass | null> {
 		try {
 			// Look for existing folder
 			const existing = game.folders?.find(
-				(f: any) => f.name === name && f.type === type && (parentId ? f.folder?.id === parentId : !f.folder),
+				(f: FolderClass) => f.name === name && f.type === type && (parentId ? f.folder?.id === parentId : !f.folder),
 			);
 
 			if (existing) {
@@ -195,7 +198,7 @@ export abstract class BaseImporter<T> {
 			}
 
 			// Create new folder
-			const folderData: any = {
+			const folderData: FolderData = {
 				name,
 				type,
 				color: '#4a3f5c', // Planescape purple
@@ -210,7 +213,7 @@ export abstract class BaseImporter<T> {
 				folderData.folder = parentId;
 			}
 
-			const folder = await Folder.create(folderData);
+			const folder = (await Folder.create(folderData)) as FolderClass;
 			log(`Created folder: ${name}`);
 			return folder;
 		} catch (error) {
@@ -230,7 +233,7 @@ export abstract class BaseImporter<T> {
 
 		try {
 			// Find all documents with our module's imported flag
-			const imported = collection.filter((doc: any) => doc.flags?.[MODULE_ID]?.imported === true);
+			const imported = collection.filter((doc) => doc.flags?.[MODULE_ID]?.imported === true);
 
 			for (const doc of imported) {
 				try {
@@ -259,10 +262,10 @@ export abstract class BaseImporter<T> {
 		try {
 			// Find folders managed by this module
 			const managedFolders =
-				game.folders?.filter((f: any) => f.type === type && f.flags?.[MODULE_ID]?.managed === true) || [];
+				game.folders?.filter((f: FolderClass) => f.type === type && f.flags?.[MODULE_ID]?.managed === true) || [];
 
 			// Sort by depth (deepest first) to handle nested folders
-			const sortedFolders = [...managedFolders].sort((a: any, b: any) => {
+			const sortedFolders = [...managedFolders].sort((a: FolderClass, b: FolderClass) => {
 				const depthA = this.getFolderDepth(a);
 				const depthB = this.getFolderDepth(b);
 				return depthB - depthA;
@@ -270,9 +273,9 @@ export abstract class BaseImporter<T> {
 
 			for (const folder of sortedFolders) {
 				// Check if folder is empty
-				const hasDocuments = this.getCollection()?.find((doc: any) => doc.folder?.id === folder.id) !== undefined;
+				const hasDocuments = this.getCollection()?.find((doc) => doc.folder?.id === folder.id) !== undefined;
 
-				const hasSubfolders = game.folders?.find((f: any) => f.folder?.id === folder.id) !== undefined;
+				const hasSubfolders = game.folders?.find((f: FolderClass) => f.folder?.id === folder.id) !== undefined;
 
 				if (!hasDocuments && !hasSubfolders) {
 					await folder.delete();
@@ -287,18 +290,13 @@ export abstract class BaseImporter<T> {
 	/**
 	 * Get the depth of a folder in the hierarchy
 	 */
-	private getFolderDepth(folder: any): number {
+	private getFolderDepth(folder: FolderClass): number {
 		let depth = 0;
-		let current = folder;
-		while (current.folder) {
+		let current: FolderClass | null | undefined = folder;
+		while (current?.folder) {
 			depth++;
 			current = current.folder;
 		}
 		return depth;
 	}
 }
-
-// Type declaration for Folder (since we didn't add it to foundry.d.ts)
-declare const Folder: {
-	create(data: any): Promise<any>;
-};

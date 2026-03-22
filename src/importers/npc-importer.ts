@@ -29,6 +29,7 @@ import {
 	type WeaponRuneConfig,
 } from '../data';
 import type { ActorData, HarbingerNPC, ItemData } from '../types/foundry';
+import type { WeaponRune } from '../types/pf2e-runes';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
 export interface NPCImportOptions extends ImportOptions {
@@ -38,8 +39,8 @@ export interface NPCImportOptions extends ImportOptions {
 	npcIds?: string[];
 }
 
-export class NPCImporter extends BaseImporter<HarbingerNPC> {
-	protected documentType = 'Actor';
+export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
+	protected documentType = 'Actor' as const;
 	protected documentClass = Actor;
 
 	/**
@@ -72,7 +73,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	 * Convert HarbingerNPC to Foundry Actor data
 	 * Note: Items with system references will be resolved asynchronously in importItems
 	 */
-	toDocumentData(npc: HarbingerNPC): any {
+	toDocumentData(npc: HarbingerNPC): ActorData {
 		return {
 			name: npc.data.name,
 			type: npc.data.type,
@@ -93,7 +94,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	/**
 	 * Resolve system item references before document creation
 	 */
-	protected async preProcessDocumentData(npc: HarbingerNPC, documentData: any): Promise<any> {
+	protected async preProcessDocumentData(npc: HarbingerNPC, documentData: ActorData): Promise<ActorData> {
 		const resolvedItems = await this.resolveItems((npc.items || []) as NPCItemEntry[]);
 		documentData.items = resolvedItems;
 		return documentData;
@@ -102,8 +103,8 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	/**
 	 * Resolve items, converting system references to actual item data
 	 */
-	private async resolveItems(items: NPCItemEntry[]): Promise<any[]> {
-		const resolved: any[] = [];
+	private async resolveItems(items: NPCItemEntry[]): Promise<ItemData[]> {
+		const resolved: ItemData[] = [];
 
 		for (const item of items) {
 			try {
@@ -137,17 +138,17 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	 */
 	private async resolveSystemItem(
 		ref: SystemWeaponReference | SystemSpellReference | SystemActionReference,
-	): Promise<any | null> {
+	): Promise<ItemData | null> {
 		try {
 			// Fetch the item from the compendium using fromUuid
-			const item = (await fromUuid(ref.uuid)) as any;
+			const item = await fromUuid(ref.uuid);
 			if (!item) {
 				logError(`Could not find item with UUID: ${ref.uuid}`);
 				return null;
 			}
 
 			// Convert to plain object
-			const itemData = item.toObject();
+			const itemData = item.toObject() as ItemData;
 
 			// Apply customizations based on reference type
 			if (isSystemWeaponReference(ref)) {
@@ -168,7 +169,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	/**
 	 * Apply weapon customizations including runes
 	 */
-	private applyWeaponCustomizations(itemData: any, ref: SystemWeaponReference): any {
+	private applyWeaponCustomizations(itemData: ItemData, ref: SystemWeaponReference): ItemData {
 		// Apply custom name if provided
 		if (ref.customName) {
 			itemData.name = ref.customName;
@@ -180,17 +181,16 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 		// Apply custom description
 		if (ref.customDescription) {
 			const existingDesc = itemData.system?.description?.value || '';
-			itemData.system = itemData.system || {};
-			itemData.system.description = itemData.system.description || {};
-			itemData.system.description.value = existingDesc
-				? `${existingDesc}<p>${ref.customDescription}</p>`
-				: `<p>${ref.customDescription}</p>`;
+			if (!itemData.system) itemData.system = { description: { value: '' } };
+			itemData.system.description = {
+				value: existingDesc ? `${existingDesc}<p>${ref.customDescription}</p>` : `<p>${ref.customDescription}</p>`,
+			};
 		}
 
 		// Apply runes if configured
 		if (ref.runes) {
-			itemData.system = itemData.system || {};
-			itemData.system.runes = itemData.system.runes || {};
+			if (!itemData.system) itemData.system = { description: { value: '' } };
+			if (!itemData.system.runes) itemData.system.runes = {};
 
 			// Apply potency rune
 			if (ref.runes.potency) {
@@ -210,7 +210,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 
 			// Apply property runes
 			if (ref.runes.property && ref.runes.property.length > 0) {
-				itemData.system.runes.property = ref.runes.property;
+				itemData.system.runes.property = ref.runes.property as WeaponRune[];
 			}
 		}
 
@@ -223,19 +223,18 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	/**
 	 * Apply spell customizations
 	 */
-	private applySpellCustomizations(itemData: any, ref: SystemSpellReference): any {
+	private applySpellCustomizations(itemData: ItemData, ref: SystemSpellReference): ItemData {
 		// Apply heightened level
 		if (ref.heightenedLevel !== undefined) {
-			itemData.system = itemData.system || {};
-			itemData.system.location = itemData.system.location || {};
+			if (!itemData.system) itemData.system = { description: { value: '' } };
+			if (!itemData.system.location) itemData.system.location = {};
 			itemData.system.location.heightenedLevel = ref.heightenedLevel;
 		}
 
 		// Apply tradition override
 		if (ref.tradition) {
-			itemData.system = itemData.system || {};
-			itemData.system.traditions = itemData.system.traditions || {};
-			itemData.system.traditions.value = [ref.tradition];
+			if (!itemData.system) itemData.system = { description: { value: '' } };
+			itemData.system.traditions = { value: [ref.tradition] };
 		}
 
 		// Remove the _id to allow Foundry to generate a new one
@@ -247,12 +246,11 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	/**
 	 * Apply action customizations
 	 */
-	private applyActionCustomizations(itemData: any, ref: SystemActionReference): any {
+	private applyActionCustomizations(itemData: ItemData, ref: SystemActionReference): ItemData {
 		// Apply custom description
 		if (ref.customDescription) {
-			itemData.system = itemData.system || {};
-			itemData.system.description = itemData.system.description || {};
-			itemData.system.description.value = `<p>${ref.customDescription}</p>`;
+			if (!itemData.system) itemData.system = { description: { value: '' } };
+			itemData.system.description = { value: `<p>${ref.customDescription}</p>` };
 		}
 
 		// Remove the _id to allow Foundry to generate a new one
@@ -264,8 +262,9 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	/**
 	 * Get default token configuration for an NPC
 	 */
-	private getTokenData(npc: HarbingerNPC): any {
-		const size = npc.data.system?.traits?.size?.value || 'med';
+	private getTokenData(npc: HarbingerNPC): Partial<TokenData> {
+		const sys = npc.data.system as Partial<PF2eActorSystem> | undefined;
+		const size = sys?.traits?.size?.value || 'med';
 		const tokenSize = this.getTokenSize(size);
 
 		return {
@@ -281,7 +280,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 			},
 			sight: {
 				enabled: true,
-				range: npc.data.system?.attributes?.perception?.spikedarvision ? 60 : 0,
+				range: sys?.attributes?.perception?.spikedarvision ? 60 : 0,
 			},
 			actorLink: npc.category === 'major-npc', // Link major NPCs
 		};
@@ -306,7 +305,8 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	 * Get token disposition based on NPC data
 	 */
 	private getDisposition(npc: HarbingerNPC): number {
-		const alignment = npc.data.system?.details?.alignment?.value || '';
+		const sys = npc.data.system as Partial<PF2eActorSystem> | undefined;
+		const alignment = sys?.details?.alignment?.value || '';
 
 		// PF2e typically uses traits instead of alignment, but we can infer from our data
 		if (alignment.includes('G') || npc.category === 'major-npc') {
@@ -420,11 +420,14 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 	/**
 	 * Create a subfolder under a parent
 	 */
-	private async getOrCreateSubfolder(name: string, parent: any): Promise<any> {
-		let folder = game.folders?.find((f: any) => f.name === name && f.type === 'Actor' && f.folder?.id === parent.id);
+	private async getOrCreateSubfolder(name: string, parent: FolderClass | null): Promise<FolderClass | null> {
+		if (!parent) return null;
+		let folder = game.folders?.find(
+			(f: FolderClass) => f.name === name && f.type === 'Actor' && f.folder?.id === parent.id,
+		);
 
 		if (!folder) {
-			const result = await Folder.create({
+			const result = (await Folder.create({
 				name: name,
 				type: 'Actor',
 				folder: parent.id,
@@ -432,12 +435,12 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
 				flags: {
 					[MODULE_ID]: { created: true },
 				},
-			});
+			})) as FolderClass;
 			folder = Array.isArray(result) ? result[0] : result;
 			log(`Created subfolder: ${name}`);
 		}
 
-		return folder;
+		return folder ?? null;
 	}
 
 	/**

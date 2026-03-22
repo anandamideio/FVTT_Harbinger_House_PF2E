@@ -16,6 +16,7 @@ import {
 	type HarbingerHazard,
 	type HazardCategory,
 } from '../data/hazards';
+import type { ActorData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
 export interface HazardImportOptions extends ImportOptions {
@@ -25,9 +26,9 @@ export interface HazardImportOptions extends ImportOptions {
 	hazardIds?: string[];
 }
 
-export class HazardImporter extends BaseImporter<HarbingerHazard> {
+export class HazardImporter extends BaseImporter<HarbingerHazard, typeof ActorClass> {
 	// In PF2e, hazards are actually Actors with type 'hazard'
-	protected documentType = 'Actor';
+	protected documentType = 'Actor' as const;
 	protected documentClass = Actor;
 
 	/**
@@ -63,48 +64,51 @@ export class HazardImporter extends BaseImporter<HarbingerHazard> {
 	 * In PF2e, hazards are implemented as Actors with type 'hazard'.
 	 * This allows them to have AC, HP, saves, and other actor-like properties.
 	 */
-	toDocumentData(hazard: HarbingerHazard): any {
+	toDocumentData(hazard: HarbingerHazard): ActorData {
 		const data = hazard.data;
 
-		const actorData: any = {
+		// Hazards use PF2eHazardSystem which differs from PF2eActorSystem
+		const system: Record<string, unknown> = {
+			description: data.system.description,
+			traits: {
+				value: data.system.traits.value,
+				rarity: data.system.traits.rarity || 'common',
+			},
+			details: {
+				level: data.system.details.level,
+				disable: data.system.details.disable || '',
+				reset: data.system.details.reset || '',
+				routine: data.system.details.routine || '',
+				isComplex: data.system.details.isComplex,
+			},
+			attributes: {
+				ac: data.system.attributes?.ac || { value: 0 },
+				hp: data.system.attributes?.hp || { value: 0, max: 0 },
+				hardness:
+					typeof data.system.attributes?.hardness === 'number'
+						? data.system.attributes.hardness
+						: ((data.system.attributes?.hardness as { value: number } | undefined)?.value ?? 0),
+				stealth: {
+					value: data.system.attributes?.stealth?.value || 0,
+					dc: data.system.attributes?.stealth?.dc || 0,
+					details: data.system.attributes?.stealth?.details || '',
+				},
+			},
+			saves: {
+				fortitude: { value: data.system.saves?.fortitude?.value || 0 },
+				reflex: { value: data.system.saves?.reflex?.value || 0 },
+				will: { value: data.system.saves?.will?.value || 0 },
+			},
+			immunities: data.system.immunities || { value: [] },
+			weaknesses: data.system.weaknesses || [],
+			resistances: data.system.resistances || [],
+		};
+
+		const actorData: ActorData = {
 			name: data.name,
 			type: 'hazard',
 			img: data.img || this.getDefaultImage(hazard),
-			system: {
-				description: data.system.description,
-				traits: {
-					value: data.system.traits.value,
-					rarity: data.system.traits.rarity || 'common',
-				},
-				details: {
-					level: data.system.details.level,
-					disable: data.system.details.disable || '',
-					reset: data.system.details.reset || '',
-					routine: data.system.details.routine || '',
-					isComplex: data.system.details.isComplex,
-				},
-				attributes: {
-					ac: data.system.attributes?.ac || { value: 0 },
-					hp: data.system.attributes?.hp || { value: 0, max: 0 },
-					hardness:
-						typeof data.system.attributes?.hardness === 'number'
-							? data.system.attributes.hardness
-							: ((data.system.attributes?.hardness as { value: number } | undefined)?.value ?? 0),
-					stealth: {
-						value: data.system.attributes?.stealth?.value || 0,
-						dc: data.system.attributes?.stealth?.dc || 0,
-						details: data.system.attributes?.stealth?.details || '',
-					},
-				},
-				saves: {
-					fortitude: { value: data.system.saves?.fortitude?.value || 0 },
-					reflex: { value: data.system.saves?.reflex?.value || 0 },
-					will: { value: data.system.saves?.will?.value || 0 },
-				},
-				immunities: data.system.immunities || { value: [] },
-				weaknesses: data.system.weaknesses || [],
-				resistances: data.system.resistances || [],
-			},
+			system,
 			prototypeToken: this.getTokenData(hazard),
 			flags: {
 				[MODULE_ID]: {
@@ -122,7 +126,7 @@ export class HazardImporter extends BaseImporter<HarbingerHazard> {
 	/**
 	 * Get default token configuration for a hazard
 	 */
-	private getTokenData(hazard: HarbingerHazard): any {
+	private getTokenData(hazard: HarbingerHazard): Partial<TokenData> {
 		// Most hazards are medium-sized or fill their area
 		const isComplex = hazard.data.system.details.isComplex;
 
@@ -249,8 +253,9 @@ export class HazardImporter extends BaseImporter<HarbingerHazard> {
 		try {
 			// Find all actors with type 'hazard' and our module flag
 			const importedHazards =
-				game.actors?.filter((actor: any) => actor.type === 'hazard' && actor.flags?.[MODULE_ID]?.imported === true) ||
-				[];
+				game.actors?.filter(
+					(actor: ActorClass) => actor.type === 'hazard' && actor.flags?.[MODULE_ID]?.imported === true,
+				) || [];
 
 			for (const hazard of importedHazards) {
 				try {

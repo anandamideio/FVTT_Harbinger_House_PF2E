@@ -17,6 +17,7 @@
 
 import { log, logError, MODULE_ID } from '../config';
 import { ALL_SCENES, type HarbingerScene, SCENES_BY_FOLDER } from '../data/scenes';
+import type { SceneData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
 export interface SceneImportOptions extends ImportOptions {
@@ -28,7 +29,7 @@ export interface SceneImportOptions extends ImportOptions {
 	activateFirst?: boolean;
 }
 
-export class SceneImporter extends BaseImporter<HarbingerScene> {
+export class SceneImporter extends BaseImporter<HarbingerScene, typeof SceneClass> {
 	protected documentType = 'Scene' as const;
 	protected documentClass = Scene;
 
@@ -54,7 +55,7 @@ export class SceneImporter extends BaseImporter<HarbingerScene> {
 	 * - Sets initial view position
 	 * - Marks with module flags for tracking
 	 */
-	toDocumentData(scene: HarbingerScene): any {
+	toDocumentData(scene: HarbingerScene): SceneData {
 		return {
 			name: scene.name,
 			img: scene.img,
@@ -109,7 +110,7 @@ export class SceneImporter extends BaseImporter<HarbingerScene> {
 					sourceId: scene.id,
 					imported: true,
 				},
-			} as any,
+			},
 			navigation: scene.navigation,
 			navOrder: scene.navOrder,
 			navName: '',
@@ -163,7 +164,7 @@ export class SceneImporter extends BaseImporter<HarbingerScene> {
 
 			// Optionally activate first scene in first folder
 			if (options.activateFirst && result.documents.length > 0 && results.length === 1) {
-				const firstScene = result.documents[0] as any;
+				const firstScene = result.documents[0] as unknown as SceneClass;
 				await firstScene.activate();
 				log(`Activated scene: ${firstScene.name}`);
 			}

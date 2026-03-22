@@ -18,7 +18,11 @@ declare global {
 	const Folder: typeof FolderClass;
 	const Actors: Collection<ActorClass>;
 	const Items: Collection<ItemClass>;
+	const JournalEntry: typeof JournalEntryClass;
+	const Scene: typeof SceneClass;
 	const foundry: FoundryUtils;
+
+	function fromUuid(uuid: string): Promise<FoundryDocument | null>;
 
 	interface Game {
 		system: {
@@ -33,6 +37,8 @@ declare global {
 		actors: Collection<ActorClass>;
 		items: Collection<ItemClass>;
 		folders?: Collection<FolderClass>;
+		journal?: Collection<JournalEntryClass>;
+		scenes?: Collection<SceneClass>;
 		ready: boolean;
 	}
 
@@ -124,10 +130,10 @@ declare global {
 		metadata: CompendiumMetadata;
 		documentName: string;
 		index: Collection<CompendiumIndexEntry>;
-		getDocuments(): Promise<Document[]>;
-		getDocument(id: string): Promise<Document | null>;
-		importDocument(document: Document): Promise<Document>;
-		createDocument(data: object): Promise<Document>;
+		getDocuments(): Promise<FoundryDocument[]>;
+		getDocument(id: string): Promise<FoundryDocument | null>;
+		importDocument(document: FoundryDocument): Promise<FoundryDocument>;
+		createDocument(data: object): Promise<FoundryDocument>;
 	}
 
 	interface CompendiumMetadata {
@@ -146,7 +152,7 @@ declare global {
 		img?: string;
 	}
 
-	interface Document {
+	interface FoundryDocument {
 		_id: string;
 		id: string;
 		name: string;
@@ -154,8 +160,11 @@ declare global {
 		img?: string;
 		system: Record<string, unknown>;
 		items?: Collection<ItemClass>;
-		flags: Record<string, unknown>;
+		flags: Record<string, Record<string, unknown>>;
+		folder?: { id: string } | null;
 		toObject(): object;
+		delete(): Promise<this>;
+		update(data: object): Promise<this>;
 	}
 
 	interface FoundryUtils {
@@ -216,7 +225,7 @@ declare global {
 	}
 
 	// Actor
-	class ActorClass implements Document {
+	class ActorClass implements FoundryDocument {
 		_id: string;
 		id: string;
 		name: string;
@@ -224,7 +233,8 @@ declare global {
 		img?: string;
 		system: PF2eActorSystem;
 		items: Collection<ItemClass>;
-		flags: Record<string, unknown>;
+		flags: Record<string, Record<string, unknown>>;
+		folder?: { id: string } | null;
 
 		constructor(data: ActorData, context?: object);
 		static create(data: ActorData | ActorData[], context?: object): Promise<ActorClass | ActorClass[]>;
@@ -246,34 +256,40 @@ declare global {
 		name: string;
 		type: string;
 		img?: string;
-		system?: Partial<PF2eActorSystem>;
+		system?: Partial<PF2eActorSystem> | Record<string, unknown>;
 		items?: ItemData[];
-		flags?: Record<string, unknown>;
+		flags?: Record<string, Record<string, unknown>>;
 		prototypeToken?: Partial<TokenData>;
 	}
 
 	interface TokenData {
 		name: string;
 		displayName: number;
+		displayBars?: number;
+		bar1?: { attribute: string } | null;
 		actorLink: boolean;
 		texture: {
 			src: string;
 		};
 		disposition: number;
+		width?: number;
+		height?: number;
 		sight: {
 			enabled: boolean;
+			range?: number;
 		};
 	}
 
 	// Item
-	class ItemClass implements Document {
+	class ItemClass implements FoundryDocument {
 		_id: string;
 		id: string;
 		name: string;
 		type: string;
 		img?: string;
 		system: PF2eItemSystem;
-		flags: Record<string, unknown>;
+		flags: Record<string, Record<string, unknown>>;
+		folder?: { id: string } | null;
 
 		constructor(data: ItemData, context?: object);
 		static create(data: ItemData | ItemData[], context?: object): Promise<ItemClass | ItemClass[]>;
@@ -283,14 +299,14 @@ declare global {
 	}
 
 	// Folder
-	class FolderClass implements Document {
+	class FolderClass implements FoundryDocument {
 		_id: string;
 		id: string;
 		name: string;
 		type: string;
 		img?: string;
 		system: Record<string, unknown>;
-		flags: Record<string, unknown>;
+		flags: Record<string, Record<string, unknown>>;
 		folder?: FolderClass | null;
 		color?: string;
 
@@ -307,7 +323,7 @@ declare global {
 		type: string;
 		color?: string;
 		folder?: string | null;
-		flags?: Record<string, unknown>;
+		flags?: Record<string, Record<string, unknown>>;
 	}
 
 	interface ItemData {
@@ -316,7 +332,7 @@ declare global {
 		type: string;
 		img?: string;
 		system?: Partial<PF2eItemSystem>;
-		flags?: Record<string, unknown>;
+		flags?: Record<string, Record<string, unknown>>;
 	}
 
 	// PF2e Specific Types
@@ -944,6 +960,9 @@ declare global {
 		cost?: {
 			value: string;
 		};
+		location?: {
+			heightenedLevel?: number;
+		};
 	}
 
 	// ==========================================================================
@@ -990,17 +1009,17 @@ declare global {
 	}
 
 	// JournalEntry (V13 structure with pages)
-	class JournalEntryClass implements Document {
+	class JournalEntryClass implements FoundryDocument {
 		_id: string;
 		id: string;
 		name: string;
 		type: 'JournalEntry';
 		img?: string;
 		pages: JournalEntryPageData[];
-		folder?: string;
+		folder?: { id: string } | null;
 		sort?: number;
 		ownership?: Record<string, number>;
-		flags: Record<string, unknown>;
+		flags: Record<string, Record<string, unknown>>;
 
 		static create(data: JournalEntryData): Promise<JournalEntryClass>;
 		static createDocuments(data: JournalEntryData[]): Promise<JournalEntryClass[]>;
@@ -1018,7 +1037,75 @@ declare global {
 		folder?: string;
 		sort?: number;
 		ownership?: Record<string, number>;
-		flags?: Record<string, unknown>;
+		flags?: Record<string, Record<string, unknown>>;
+	}
+
+	// Scene
+	class SceneClass implements FoundryDocument {
+		_id: string;
+		id: string;
+		name: string;
+		type: string;
+		img?: string;
+		system: Record<string, unknown>;
+		flags: Record<string, Record<string, unknown>>;
+		folder?: { id: string } | null;
+		navigation?: boolean;
+
+		static create(data: SceneData | SceneData[], context?: object): Promise<SceneClass | SceneClass[]>;
+		update(data: Partial<SceneData>): Promise<this>;
+		delete(): Promise<this>;
+		activate(): Promise<this>;
+		toObject(): SceneData;
+		get items(): undefined;
+	}
+
+	interface SceneData {
+		_id?: string;
+		name: string;
+		img?: string;
+		background?: { src: string };
+		foreground?: string | null;
+		thumb?: string;
+		width?: number;
+		height?: number;
+		padding?: number;
+		initial?: { x: number | null; y: number | null; scale: number };
+		backgroundColor?: string;
+		grid?: {
+			type: number;
+			size: number;
+			color?: string;
+			alpha?: number;
+			distance: number;
+			units: string;
+		};
+		tokenVision?: boolean;
+		fogExploration?: boolean;
+		fogReset?: number;
+		globalLight?: boolean;
+		globalLightThreshold?: number | null;
+		darkness?: number;
+		drawings?: object[];
+		tokens?: object[];
+		lights?: object[];
+		notes?: object[];
+		sounds?: object[];
+		templates?: object[];
+		tiles?: object[];
+		walls?: object[];
+		playlist?: string | null;
+		playlistSound?: string | null;
+		journal?: string | null;
+		journalEntryPage?: string | null;
+		weather?: string;
+		folder?: string | null;
+		sort?: number;
+		ownership?: Record<string, number>;
+		flags?: Record<string, Record<string, unknown>>;
+		navigation?: boolean;
+		navOrder?: number;
+		navName?: string;
 	}
 
 	interface JournalEntryPageData {
@@ -1043,13 +1130,50 @@ declare global {
 		};
 		sort?: number;
 		ownership?: Record<string, number>;
-		flags?: Record<string, unknown>;
+		flags?: Record<string, Record<string, unknown>>;
 	}
+
+	// ======================================================================
+	// Document Class Union + Mapped Types
+	// ======================================================================
+
+	/** Union of all document class constructors used by importers */
+	type DocumentClass = typeof ActorClass | typeof ItemClass | typeof JournalEntryClass | typeof SceneClass;
+
+	/** Document type string literals used by importers */
+	type DocumentTypeName = 'Actor' | 'Item' | 'JournalEntry' | 'Scene';
+
+	/** Maps a document class constructor to its data type */
+	type DocumentDataFor<C extends DocumentClass> = C extends typeof ActorClass
+		? ActorData
+		: C extends typeof ItemClass
+			? ItemData
+			: C extends typeof JournalEntryClass
+				? JournalEntryData
+				: C extends typeof SceneClass
+					? SceneData
+					: never;
+
+	/** Maps a document class constructor to its instance type */
+	type DocumentInstanceFor<C extends DocumentClass> = C extends typeof ActorClass
+		? ActorClass
+		: C extends typeof ItemClass
+			? ItemClass
+			: C extends typeof JournalEntryClass
+				? JournalEntryClass
+				: C extends typeof SceneClass
+					? SceneClass
+					: never;
 }
 
 // Re-export types for use in other modules
 export type {
 	ActorData,
+	DocumentClass,
+	DocumentDataFor,
+	DocumentInstanceFor,
+	DocumentTypeName,
+	FolderData,
 	HarbingerNPC,
 	HazardFlanking,
 	HazardHP,
@@ -1057,6 +1181,7 @@ export type {
 	ImmunityDataExtended,
 	ItemData,
 	IWRType,
+	JournalEntryData,
 	NPCCategory,
 	PF2eActionSystem,
 	PF2eArmorSystem,
@@ -1070,6 +1195,7 @@ export type {
 	PF2eSpellSystem,
 	PF2eWeaponSystem,
 	ResistanceDataExtended,
+	SceneData,
 	StatisticModifier,
 	WeaknessDataExtended,
 };

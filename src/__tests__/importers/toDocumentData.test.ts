@@ -6,6 +6,15 @@ import { JournalImporter } from '../../importers/journal-importer';
 import { NPCImporter } from '../../importers/npc-importer';
 import { SpellImporter } from '../../importers/spell-importer';
 
+/**
+ * Type-widening helper for test assertions. Allows deep property access
+ * on typed return values where we know the structure from the test setup.
+ */
+// biome-ignore lint/suspicious/noExplicitAny: test helper needs flexible deep access
+function d(val: unknown): any {
+	return val;
+}
+
 // ============================================================================
 // ItemImporter.toDocumentData
 // ============================================================================
@@ -26,7 +35,7 @@ describe('ItemImporter.toDocumentData', () => {
 					level: { value: 5 },
 					traits: { value: ['magical', 'abjuration'], rarity: 'uncommon' as const },
 				},
-			}
+			},
 		} as HarbingerItem;
 
 		const result = importer.toDocumentData(item);
@@ -34,11 +43,11 @@ describe('ItemImporter.toDocumentData', () => {
 		expect(result.name).toBe('Ring of Protection');
 		expect(result.type).toBe('equipment');
 		expect(result.img).toBe('icons/ring.webp');
-		expect(result.system.description.value).toBe('<p>A protective ring</p>');
-		expect(result.system.level.value).toBe(5);
-		expect(result.flags['harbinger-house-pf2e'].sourceId).toBe('test-item');
-		expect(result.flags['harbinger-house-pf2e'].category).toBe('equipment');
-		expect(result.flags['harbinger-house-pf2e'].imported).toBe(true);
+		expect(d(result.system).description.value).toBe('<p>A protective ring</p>');
+		expect(d(result.system).level.value).toBe(5);
+		expect(d(result.flags)['harbinger-house-pf2e'].sourceId).toBe('test-item');
+		expect(d(result.flags)['harbinger-house-pf2e'].category).toBe('equipment');
+		expect(d(result.flags)['harbinger-house-pf2e'].imported).toBe(true);
 	});
 
 	it('uses default image when none provided', () => {
@@ -69,8 +78,8 @@ describe('ItemImporter.toDocumentData', () => {
 		};
 
 		const result = importer.toDocumentData(item);
-		expect(result.flags['some-module']).toEqual({ key: 'value' });
-		expect(result.flags['harbinger-house-pf2e'].imported).toBe(true);
+		expect(d(result.flags)['some-module']).toEqual({ key: 'value' });
+		expect(d(result.flags)['harbinger-house-pf2e'].imported).toBe(true);
 	});
 });
 
@@ -102,9 +111,9 @@ describe('SpellImporter.toDocumentData', () => {
 		expect(result.name).toBe('Word of Chaos');
 		expect(result.type).toBe('spell');
 		expect(result.img).toBe('icons/magic/chaos.webp');
-		expect(result.system.level.value).toBe(5);
-		expect(result.flags['harbinger-house-pf2e'].sourceId).toBe('test-spell');
-		expect(result.flags['harbinger-house-pf2e'].imported).toBe(true);
+		expect(d(result.system).level.value).toBe(5);
+		expect(d(result.flags)['harbinger-house-pf2e'].sourceId).toBe('test-spell');
+		expect(d(result.flags)['harbinger-house-pf2e'].imported).toBe(true);
 	});
 
 	it('uses trait-based default image for fire spells', () => {
@@ -192,7 +201,7 @@ describe('NPCImporter.toDocumentData', () => {
 		expect(result.name).toBe('Trolan the Mad');
 		expect(result.type).toBe('npc');
 		expect(result.img).toBe('tokens/trolan.webp');
-		expect(result.system.details.level.value).toBe(10);
+		expect(d(result.system).details.level.value).toBe(10);
 		expect(result.items).toEqual([]); // items resolved separately
 	});
 
@@ -228,9 +237,9 @@ describe('NPCImporter.toDocumentData', () => {
 
 		const result = importer.toDocumentData(npc);
 		expect(result.prototypeToken).toBeDefined();
-		expect(result.prototypeToken.name).toBe('Guard');
-		expect(result.prototypeToken.width).toBe(2); // large = 2
-		expect(result.prototypeToken.height).toBe(2);
+		expect(d(result.prototypeToken).name).toBe('Guard');
+		expect(d(result.prototypeToken).width).toBe(2); // large = 2
+		expect(d(result.prototypeToken).height).toBe(2);
 	});
 });
 
@@ -263,14 +272,14 @@ describe('JournalImporter.toDocumentData', () => {
 		const result = importer.toDocumentData(journal);
 
 		expect(result.name).toBe('Chapter 1');
-		expect(result.pages).toHaveLength(1);
-		expect(result.pages[0].name).toBe('Introduction');
-		expect(result.pages[0].type).toBe('text');
-		expect(result.pages[0].text.content).toBe('<p>Hello</p>');
-		expect(result.pages[0].sort).toBe(100);
-		expect(result.pages[0].ownership.default).toBe(0);
-		expect(result.ownership.default).toBe(0);
-		expect(result.flags['harbinger-house-pf2e'].themed).toBe(true);
+		expect(d(result.pages)).toHaveLength(1);
+		expect(d(result.pages)[0].name).toBe('Introduction');
+		expect(d(result.pages)[0].type).toBe('text');
+		expect(d(result.pages)[0].text.content).toBe('<p>Hello</p>');
+		expect(d(result.pages)[0].sort).toBe(100);
+		expect(d(result.pages)[0].ownership.default).toBe(0);
+		expect(d(result.ownership).default).toBe(0);
+		expect(d(result.flags)['harbinger-house-pf2e'].themed).toBe(true);
 	});
 
 	it('converts journal with image pages', () => {
@@ -288,8 +297,8 @@ describe('JournalImporter.toDocumentData', () => {
 		};
 
 		const result = importer.toDocumentData(journal);
-		expect(result.pages[0].type).toBe('image');
-		expect(result.pages[0].src).toBe('assets/map.jpg');
+		expect(d(result.pages)[0].type).toBe('image');
+		expect(d(result.pages)[0].src).toBe('assets/map.jpg');
 	});
 
 	it('uses default sort of 0 when not specified', () => {
@@ -315,9 +324,9 @@ describe('JournalImporter.toDocumentData', () => {
 		};
 
 		const result = importer.toDocumentData(journal);
-		expect(result.pages[0].sort).toBe(100);
-		expect(result.pages[1].sort).toBe(200);
-		expect(result.pages[2].sort).toBe(300);
+		expect(d(result.pages)[0].sort).toBe(100);
+		expect(d(result.pages)[1].sort).toBe(200);
+		expect(d(result.pages)[2].sort).toBe(300);
 	});
 });
 
@@ -368,18 +377,18 @@ describe('HazardImporter.toDocumentData', () => {
 		expect(result.name).toBe('Mind Trap');
 		expect(result.type).toBe('hazard');
 		expect(result.img).toBe('icons/trap.webp');
-		expect(result.system.details.level.value).toBe(8);
-		expect(result.system.details.disable).toBe('DC 26 Occultism');
-		expect(result.system.details.isComplex).toBe(false);
-		expect(result.system.attributes.ac.value).toBe(25);
-		expect(result.system.attributes.hp.value).toBe(50);
-		expect(result.system.attributes.hardness).toBe(10);
-		expect(result.system.attributes.stealth.value).toBe(20);
-		expect(result.system.saves.fortitude.value).toBe(15);
-		expect(result.flags['harbinger-house-pf2e'].sourceId).toBe('test-trap');
-		expect(result.flags['harbinger-house-pf2e'].category).toBe('trap');
-		expect(result.flags['harbinger-house-pf2e'].location).toBe('Area 23');
-		expect(result.flags['harbinger-house-pf2e'].imported).toBe(true);
+		expect(d(result.system).details.level.value).toBe(8);
+		expect(d(result.system).details.disable).toBe('DC 26 Occultism');
+		expect(d(result.system).details.isComplex).toBe(false);
+		expect(d(result.system).attributes.ac.value).toBe(25);
+		expect(d(result.system).attributes.hp.value).toBe(50);
+		expect(d(result.system).attributes.hardness).toBe(10);
+		expect(d(result.system).attributes.stealth.value).toBe(20);
+		expect(d(result.system).saves.fortitude.value).toBe(15);
+		expect(d(result.flags)['harbinger-house-pf2e'].sourceId).toBe('test-trap');
+		expect(d(result.flags)['harbinger-house-pf2e'].category).toBe('trap');
+		expect(d(result.flags)['harbinger-house-pf2e'].location).toBe('Area 23');
+		expect(d(result.flags)['harbinger-house-pf2e'].imported).toBe(true);
 	});
 
 	it('uses default image for trap category', () => {
@@ -448,8 +457,8 @@ describe('HazardImporter.toDocumentData', () => {
 		};
 
 		const result = importer.toDocumentData(hazard);
-		expect(result.prototypeToken.disposition).toBe(-1);
+		expect(d(result.prototypeToken).disposition).toBe(-1);
 		// Complex hazards show HP bar
-		expect(result.prototypeToken.displayBars).toBe(20);
+		expect(d(result.prototypeToken).displayBars).toBe(20);
 	});
 });

@@ -3,6 +3,7 @@ globalThis.Actor = class Actor {};
 globalThis.Item = class Item {};
 globalThis.Folder = class Folder {};
 globalThis.JournalEntry = class JournalEntry {};
+globalThis.Scene = class Scene {};
 globalThis.game = {
 	actors: { find: () => null },
 	items: { find: () => null },

@@ -14,7 +14,7 @@
  * - Integrate with FoundryVTT's journal sidebar for easy navigation
  */
 
-import { log, logError, MODULE_ID } from '../config';
+import { MODULE_ID } from '../config';
 import {
 	ALL_JOURNALS,
 	getFolderLabel,
@@ -22,6 +22,7 @@ import {
 	JOURNALS_BY_FOLDER,
 	type JournalFolder,
 } from '../data/journals';
+import type { JournalEntryData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
 export interface JournalImportOptions extends ImportOptions {
@@ -33,7 +34,7 @@ export interface JournalImportOptions extends ImportOptions {
 	shareWithPlayers?: boolean;
 }
 
-export class JournalImporter extends BaseImporter<HarbingerJournal> {
+export class JournalImporter extends BaseImporter<HarbingerJournal, typeof JournalEntryClass> {
 	protected documentType = 'JournalEntry' as const;
 	protected documentClass = JournalEntry;
 
@@ -59,7 +60,7 @@ export class JournalImporter extends BaseImporter<HarbingerJournal> {
 	 * - Sets appropriate ownership (GM-only by default)
 	 * - Applies the harbinger-journal CSS class for themed styling
 	 */
-	toDocumentData(journal: HarbingerJournal): any {
+	toDocumentData(journal: HarbingerJournal): JournalEntryData {
 		return {
 			name: journal.name,
 			pages: journal.pages.map((page, index) => ({

@@ -9,6 +9,7 @@
 
 import { log, logError, MODULE_ID } from '../config';
 import { ALL_SPELLS, type HarbingerSpell } from '../data/spells';
+import type { ItemData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
 export interface SpellImportOptions extends ImportOptions {
@@ -16,8 +17,8 @@ export interface SpellImportOptions extends ImportOptions {
 	spellIds?: string[];
 }
 
-export class SpellImporter extends BaseImporter<HarbingerSpell> {
-	protected documentType = 'Item';
+export class SpellImporter extends BaseImporter<HarbingerSpell, typeof ItemClass> {
+	protected documentType = 'Item' as const;
 	protected documentClass = Item;
 
 	/**
@@ -44,8 +45,8 @@ export class SpellImporter extends BaseImporter<HarbingerSpell> {
 	/**
 	 * Convert HarbingerSpell to Foundry Item (spell) data
 	 */
-	toDocumentData(spell: HarbingerSpell): any {
-		const itemData: any = {
+	toDocumentData(spell: HarbingerSpell): ItemData {
+		const itemData: ItemData = {
 			name: spell.data.name,
 			type: 'spell',
 			img: spell.data.img || this.getDefaultImage(spell),
@@ -107,7 +108,8 @@ export class SpellImporter extends BaseImporter<HarbingerSpell> {
 		try {
 			// Find all spell items with our module flag
 			const importedSpells =
-				game.items?.filter((item: any) => item.type === 'spell' && item.flags?.[MODULE_ID]?.imported === true) || [];
+				game.items?.filter((item: ItemClass) => item.type === 'spell' && item.flags?.[MODULE_ID]?.imported === true) ||
+				[];
 
 			for (const spell of importedSpells) {
 				try {
