@@ -3,9 +3,8 @@
  * This is a subset of types needed for this module
  */
 
-import type { PF2eTrait } from './pf2e-traits';
-import type { WeaponTrait } from './pf2e-traits';
 import type { WeaponRune } from './pf2e-runes';
+import type { PF2eTrait, WeaponTrait } from './pf2e-traits';
 
 // Foundry Global Types
 declare global {
@@ -951,14 +950,16 @@ declare global {
 	// Union Type for All Item Systems
 	// ==========================================================================
 
-	type PF2eItemSystem =
-		| PF2eItemSystemBase
-		| PF2eActionSystem
-		| PF2eWeaponSystem
-		| PF2eArmorSystem
-		| PF2eEquipmentSystem
-		| PF2eConsumableSystem
-		| PF2eSpellSystem;
+	type PF2eItemSystem = PF2eItemSystemBase &
+		Partial<Omit<PF2eActionSystem, keyof PF2eItemSystemBase>> &
+		Partial<Omit<PF2eWeaponSystem, keyof PF2eItemSystemBase | 'range' | 'damage'>> &
+		Partial<Omit<PF2eArmorSystem, keyof PF2eItemSystemBase>> &
+		Partial<Omit<PF2eEquipmentSystem, keyof PF2eItemSystemBase>> &
+		Partial<Omit<PF2eConsumableSystem, keyof PF2eItemSystemBase>> &
+		Partial<Omit<PF2eSpellSystem, keyof PF2eItemSystemBase | 'range' | 'damage'>> & {
+			range?: PF2eWeaponSystem['range'] | PF2eSpellSystem['range'];
+			damage?: PF2eWeaponSystem['damage'] | PF2eSpellSystem['damage'];
+		};
 
 	// jQuery (minimal subset used by Foundry)
 	interface JQuery {
@@ -1049,26 +1050,26 @@ declare global {
 // Re-export types for use in other modules
 export type {
 	ActorData,
-	ItemData,
 	HarbingerNPC,
-	NPCCategory,
-	// Item system types
-	PF2eItemSystemBase,
-	PF2eActionSystem,
-	PF2eWeaponSystem,
-	PF2eArmorSystem,
-	PF2eEquipmentSystem,
-	PF2eConsumableSystem,
-	PF2eSpellSystem,
-	PF2eItemSystem,
-	// Hazard system types
-	PF2eHazardSystem,
+	HazardFlanking,
 	HazardHP,
 	HazardStatistic,
-	HazardFlanking,
-	IWRType,
 	ImmunityDataExtended,
-	WeaknessDataExtended,
+	ItemData,
+	IWRType,
+	NPCCategory,
+	PF2eActionSystem,
+	PF2eArmorSystem,
+	PF2eConsumableSystem,
+	PF2eEquipmentSystem,
+	// Hazard system types
+	PF2eHazardSystem,
+	PF2eItemSystem,
+	// Item system types
+	PF2eItemSystemBase,
+	PF2eSpellSystem,
+	PF2eWeaponSystem,
 	ResistanceDataExtended,
 	StatisticModifier,
+	WeaknessDataExtended,
 };

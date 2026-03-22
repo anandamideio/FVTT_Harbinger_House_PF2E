@@ -170,9 +170,17 @@ describe('NPCImporter.toDocumentData', () => {
 				img: 'tokens/trolan.webp',
 				system: {
 					abilities: { str: { mod: 1 } },
-					attributes: { hp: { value: 100, max: 100 } },
+					attributes: {
+						hp: { value: 100, max: 100, temp: 0, details: '' },
+						ac: { value: 20, details: '' },
+						speed: { value: 25, otherSpeeds: [] },
+					},
 					details: { level: { value: 10 } },
-					traits: { value: ['unique', 'humanoid'] as any[] },
+					traits: {
+						value: ['unique', 'humanoid'],
+						rarity: 'unique' as const,
+						size: { value: 'med' },
+					},
 				},
 			},
 			items: [],
@@ -211,7 +219,7 @@ describe('NPCImporter.toDocumentData', () => {
 				name: 'Guard',
 				type: 'npc',
 				system: {
-					traits: { size: { value: 'lg' } },
+					traits: { value: [] as string[], rarity: 'common' as const, size: { value: 'lg' } },
 				},
 			},
 			items: [],
@@ -330,7 +338,8 @@ describe('HazardImporter.toDocumentData', () => {
 				img: 'icons/trap.webp',
 				system: {
 					description: { value: '<p>A mental trap</p>' },
-					traits: { value: ['magical', 'mental'] as any[], rarity: 'uncommon' as const },
+					slug: 'mind-trap',
+					traits: { value: ['magical', 'mental'] as string[], rarity: 'uncommon' as const },
 					details: {
 						level: { value: 8 },
 						disable: 'DC 26 Occultism',
@@ -382,7 +391,8 @@ describe('HazardImporter.toDocumentData', () => {
 				type: 'hazard' as const,
 				system: {
 					description: { value: '' },
-					traits: { value: [] as any[] },
+					slug: 'simple-trap',
+					traits: { value: [] as string[] },
 					details: { level: { value: 1 }, isComplex: false },
 					attributes: {},
 					saves: {},
@@ -404,7 +414,8 @@ describe('HazardImporter.toDocumentData', () => {
 				type: 'hazard' as const,
 				system: {
 					description: { value: '' },
-					traits: { value: [] as any[] },
+					slug: 'wailing-spirit',
+					traits: { value: [] as string[] },
 					details: { level: { value: 3 }, isComplex: false },
 					attributes: {},
 					saves: {},
@@ -426,7 +437,8 @@ describe('HazardImporter.toDocumentData', () => {
 				type: 'hazard' as const,
 				system: {
 					description: { value: '' },
-					traits: { value: [] as any[] },
+					slug: 'lava-pool',
+					traits: { value: [] as string[] },
 					details: { level: { value: 5 }, isComplex: true },
 					attributes: {},
 					saves: {},

@@ -118,13 +118,13 @@ describe('createStrike', () => {
 
 describe('createSpell', () => {
 	it('creates a spell with correct structure', () => {
-		const spell = createSpell('Fireball', 3, 'arcane', ['fire', 'evocation'], 'A ball of fire');
+		const spell = createSpell('Fireball', 3, 'arcane', ['fire', 'concentrate'], 'A ball of fire');
 
 		expect(spell.name).toBe('Fireball');
 		expect(spell.type).toBe('spell');
 		expect(spell.system?.level?.value).toBe(3);
 		expect(spell.system?.traditions?.value).toEqual(['arcane']);
-		expect(spell.system?.traits?.value).toEqual(['fire', 'evocation']);
+		expect(spell.system?.traits?.value).toEqual(['fire', 'concentrate']);
 		expect(spell.system?.description?.value).toBe('A ball of fire');
 		expect(spell.system?.slug).toBe('fireball');
 	});
@@ -183,7 +183,7 @@ describe('generateRuneWeaponName', () => {
 	});
 
 	it('converts camelCase property runes to Title Case', () => {
-		expect(generateRuneWeaponName('Longsword', { property: ['greaterFlaming'] })).toBe('Greater Flaming Longsword');
+		expect(generateRuneWeaponName('Longsword', { property: ['greaterFlaming' as never] })).toBe('Greater Flaming Longsword');
 	});
 
 	it('combines all rune types', () => {
