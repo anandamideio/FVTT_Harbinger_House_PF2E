@@ -164,12 +164,13 @@ export abstract class BaseImporter<T> {
    * Get the appropriate collection for this document type
    */
   protected getCollection(): any {
-    if (this.documentType === 'Actor') {
-      return game.actors;
-    } else if (this.documentType === 'Item') {
-      return game.items;
+    switch (this.documentType) {
+      case 'Actor': return game.actors;
+      case 'Item': return game.items;
+      case 'JournalEntry': return (game as any).journal;
+      case 'Scene': return (game as any).scenes;
+      default: return null;
     }
-    return null;
   }
 
   /**

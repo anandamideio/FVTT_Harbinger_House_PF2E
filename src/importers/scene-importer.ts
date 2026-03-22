@@ -36,13 +36,6 @@ export class SceneImporter extends BaseImporter<HarbingerScene> {
   protected documentType = 'Scene' as const;
   protected documentClass = Scene;
 
-  /**
-   * Override to provide scene collection
-   */
-  protected getCollection(): any {
-    return (game as any).scenes;
-  }
-
   getImportableItems(): HarbingerScene[] {
     return ALL_SCENES;
   }
