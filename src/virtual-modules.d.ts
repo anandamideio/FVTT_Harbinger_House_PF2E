@@ -3,6 +3,6 @@
  */
 
 declare module 'virtual:harbinger-markdown' {
-  const content: string;
-  export default content;
+	const content: string;
+	export default content;
 }

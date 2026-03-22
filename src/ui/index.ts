@@ -1,26 +1,26 @@
-import { MODULE_NAME, logError } from '../config';
+import { logError, MODULE_NAME } from '../config';
 import {
-  npcImporter,
-  itemImporter,
-  spellImporter,
-  hazardImporter,
-  journalImporter,
-  sceneImporter,
-  deleteAllImportedContent
-} from '../importers';
-import {
-  NPCS_BY_CATEGORY,
-  getCategoryLabel,
-  ITEMS_BY_CATEGORY,
-  getItemCategoryLabel,
-  HAZARDS_BY_CATEGORY,
-  getHazardCategoryLabel,
-  ALL_SPELLS,
-  JOURNALS_BY_FOLDER,
-  getFolderLabel,
-  ALL_SCENES,
-  getContentSummary
+	ALL_SCENES,
+	ALL_SPELLS,
+	getCategoryLabel,
+	getContentSummary,
+	getFolderLabel,
+	getHazardCategoryLabel,
+	getItemCategoryLabel,
+	HAZARDS_BY_CATEGORY,
+	ITEMS_BY_CATEGORY,
+	JOURNALS_BY_FOLDER,
+	NPCS_BY_CATEGORY,
 } from '../data';
+import {
+	deleteAllImportedContent,
+	hazardImporter,
+	itemImporter,
+	journalImporter,
+	npcImporter,
+	sceneImporter,
+	spellImporter,
+} from '../importers';
 
 const PLANESCAPE_STYLES = `
 <style id="harbinger-house-styles">
@@ -183,19 +183,18 @@ const PLANESCAPE_STYLES = `
 </style>
 `;
 
-
 function injectStyles(): void {
-  if (!document.getElementById('harbinger-house-styles')) {
-    document.head.insertAdjacentHTML('beforeend', PLANESCAPE_STYLES);
-  }
+	if (!document.getElementById('harbinger-house-styles')) {
+		document.head.insertAdjacentHTML('beforeend', PLANESCAPE_STYLES);
+	}
 }
 
 export function showWelcomeDialog(): void {
-  injectStyles();
-  
-  const summary = getContentSummary();
-  
-  const content = `
+	injectStyles();
+
+	const summary = getContentSummary();
+
+	const content = `
     <div class="harbinger-house-dialog">
       <div class="dialog-content">
         <h2><i class="fas fa-door-open"></i> Welcome to Harbinger House</h2>
@@ -233,79 +232,94 @@ export function showWelcomeDialog(): void {
     </div>
   `;
 
-  const dialog = new Dialog({
-    title: MODULE_NAME,
-    content,
-    buttons: {},
-    render: (html: JQuery) => {
-      html.find('#hh-import-btn').on('click', () => {
-        dialog.close();
-        showImportDialog();
-      });
-      
-      html.find('#hh-later-btn').on('click', () => {
-        dialog.close();
-      });
-    }
-  }, {
-    width: 450,
-    classes: ['harbinger-house-welcome']
-  });
+	const dialog = new Dialog(
+		{
+			title: MODULE_NAME,
+			content,
+			buttons: {},
+			render: (html: JQuery) => {
+				html.find('#hh-import-btn').on('click', () => {
+					dialog.close();
+					showImportDialog();
+				});
 
-  dialog.render(true);
+				html.find('#hh-later-btn').on('click', () => {
+					dialog.close();
+				});
+			},
+		},
+		{
+			width: 450,
+			classes: ['harbinger-house-welcome'],
+		},
+	);
+
+	dialog.render(true);
 }
 
 /**
  * Show the main import dialog with category selection
  */
 export function showImportDialog(): void {
-  injectStyles();
-  
-  // Build NPC categories HTML
-  const npcCategoriesHtml = Object.entries(NPCS_BY_CATEGORY)
-    .filter(([_, npcs]) => npcs.length > 0)
-    .map(([category, npcs]) => `
+	injectStyles();
+
+	// Build NPC categories HTML
+	const npcCategoriesHtml = Object.entries(NPCS_BY_CATEGORY)
+		.filter(([_, npcs]) => npcs.length > 0)
+		.map(
+			([category, npcs]) => `
       <label class="category-item">
         <input type="checkbox" name="npc-${category}" checked>
         ${getCategoryLabel(category)}
         <span class="category-count">(${npcs.length})</span>
       </label>
-    `).join('');
+    `,
+		)
+		.join('');
 
-  // Build Item categories HTML
-  const itemCategoriesHtml = Object.entries(ITEMS_BY_CATEGORY)
-    .filter(([_, items]) => items.length > 0)
-    .map(([category, items]) => `
+	// Build Item categories HTML
+	const itemCategoriesHtml = Object.entries(ITEMS_BY_CATEGORY)
+		.filter(([_, items]) => items.length > 0)
+		.map(
+			([category, items]) => `
       <label class="category-item">
         <input type="checkbox" name="item-${category}" checked>
         ${getItemCategoryLabel(category as any)}
         <span class="category-count">(${items.length})</span>
       </label>
-    `).join('');
+    `,
+		)
+		.join('');
 
-  // Build Hazard categories HTML
-  const hazardCategoriesHtml = Object.entries(HAZARDS_BY_CATEGORY)
-    .filter(([_, hazards]) => hazards.length > 0)
-    .map(([category, hazards]) => `
+	// Build Hazard categories HTML
+	const hazardCategoriesHtml = Object.entries(HAZARDS_BY_CATEGORY)
+		.filter(([_, hazards]) => hazards.length > 0)
+		.map(
+			([category, hazards]) => `
       <label class="category-item">
         <input type="checkbox" name="hazard-${category}" checked>
         ${getHazardCategoryLabel(category as any)}
         <span class="category-count">(${hazards.length})</span>
       </label>
-    `).join('');
+    `,
+		)
+		.join('');
 
-  // Build Journal folders HTML
-  const journalFoldersHtml = Object.entries(JOURNALS_BY_FOLDER)
-    .filter(([_, journals]) => journals.length > 0)
-    .map(([folder, journals]) => `
+	// Build Journal folders HTML
+	const journalFoldersHtml = Object.entries(JOURNALS_BY_FOLDER)
+		.filter(([_, journals]) => journals.length > 0)
+		.map(
+			([folder, journals]) => `
       <label class="category-item">
         <input type="checkbox" name="journal-${folder}" checked>
         ${getFolderLabel(folder as any)}
         <span class="category-count">(${journals.length})</span>
       </label>
-    `).join('');
+    `,
+		)
+		.join('');
 
-  const content = `
+	const content = `
     <div class="harbinger-house-dialog">
       <div class="dialog-content">
         <h2><i class="fas fa-file-import"></i> Import Content</h2>
@@ -417,190 +431,207 @@ export function showImportDialog(): void {
     </div>
   `;
 
-  const dialog = new Dialog({
-    title: `${MODULE_NAME} - Import`,
-    content,
-    buttons: {},
-    render: (html: JQuery) => {
-      // Toggle category visibility based on main checkbox
-      html.find('#import-npcs').on('change', (event) => {
-        html.find('#npc-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
-      });
-      html.find('#import-items').on('change', (event) => {
-        html.find('#item-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
-      });
-      html.find('#import-hazards').on('change', (event) => {
-        html.find('#hazard-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
-      });
-      html.find('#import-journals').on('change', (event) => {
-        html.find('#journal-folders').toggle($(event.currentTarget as HTMLElement).is(':checked'));
-      });
+	const dialog = new Dialog(
+		{
+			title: `${MODULE_NAME} - Import`,
+			content,
+			buttons: {},
+			render: (html: JQuery) => {
+				// Toggle category visibility based on main checkbox
+				html.find('#import-npcs').on('change', (event) => {
+					html.find('#npc-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
+				});
+				html.find('#import-items').on('change', (event) => {
+					html.find('#item-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
+				});
+				html.find('#import-hazards').on('change', (event) => {
+					html.find('#hazard-categories').toggle($(event.currentTarget as HTMLElement).is(':checked'));
+				});
+				html.find('#import-journals').on('change', (event) => {
+					html.find('#journal-folders').toggle($(event.currentTarget as HTMLElement).is(':checked'));
+				});
 
-      // Import button
-      html.find('#hh-do-import').on('click', async () => {
-        const progressContainer = html.find('#progress-container');
-        const progressFill = html.find('#progress-fill');
-        const progressText = html.find('#progress-text');
-        
-        progressContainer.addClass('active');
-        html.find('button').prop('disabled', true);
+				// Import button
+				html.find('#hh-do-import').on('click', async () => {
+					const progressContainer = html.find('#progress-container');
+					const progressFill = html.find('#progress-fill');
+					const progressText = html.find('#progress-text');
 
-        try {
-          // Get selected options
-          const importNpcs = html.find('#import-npcs').is(':checked');
-          const importItems = html.find('#import-items').is(':checked');
-          const importSpells = html.find('#import-spells').is(':checked');
-          const importHazards = html.find('#import-hazards').is(':checked');
-          const importJournals = html.find('#import-journals').is(':checked');
-          const importScenes = html.find('#import-scenes').is(':checked');
+					progressContainer.addClass('active');
+					html.find('button').prop('disabled', true);
 
-          let totalImported = 0;
-          let totalFailed = 0;
+					try {
+						// Get selected options
+						const importNpcs = html.find('#import-npcs').is(':checked');
+						const importItems = html.find('#import-items').is(':checked');
+						const importSpells = html.find('#import-spells').is(':checked');
+						const importHazards = html.find('#import-hazards').is(':checked');
+						const importJournals = html.find('#import-journals').is(':checked');
+						const importScenes = html.find('#import-scenes').is(':checked');
 
-          // Import NPCs
-          if (importNpcs) {
-            progressText.text('Importing NPCs...');
-            const selectedCategories = html.find('#npc-categories input:checked')
-              .map(function() { return $(this).attr('name')?.replace('npc-', ''); })
-              .get();
-            
-            const result = await npcImporter.importByCategory({
-              categories: selectedCategories as any[],
-              onProgress: (current, total, name) => {
-                const percent = Math.round((current / total) * 100);
-                progressFill.css('width', `${percent}%`);
-                progressText.text(`Importing NPC: ${name}`);
-              }
-            });
-            totalImported += result.imported;
-            totalFailed += result.failed;
-          }
+						let totalImported = 0;
+						let totalFailed = 0;
 
-          // Import Items
-          if (importItems) {
-            progressText.text('Importing Items...');
-            const selectedCategories = html.find('#item-categories input:checked')
-              .map(function() { return $(this).attr('name')?.replace('item-', ''); })
-              .get();
-            
-            const result = await itemImporter.importByCategory({
-              categories: selectedCategories as any[],
-              onProgress: (current, total, name) => {
-                const percent = Math.round((current / total) * 100);
-                progressFill.css('width', `${percent}%`);
-                progressText.text(`Importing Item: ${name}`);
-              }
-            });
-            totalImported += result.imported;
-            totalFailed += result.failed;
-          }
+						// Import NPCs
+						if (importNpcs) {
+							progressText.text('Importing NPCs...');
+							const selectedCategories = html
+								.find('#npc-categories input:checked')
+								.map(function () {
+									return $(this).attr('name')?.replace('npc-', '');
+								})
+								.get();
 
-          // Import Spells
-          if (importSpells) {
-            progressText.text('Importing Spells...');
-            const result = await spellImporter.importAll({
-              onProgress: (current, total, name) => {
-                progressText.text(`Importing Spell: ${name}`);
-              }
-            });
-            totalImported += result.imported;
-            totalFailed += result.failed;
-          }
+							const result = await npcImporter.importByCategory({
+								categories: selectedCategories as any[],
+								onProgress: (current, total, name) => {
+									const percent = Math.round((current / total) * 100);
+									progressFill.css('width', `${percent}%`);
+									progressText.text(`Importing NPC: ${name}`);
+								},
+							});
+							totalImported += result.imported;
+							totalFailed += result.failed;
+						}
 
-          // Import Hazards
-          if (importHazards) {
-            progressText.text('Importing Hazards...');
-            const selectedCategories = html.find('#hazard-categories input:checked')
-              .map(function() { return $(this).attr('name')?.replace('hazard-', ''); })
-              .get();
+						// Import Items
+						if (importItems) {
+							progressText.text('Importing Items...');
+							const selectedCategories = html
+								.find('#item-categories input:checked')
+								.map(function () {
+									return $(this).attr('name')?.replace('item-', '');
+								})
+								.get();
 
-            const result = await hazardImporter.importByCategory({
-              categories: selectedCategories as any[],
-              onProgress: (current, total, name) => {
-                const percent = Math.round((current / total) * 100);
-                progressFill.css('width', `${percent}%`);
-                progressText.text(`Importing Hazard: ${name}`);
-              }
-            });
-            totalImported += result.imported;
-            totalFailed += result.failed;
-          }
+							const result = await itemImporter.importByCategory({
+								categories: selectedCategories as any[],
+								onProgress: (current, total, name) => {
+									const percent = Math.round((current / total) * 100);
+									progressFill.css('width', `${percent}%`);
+									progressText.text(`Importing Item: ${name}`);
+								},
+							});
+							totalImported += result.imported;
+							totalFailed += result.failed;
+						}
 
-          // Import Journals
-          if (importJournals) {
-            progressText.text('Importing Journals...');
-            const selectedFolders = html.find('#journal-folders input:checked')
-              .map(function() { return $(this).attr('name')?.replace('journal-', ''); })
-              .get();
+						// Import Spells
+						if (importSpells) {
+							progressText.text('Importing Spells...');
+							const result = await spellImporter.importAll({
+								onProgress: (current, total, name) => {
+									progressText.text(`Importing Spell: ${name}`);
+								},
+							});
+							totalImported += result.imported;
+							totalFailed += result.failed;
+						}
 
-            const result = await journalImporter.importAll({
-              folders: selectedFolders as any[],
-              onProgress: (current, total, name) => {
-                const percent = Math.round((current / total) * 100);
-                progressFill.css('width', `${percent}%`);
-                progressText.text(`Importing Journal: ${name}`);
-              }
-            });
-            totalImported += result.imported;
-            totalFailed += result.failed;
-          }
+						// Import Hazards
+						if (importHazards) {
+							progressText.text('Importing Hazards...');
+							const selectedCategories = html
+								.find('#hazard-categories input:checked')
+								.map(function () {
+									return $(this).attr('name')?.replace('hazard-', '');
+								})
+								.get();
 
-          // Import Scenes
-          if (importScenes) {
-            progressText.text('Importing Scenes...');
-            const result = await sceneImporter.importAll({
-              onProgress: (current, total, name) => {
-                const percent = Math.round((current / total) * 100);
-                progressFill.css('width', `${percent}%`);
-                progressText.text(`Importing Scene: ${name}`);
-              }
-            });
-            totalImported += result.imported;
-            totalFailed += result.failed;
-          }
+							const result = await hazardImporter.importByCategory({
+								categories: selectedCategories as any[],
+								onProgress: (current, total, name) => {
+									const percent = Math.round((current / total) * 100);
+									progressFill.css('width', `${percent}%`);
+									progressText.text(`Importing Hazard: ${name}`);
+								},
+							});
+							totalImported += result.imported;
+							totalFailed += result.failed;
+						}
 
-          // Complete
-          progressFill.css('width', '100%');
-          progressText.text(`Complete! Imported ${totalImported} items.`);
-          
-          ui.notifications?.info(`Harbinger House: Imported ${totalImported} items${totalFailed > 0 ? ` (${totalFailed} failed)` : ''}`);
-          
-          setTimeout(() => dialog.close(), 1500);
-        } catch (error) {
-          logError('Import failed:', error);
-          progressText.text(`Error: ${error}`);
-          ui.notifications?.error(`Import failed: ${error}`);
-          html.find('button').prop('disabled', false);
-        }
-      });
+						// Import Journals
+						if (importJournals) {
+							progressText.text('Importing Journals...');
+							const selectedFolders = html
+								.find('#journal-folders input:checked')
+								.map(function () {
+									return $(this).attr('name')?.replace('journal-', '');
+								})
+								.get();
 
-      // Delete button
-      html.find('#hh-delete-all').on('click', async () => {
-        dialog.close();
-        showDeleteConfirmDialog();
-      });
+							const result = await journalImporter.importAll({
+								folders: selectedFolders as any[],
+								onProgress: (current, total, name) => {
+									const percent = Math.round((current / total) * 100);
+									progressFill.css('width', `${percent}%`);
+									progressText.text(`Importing Journal: ${name}`);
+								},
+							});
+							totalImported += result.imported;
+							totalFailed += result.failed;
+						}
 
-      // Cancel button
-      html.find('#hh-cancel').on('click', () => {
-        dialog.close();
-      });
-    }
-  }, {
-    width: 500,
-    height: 'auto',
-    classes: ['harbinger-house-import']
-  });
+						// Import Scenes
+						if (importScenes) {
+							progressText.text('Importing Scenes...');
+							const result = await sceneImporter.importAll({
+								onProgress: (current, total, name) => {
+									const percent = Math.round((current / total) * 100);
+									progressFill.css('width', `${percent}%`);
+									progressText.text(`Importing Scene: ${name}`);
+								},
+							});
+							totalImported += result.imported;
+							totalFailed += result.failed;
+						}
 
-  dialog.render(true);
+						// Complete
+						progressFill.css('width', '100%');
+						progressText.text(`Complete! Imported ${totalImported} items.`);
+
+						ui.notifications?.info(
+							`Harbinger House: Imported ${totalImported} items${totalFailed > 0 ? ` (${totalFailed} failed)` : ''}`,
+						);
+
+						setTimeout(() => dialog.close(), 1500);
+					} catch (error) {
+						logError('Import failed:', error);
+						progressText.text(`Error: ${error}`);
+						ui.notifications?.error(`Import failed: ${error}`);
+						html.find('button').prop('disabled', false);
+					}
+				});
+
+				// Delete button
+				html.find('#hh-delete-all').on('click', async () => {
+					dialog.close();
+					showDeleteConfirmDialog();
+				});
+
+				// Cancel button
+				html.find('#hh-cancel').on('click', () => {
+					dialog.close();
+				});
+			},
+		},
+		{
+			width: 500,
+			height: 'auto',
+			classes: ['harbinger-house-import'],
+		},
+	);
+
+	dialog.render(true);
 }
 
 /**
  * Show confirmation dialog before deleting all imported content
  */
 export function showDeleteConfirmDialog(): void {
-  injectStyles();
+	injectStyles();
 
-  const content = `
+	const content = `
     <div class="harbinger-house-dialog">
       <div class="dialog-content">
         <h2><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h2>
@@ -622,48 +653,52 @@ export function showDeleteConfirmDialog(): void {
     </div>
   `;
 
-  const dialog = new Dialog({
-    title: `${MODULE_NAME} - Delete Content`,
-    content,
-    buttons: {
-      delete: {
-        icon: '<i class="fas fa-trash"></i>',
-        label: 'Delete All',
-        callback: async (html: JQuery) => {
-          const progressContainer = html.find('#delete-progress');
-          const progressFill = html.find('#delete-fill');
-          const progressText = html.find('#delete-text');
-          
-          progressContainer.addClass('active');
+	const dialog = new Dialog(
+		{
+			title: `${MODULE_NAME} - Delete Content`,
+			content,
+			buttons: {
+				delete: {
+					icon: '<i class="fas fa-trash"></i>',
+					label: 'Delete All',
+					callback: async (html: JQuery) => {
+						const progressContainer = html.find('#delete-progress');
+						const progressFill = html.find('#delete-fill');
+						const progressText = html.find('#delete-text');
 
-          try {
-            progressText.text('Deleting content...');
-            const results = await deleteAllImportedContent();
+						progressContainer.addClass('active');
 
-            const total = results.npcs + results.items + results.spells + results.hazards + results.journals + results.scenes;
-            progressFill.css('width', '100%');
-            progressText.text(`Deleted ${total} items.`);
-            
-            ui.notifications?.info(`Harbinger House: Deleted ${total} imported items`);
-            
-            setTimeout(() => dialog.close(), 1000);
-          } catch (error) {
-            logError('Delete failed:', error);
-            progressText.text(`Error: ${error}`);
-            ui.notifications?.error(`Delete failed: ${error}`);
-          }
-        }
-      },
-      cancel: {
-        icon: '<i class="fas fa-times"></i>',
-        label: 'Cancel'
-      }
-    },
-    default: 'cancel'
-  }, {
-    width: 400,
-    classes: ['harbinger-house-delete']
-  });
+						try {
+							progressText.text('Deleting content...');
+							const results = await deleteAllImportedContent();
 
-  dialog.render(true);
+							const total =
+								results.npcs + results.items + results.spells + results.hazards + results.journals + results.scenes;
+							progressFill.css('width', '100%');
+							progressText.text(`Deleted ${total} items.`);
+
+							ui.notifications?.info(`Harbinger House: Deleted ${total} imported items`);
+
+							setTimeout(() => dialog.close(), 1000);
+						} catch (error) {
+							logError('Delete failed:', error);
+							progressText.text(`Error: ${error}`);
+							ui.notifications?.error(`Delete failed: ${error}`);
+						}
+					},
+				},
+				cancel: {
+					icon: '<i class="fas fa-times"></i>',
+					label: 'Cancel',
+				},
+			},
+			default: 'cancel',
+		},
+		{
+			width: 400,
+			classes: ['harbinger-house-delete'],
+		},
+	);
+
+	dialog.render(true);
 }

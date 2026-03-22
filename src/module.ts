@@ -1,7 +1,7 @@
 /**
  * Harbinger House PF2e Module
  * Main entry point
- * 
+ *
  * This module provides converted PF2e content for the Harbinger House adventure.
  * It hooks into Foundry's lifecycle to:
  * 1. Register module settings
@@ -9,56 +9,56 @@
  * 3. Provide API for programmatic access
  */
 
-import { MODULE_ID, registerSettings, log, logError, localize, SETTINGS } from './config';
-import { showImportDialog, showWelcomeDialog, showDeleteConfirmDialog } from './ui';
+import { localize, log, logError, MODULE_ID, registerSettings, SETTINGS } from './config';
 import {
-  npcImporter,
-  itemImporter,
-  spellImporter,
-  hazardImporter,
-  journalImporter,
-  sceneImporter,
-  importAllContent,
-  deleteAllImportedContent,
-  type ImportResult
-} from './importers';
-import {
-  // NPC data
-  ALL_NPCS,
-  NPCS_BY_CATEGORY,
-  getNPCById,
-  getCategoryLabel,
-  type NPCCategory,
-  // Item data
-  ALL_ITEMS,
-  ITEMS_BY_CATEGORY,
-  getItemById,
-  getItemCategoryLabel,
-  type ItemCategory,
-  // Spell data
-  ALL_SPELLS,
-  getSpellById,
-  // Hazard data
-  ALL_HAZARDS,
-  HAZARDS_BY_CATEGORY,
-  getHazardById,
-  getHazardCategoryLabel,
-  type HazardCategory,
-  // Journal data
-  ALL_JOURNALS,
-  JOURNALS_BY_FOLDER,
-  getFolderLabel,
-  type JournalFolder,
-  // Scene data
-  ALL_SCENES,
-  // Summary
-  getContentSummary
+	// Hazard data
+	ALL_HAZARDS,
+	// Item data
+	ALL_ITEMS,
+	// Journal data
+	ALL_JOURNALS,
+	// NPC data
+	ALL_NPCS,
+	// Scene data
+	ALL_SCENES,
+	// Spell data
+	ALL_SPELLS,
+	getCategoryLabel,
+	// Summary
+	getContentSummary,
+	getFolderLabel,
+	getHazardById,
+	getHazardCategoryLabel,
+	getItemById,
+	getItemCategoryLabel,
+	getNPCById,
+	getSpellById,
+	HAZARDS_BY_CATEGORY,
+	type HazardCategory,
+	ITEMS_BY_CATEGORY,
+	type ItemCategory,
+	JOURNALS_BY_FOLDER,
+	type JournalFolder,
+	type NPCCategory,
+	NPCS_BY_CATEGORY,
 } from './data';
+import {
+	deleteAllImportedContent,
+	hazardImporter,
+	type ImportResult,
+	importAllContent,
+	itemImporter,
+	journalImporter,
+	npcImporter,
+	sceneImporter,
+	spellImporter,
+} from './importers';
+import { showDeleteConfirmDialog, showImportDialog, showWelcomeDialog } from './ui';
 
 /**
  * Module API
  * Exposed on the module for external access
- * 
+ *
  * This comprehensive API allows other modules or macros to:
  * - Import specific content types
  * - Query available content
@@ -66,64 +66,64 @@ import {
  * - Access raw data for custom use
  */
 interface HarbingerHouseAPI {
-  // Import functions
-  importNPCs: typeof npcImporter.importAll;
-  importNPCsByCategory: typeof npcImporter.importByCategory;
-  importItems: typeof itemImporter.importAll;
-  importItemsByCategory: typeof itemImporter.importByCategory;
-  importSpells: typeof spellImporter.importAll;
-  importHazards: typeof hazardImporter.importAll;
-  importHazardsByCategory: typeof hazardImporter.importByCategory;
-  importJournals: typeof journalImporter.importAll;
-  importJournalsByFolder: typeof journalImporter.importFolder;
-  importScenes: typeof sceneImporter.importAll;
-  importAll: typeof importAllContent;
+	// Import functions
+	importNPCs: typeof npcImporter.importAll;
+	importNPCsByCategory: typeof npcImporter.importByCategory;
+	importItems: typeof itemImporter.importAll;
+	importItemsByCategory: typeof itemImporter.importByCategory;
+	importSpells: typeof spellImporter.importAll;
+	importHazards: typeof hazardImporter.importAll;
+	importHazardsByCategory: typeof hazardImporter.importByCategory;
+	importJournals: typeof journalImporter.importAll;
+	importJournalsByFolder: typeof journalImporter.importFolder;
+	importScenes: typeof sceneImporter.importAll;
+	importAll: typeof importAllContent;
 
-  // UI functions
-  showImportDialog: typeof showImportDialog;
+	// UI functions
+	showImportDialog: typeof showImportDialog;
 
-  // Delete functions
-  deleteAllNPCs: () => Promise<number>;
-  deleteAllItems: () => Promise<number>;
-  deleteAllSpells: () => Promise<number>;
-  deleteAllHazards: () => Promise<number>;
-  deleteAllJournals: () => Promise<number>;
-  deleteAllScenes: () => Promise<number>;
-  deleteAll: typeof deleteAllImportedContent;
+	// Delete functions
+	deleteAllNPCs: () => Promise<number>;
+	deleteAllItems: () => Promise<number>;
+	deleteAllSpells: () => Promise<number>;
+	deleteAllHazards: () => Promise<number>;
+	deleteAllJournals: () => Promise<number>;
+	deleteAllScenes: () => Promise<number>;
+	deleteAll: typeof deleteAllImportedContent;
 
-  // Data access
-  getAllNPCs: () => typeof ALL_NPCS;
-  getNPCsByCategory: () => typeof NPCS_BY_CATEGORY;
-  getNPCById: typeof getNPCById;
-  getAllItems: () => typeof ALL_ITEMS;
-  getItemsByCategory: () => typeof ITEMS_BY_CATEGORY;
-  getItemById: typeof getItemById;
-  getAllSpells: () => typeof ALL_SPELLS;
-  getSpellById: typeof getSpellById;
-  getAllHazards: () => typeof ALL_HAZARDS;
-  getHazardsByCategory: () => typeof HAZARDS_BY_CATEGORY;
-  getHazardById: typeof getHazardById;
-  getAllJournals: () => typeof ALL_JOURNALS;
-  getJournalsByFolder: () => typeof JOURNALS_BY_FOLDER;
-  getAllScenes: () => typeof ALL_SCENES;
+	// Data access
+	getAllNPCs: () => typeof ALL_NPCS;
+	getNPCsByCategory: () => typeof NPCS_BY_CATEGORY;
+	getNPCById: typeof getNPCById;
+	getAllItems: () => typeof ALL_ITEMS;
+	getItemsByCategory: () => typeof ITEMS_BY_CATEGORY;
+	getItemById: typeof getItemById;
+	getAllSpells: () => typeof ALL_SPELLS;
+	getSpellById: typeof getSpellById;
+	getAllHazards: () => typeof ALL_HAZARDS;
+	getHazardsByCategory: () => typeof HAZARDS_BY_CATEGORY;
+	getHazardById: typeof getHazardById;
+	getAllJournals: () => typeof ALL_JOURNALS;
+	getJournalsByFolder: () => typeof JOURNALS_BY_FOLDER;
+	getAllScenes: () => typeof ALL_SCENES;
 
-  // Summary
-  getContentSummary: typeof getContentSummary;
+	// Summary
+	getContentSummary: typeof getContentSummary;
 
-  // Importer instances (for advanced use)
-  npcImporter: typeof npcImporter;
-  itemImporter: typeof itemImporter;
-  spellImporter: typeof spellImporter;
-  hazardImporter: typeof hazardImporter;
-  journalImporter: typeof journalImporter;
-  sceneImporter: typeof sceneImporter;
+	// Importer instances (for advanced use)
+	npcImporter: typeof npcImporter;
+	itemImporter: typeof itemImporter;
+	spellImporter: typeof spellImporter;
+	hazardImporter: typeof hazardImporter;
+	journalImporter: typeof journalImporter;
+	sceneImporter: typeof sceneImporter;
 }
 
 // Store the API on the module
 declare global {
-  interface Game {
-    harbingerHouse?: HarbingerHouseAPI;
-  }
+	interface Game {
+		harbingerHouse?: HarbingerHouseAPI;
+	}
 }
 
 /**
@@ -131,91 +131,91 @@ declare global {
  * Called on the 'init' hook - before game data is loaded
  */
 Hooks.once('init', async () => {
-  log('Initializing Harbinger House module');
+	log('Initializing Harbinger House module');
 
-  // Register module settings
-  registerSettings();
+	// Register module settings
+	registerSettings();
 
-  // Register API on game object for external access
-  game.harbingerHouse = {
-    // Import functions
-    importNPCs: npcImporter.importAll.bind(npcImporter),
-    importNPCsByCategory: npcImporter.importByCategory.bind(npcImporter),
-    importItems: itemImporter.importAll.bind(itemImporter),
-    importItemsByCategory: itemImporter.importByCategory.bind(itemImporter),
-    importSpells: spellImporter.importAll.bind(spellImporter),
-    importHazards: hazardImporter.importAll.bind(hazardImporter),
-    importHazardsByCategory: hazardImporter.importByCategory.bind(hazardImporter),
-    importJournals: journalImporter.importAll.bind(journalImporter),
-    importJournalsByFolder: journalImporter.importFolder.bind(journalImporter),
-    importScenes: sceneImporter.importAll.bind(sceneImporter),
-    importAll: importAllContent,
+	// Register API on game object for external access
+	game.harbingerHouse = {
+		// Import functions
+		importNPCs: npcImporter.importAll.bind(npcImporter),
+		importNPCsByCategory: npcImporter.importByCategory.bind(npcImporter),
+		importItems: itemImporter.importAll.bind(itemImporter),
+		importItemsByCategory: itemImporter.importByCategory.bind(itemImporter),
+		importSpells: spellImporter.importAll.bind(spellImporter),
+		importHazards: hazardImporter.importAll.bind(hazardImporter),
+		importHazardsByCategory: hazardImporter.importByCategory.bind(hazardImporter),
+		importJournals: journalImporter.importAll.bind(journalImporter),
+		importJournalsByFolder: journalImporter.importFolder.bind(journalImporter),
+		importScenes: sceneImporter.importAll.bind(sceneImporter),
+		importAll: importAllContent,
 
-    // UI functions
-    showImportDialog,
+		// UI functions
+		showImportDialog,
 
-    // Delete functions
-    deleteAllNPCs: async () => {
-      const count = await npcImporter.deleteAllImported();
-      log(`Deleted ${count} imported NPCs`);
-      return count;
-    },
-    deleteAllItems: async () => {
-      const count = await itemImporter.deleteAllImported();
-      log(`Deleted ${count} imported items`);
-      return count;
-    },
-    deleteAllSpells: async () => {
-      const count = await spellImporter.deleteAllImported();
-      log(`Deleted ${count} imported spells`);
-      return count;
-    },
-    deleteAllHazards: async () => {
-      const count = await hazardImporter.deleteAllImported();
-      log(`Deleted ${count} imported hazards`);
-      return count;
-    },
-    deleteAllJournals: async () => {
-      const count = await journalImporter.deleteAllImported();
-      log(`Deleted ${count} imported journals`);
-      return count;
-    },
-    deleteAllScenes: async () => {
-      const count = await sceneImporter.deleteAllImported();
-      log(`Deleted ${count} imported scenes`);
-      return count;
-    },
-    deleteAll: deleteAllImportedContent,
+		// Delete functions
+		deleteAllNPCs: async () => {
+			const count = await npcImporter.deleteAllImported();
+			log(`Deleted ${count} imported NPCs`);
+			return count;
+		},
+		deleteAllItems: async () => {
+			const count = await itemImporter.deleteAllImported();
+			log(`Deleted ${count} imported items`);
+			return count;
+		},
+		deleteAllSpells: async () => {
+			const count = await spellImporter.deleteAllImported();
+			log(`Deleted ${count} imported spells`);
+			return count;
+		},
+		deleteAllHazards: async () => {
+			const count = await hazardImporter.deleteAllImported();
+			log(`Deleted ${count} imported hazards`);
+			return count;
+		},
+		deleteAllJournals: async () => {
+			const count = await journalImporter.deleteAllImported();
+			log(`Deleted ${count} imported journals`);
+			return count;
+		},
+		deleteAllScenes: async () => {
+			const count = await sceneImporter.deleteAllImported();
+			log(`Deleted ${count} imported scenes`);
+			return count;
+		},
+		deleteAll: deleteAllImportedContent,
 
-    // Data access
-    getAllNPCs: () => ALL_NPCS,
-    getNPCsByCategory: () => NPCS_BY_CATEGORY,
-    getNPCById,
-    getAllItems: () => ALL_ITEMS,
-    getItemsByCategory: () => ITEMS_BY_CATEGORY,
-    getItemById,
-    getAllSpells: () => ALL_SPELLS,
-    getSpellById,
-    getAllHazards: () => ALL_HAZARDS,
-    getHazardsByCategory: () => HAZARDS_BY_CATEGORY,
-    getHazardById,
-    getAllJournals: () => ALL_JOURNALS,
-    getJournalsByFolder: () => JOURNALS_BY_FOLDER,
-    getAllScenes: () => ALL_SCENES,
+		// Data access
+		getAllNPCs: () => ALL_NPCS,
+		getNPCsByCategory: () => NPCS_BY_CATEGORY,
+		getNPCById,
+		getAllItems: () => ALL_ITEMS,
+		getItemsByCategory: () => ITEMS_BY_CATEGORY,
+		getItemById,
+		getAllSpells: () => ALL_SPELLS,
+		getSpellById,
+		getAllHazards: () => ALL_HAZARDS,
+		getHazardsByCategory: () => HAZARDS_BY_CATEGORY,
+		getHazardById,
+		getAllJournals: () => ALL_JOURNALS,
+		getJournalsByFolder: () => JOURNALS_BY_FOLDER,
+		getAllScenes: () => ALL_SCENES,
 
-    // Summary
-    getContentSummary,
+		// Summary
+		getContentSummary,
 
-    // Importer instances
-    npcImporter,
-    itemImporter,
-    spellImporter,
-    hazardImporter,
-    journalImporter,
-    sceneImporter
-  };
+		// Importer instances
+		npcImporter,
+		itemImporter,
+		spellImporter,
+		hazardImporter,
+		journalImporter,
+		sceneImporter,
+	};
 
-  log('Harbinger House API registered on game.harbingerHouse');
+	log('Harbinger House API registered on game.harbingerHouse');
 });
 
 /**
@@ -223,7 +223,7 @@ Hooks.once('init', async () => {
  * Called after init, when localization is available
  */
 Hooks.once('setup', async () => {
-  log('Setting up Harbinger House module');
+	log('Setting up Harbinger House module');
 });
 
 /**
@@ -232,34 +232,36 @@ Hooks.once('setup', async () => {
  * This is where we show the import dialog
  */
 Hooks.once('ready', async () => {
-  log('Harbinger House module ready');
+	log('Harbinger House module ready');
 
-  // Log content summary
-  const summary = getContentSummary();
-  log(`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards, ${summary.journals} journals`);
+	// Log content summary
+	const summary = getContentSummary();
+	log(
+		`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards, ${summary.journals} journals`,
+	);
 
-  // Only show dialog if:
-  // 1. User is a GM
-  // 2. Setting allows it
-  // 3. PF2e system is active
-  if (!game.user?.isGM) {
-    log('Not a GM, skipping import dialog');
-    return;
-  }
+	// Only show dialog if:
+	// 1. User is a GM
+	// 2. Setting allows it
+	// 3. PF2e system is active
+	if (!game.user?.isGM) {
+		log('Not a GM, skipping import dialog');
+		return;
+	}
 
-  if (game.system.id !== 'pf2e') {
-    logError('This module requires the Pathfinder 2e system');
-    ui.notifications?.error(localize('errors.wrongSystem'));
-    return;
-  }
+	if (game.system.id !== 'pf2e') {
+		logError('This module requires the Pathfinder 2e system');
+		ui.notifications?.error(localize('errors.wrongSystem'));
+		return;
+	}
 
-  const showDialog = game.settings.get(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG);
-  if (showDialog) {
-    // Small delay to ensure UI is ready
-    setTimeout(() => {
-      showWelcomeDialog();
-    }, 500);
-  }
+	const showDialog = game.settings.get(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG);
+	if (showDialog) {
+		// Small delay to ensure UI is ready
+		setTimeout(() => {
+			showWelcomeDialog();
+		}, 500);
+	}
 });
 
 /**
@@ -268,29 +270,29 @@ Hooks.once('ready', async () => {
  * created by this module, giving them an aged manuscript appearance
  */
 Hooks.on('renderJournalSheet', (...args: any[]) => {
-  const [app, html] = args;
+	const [app, html] = args;
 
-  // Check if this journal was created by our module
-  const journal = app.object;
-  const isHarbingerJournal = journal?.flags?.[MODULE_ID]?.themed;
+	// Check if this journal was created by our module
+	const journal = app.object;
+	const isHarbingerJournal = journal?.flags?.[MODULE_ID]?.themed;
 
-  if (isHarbingerJournal) {
-    // Add the harbinger-journal class to the sheet
-    html.closest('.journal-sheet').addClass('harbinger-journal');
-    log(`Applied themed styling to journal: ${journal.name || 'Unknown'}`);
-  }
+	if (isHarbingerJournal) {
+		// Add the harbinger-journal class to the sheet
+		html.closest('.journal-sheet').addClass('harbinger-journal');
+		log(`Applied themed styling to journal: ${journal.name || 'Unknown'}`);
+	}
 });
 
 /**
  * Export for direct access if needed
  */
 export {
-  MODULE_ID,
-  npcImporter,
-  itemImporter,
-  spellImporter,
-  hazardImporter,
-  journalImporter,
-  importAllContent,
-  deleteAllImportedContent
+	deleteAllImportedContent,
+	hazardImporter,
+	importAllContent,
+	itemImporter,
+	journalImporter,
+	MODULE_ID,
+	npcImporter,
+	spellImporter,
 };

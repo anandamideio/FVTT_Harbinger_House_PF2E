@@ -10,56 +10,50 @@
 // Re-export types
 export type { HarbingerNPC, NPCCategory } from './harbinger-residents';
 
+import { FIENDS, GENERIC_NPCS } from './generic-npcs';
 // Import all NPC groups (assuming these files exist in your project)
 // If they don't exist, you'll need to create them or import from a single file
 import { HARBINGER_RESIDENTS } from './harbinger-residents';
-import { FIENDS, GENERIC_NPCS } from './generic-npcs';
-import { ALL_ITEMS } from './items';
-import { ALL_SPELLS } from './spells';
 import { ALL_HAZARDS } from './hazards';
+import { ALL_ITEMS } from './items';
 import { ALL_JOURNALS } from './journals';
 import { ALL_SCENES } from './scenes';
+import { ALL_SPELLS } from './spells';
 
+export * from './generic-npcs';
 // Re-export individual NPCs for direct access
 export * from './harbinger-residents';
-export * from './generic-npcs';
 
 // Re-export scenes
 export * from './scenes';
-export { ALL_SCENES };
-
 // Combined NPC exports
-export { HARBINGER_RESIDENTS, FIENDS, GENERIC_NPCS };
+export { ALL_SCENES, FIENDS, GENERIC_NPCS, HARBINGER_RESIDENTS };
 
 // All NPCs combined
-export const ALL_NPCS = [
-  ...HARBINGER_RESIDENTS,
-  ...FIENDS,
-  ...GENERIC_NPCS,
-];
+export const ALL_NPCS = [...HARBINGER_RESIDENTS, ...FIENDS, ...GENERIC_NPCS];
 
 // NPCs grouped by category for UI display
 export const NPCS_BY_CATEGORY = {
-  'harbinger-resident': HARBINGER_RESIDENTS,
-  'fiend': FIENDS,
-  'generic-npc': GENERIC_NPCS.filter(npc => npc.category === 'generic-npc'),
-  'cultist': GENERIC_NPCS.filter(npc => npc.category === 'cultist'),
+	'harbinger-resident': HARBINGER_RESIDENTS,
+	fiend: FIENDS,
+	'generic-npc': GENERIC_NPCS.filter((npc) => npc.category === 'generic-npc'),
+	cultist: GENERIC_NPCS.filter((npc) => npc.category === 'cultist'),
 };
 
 // Get human-readable NPC category names
 export function getCategoryLabel(category: string): string {
-  const labels: Record<string, string> = {
-    'harbinger-resident': 'Harbinger House Residents',
-    'fiend': 'Fiends & Monsters',
-    'generic-npc': 'Generic NPCs',
-    'cultist': 'Cultists & Common NPCs',
-  };
-  return labels[category] || category;
+	const labels: Record<string, string> = {
+		'harbinger-resident': 'Harbinger House Residents',
+		fiend: 'Fiends & Monsters',
+		'generic-npc': 'Generic NPCs',
+		cultist: 'Cultists & Common NPCs',
+	};
+	return labels[category] || category;
 }
 
 // Quick NPC lookup by ID
 export function getNPCById(id: string) {
-  return ALL_NPCS.find(npc => npc.id === id);
+	return ALL_NPCS.find((npc) => npc.id === id);
 }
 
 // ============================================================================
@@ -69,15 +63,15 @@ export function getNPCById(id: string) {
 export type { HarbingerItem, ItemCategory } from './items';
 
 export {
-  ALL_ITEMS,
-  ITEMS_BY_CATEGORY,
-  ARTIFACT_ITEMS,
-  WEAPON_ITEMS,
-  ARMOR_ITEMS,
-  EQUIPMENT_ITEMS,
-  CONSUMABLE_ITEMS,
-  getItemCategoryLabel,
-  getItemById
+	ALL_ITEMS,
+	ARMOR_ITEMS,
+	ARTIFACT_ITEMS,
+	CONSUMABLE_ITEMS,
+	EQUIPMENT_ITEMS,
+	getItemById,
+	getItemCategoryLabel,
+	ITEMS_BY_CATEGORY,
+	WEAPON_ITEMS,
 } from './items';
 
 // ============================================================================
@@ -87,9 +81,9 @@ export {
 export type { HarbingerSpell } from './spells';
 
 export {
-  ALL_SPELLS,
-  getSpellById,
-  getSpellNames
+	ALL_SPELLS,
+	getSpellById,
+	getSpellNames,
 } from './spells';
 
 // ============================================================================
@@ -99,26 +93,26 @@ export {
 export type { HarbingerHazard, HazardCategory, HazardData } from './hazards';
 
 export {
-  ALL_HAZARDS,
-  HAZARDS_BY_CATEGORY,
-  TRAP_HAZARDS,
-  ENVIRONMENTAL_HAZARDS,
-  AURA_HAZARDS,
-  getHazardCategoryLabel,
-  getHazardById,
-  getHazardsByLocation
+	ALL_HAZARDS,
+	AURA_HAZARDS,
+	ENVIRONMENTAL_HAZARDS,
+	getHazardById,
+	getHazardCategoryLabel,
+	getHazardsByLocation,
+	HAZARDS_BY_CATEGORY,
+	TRAP_HAZARDS,
 } from './hazards';
 
 // ============================================================================
 // Journal Data
 // ============================================================================
 
-export type { HarbingerJournal, JournalPage, JournalFolder } from './journals';
+export type { HarbingerJournal, JournalFolder, JournalPage } from './journals';
 
 export {
-  ALL_JOURNALS,
-  JOURNALS_BY_FOLDER,
-  getFolderLabel
+	ALL_JOURNALS,
+	getFolderLabel,
+	JOURNALS_BY_FOLDER,
 } from './journals';
 
 // ============================================================================
@@ -126,42 +120,44 @@ export {
 // ============================================================================
 
 export function getContentSummary() {
-  return {
-    npcs: ALL_NPCS.length,
-    items: ALL_ITEMS.length,
-    spells: ALL_SPELLS.length,
-    hazards: ALL_HAZARDS.length,
-    journals: ALL_JOURNALS.length,
-    scenes: ALL_SCENES.length,
-    total: ALL_NPCS.length + ALL_ITEMS.length + ALL_SPELLS.length + ALL_HAZARDS.length + ALL_JOURNALS.length + ALL_SCENES.length
-  };
+	return {
+		npcs: ALL_NPCS.length,
+		items: ALL_ITEMS.length,
+		spells: ALL_SPELLS.length,
+		hazards: ALL_HAZARDS.length,
+		journals: ALL_JOURNALS.length,
+		scenes: ALL_SCENES.length,
+		total:
+			ALL_NPCS.length +
+			ALL_ITEMS.length +
+			ALL_SPELLS.length +
+			ALL_HAZARDS.length +
+			ALL_JOURNALS.length +
+			ALL_SCENES.length,
+	};
 }
 
 // ============================================================================
 // Re-export utility functions and types from utils.ts
 // ============================================================================
 
-export {
-  isSystemItemReference,
-  isSystemWeaponReference,
-  isSystemSpellReference,
-  isSystemActionReference,
-  generateRuneWeaponName,
-} from './utils';
-
 export type { NPCItemEntry } from './harbinger-residents';
+export {
+	generateRuneWeaponName,
+	isSystemActionReference,
+	isSystemItemReference,
+	isSystemSpellReference,
+	isSystemWeaponReference,
+} from './utils';
 
 // ============================================================================
 // Re-export system item types and constants from system-items.ts
 // ============================================================================
 
-export {
-  PROPERTY_RUNES,
-} from './system-items';
-
 export type {
-  SystemWeaponReference,
-  SystemSpellReference,
-  SystemActionReference,
-  WeaponRuneConfig,
+	SystemActionReference,
+	SystemSpellReference,
+	SystemWeaponReference,
+	WeaponRuneConfig,
 } from './system-items';
+export { PROPERTY_RUNES } from './system-items';
