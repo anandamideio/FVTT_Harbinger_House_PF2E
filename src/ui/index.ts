@@ -1,15 +1,4 @@
-/**
- * UI Components
- * Dialog and notification helpers for the Harbinger House module
- * 
- * This file provides:
- * - Welcome dialog on first load
- * - Import dialog with category selection
- * - Progress indicators
- * - Confirmation dialogs
- */
-
-import { MODULE_ID, MODULE_NAME, localize, log, logError } from '../config';
+import { MODULE_NAME, logError } from '../config';
 import {
   npcImporter,
   itemImporter,
@@ -17,7 +6,6 @@ import {
   hazardImporter,
   journalImporter,
   sceneImporter,
-  importAllContent,
   deleteAllImportedContent
 } from '../importers';
 import {
@@ -34,10 +22,6 @@ import {
   getContentSummary
 } from '../data';
 
-/**
- * CSS styles for the Planescape-themed UI
- * Injected into the document head on first use
- */
 const PLANESCAPE_STYLES = `
 <style id="harbinger-house-styles">
   .harbinger-house-dialog {
@@ -199,18 +183,13 @@ const PLANESCAPE_STYLES = `
 </style>
 `;
 
-/**
- * Inject Planescape styles into the document
- */
+
 function injectStyles(): void {
   if (!document.getElementById('harbinger-house-styles')) {
     document.head.insertAdjacentHTML('beforeend', PLANESCAPE_STYLES);
   }
 }
 
-/**
- * Show the welcome dialog with import options
- */
 export function showWelcomeDialog(): void {
   injectStyles();
   
