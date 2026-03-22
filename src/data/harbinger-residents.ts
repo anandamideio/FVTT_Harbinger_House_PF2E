@@ -1,14 +1,6 @@
-/**
- * Harbinger House NPC Data
- * Converted from AD&D 2e to Pathfinder 2e
- *
- * This file contains all NPC definitions for the module.
- * Each NPC is structured to match PF2e's Actor data schema.
- */
-
 import type { ActorData, ItemData } from '../types/foundry.d.ts';
 import type { SystemActionReference, SystemSpellReference, SystemWeaponReference } from './system-items';
-import { createAction, createSpell, createStrike, systemAction, systemSpell, systemWeapon } from './utils';
+import { createAction, createStrike, systemAction, systemSpell, systemWeapon } from './utils';
 
 // NPC Categories for organization
 export type NPCCategory = 'major-npc' | 'harbinger-resident' | 'generic-npc' | 'fiend' | 'cultist';

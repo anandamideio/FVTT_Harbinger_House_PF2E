@@ -1,14 +1,3 @@
-/**
- * Scene Data
- * Defines all map scenes for Harbinger House
- *
- * Why scenes?
- * - Each floor/area of Harbinger House gets its own scene
- * - Scenes contain the map image as background
- * - GMs can add walls, lighting, tokens as needed
- * - Provides a ready-to-use battlemap setup
- */
-
 export interface HarbingerScene {
 	id: string;
 	name: string;

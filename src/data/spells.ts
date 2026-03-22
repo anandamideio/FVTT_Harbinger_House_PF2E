@@ -1,12 +1,3 @@
-/**
- * Harbinger House Spell Data
- * Converted from AD&D 2e to Pathfinder 2e
- *
- * This file contains custom spells unique to the Harbinger House adventure.
- * Most spells used in the adventure are standard PF2e spells, but these
- * are custom abilities tied to specific NPCs or plot elements.
- */
-
 import type { ItemData } from '../types/foundry';
 
 export interface HarbingerSpell {

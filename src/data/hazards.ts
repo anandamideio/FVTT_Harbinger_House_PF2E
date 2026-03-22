@@ -1,17 +1,3 @@
-/**
- * Harbinger House Hazard Data
- * Converted from AD&D 2e to Pathfinder 2e
- *
- * This file contains all unique hazards, traps, and environmental dangers
- * from the Harbinger House adventure module.
- *
- * Hazard Categories:
- * - trap: Magical or mechanical traps
- * - environmental: Natural or magical environmental hazards
- * - haunt: Supernatural hazards tied to spirits or psychic phenomena
- * - aura: Persistent magical effects around NPCs or locations
- */
-
 import type { PF2eHazardSystem } from '../types/foundry';
 
 // Hazard categories for organization

@@ -1,18 +1,3 @@
-/**
- * Harbinger House Item Data
- * Converted from AD&D 2e to Pathfinder 2e
- *
- * This file contains all unique magic items, artifacts, and consumables
- * from the Harbinger House adventure module.
- *
- * Item Categories:
- * - artifact: Major artifacts (The Planarity, The Focrux)
- * - weapon: Unique magical weapons
- * - armor: Armor and protective items
- * - equipment: Wondrous items and staves
- * - consumable: Potions, elixirs, scrolls
- */
-
 import type { ItemData } from '../types/foundry';
 
 // Item categories for organization

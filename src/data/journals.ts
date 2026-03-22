@@ -1,14 +1,3 @@
-/**
- * Journal Data Structure
- * Parses the Harbinger House markdown into structured journal entries
- *
- * Why this structure?
- * - FoundryVTT V13 uses "Journal Entries" as containers with multiple "Pages"
- * - Each page can have different content types (text, image, PDF, video)
- * - We organize by chapter, with each major section as a separate page
- * - This mirrors how published adventures organize content in FoundryVTT
- */
-
 export interface JournalPage {
 	name: string;
 	type: 'text' | 'image' | 'pdf' | 'video';
@@ -155,11 +144,6 @@ export function parseMarkdownToJournals(markdown: string): HarbingerJournal[] {
 
 /**
  * Convert markdown to HTML for FoundryVTT display
- *
- * Why not use a library?
- * - We want lightweight, specific conversion for our content
- * - FoundryVTT has its own markdown renderer, but HTML gives us more control
- * - We handle the most common markdown patterns used in the adventure
  */
 function markdownToHTML(markdown: string): string {
 	let html = markdown;

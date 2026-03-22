@@ -1,11 +1,5 @@
-/**
- * Generic NPCs, Fiends, and Cultists
- * These are common enemies and NPCs encountered throughout the adventure
- */
-
-import type { ItemData } from '../types/foundry.d.ts';
 import type { HarbingerNPC } from './harbinger-residents';
-import { createAction, createSpell, createStrike, systemAction, systemSpell, systemWeapon } from './utils';
+import { createAction, createStrike, systemAction, systemSpell, systemWeapon } from './utils';
 
 // =============================================================================
 // FIENDS AND MONSTERS
