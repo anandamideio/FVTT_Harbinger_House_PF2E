@@ -1,3 +1,4 @@
+import type { HarbingerItem, HarbingerSpell } from 'src/data';
 import { describe, expect, it } from 'vitest';
 import { HazardImporter } from '../../importers/hazard-importer';
 import { ItemImporter } from '../../importers/item-importer';
@@ -23,10 +24,10 @@ describe('ItemImporter.toDocumentData', () => {
 				system: {
 					description: { value: '<p>A protective ring</p>' },
 					level: { value: 5 },
-					traits: { value: ['magical', 'abjuration'] as any[], rarity: 'uncommon' as const },
+					traits: { value: ['magical', 'abjuration'], rarity: 'uncommon' as const },
 				},
-			},
-		};
+			}
+		} as HarbingerItem;
 
 		const result = importer.toDocumentData(item);
 
@@ -91,10 +92,10 @@ describe('SpellImporter.toDocumentData', () => {
 					description: { value: '<p>Chaos!</p>' },
 					level: { value: 5 },
 					traditions: { value: ['divine'] },
-					traits: { value: ['chaotic', 'evocation'] as any[] },
+					traits: { value: ['manipulate', 'oracle'] },
 				},
 			},
-		};
+		} as HarbingerSpell;
 
 		const result = importer.toDocumentData(spell);
 
@@ -113,10 +114,10 @@ describe('SpellImporter.toDocumentData', () => {
 				name: 'Fireball',
 				type: 'spell',
 				system: {
-					traits: { value: ['fire'] as any[] },
+					traits: { value: ['fire'] },
 				},
 			},
-		};
+		} as HarbingerSpell;
 
 		const result = importer.toDocumentData(spell);
 		expect(result.img).toContain('fire');
@@ -129,10 +130,10 @@ describe('SpellImporter.toDocumentData', () => {
 				name: 'Mind Blast',
 				type: 'spell',
 				system: {
-					traits: { value: ['mental'] as any[] },
+					traits: { value: ['mental'] },
 				},
 			},
-		};
+		} as HarbingerSpell;
 
 		const result = importer.toDocumentData(spell);
 		expect(result.img).toContain('perception');

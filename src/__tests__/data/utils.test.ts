@@ -213,23 +213,24 @@ describe('generateRuneWeaponName', () => {
 
 describe('isSystemItemReference', () => {
 	it('returns true for system-weapon', () => {
-		expect(isSystemItemReference({ type: 'system-weapon', uuid: 'x' } as any)).toBe(true);
+		expect(isSystemItemReference({ type: 'system-weapon', uuid: 'x' })).toBe(true);
 	});
 
 	it('returns true for system-spell', () => {
-		expect(isSystemItemReference({ type: 'system-spell', uuid: 'x' } as any)).toBe(true);
+		expect(isSystemItemReference({ type: 'system-spell', uuid: 'x' })).toBe(true);
 	});
 
 	it('returns true for system-action', () => {
-		expect(isSystemItemReference({ type: 'system-action', uuid: 'x' } as any)).toBe(true);
+		expect(isSystemItemReference({ type: 'system-action', uuid: 'x' })).toBe(true);
 	});
 
 	it('returns false for regular ItemData', () => {
-		expect(isSystemItemReference({ name: 'Sword', type: 'weapon' } as any)).toBe(false);
+		expect(isSystemItemReference({ name: 'Sword', type: 'weapon' })).toBe(false);
 	});
 
 	it('returns false for null', () => {
-		expect(isSystemItemReference(null as any)).toBe(false);
+		// @ts-expect-error
+		expect(isSystemItemReference(null)).toBe(false);
 	});
 });
 

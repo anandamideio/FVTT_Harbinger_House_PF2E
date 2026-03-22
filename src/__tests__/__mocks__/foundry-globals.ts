@@ -1,7 +1,3 @@
-/**
- * Minimal Foundry global mocks for testing importer classes.
- */
-
 // @ts-nocheck
 globalThis.Actor = class Actor {};
 globalThis.Item = class Item {};
