@@ -1,7 +1,7 @@
 /**
  * Harbinger House Module Styles
  * 
- * Color scheme inspired by Planescape's dark, cosmic horror aesthetic
+ * Color scheme inspired by Planescape book's general asthetic:
  * Primary: Deep crimson (#6e0000)
  * Secondary: Dark gray (#2a2a2a)
  * Accent: Amber (#d4a017)
@@ -316,7 +316,7 @@
 }
 
 .journal-sheet.harbinger-journal section.journal-entry-content.flexcol::before {
-  background: no-repeat center/cover url('http://www.myfreetextures.com/wp-content/uploads/2011/06/another-rough-old-and-worn-parchment-paper.jpg');
+  background: no-repeat center/cover url('../dist/assets/old-paper.jpg');
   opacity: 0.65;
   content: "";
   position: absolute;
