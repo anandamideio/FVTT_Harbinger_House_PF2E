@@ -11,7 +11,7 @@
  */
 
 import { BaseImporter, ImportOptions, ImportResult } from './base-importer';
-import { MODULE_ID, PACKS, log, logError } from '../config';
+import { MODULE_ID, log, logError } from '../config';
 import { 
     ALL_NPCS, 
     NPCS_BY_CATEGORY, 
@@ -73,86 +73,30 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
      * Note: Items with system references will be resolved asynchronously in importItems
      */
     toDocumentData(npc: HarbingerNPC): any {
-        // Start with the base actor data
-        // Items will be processed separately in importItems to handle async UUID resolution
-        const actorData: any = {
+        return {
             name: npc.data.name,
             type: npc.data.type,
             img: npc.data.img || this.getDefaultImage(npc),
             system: { ...npc.data.system },
             prototypeToken: this.getTokenData(npc),
-            items: [] // Items will be added after async resolution
+            items: [], // Items resolved in preProcessDocumentData
+            flags: {
+                [MODULE_ID]: {
+                    imported: true,
+                    sourceId: npc.id,
+                    importedAt: Date.now()
+                }
+            }
         };
-
-        return actorData;
     }
 
     /**
-     * Override importItems to handle async system reference resolution
+     * Resolve system item references before document creation
      */
-    async importItems(items: HarbingerNPC[], options: NPCImportOptions = {}): Promise<ImportResult> {
-        const result: ImportResult = {
-            success: true,
-            imported: 0,
-            failed: 0,
-            errors: [],
-            documents: []
-        };
-
-        // Get or create folder
-        const folder = options.folderName 
-            ? await this.getOrCreateFolder(options.folderName, 'Actor')
-            : null;
-
-        for (const npc of items) {
-            try {
-                // Check for duplicates
-                if (!options.updateExisting) {
-                    const existing = game.actors?.find((a: any) => 
-                        a.getFlag(MODULE_ID, 'sourceId') === npc.id
-                    );
-                    if (existing) {
-                        log(`Skipping duplicate: ${npc.data.name}`);
-                        continue;
-                    }
-                }
-
-                // Convert to document data
-                const docData = this.toDocumentData(npc);
-                
-                // Resolve items with system references
-                const resolvedItems = await this.resolveItems((npc.items || []) as NPCItemEntry[]);
-                docData.items = resolvedItems;
-
-                // Add folder and flags
-                if (folder) {
-                    docData.folder = folder.id;
-                }
-                docData.flags = {
-                    ...docData.flags,
-                    [MODULE_ID]: {
-                        imported: true,
-                        sourceId: npc.id,
-                        importedAt: Date.now()
-                    }
-                };
-
-                // Create the actor
-                const created = await Actor.create(docData);
-                if (created) {
-                    result.documents.push(Array.isArray(created) ? created[0] : created);
-                    result.imported++;
-                    log(`Imported: ${npc.data.name}`);
-                }
-            } catch (error) {
-                result.failed++;
-                result.errors.push(`Failed to import ${npc.data.name}: ${error}`);
-                logError(`Failed to import ${npc.data.name}:`, error);
-            }
-        }
-
-        result.success = result.failed === 0;
-        return result;
+    protected async preProcessDocumentData(npc: HarbingerNPC, documentData: any): Promise<any> {
+        const resolvedItems = await this.resolveItems((npc.items || []) as NPCItemEntry[]);
+        documentData.items = resolvedItems;
+        return documentData;
     }
 
     /**
@@ -315,20 +259,6 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
         delete itemData._id;
 
         return itemData;
-    }
-
-    /**
-     * Prepare embedded items for the actor (legacy method for inline items only)
-     * @deprecated Use resolveItems instead for full system reference support
-     */
-    private prepareItems(items: ItemData[]): any[] {
-        return items.map(item => ({
-            name: item.name,
-            type: item.type,
-            img: item.img || this.getItemDefaultImage(item.type),
-            system: item.system,
-            flags: item.flags || {}
-        }));
     }
 
     /**
