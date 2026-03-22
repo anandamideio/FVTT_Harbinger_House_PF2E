@@ -183,7 +183,9 @@ describe('generateRuneWeaponName', () => {
 	});
 
 	it('converts camelCase property runes to Title Case', () => {
-		expect(generateRuneWeaponName('Longsword', { property: ['greaterFlaming' as never] })).toBe('Greater Flaming Longsword');
+		expect(generateRuneWeaponName('Longsword', { property: ['greaterFlaming' as never] })).toBe(
+			'Greater Flaming Longsword',
+		);
 	});
 
 	it('combines all rune types', () => {
