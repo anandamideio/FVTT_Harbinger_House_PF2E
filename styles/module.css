@@ -1,6 +1,6 @@
 /**
  * Harbinger House Module Styles
- * 
+ *
  * Color scheme inspired by Planescape book's general asthetic:
  * Primary: Deep crimson (#6e0000)
  * Secondary: Dark gray (#2a2a2a)
@@ -12,221 +12,229 @@
    ================================ */
 
 .harbinger-dialog {
-    --harbinger-primary: #6e0000;
-    --harbinger-secondary: #2a2a2a;
-    --harbinger-accent: #d4a017;
-    --harbinger-text: #e0e0e0;
-    --harbinger-border: #4a4a4a;
+	--harbinger-primary: #6e0000;
+	--harbinger-secondary: #2a2a2a;
+	--harbinger-accent: #d4a017;
+	--harbinger-text: #e0e0e0;
+	--harbinger-border: #4a4a4a;
 }
 
 .harbinger-dialog .window-content {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-    color: var(--harbinger-text);
+	background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+	color: var(--harbinger-text);
 }
 
 .harbinger-dialog .dialog-content {
-    padding: 0;
+	padding: 0;
 }
 
 .harbinger-import-dialog {
-    padding: 1rem;
+	padding: 1rem;
 }
 
 .harbinger-import-dialog .import-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--harbinger-primary);
+	text-align: center;
+	margin-bottom: 1.5rem;
+	padding-bottom: 1rem;
+	border-bottom: 2px solid var(--harbinger-primary);
 }
 
 .harbinger-import-dialog .import-header h2 {
-    color: var(--harbinger-accent);
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+	color: var(--harbinger-accent);
+	font-size: 1.4rem;
+	margin-bottom: 0.5rem;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .harbinger-import-dialog .import-description {
-    font-size: 0.9rem;
-    color: #b0b0b0;
-    margin: 0;
+	font-size: 0.9rem;
+	color: #b0b0b0;
+	margin: 0;
 }
 
 /* Summary Section */
 .harbinger-import-dialog .import-summary {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+	background: rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
+	padding: 1rem;
+	margin-bottom: 1rem;
 }
 
 .harbinger-import-dialog .import-summary h3 {
-    color: var(--harbinger-accent);
-    font-size: 1rem;
-    margin: 0 0 0.5rem 0;
-    border-bottom: 1px solid var(--harbinger-border);
-    padding-bottom: 0.25rem;
+	color: var(--harbinger-accent);
+	font-size: 1rem;
+	margin: 0 0 0.5rem 0;
+	border-bottom: 1px solid var(--harbinger-border);
+	padding-bottom: 0.25rem;
 }
 
 .harbinger-import-dialog .total-count {
-    font-size: 0.85rem;
-    color: #a0a0a0;
-    margin: 0 0 0.75rem 0;
+	font-size: 0.85rem;
+	color: #a0a0a0;
+	margin: 0 0 0.75rem 0;
 }
 
 .harbinger-import-dialog .category-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .harbinger-import-dialog .content-type-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.5rem;
 }
 
 .harbinger-import-dialog .category-item,
 .harbinger-import-dialog .content-type-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.6rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.15s ease;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.4rem 0.6rem;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 3px;
+	cursor: pointer;
+	transition: background 0.15s ease;
 }
 
 .harbinger-import-dialog .category-item:hover,
 .harbinger-import-dialog .content-type-item:hover {
-    background: rgba(255, 255, 255, 0.1);
+	background: rgba(255, 255, 255, 0.1);
 }
 
 .harbinger-import-dialog .category-item input[type="checkbox"],
 .harbinger-import-dialog .content-type-item input[type="checkbox"] {
-    margin: 0;
-    accent-color: var(--harbinger-primary);
+	margin: 0;
+	accent-color: var(--harbinger-primary);
 }
 
 .harbinger-import-dialog .content-icon {
-    width: 20px;
-    text-align: center;
-    color: var(--harbinger-accent);
-    font-size: 0.9rem;
+	width: 20px;
+	text-align: center;
+	color: var(--harbinger-accent);
+	font-size: 0.9rem;
 }
 
 .harbinger-import-dialog .category-name,
 .harbinger-import-dialog .content-name {
-    flex: 1;
-    font-size: 0.9rem;
+	flex: 1;
+	font-size: 0.9rem;
 }
 
 .harbinger-import-dialog .category-count,
 .harbinger-import-dialog .content-count {
-    font-size: 0.85rem;
-    color: #888;
+	font-size: 0.85rem;
+	color: #888;
 }
 
 /* Options Section */
 .harbinger-import-dialog .import-options {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+	background: rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
+	padding: 1rem;
+	margin-bottom: 1rem;
 }
 
 .harbinger-import-dialog .import-options h3 {
-    color: var(--harbinger-accent);
-    font-size: 1rem;
-    margin: 0 0 0.75rem 0;
-    border-bottom: 1px solid var(--harbinger-border);
-    padding-bottom: 0.25rem;
+	color: var(--harbinger-accent);
+	font-size: 1rem;
+	margin: 0 0 0.75rem 0;
+	border-bottom: 1px solid var(--harbinger-border);
+	padding-bottom: 0.25rem;
 }
 
 .harbinger-import-dialog .option-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.3rem 0;
-    cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.3rem 0;
+	cursor: pointer;
 }
 
 .harbinger-import-dialog .option-item input[type="checkbox"] {
-    margin: 0;
-    accent-color: var(--harbinger-primary);
+	margin: 0;
+	accent-color: var(--harbinger-primary);
 }
 
 .harbinger-import-dialog .option-item span {
-    font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 /* Progress Section */
 .harbinger-import-dialog .import-progress {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
+	margin-top: 1rem;
+	padding: 1rem;
+	background: rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
 }
 
 .harbinger-import-dialog .progress-bar {
-    height: 20px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--harbinger-border);
+	height: 20px;
+	background: rgba(0, 0, 0, 0.4);
+	border-radius: 10px;
+	overflow: hidden;
+	border: 1px solid var(--harbinger-border);
 }
 
 .harbinger-import-dialog .progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--harbinger-primary) 0%, #a00000 100%);
-    transition: width 0.3s ease;
-    border-radius: 10px;
+	height: 100%;
+	width: 0%;
+	background: linear-gradient(90deg, var(--harbinger-primary) 0%, #a00000 100%);
+	transition: width 0.3s ease;
+	border-radius: 10px;
 }
 
 .harbinger-import-dialog .progress-text {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #a0a0a0;
-    margin: 0.5rem 0 0 0;
+	text-align: center;
+	font-size: 0.85rem;
+	color: #a0a0a0;
+	margin: 0.5rem 0 0 0;
 }
 
 /* Dialog Buttons */
 .harbinger-dialog .dialog-buttons {
-    background: rgba(0, 0, 0, 0.3);
-    border-top: 1px solid var(--harbinger-border);
-    padding: 0.75rem 1rem;
-    margin: 0;
+	background: rgba(0, 0, 0, 0.3);
+	border-top: 1px solid var(--harbinger-border);
+	padding: 0.75rem 1rem;
+	margin: 0;
 }
 
 .harbinger-dialog .dialog-buttons button {
-    background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
-    border: 1px solid var(--harbinger-border);
-    color: var(--harbinger-text);
-    padding: 0.5rem 1rem;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.15s ease;
+	background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+	border: 1px solid var(--harbinger-border);
+	color: var(--harbinger-text);
+	padding: 0.5rem 1rem;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: all 0.15s ease;
 }
 
 .harbinger-dialog .dialog-buttons button:hover {
-    background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 100%);
-    border-color: #5a5a5a;
+	background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 100%);
+	border-color: #5a5a5a;
 }
 
 .harbinger-dialog .dialog-buttons button.default {
-    background: linear-gradient(180deg, var(--harbinger-primary) 0%, #4a0000 100%);
-    border-color: #8a0000;
+	background: linear-gradient(
+		180deg,
+		var(--harbinger-primary) 0%,
+		#4a0000 100%
+	);
+	border-color: #8a0000;
 }
 
 .harbinger-dialog .dialog-buttons button.default:hover {
-    background: linear-gradient(180deg, #8a0000 0%, var(--harbinger-primary) 100%);
+	background: linear-gradient(
+		180deg,
+		#8a0000 0%,
+		var(--harbinger-primary) 100%
+	);
 }
 
 .harbinger-dialog .dialog-buttons button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 
 /* ================================
@@ -234,27 +242,27 @@
    ================================ */
 
 .harbinger-import-btn {
-    background: linear-gradient(180deg, #6e0000 0%, #4a0000 100%);
-    border: 1px solid #8a0000;
-    color: #e0e0e0;
-    padding: 4px 8px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.15s ease;
-    margin-left: 4px;
+	background: linear-gradient(180deg, #6e0000 0%, #4a0000 100%);
+	border: 1px solid #8a0000;
+	color: #e0e0e0;
+	padding: 4px 8px;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 0.75rem;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	transition: all 0.15s ease;
+	margin-left: 4px;
 }
 
 .harbinger-import-btn:hover {
-    background: linear-gradient(180deg, #8a0000 0%, #6e0000 100%);
-    box-shadow: 0 0 4px rgba(138, 0, 0, 0.5);
+	background: linear-gradient(180deg, #8a0000 0%, #6e0000 100%);
+	box-shadow: 0 0 4px rgba(138, 0, 0, 0.5);
 }
 
 .harbinger-import-btn i {
-    font-size: 0.8rem;
+	font-size: 0.8rem;
 }
 
 /* ================================
@@ -262,14 +270,14 @@
    ================================ */
 
 .harbinger-welcome-dialog {
-    padding: 1rem;
-    text-align: center;
+	padding: 1rem;
+	text-align: center;
 }
 
 .harbinger-welcome-dialog p {
-    margin: 0 0 1rem 0;
-    color: #b0b0b0;
-    line-height: 1.5;
+	margin: 0 0 1rem 0;
+	color: #b0b0b0;
+	line-height: 1.5;
 }
 
 /* ================================
@@ -277,11 +285,11 @@
    ================================ */
 
 .harbinger-accent {
-    color: var(--harbinger-accent);
+	color: var(--harbinger-accent);
 }
 
 .harbinger-muted {
-    color: #808080;
+	color: #808080;
 }
 
 /* ================================
@@ -290,220 +298,220 @@
 
 /* Apply Harbinger House theme to journal windows */
 .journal-sheet.harbinger-journal {
-    --harbinger-primary: #6e0000;
-    --harbinger-secondary: #2a2a2a;
-    --harbinger-accent: #d4a017;
-    --harbinger-text: #3a2a1a;
-    --harbinger-parchment: #f4e8d0;
-    --harbinger-parchment-dark: #d4c4a8;
+	--harbinger-primary: #6e0000;
+	--harbinger-secondary: #2a2a2a;
+	--harbinger-accent: #d4a017;
+	--harbinger-text: #3a2a1a;
+	--harbinger-parchment: #f4e8d0;
+	--harbinger-parchment-dark: #d4c4a8;
 }
 
 /* Window frame with aged appearance */
 .journal-sheet.harbinger-journal .window-content {
-    background: linear-gradient(
-        135deg,
-        var(--harbinger-parchment) 0%,
-        var(--harbinger-parchment-dark) 100%
-    );
-    box-shadow:
-        inset 0 0 60px rgba(110, 0, 0, 0.1),
-        inset 0 0 120px rgba(0, 0, 0, 0.05);
+	background: linear-gradient(
+		135deg,
+		var(--harbinger-parchment) 0%,
+		var(--harbinger-parchment-dark) 100%
+	);
+	box-shadow:
+		inset 0 0 60px rgba(110, 0, 0, 0.1),
+		inset 0 0 120px rgba(0, 0, 0, 0.05);
 }
 
 .journal-sheet.harbinger-journal section.journal-entry-content.flexcol {
-  position: relative;
-  z-index: 1;
+	position: relative;
+	z-index: 1;
 }
 
 .journal-sheet.harbinger-journal section.journal-entry-content.flexcol::before {
-  background: no-repeat center/cover url('../dist/assets/old-paper.jpg');
-  opacity: 0.65;
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
+	background: no-repeat center / cover url("../dist/assets/old-paper.jpg");
+	opacity: 0.65;
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
 }
 
 /* Journal entry content */
 .journal-sheet.harbinger-journal .journal-entry-content,
 .journal-sheet.harbinger-journal .editor-content {
-    background: transparent;
-    color: var(--harbinger-text);
-    font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;
-    font-size: 14px;
-    line-height: 1.7;
-    padding: 2rem;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+	background: transparent;
+	color: var(--harbinger-text);
+	font-family: "Crimson Text", "Georgia", "Times New Roman", serif;
+	font-size: 14px;
+	line-height: 1.7;
+	padding: 2rem;
+	text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 span.page-title {
-  color: #373535;
+	color: #373535;
 }
 
 /* Headers in journal */
 .journal-sheet.harbinger-journal h1,
 .journal-sheet.harbinger-journal .journal-entry-content h1 {
-    color: var(--harbinger-primary);
-    font-family: 'Cinzel', 'Georgia', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin: 1.5rem 0 1rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 3px double var(--harbinger-primary);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+	color: var(--harbinger-primary);
+	font-family: "Cinzel", "Georgia", serif;
+	font-size: 2rem;
+	font-weight: 700;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	margin: 1.5rem 0 1rem 0;
+	padding-bottom: 0.5rem;
+	border-bottom: 3px double var(--harbinger-primary);
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .journal-sheet.harbinger-journal h2,
 .journal-sheet.harbinger-journal .journal-entry-content h2 {
-    color: var(--harbinger-primary);
-    font-family: 'Cinzel', 'Georgia', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 1.25rem 0 0.75rem 0;
-    padding-bottom: 0.25rem;
-    border-bottom: 2px solid rgba(110, 0, 0, 0.3);
-    letter-spacing: 2px;
+	color: var(--harbinger-primary);
+	font-family: "Cinzel", "Georgia", serif;
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin: 1.25rem 0 0.75rem 0;
+	padding-bottom: 0.25rem;
+	border-bottom: 2px solid rgba(110, 0, 0, 0.3);
+	letter-spacing: 2px;
 }
 
 .journal-sheet.harbinger-journal h3,
 .journal-sheet.harbinger-journal .journal-entry-content h3 {
-    color: var(--harbinger-secondary);
-    font-family: 'Cinzel', 'Georgia', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 1rem 0 0.5rem 0;
-    letter-spacing: 1px;
+	color: var(--harbinger-secondary);
+	font-family: "Cinzel", "Georgia", serif;
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin: 1rem 0 0.5rem 0;
+	letter-spacing: 1px;
 }
 
 /* Paragraph styling */
 .journal-sheet.harbinger-journal p {
-    margin-bottom: 1rem;
-    text-indent: 1.5em;
+	margin-bottom: 1rem;
+	text-indent: 1.5em;
 }
 
 .journal-sheet.harbinger-journal p:first-of-type::first-letter {
-    font-size: 3em;
-    line-height: 0.9;
-    float: left;
-    margin: 0.05em 0.1em 0 0;
-    color: var(--harbinger-primary);
-    font-weight: bold;
+	font-size: 3em;
+	line-height: 0.9;
+	float: left;
+	margin: 0.05em 0.1em 0 0;
+	color: var(--harbinger-primary);
+	font-weight: bold;
 }
 
 /* Blockquotes - like found notes or inscriptions */
 .journal-sheet.harbinger-journal blockquote {
-    background: rgba(110, 0, 0, 0.05);
-    border-left: 4px solid var(--harbinger-primary);
-    margin: 1.5rem 2rem;
-    padding: 1rem 1.5rem;
-    font-style: italic;
-    font-family: 'Quattrocento', 'Georgia', serif;
-    color: #2a1a0a;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+	background: rgba(110, 0, 0, 0.05);
+	border-left: 4px solid var(--harbinger-primary);
+	margin: 1.5rem 2rem;
+	padding: 1rem 1.5rem;
+	font-style: italic;
+	font-family: "Quattrocento", "Georgia", serif;
+	color: #2a1a0a;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Tables - like stat blocks or inventories */
 .journal-sheet.harbinger-journal table {
-    background: rgba(0, 0, 0, 0.03);
-    border: 2px solid var(--harbinger-secondary);
-    margin: 1rem auto;
+	background: rgba(0, 0, 0, 0.03);
+	border: 2px solid var(--harbinger-secondary);
+	margin: 1rem auto;
 }
 
 .journal-sheet.harbinger-journal th {
-    background: var(--harbinger-secondary);
-    color: var(--harbinger-parchment);
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 0.5rem;
-    border: 1px solid #1a1a1a;
+	background: var(--harbinger-secondary);
+	color: var(--harbinger-parchment);
+	font-family: "Cinzel", serif;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	padding: 0.5rem;
+	border: 1px solid #1a1a1a;
 }
 
 .journal-sheet.harbinger-journal td {
-    padding: 0.5rem;
-    border: 1px solid rgba(42, 42, 42, 0.3);
+	padding: 0.5rem;
+	border: 1px solid rgba(42, 42, 42, 0.3);
 }
 
 .journal-sheet.harbinger-journal tr:nth-child(even) {
-    background: rgba(0, 0, 0, 0.02);
+	background: rgba(0, 0, 0, 0.02);
 }
 
 /* Links - like references to other entries */
 .journal-sheet.harbinger-journal a {
-    color: var(--harbinger-primary);
-    text-decoration: underline;
-    font-weight: 500;
+	color: var(--harbinger-primary);
+	text-decoration: underline;
+	font-weight: 500;
 }
 
 .journal-sheet.harbinger-journal a:hover {
-    color: #a00000;
-    text-shadow: 0 0 2px rgba(110, 0, 0, 0.5);
+	color: #a00000;
+	text-shadow: 0 0 2px rgba(110, 0, 0, 0.5);
 }
 
 /* Lists */
 .journal-sheet.harbinger-journal ul,
 .journal-sheet.harbinger-journal ol {
-    margin: 1rem 0 1rem 2rem;
+	margin: 1rem 0 1rem 2rem;
 }
 
 .journal-sheet.harbinger-journal li {
-    margin-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 /* Horizontal rules as section dividers */
 .journal-sheet.harbinger-journal hr {
-    border: none;
-    height: 3px;
-    background: linear-gradient(
-        to right,
-        transparent,
-        var(--harbinger-primary),
-        transparent
-    );
-    margin: 2rem 0;
-    opacity: 0.5;
+	border: none;
+	height: 3px;
+	background: linear-gradient(
+		to right,
+		transparent,
+		var(--harbinger-primary),
+		transparent
+	);
+	margin: 2rem 0;
+	opacity: 0.5;
 }
 
 /* Secret text styling (Foundry's secret blocks) */
 .journal-sheet.harbinger-journal .secret {
-    background: rgba(110, 0, 0, 0.1);
-    border: 1px dashed var(--harbinger-primary);
-    padding: 0.25rem 0.5rem;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em;
+	background: rgba(110, 0, 0, 0.1);
+	border: 1px dashed var(--harbinger-primary);
+	padding: 0.25rem 0.5rem;
+	font-family: "Courier New", monospace;
+	font-size: 0.9em;
 }
 
 /* Images in journals - like illustrations */
 .journal-sheet.harbinger-journal img {
-    border: 3px solid var(--harbinger-secondary);
-    box-shadow:
-        0 4px 8px rgba(0, 0, 0, 0.3),
-        inset 0 0 20px rgba(0, 0, 0, 0.1);
-    margin: 1rem auto;
-    display: block;
-    max-width: 100%;
+	border: 3px solid var(--harbinger-secondary);
+	box-shadow:
+		0 4px 8px rgba(0, 0, 0, 0.3),
+		inset 0 0 20px rgba(0, 0, 0, 0.1);
+	margin: 1rem auto;
+	display: block;
+	max-width: 100%;
 }
 
 /* Window title bar */
 .journal-sheet.harbinger-journal .window-header {
-    background: linear-gradient(
-        180deg,
-        var(--harbinger-secondary) 0%,
-        #1a1a1a 100%
-    );
-    border-bottom: 2px solid var(--harbinger-primary);
+	background: linear-gradient(
+		180deg,
+		var(--harbinger-secondary) 0%,
+		#1a1a1a 100%
+	);
+	border-bottom: 2px solid var(--harbinger-primary);
 }
 
 .journal-sheet.harbinger-journal .window-title {
-    color: var(--harbinger-accent);
-    font-family: 'Cinzel', serif;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    letter-spacing: 1px;
+	color: var(--harbinger-accent);
+	font-family: "Cinzel", serif;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+	letter-spacing: 1px;
 }
