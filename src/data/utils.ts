@@ -3,11 +3,8 @@
  */
 
 import type { ItemData } from '../types/foundry.d.ts';
-import type { ActionTrait, NPCAttackTrait, MagicTradition } from '../types/pf2e-traits';
+import type { ActionTrait, NPCAttackTrait, MagicTradition, SpellTrait } from '../types/pf2e-traits';
 import {
-  SYSTEM_WEAPONS,
-  SYSTEM_SPELLS,
-  SYSTEM_ACTIONS,
   resolveWeaponUUID,
   resolveSpellUUID,
   resolveActionUUID,
@@ -128,7 +125,7 @@ export function createSpell(
   name: string,
   level: number,
   tradition: string,
-  traits: string[] = [],
+  traits: SpellTrait[] = [],
   description: string = ''
 ): ItemData {
   return {
