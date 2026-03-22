@@ -1,6 +1,5 @@
 /**
  * Minimal Foundry global mocks for testing importer classes.
- * Only stubs out what's needed to instantiate importers and call toDocumentData().
  */
 
 // @ts-nocheck
@@ -15,4 +14,4 @@ globalThis.game = {
 	settings: { get: () => null, set: () => null, register: () => null },
 	system: { id: 'pf2e', version: '6.0.0' },
 	user: { isGM: true },
-} as any;
+};
