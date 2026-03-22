@@ -72,9 +72,9 @@ export class SpellImporter extends BaseImporter<HarbingerSpell> {
     if (traits.includes('fire')) return 'icons/magic/fire/flame-burning-hand-brightness.webp';
     if (traits.includes('cold')) return 'icons/magic/water/snowflake-ice-snow-white.webp';
     if (traits.includes('mental')) return 'icons/magic/perception/eye-ringed-glow-blue-purple.webp';
-    if (traits.includes('enchantment')) return 'icons/magic/control/buff-flight-wings-runes-purple.webp';
-    if (traits.includes('necromancy')) return 'icons/magic/death/skull-humanoid-runes-red.webp';
-    if (traits.includes('divination')) return 'icons/magic/perception/eye-ringed-glow-yellow.webp';
+    if (traits.includes('arcane')) return 'icons/magic/control/buff-flight-wings-runes-purple.webp';
+    if (traits.includes('death')) return 'icons/magic/death/skull-humanoid-runes-red.webp';
+    if (traits.includes('scrying')) return 'icons/magic/perception/eye-ringed-glow-yellow.webp';
     
     return 'icons/svg/explosion.svg';
   }
