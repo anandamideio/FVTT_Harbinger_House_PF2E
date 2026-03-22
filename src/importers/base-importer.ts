@@ -97,8 +97,9 @@ export abstract class BaseImporter<T> {
         }
 
         // Prepare document data
-        const documentData = this.toDocumentData(item);
-        
+        let documentData = this.toDocumentData(item);
+        documentData = await this.preProcessDocumentData(item, documentData);
+
         // Add folder reference if we have one
         if (folder) {
           documentData.folder = folder.id;
@@ -133,6 +134,14 @@ export abstract class BaseImporter<T> {
     log(`Import complete: ${result.imported} succeeded, ${result.failed} failed`);
     
     return result;
+  }
+
+  /**
+   * Hook for subclasses to perform async processing on document data
+   * before it is created. Called after toDocumentData().
+   */
+  protected async preProcessDocumentData(_item: T, documentData: any): Promise<any> {
+    return documentData;
   }
 
   /**
