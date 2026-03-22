@@ -405,17 +405,9 @@ export class NPCImporter extends BaseImporter<HarbingerNPC> {
             // Import NPCs in this category
             const categoryResult = await this.importItems(categoryNPCs, {
                 ...options,
-                folderName: undefined // We'll set folder manually
+                folderName: undefined,
+                folder: subfolder
             });
-
-            // Move to subfolder
-            for (const doc of categoryResult.documents) {
-                try {
-                    await doc.update({ folder: subfolder.id });
-                } catch (e) {
-                    // Ignore folder move errors
-                }
-            }
 
             // Merge results
             result.imported += categoryResult.imported;

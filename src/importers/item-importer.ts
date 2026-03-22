@@ -169,7 +169,8 @@ export class ItemImporter extends BaseImporter<HarbingerItem> {
         // Import items in this category
         const categoryResult = await this.importItems(items, {
           ...options,
-          folderName: categoryLabel,
+          folderName: undefined,
+          folder: subfolder,
           onProgress: (current, total, name) => {
             options.onProgress?.(
               result.imported + current,

@@ -221,7 +221,8 @@ export class HazardImporter extends BaseImporter<HarbingerHazard> {
         // Import hazards in this category
         const categoryResult = await this.importItems(hazards, {
           ...options,
-          folderName: categoryLabel,
+          folderName: undefined,
+          folder: subfolder,
           onProgress: (current, total, name) => {
             options.onProgress?.(
               result.imported + current,

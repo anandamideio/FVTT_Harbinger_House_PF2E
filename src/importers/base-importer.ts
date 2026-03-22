@@ -16,6 +16,8 @@ export interface ImportResult {
 export interface ImportOptions {
   /** Target folder name for imported content */
   folderName?: string;
+  /** Pre-created folder to place documents in (takes precedence over folderName) */
+  folder?: any;
   /** Whether to update existing documents or skip them */
   updateExisting?: boolean;
   /** Callback for progress updates */
@@ -74,8 +76,8 @@ export abstract class BaseImporter<T> {
     log(`Starting import of ${items.length} ${this.documentType}(s)`);
 
     // Get or create the target folder
-    let folder: any = null;
-    if (options.folderName) {
+    let folder: any = options.folder || null;
+    if (!folder && options.folderName) {
       folder = await this.getOrCreateFolder(options.folderName, this.documentType);
     }
 
