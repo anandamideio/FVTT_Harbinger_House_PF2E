@@ -1,6 +1,6 @@
 import type { ActorData, ItemData } from '../types/foundry.d.ts';
 import type { SystemActionReference, SystemActorReference, SystemSpellReference, SystemWeaponReference } from './system-items';
-import { createAction, createStrike, systemAction, systemSpell, systemWeapon } from './utils';
+import { createAction, createSpellcastingEntryWithSpells, createStrike, systemAction, systemWeapon } from './utils';
 
 // NPC Categories for organization
 export type NPCCategory = 'major-npc' | 'harbinger-resident' | 'generic-npc' | 'fiend' | 'cultist';
@@ -115,10 +115,12 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			[],
 			`<p>Trolan believes himself beloved by the Lady of Pain. He gains a +2 circumstance bonus to saves against effects that would make him doubt this belief.</p>`,
 		),
-		systemSpell('charm', 4, 'occult'),
-		systemSpell('suggestion', 4, 'occult'),
-		systemSpell('waveOfDespair', 5, 'occult'),
-		systemSpell('synesthesia', 5, 'occult'),
+		...createSpellcastingEntryWithSpells('Occult Innate Spells', 'occult', 19, 29, [
+			['charm', 4],
+			['suggestion', 4],
+			['waveOfDespair', 5],
+			['synesthesia', 5],
+		]),
 	],
 };
 
@@ -201,10 +203,12 @@ export const CRIMJAK: HarbingerNPC = {
 			['divine', 'fire'],
 			`<p>Crimjak unleashes a burst of Abyssal flame in a 20-foot emanation. Creatures in the area take 8d6 fire damage (DC 27 basic Reflex save). Crimjak can't use Abyssal Wrath again for 1d4 rounds.</p>`,
 		),
-		systemSpell('translocate', 5, 'arcane'),
-		systemSpell('darkness', 4, 'arcane'),
-		systemSpell('fly', 4, 'arcane'),
-		systemSpell('fireball', 3, 'arcane'),
+		...createSpellcastingEntryWithSpells('Arcane Innate Spells', 'arcane', 17, 27, [
+			['translocate', 5],
+			['darkness', 4],
+			['fly', 4],
+			['fireball', 3],
+		]),
 	],
 };
 
@@ -467,12 +471,16 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 <p><strong>Failure</strong> The creature is confused for 1 round.</p>
 <p><strong>Critical Failure</strong> The creature is confused for 1 minute.</p>`,
 		),
-		systemSpell('gustOfWind', 3, 'primal'),
-		systemSpell('iceStorm', 4, 'primal'),
-		systemSpell('wallOfWind', 3, 'primal'),
-		systemSpell('bladeBarrier', 6, 'divine'),
-		systemSpell('harm', 6, 'divine'),
-		systemSpell('flameStrike', 5, 'divine'),
+		...createSpellcastingEntryWithSpells('Primal Innate Spells', 'primal', 20, 30, [
+			['gustOfWind', 3],
+			['iceStorm', 4],
+			['wallOfWind', 3],
+		]),
+		...createSpellcastingEntryWithSpells('Divine Innate Spells', 'divine', 20, 30, [
+			['bladeBarrier', 6],
+			['harm', 6],
+			['flameStrike', 5],
+		]),
 	],
 };
 
@@ -570,11 +578,13 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 			['concentrate', 'divine', 'polymorph'],
 			`<p>Nari can take on the appearance of any Small or Medium humanoid. She has practiced appearing as the Lady of Pain, gaining a +4 circumstance bonus to Deception checks to maintain this specific disguise.</p>`,
 		),
-		systemSpell('dominate', 6, 'divine'),
-		systemSpell('translocate', 5, 'divine'),
-		systemSpell('charm', 4, 'divine'),
-		systemSpell('suggestion', 4, 'divine'),
-		systemSpell('mindReading', 3, 'divine'),
+		...createSpellcastingEntryWithSpells('Divine Innate Spells', 'divine', 21, 30, [
+			['dominate', 6],
+			['translocate', 5],
+			['charm', 4],
+			['suggestion', 4],
+			['mindReading', 3],
+		]),
 	],
 };
 
