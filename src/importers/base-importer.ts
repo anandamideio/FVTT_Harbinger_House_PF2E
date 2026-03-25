@@ -75,20 +75,17 @@ export abstract class BaseImporter<T, C extends DocumentClass = DocumentClass> {
 
 		log(`Starting import of ${items.length} ${this.documentType}(s)`);
 
-		// Get or create the target folder
 		let folder: FolderClass | null = options.folder || null;
 		if (!folder && options.folderName) {
 			folder = await this.getOrCreateFolder(options.folderName, this.documentType);
 		}
 
-		// Import each item
 		for (let i = 0; i < items.length; i++) {
 			const item = items[i];
 			const itemName = this.getItemName(item);
 			const itemId = this.getItemId(item);
 
 			try {
-				// Check for existing document
 				const existing = await this.findExistingDocument(itemId);
 
 				if (existing && !options.updateExisting) {
@@ -201,7 +198,7 @@ export abstract class BaseImporter<T, C extends DocumentClass = DocumentClass> {
 			const folderData: FolderData = {
 				name,
 				type,
-				color: '#4a3f5c', // Planescape purple
+				color: '#4a3f5c', // Purple Burple
 				flags: {
 					[MODULE_ID]: {
 						managed: true,
