@@ -477,7 +477,7 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 				folder: parent.id,
 				color: '#4a0000',
 				flags: {
-					[MODULE_ID]: { created: true },
+					[MODULE_ID]: { managed: true },
 				},
 			})) as FolderClass;
 			folder = Array.isArray(result) ? result[0] : result;

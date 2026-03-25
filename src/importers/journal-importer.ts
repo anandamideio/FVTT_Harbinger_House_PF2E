@@ -58,7 +58,9 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 			sort: journal.sort || 0,
 			flags: {
 				[MODULE_ID]: {
-					themed: true, // Mark as a themed journal
+					imported: true,
+					sourceId: journal.id,
+					importedAt: Date.now(),
 				},
 			},
 		};
