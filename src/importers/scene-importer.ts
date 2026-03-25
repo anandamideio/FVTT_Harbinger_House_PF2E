@@ -1,21 +1,4 @@
-/**
- * Scene Importer
- * Handles importing Harbinger House map scenes
- *
- * This importer:
- * - Converts our HarbingerScene data structure to FoundryVTT Scene format
- * - Sets up proper grid configuration for PF2E (5ft squares, 70px)
- * - Organizes scenes into folders by location
- * - Provides ready-to-use battlemaps with proper backgrounds
- *
- * Why Scenes?
- * - They're the standard way to present maps in FoundryVTT
- * - Allow GMs to add walls, lighting, tokens, and other elements
- * - Support grid alignment for precise tactical positioning
- * - Can be activated for player viewing during gameplay
- */
-
-import { log, logError, MODULE_ID } from '../config';
+import { log, MODULE_ID } from '../config';
 import { ALL_SCENES, type HarbingerScene, SCENES_BY_FOLDER } from '../data/scenes';
 import type { SceneData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
@@ -47,13 +30,6 @@ export class SceneImporter extends BaseImporter<HarbingerScene, typeof SceneClas
 
 	/**
 	 * Convert a HarbingerScene to FoundryVTT Scene data
-	 *
-	 * Key aspects:
-	 * - Sets up background image from our assets
-	 * - Configures grid for PF2E (square, 70px, 5ft)
-	 * - Enables scene navigation
-	 * - Sets initial view position
-	 * - Marks with module flags for tracking
 	 */
 	toDocumentData(scene: HarbingerScene): SceneData {
 		return {
@@ -119,11 +95,6 @@ export class SceneImporter extends BaseImporter<HarbingerScene, typeof SceneClas
 
 	/**
 	 * Import scenes with folder organization
-	 *
-	 * Why organize by folder?
-	 * - Groups related maps together (all Harbinger House floors)
-	 * - Makes scene list navigation easier
-	 * - Follows standard FoundryVTT module conventions
 	 */
 	async importAll(options: SceneImportOptions = {}): Promise<ImportResult> {
 		// Filter scenes based on options
@@ -204,5 +175,4 @@ export class SceneImporter extends BaseImporter<HarbingerScene, typeof SceneClas
 	}
 }
 
-// Export singleton instance
 export const sceneImporter = new SceneImporter();

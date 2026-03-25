@@ -1,12 +1,3 @@
-/**
- * Spell Importer
- * Handles importing Harbinger House custom spells into FoundryVTT
- *
- * This importer:
- * - Converts our HarbingerSpell data structure to PF2e Item (spell type) format
- * - Spells in PF2e are Items, not Actors
- */
-
 import { log, logError, MODULE_ID } from '../config';
 import { ALL_SPELLS, type HarbingerSpell } from '../data/spells';
 import type { ItemData } from '../types/foundry';
@@ -64,10 +55,10 @@ export class SpellImporter extends BaseImporter<HarbingerSpell, typeof ItemClass
 	}
 
 	/**
-	 * Get a default image for spells
+	 * Get a default image for spells (using their traits to determine the most appropriate icon)
+	 * TODO: Expand this with more traits
 	 */
 	private getDefaultImage(spell: HarbingerSpell): string {
-		// Try to match based on spell traits
 		const traits = spell.data.system?.traits?.value || [];
 
 		if (traits.includes('fire')) return 'icons/magic/fire/flame-burning-hand-brightness.webp';
@@ -132,5 +123,4 @@ export class SpellImporter extends BaseImporter<HarbingerSpell, typeof ItemClass
 	}
 }
 
-// Export singleton instance
 export const spellImporter = new SpellImporter();

@@ -1,19 +1,3 @@
-/**
- * Journal Importer
- * Handles importing Harbinger House adventure content as Journal Entries
- *
- * This importer:
- * - Converts our HarbingerJournal data structure to FoundryVTT Journal Entry format
- * - Creates pages within each journal entry for different sections
- * - Organizes journals into folders by category (Introduction, Chapters, Reference)
- *
- * Why Journal Entries?
- * - They're the standard way to present adventure content in FoundryVTT
- * - Support rich text, images, and other media
- * - Can be easily shared with players or kept GM-only
- * - Integrate with FoundryVTT's journal sidebar for easy navigation
- */
-
 import { MODULE_ID } from '../config';
 import {
 	ALL_JOURNALS,
@@ -52,13 +36,6 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 
 	/**
 	 * Convert a HarbingerJournal to FoundryVTT Journal Entry data
-	 *
-	 * Key aspects:
-	 * - Creates a journal entry with multiple pages
-	 * - Each page represents a section of the adventure
-	 * - Preserves formatting and structure from the markdown
-	 * - Sets appropriate ownership (GM-only by default)
-	 * - Applies the harbinger-journal CSS class for themed styling
 	 */
 	toDocumentData(journal: HarbingerJournal): JournalEntryData {
 		return {
@@ -89,11 +66,6 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 
 	/**
 	 * Import journals with folder organization
-	 *
-	 * Why organize by folder?
-	 * - Makes navigation easier in FoundryVTT's journal sidebar
-	 * - Groups related content together (Introduction, Chapters, Reference)
-	 * - Follows published adventure conventions
 	 */
 	async importAll(options: JournalImportOptions = {}): Promise<ImportResult> {
 		// Filter journals based on options
@@ -179,5 +151,4 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 	}
 }
 
-// Export singleton instance for easy access
 export const journalImporter = new JournalImporter();

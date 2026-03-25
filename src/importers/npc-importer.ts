@@ -1,15 +1,3 @@
-/**
- * NPC Importer
- * Handles importing Harbinger House NPCs as PF2e Actors
- *
- * This importer:
- * - Converts our HarbingerNPC data structure to PF2e Actor format
- * - Creates embedded items (strikes, spells, actions) on the actors
- * - Resolves system compendium references for weapons, spells, and actions
- * - Applies runes to weapons at import time
- * - Organizes NPCs into folders by category
- */
-
 import { log, logError, MODULE_ID } from '../config';
 import {
 	ALL_NPCS,
@@ -22,11 +10,9 @@ import {
 	type NPCCategory,
 	type NPCItemEntry,
 	NPCS_BY_CATEGORY,
-	PROPERTY_RUNES,
 	type SystemActionReference,
 	type SystemSpellReference,
 	type SystemWeaponReference,
-	type WeaponRuneConfig,
 } from '../data';
 import type { ActorData, HarbingerNPC, ItemData } from '../types/foundry';
 import type { WeaponRune } from '../types/pf2e-runes';
@@ -71,7 +57,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 
 	/**
 	 * Convert HarbingerNPC to Foundry Actor data
-	 * Note: Items with system references will be resolved asynchronously in importItems
+	 * Note: Items with system references will be resolved asynchronously in importItems so don't stress
 	 */
 	toDocumentData(npc: HarbingerNPC): ActorData {
 		return {
@@ -114,8 +100,6 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 						resolved.push(resolvedItem);
 					}
 				} else {
-					// Regular inline item (ItemData)
-					// Type narrowing: if it's not a system reference, it's ItemData
 					const itemData = item as ItemData;
 					resolved.push({
 						name: itemData.name,
@@ -467,5 +451,4 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 	}
 }
 
-// Singleton instance for easy access
 export const npcImporter = new NPCImporter();
