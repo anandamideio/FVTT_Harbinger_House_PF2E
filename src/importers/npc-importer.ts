@@ -154,6 +154,7 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 				} else {
 					const itemData = item as ItemData;
 					resolved.push({
+						...(itemData._id ? { _id: itemData._id } : {}),
 						name: itemData.name,
 						type: itemData.type,
 						img: itemData.img || this.getItemDefaultImage(itemData.type),
