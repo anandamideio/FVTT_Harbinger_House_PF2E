@@ -58,6 +58,10 @@
 	gap: 8px;
 }
 
+.harbinger-import-btn i {
+	font-size: 0.8rem;
+}
+
 .harbinger-house-dialog .section-title i {
 	color: #8b7355;
 }
@@ -412,10 +416,6 @@
 .harbinger-import-btn:hover {
 	background: linear-gradient(180deg, #8a0000 0%, #6e0000 100%);
 	box-shadow: 0 0 4px rgba(138, 0, 0, 0.5);
-}
-
-.harbinger-import-btn i {
-	font-size: 0.8rem;
 }
 
 /* ================================
