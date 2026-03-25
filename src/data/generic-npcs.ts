@@ -1,5 +1,5 @@
 import type { HarbingerNPC, NPCEntry } from './harbinger-residents';
-import { createAction, createStrike, systemActor, systemAction, systemSpell, systemWeapon } from './utils';
+import { createAction, createStrike, systemAction, systemActor, systemSpell, systemWeapon } from './utils';
 
 // =============================================================================
 // FIENDS AND MONSTERS
@@ -157,6 +157,8 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 		systemSpell('laughingFit', 2, 'occult'),
 		systemSpell('dizzyingColors', 1, 'occult'),
 		systemSpell('command', 1, 'occult'),
+
+		
 	],
 };
 
