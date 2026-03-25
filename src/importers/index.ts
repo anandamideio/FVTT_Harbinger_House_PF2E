@@ -1,8 +1,3 @@
-/**
- * Importers Index
- * Exports all importer classes and instances for the module
- */
-
 import { hazardImporter } from './hazard-importer';
 import { itemImporter } from './item-importer';
 import { journalImporter } from './journal-importer';
@@ -10,25 +5,14 @@ import { npcImporter } from './npc-importer';
 import { sceneImporter } from './scene-importer';
 import { spellImporter } from './spell-importer';
 
-// Base importer
 export { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
-// Hazard Importer
 export { HazardImporter, type HazardImportOptions, hazardImporter } from './hazard-importer';
-
-// Item Importer
 export { ItemImporter, type ItemImportOptions, itemImporter } from './item-importer';
-// Journal Importer
 export { JournalImporter, type JournalImportOptions, journalImporter } from './journal-importer';
-// NPC Importer
 export { NPCImporter, type NPCImportOptions, npcImporter } from './npc-importer';
-// Scene Importer
 export { SceneImporter, type SceneImportOptions, sceneImporter } from './scene-importer';
-// Spell Importer
 export { SpellImporter, type SpellImportOptions, spellImporter } from './spell-importer';
 
-/**
- * Convenience function to import all content at once
- */
 export async function importAllContent(options?: {
 	npcs?: boolean;
 	items?: boolean;
@@ -103,7 +87,7 @@ export async function importAllContent(options?: {
 }
 
 /**
- * Convenience function to delete all imported content
+ * For when you just need to test everything importing again
  */
 export async function deleteAllImportedContent() {
 	const results = {

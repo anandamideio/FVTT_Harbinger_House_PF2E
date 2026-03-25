@@ -1,13 +1,3 @@
-/**
- * Item Importer
- * Handles importing Harbinger House Items into FoundryVTT
- *
- * This importer:
- * - Converts our HarbingerItem data structure to PF2e Item format
- * - Organizes items into folders by category (artifacts, weapons, etc.)
- * - Handles the varying item types (equipment, weapon, armor, consumable)
- */
-
 import { log, logError, MODULE_ID } from '../config';
 import {
 	ALL_ITEMS,
@@ -168,7 +158,7 @@ export class ItemImporter extends BaseImporter<HarbingerItem, typeof ItemClass> 
 					...options,
 					folderName: undefined,
 					folder: subfolder,
-					onProgress: (current, total, name) => {
+					onProgress: (current, _total, name) => {
 						options.onProgress?.(result.imported + current, this.getFilteredItems(options).length, name);
 					},
 				});
@@ -219,5 +209,4 @@ export class ItemImporter extends BaseImporter<HarbingerItem, typeof ItemClass> 
 	}
 }
 
-// Export singleton instance
 export const itemImporter = new ItemImporter();

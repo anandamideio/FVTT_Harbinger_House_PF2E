@@ -1,13 +1,3 @@
-/**
- * Hazard Importer
- * Handles importing Harbinger House Hazards into FoundryVTT
- *
- * This importer:
- * - Converts our HarbingerHazard data structure to PF2e Actor (hazard type) format
- * - In PF2e, hazards are a type of Actor, not Item
- * - Organizes hazards into folders by category (traps, environmental, etc.)
- */
-
 import { log, logError, MODULE_ID } from '../config';
 import {
 	ALL_HAZARDS,
@@ -59,15 +49,11 @@ export class HazardImporter extends BaseImporter<HarbingerHazard, typeof ActorCl
 
 	/**
 	 * Convert HarbingerHazard to Foundry Actor (hazard) data
-	 *
-	 * Why Actor instead of Item?
-	 * In PF2e, hazards are implemented as Actors with type 'hazard'.
-	 * This allows them to have AC, HP, saves, and other actor-like properties.
 	 */
 	toDocumentData(hazard: HarbingerHazard): ActorData {
 		const data = hazard.data;
 
-		// Hazards use PF2eHazardSystem which differs from PF2eActorSystem
+		// Hazards use PF2eHazardSystem
 		const system: Record<string, unknown> = {
 			description: data.system.description,
 			traits: {
@@ -127,7 +113,6 @@ export class HazardImporter extends BaseImporter<HarbingerHazard, typeof ActorCl
 	 * Get default token configuration for a hazard
 	 */
 	private getTokenData(hazard: HarbingerHazard): Partial<TokenData> {
-		// Most hazards are medium-sized or fill their area
 		const isComplex = hazard.data.system.details.isComplex;
 
 		return {
@@ -144,7 +129,7 @@ export class HazardImporter extends BaseImporter<HarbingerHazard, typeof ActorCl
 			sight: {
 				enabled: false,
 			},
-			actorLink: false, // Hazards typically aren't linked
+			actorLink: false,
 		};
 	}
 
@@ -224,7 +209,7 @@ export class HazardImporter extends BaseImporter<HarbingerHazard, typeof ActorCl
 					...options,
 					folderName: undefined,
 					folder: subfolder,
-					onProgress: (current, total, name) => {
+					onProgress: (current, _total, name) => {
 						options.onProgress?.(result.imported + current, this.getFilteredItems(options).length, name);
 					},
 				});
@@ -278,5 +263,4 @@ export class HazardImporter extends BaseImporter<HarbingerHazard, typeof ActorCl
 	}
 }
 
-// Export singleton instance
 export const hazardImporter = new HazardImporter();
