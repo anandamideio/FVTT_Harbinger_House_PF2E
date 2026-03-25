@@ -22,175 +22,7 @@ import {
 	spellImporter,
 } from '../importers';
 
-const PLANESCAPE_STYLES = `
-<style id="harbinger-house-styles">
-  .harbinger-house-dialog {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border: 2px solid #4a3f5c;
-    border-radius: 8px;
-    color: #e8e6e3;
-  }
-  
-  .harbinger-house-dialog .dialog-content {
-    padding: 16px;
-  }
-  
-  .harbinger-house-dialog h2 {
-    color: #c9a227;
-    text-align: center;
-    font-family: 'Modesto Condensed', serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-    text-shadow: 0 0 10px rgba(201, 162, 39, 0.3);
-  }
-  
-  .harbinger-house-dialog .intro-text {
-    font-style: italic;
-    color: #b0a8b9;
-    margin-bottom: 16px;
-    text-align: center;
-    border-bottom: 1px solid #4a3f5c;
-    padding-bottom: 16px;
-  }
-  
-  .harbinger-house-dialog .content-section {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid #4a3f5c;
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-  
-  .harbinger-house-dialog .section-title {
-    color: #c9a227;
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .harbinger-house-dialog .section-title i {
-    color: #8b7355;
-  }
-  
-  .harbinger-house-dialog .category-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 8px;
-  }
-  
-  .harbinger-house-dialog .category-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
-    background: rgba(74, 63, 92, 0.3);
-    border-radius: 4px;
-    font-size: 12px;
-  }
-  
-  .harbinger-house-dialog .category-item input[type="checkbox"] {
-    margin: 0;
-  }
-  
-  .harbinger-house-dialog .category-count {
-    color: #8b7355;
-    margin-left: auto;
-    font-size: 11px;
-  }
-  
-  .harbinger-house-dialog .progress-container {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    padding: 8px;
-    margin-top: 12px;
-    display: none;
-  }
-  
-  .harbinger-house-dialog .progress-container.active {
-    display: block;
-  }
-  
-  .harbinger-house-dialog .progress-bar {
-    height: 20px;
-    background: #2a2a4a;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-  
-  .harbinger-house-dialog .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #4a3f5c, #c9a227);
-    width: 0%;
-    transition: width 0.3s ease;
-  }
-  
-  .harbinger-house-dialog .progress-text {
-    text-align: center;
-    font-size: 12px;
-    color: #b0a8b9;
-  }
-  
-  .harbinger-house-dialog button {
-    background: linear-gradient(135deg, #4a3f5c 0%, #2a2a4a 100%);
-    border: 1px solid #c9a227;
-    color: #e8e6e3;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .harbinger-house-dialog button:hover {
-    background: linear-gradient(135deg, #5a4f6c 0%, #3a3a5a 100%);
-    box-shadow: 0 0 10px rgba(201, 162, 39, 0.3);
-  }
-  
-  .harbinger-house-dialog button.primary {
-    background: linear-gradient(135deg, #c9a227 0%, #8b7355 100%);
-    color: #1a1a2e;
-    font-weight: bold;
-  }
-  
-  .harbinger-house-dialog button.danger {
-    background: linear-gradient(135deg, #8b3a3a 0%, #5a2a2a 100%);
-    border-color: #c94a4a;
-  }
-  
-  .harbinger-house-dialog .button-group {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .harbinger-house-dialog .select-all-row {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 4px;
-  }
-
-  .harbinger-house-dialog .select-all-btn {
-    font-size: 11px;
-    padding: 2px 8px;
-    background: transparent;
-    border: 1px solid #4a3f5c;
-  }
-</style>
-`;
-
-function injectStyles(): void {
-	if (!document.getElementById('harbinger-house-styles')) {
-		document.head.insertAdjacentHTML('beforeend', PLANESCAPE_STYLES);
-	}
-}
-
 export function showWelcomeDialog(): void {
-	injectStyles();
 
 	const summary = getContentSummary();
 
@@ -261,8 +93,6 @@ export function showWelcomeDialog(): void {
  * Show the main import dialog with category selection
  */
 export function showImportDialog(): void {
-	injectStyles();
-
 	// Build NPC categories HTML
 	const npcCategoriesHtml = Object.entries(NPCS_BY_CATEGORY)
 		.filter(([_, npcs]) => npcs.length > 0)
@@ -629,8 +459,6 @@ export function showImportDialog(): void {
  * Show confirmation dialog before deleting all imported content
  */
 export function showDeleteConfirmDialog(): void {
-	injectStyles();
-
 	const content = `
     <div class="harbinger-house-dialog">
       <div class="dialog-content">
