@@ -80,6 +80,7 @@ export const MANES: HarbingerNPC = {
 	],
 };
 
+const CraniumRatSpellcastingEntry = createSpellcastingEntry('Occult Innate Spells', 'occult', 5, 22);
 export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 	id: 'cranium-rat-swarm',
 	category: 'fiend',
@@ -154,10 +155,10 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 			[],
 			`<p>The swarm's Intelligence increases based on its remaining HP: full HP = Int +2, below 50% = Int +1, below 25% = Int −2. Their spell DCs and attack rolls adjust accordingly.</p>`,
 		),
-		createSpellcastingEntry('Occult Innate Spells', 'occult', 5, 22).item,
-		systemSpell('laughingFit', 2, 'occult'),
-		systemSpell('dizzyingColors', 1, 'occult'),
-		systemSpell('command', 1, 'occult'),
+		CraniumRatSpellcastingEntry.item,
+		systemSpell('laughingFit', 2, 'occult', CraniumRatSpellcastingEntry.id),
+		systemSpell('dizzyingColors', 1, 'occult', CraniumRatSpellcastingEntry.id),
+		systemSpell('command', 1, 'occult', CraniumRatSpellcastingEntry.id),
 	],
 };
 
