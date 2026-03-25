@@ -322,7 +322,7 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 			},
 			sight: {
 				enabled: true,
-				range: sys?.attributes?.perception?.spikedarvision ? 60 : 0,
+				range: sys?.traits?.senses?.some((s: { type: string }) => s.type === 'darkvision') ? 60 : 0,
 			},
 			actorLink: npc.category === 'major-npc', // Link major NPCs
 		};
