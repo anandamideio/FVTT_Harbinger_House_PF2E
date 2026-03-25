@@ -23,7 +23,6 @@ import {
 } from '../importers';
 
 export function showWelcomeDialog(): void {
-
 	const summary = getContentSummary();
 
 	const content = `

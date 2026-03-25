@@ -21,7 +21,12 @@ import {
 } from './system-items';
 
 // Re-export types for convenience
-export type { SystemActionReference, SystemActorReference, SystemSpellReference, SystemWeaponReference } from './system-items';
+export type {
+	SystemActionReference,
+	SystemActorReference,
+	SystemSpellReference,
+	SystemWeaponReference,
+} from './system-items';
 
 /**
  * Action type parameter for createAction helper
@@ -202,9 +207,7 @@ export function createSpellcastingEntryWithSpells(
 	castingType: 'innate' | 'prepared' | 'spontaneous' | 'focus' = 'innate',
 ): [ItemData, ...SystemSpellReference[]] {
 	const casting = createSpellcastingEntry(name, tradition, spellAttack, spellDC, castingType);
-	const spellRefs = spells.map(([key, heightenedLevel]) =>
-		systemSpell(key, heightenedLevel, tradition, casting.id),
-	);
+	const spellRefs = spells.map(([key, heightenedLevel]) => systemSpell(key, heightenedLevel, tradition, casting.id));
 	return [casting.item, ...spellRefs];
 }
 

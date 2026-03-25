@@ -279,7 +279,7 @@ describe('JournalImporter.toDocumentData', () => {
 		expect(d(result.pages)[0].sort).toBe(100);
 		expect(d(result.pages)[0].ownership.default).toBe(0);
 		expect(d(result.ownership).default).toBe(0);
-		expect(d(result.flags)['harbinger-house-pf2e'].themed).toBe(true);
+		expect(d(result.flags)['harbinger-house-pf2e'].imported).toBe(true);
 	});
 
 	it('converts journal with image pages', () => {

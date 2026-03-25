@@ -1,5 +1,10 @@
 import type { ActorData, ItemData } from '../types/foundry.d.ts';
-import type { SystemActionReference, SystemActorReference, SystemSpellReference, SystemWeaponReference } from './system-items';
+import type {
+	SystemActionReference,
+	SystemActorReference,
+	SystemSpellReference,
+	SystemWeaponReference,
+} from './system-items';
 import { createAction, createSpellcastingEntryWithSpells, createStrike, systemAction, systemWeapon } from './utils';
 
 // NPC Categories for organization

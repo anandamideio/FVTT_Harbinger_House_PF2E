@@ -1,5 +1,12 @@
 import type { HarbingerNPC, NPCEntry } from './harbinger-residents';
-import { createAction, createSpellcastingEntryWithSpells, createStrike, systemAction, systemActor, systemWeapon } from './utils';
+import {
+	createAction,
+	createSpellcastingEntryWithSpells,
+	createStrike,
+	systemAction,
+	systemActor,
+	systemWeapon,
+} from './utils';
 
 // =============================================================================
 // FIENDS AND MONSTERS
