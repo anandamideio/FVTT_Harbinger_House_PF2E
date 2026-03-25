@@ -4,13 +4,16 @@ import {
 	generateRuneWeaponName,
 	getCategoryLabel,
 	isSystemActionReference,
+	isSystemActorReference,
 	isSystemItemReference,
 	isSystemSpellReference,
 	isSystemWeaponReference,
 	type NPCCategory,
+	type NPCEntry,
 	type NPCItemEntry,
 	NPCS_BY_CATEGORY,
 	type SystemActionReference,
+	type SystemActorReference,
 	type SystemSpellReference,
 	type SystemWeaponReference,
 } from '../data';
@@ -25,26 +28,26 @@ export interface NPCImportOptions extends ImportOptions {
 	npcIds?: string[];
 }
 
-export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
+export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 	protected documentType = 'Actor' as const;
 	protected documentClass = Actor;
 
 	/**
 	 * Get all NPCs available for import
 	 */
-	getImportableItems(): HarbingerNPC[] {
+	getImportableItems(): NPCEntry[] {
 		return ALL_NPCS;
 	}
 
 	/**
 	 * Get NPCs filtered by options
 	 */
-	getFilteredItems(options: NPCImportOptions): HarbingerNPC[] {
+	getFilteredItems(options: NPCImportOptions): NPCEntry[] {
 		let npcs = this.getImportableItems();
 
 		// Filter by category
 		if (options.categories && options.categories.length > 0) {
-			npcs = npcs.filter((npc) => options.categories!.includes(npc.category));
+			npcs = npcs.filter((npc) => options.categories!.includes(npc.category as NPCCategory));
 		}
 
 		// Filter by specific IDs
@@ -56,10 +59,24 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 	}
 
 	/**
-	 * Convert HarbingerNPC to Foundry Actor data
-	 * Note: Items with system references will be resolved asynchronously in importItems so don't stress
+	 * Convert NPCEntry to Foundry Actor data.
+	 * For SystemActorReferences, returns a placeholder — real data is fetched in preProcessDocumentData.
 	 */
-	toDocumentData(npc: HarbingerNPC): ActorData {
+	toDocumentData(npc: NPCEntry): ActorData {
+		if (isSystemActorReference(npc)) {
+			return {
+				name: npc.displayName ?? npc.id,
+				type: 'npc',
+				flags: {
+					[MODULE_ID]: {
+						imported: true,
+						sourceId: npc.id,
+						importedAt: Date.now(),
+					},
+				},
+			} as ActorData;
+		}
+
 		return {
 			name: npc.data.name,
 			type: npc.data.type,
@@ -78,12 +95,47 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 	}
 
 	/**
-	 * Resolve system item references before document creation
+	 * Resolve system actor references and item references before document creation
 	 */
-	protected async preProcessDocumentData(npc: HarbingerNPC, documentData: ActorData): Promise<ActorData> {
+	protected async preProcessDocumentData(npc: NPCEntry, documentData: ActorData): Promise<ActorData> {
+		if (isSystemActorReference(npc)) {
+			return this.resolveSystemActor(npc, documentData);
+		}
 		const resolvedItems = await this.resolveItems((npc.items || []) as NPCItemEntry[]);
 		documentData.items = resolvedItems;
 		return documentData;
+	}
+
+	/**
+	 * Clone a system compendium actor, preserving our module tracking flags
+	 */
+	private async resolveSystemActor(ref: SystemActorReference, documentData: ActorData): Promise<ActorData> {
+		try {
+			const actor = await fromUuid(ref.uuid);
+			if (!actor) {
+				logError(`Could not find system actor with UUID: ${ref.uuid}`);
+				return documentData;
+			}
+
+			const actorData = actor.toObject() as ActorData;
+			delete actorData._id;
+
+			// Override display name if provided
+			if (ref.displayName) {
+				actorData.name = ref.displayName;
+			}
+
+			// Preserve our module tracking flags
+			actorData.flags = {
+				...actorData.flags,
+				[MODULE_ID]: documentData.flags?.[MODULE_ID] ?? {},
+			};
+
+			return actorData;
+		} catch (error) {
+			logError(`Failed to resolve system actor ${ref.uuid}:`, error);
+			return documentData;
+		}
 	}
 
 	/**
@@ -335,11 +387,14 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 		return defaults[type] || 'icons/svg/item-bag.svg';
 	}
 
-	getItemId(npc: HarbingerNPC): string {
+	getItemId(npc: NPCEntry): string {
 		return npc.id;
 	}
 
-	getItemName(npc: HarbingerNPC): string {
+	getItemName(npc: NPCEntry): string {
+		if (isSystemActorReference(npc)) {
+			return npc.displayName ?? npc.id;
+		}
 		return npc.data.name;
 	}
 
@@ -374,7 +429,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 			options.categories || (['harbinger-resident', 'fiend', 'generic-npc', 'cultist'] as NPCCategory[]);
 
 		for (const category of categories) {
-			const categoryNPCs = (NPCS_BY_CATEGORY as Record<string, HarbingerNPC[]>)[category] || [];
+			const categoryNPCs = (NPCS_BY_CATEGORY as Record<string, NPCEntry[]>)[category] || [];
 			if (categoryNPCs.length === 0) {
 				log(`Skipping empty category: ${category}`);
 				continue;
@@ -436,7 +491,7 @@ export class NPCImporter extends BaseImporter<HarbingerNPC, typeof ActorClass> {
 		for (const [category, npcs] of Object.entries(NPCS_BY_CATEGORY)) {
 			summary[category] = {
 				count: npcs.length,
-				names: npcs.map((n) => n.data.name),
+				names: npcs.map((n) => this.getItemName(n)),
 			};
 		}
 

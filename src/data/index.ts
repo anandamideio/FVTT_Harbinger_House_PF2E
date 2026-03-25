@@ -3,12 +3,14 @@
 // ============================================================================
 
 // Re-export types
-export type { HarbingerNPC, NPCCategory } from './harbinger-residents';
+export type { HarbingerNPC, NPCCategory, NPCEntry } from './harbinger-residents';
+export { isSystemActorReference } from './harbinger-residents';
 
 import { FIENDS, GENERIC_NPCS } from './generic-npcs';
 // Import all NPC groups (assuming these files exist in your project)
 // If they don't exist, you'll need to create them or import from a single file
 import { HARBINGER_RESIDENTS } from './harbinger-residents';
+import type { NPCEntry } from './harbinger-residents';
 import { ALL_HAZARDS } from './hazards';
 import { ALL_ITEMS } from './items';
 import { ALL_JOURNALS } from './journals';
@@ -25,7 +27,7 @@ export * from './scenes';
 export { ALL_SCENES, FIENDS, GENERIC_NPCS, HARBINGER_RESIDENTS };
 
 // All NPCs combined
-export const ALL_NPCS = [...HARBINGER_RESIDENTS, ...FIENDS, ...GENERIC_NPCS];
+export const ALL_NPCS: NPCEntry[] = [...HARBINGER_RESIDENTS, ...FIENDS, ...GENERIC_NPCS];
 
 // NPCs grouped by category for UI display
 export const NPCS_BY_CATEGORY = {

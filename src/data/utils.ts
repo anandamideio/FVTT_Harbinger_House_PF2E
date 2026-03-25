@@ -6,10 +6,13 @@ import type { ItemData } from '../types/foundry.d.ts';
 import type { ActionTrait, MagicTradition, NPCAttackTrait, SpellTrait } from '../types/pf2e-traits';
 import {
 	resolveActionUUID,
+	resolveActorUUID,
 	resolveSpellUUID,
 	resolveWeaponUUID,
 	type SystemActionKey,
 	type SystemActionReference,
+	type SystemActorKey,
+	type SystemActorReference,
 	type SystemSpellKey,
 	type SystemSpellReference,
 	type SystemWeaponKey,
@@ -18,7 +21,7 @@ import {
 } from './system-items';
 
 // Re-export types for convenience
-export type { SystemActionReference, SystemSpellReference, SystemWeaponReference } from './system-items';
+export type { SystemActionReference, SystemActorReference, SystemSpellReference, SystemWeaponReference } from './system-items';
 
 /**
  * Action type parameter for createAction helper
@@ -217,6 +220,40 @@ export function systemSpell(
 		uuid,
 		heightenedLevel,
 		tradition,
+	};
+}
+
+/**
+ * Create a reference to an actor (creature) from the PF2e system compendium.
+ * This will be cloned from the compendium at import time, with module tracking flags applied.
+ *
+ * @param id - Our module's unique identifier for this entry (used for sourceId tracking)
+ * @param category - Category for folder organization (e.g. 'fiend', 'generic-npc')
+ * @param actor - Either a key from SYSTEM_ACTORS or a full compendium UUID
+ * @param displayName - Optional display name override (useful for remaster name changes)
+ * @returns SystemActorReference to be processed by the NPC importer
+ *
+ * @example
+ * // Reference Pusk (formerly Dretch) with a display name noting the name change
+ * systemActor('dretch', 'fiend', 'pusk', 'Pusk (Dretch)')
+ *
+ * @example
+ * // Reference with raw UUID
+ * systemActor('some-creature', 'generic-npc', 'Compendium.pf2e.pathfinder-monster-core.Actor.xxxxx')
+ */
+export function systemActor(
+	id: string,
+	category: string,
+	actor: SystemActorKey | string,
+	displayName?: string,
+): SystemActorReference {
+	const uuid = resolveActorUUID(actor);
+	return {
+		type: 'system-actor',
+		id,
+		category,
+		uuid,
+		displayName,
 	};
 }
 

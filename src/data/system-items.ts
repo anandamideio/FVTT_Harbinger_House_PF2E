@@ -219,6 +219,40 @@ export const SYSTEM_ACTIONS = {
 export type SystemActionKey = keyof typeof SYSTEM_ACTIONS;
 
 // =============================================================================
+// ACTORS (System Compendium Creatures)
+// =============================================================================
+
+export const SYSTEM_ACTORS = {
+	// Demons - Remaster names in parentheses where name changed
+	pusk: 'Compendium.pf2e.pathfinder-monster-core.Actor.OoUrk7aHE5wq9nLs', // formerly Dretch
+} as const;
+
+export type SystemActorKey = keyof typeof SYSTEM_ACTORS;
+
+/**
+ * Describes an actor (creature) from the PF2e system compendium.
+ * Used to reference existing system creatures instead of defining custom stat blocks.
+ */
+export interface SystemActorReference {
+	type: 'system-actor';
+	/** Our module's unique identifier for this entry (used for sourceId tracking) */
+	id: string;
+	/** Category for folder organization */
+	category: string;
+	/** Compendium UUID - either a key from SYSTEM_ACTORS or a full UUID */
+	uuid: string;
+	/** Optional display name override (useful for name changes between editions) */
+	displayName?: string;
+}
+
+/**
+ * Resolve an actor key to its UUID
+ */
+export function resolveActorUUID(key: SystemActorKey | string): string {
+	return SYSTEM_ACTORS[key as SystemActorKey] ?? key;
+}
+
+// =============================================================================
 // ARMOR
 // =============================================================================
 

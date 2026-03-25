@@ -1,5 +1,5 @@
 import type { ActorData, ItemData } from '../types/foundry.d.ts';
-import type { SystemActionReference, SystemSpellReference, SystemWeaponReference } from './system-items';
+import type { SystemActionReference, SystemActorReference, SystemSpellReference, SystemWeaponReference } from './system-items';
 import { createAction, createStrike, systemAction, systemSpell, systemWeapon } from './utils';
 
 // NPC Categories for organization
@@ -15,6 +15,17 @@ export interface HarbingerNPC {
 	/** Items can be inline ItemData or references to system compendium items */
 	items: NPCItemEntry[];
 }
+
+/** Union type for any entry in the NPC arrays - either a custom stat block or a system compendium reference */
+export type NPCEntry = HarbingerNPC | SystemActorReference;
+
+/** Type guard to check if an NPCEntry is a system actor reference */
+export function isSystemActorReference(entry: NPCEntry): entry is SystemActorReference {
+	return 'type' in entry && (entry as SystemActorReference).type === 'system-actor';
+}
+
+// Re-export SystemActorReference for consumers
+export type { SystemActorReference } from './system-items';
 
 // =============================================================================
 // MAJOR NPCs

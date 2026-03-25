@@ -1,83 +1,12 @@
-import type { HarbingerNPC } from './harbinger-residents';
-import { createAction, createStrike, systemAction, systemSpell, systemWeapon } from './utils';
+import type { HarbingerNPC, NPCEntry } from './harbinger-residents';
+import { createAction, createStrike, systemActor, systemAction, systemSpell, systemWeapon } from './utils';
 
 // =============================================================================
 // FIENDS AND MONSTERS
 // =============================================================================
 
-export const DRETCH: HarbingerNPC = {
-	id: 'dretch',
-	category: 'fiend',
-	data: {
-		name: 'Dretch',
-		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/dretch.webp',
-		system: {
-			abilities: {
-				str: { mod: 2 },
-				dex: { mod: 1 },
-				con: { mod: 3 },
-				int: { mod: -2 },
-				wis: { mod: 0 },
-				cha: { mod: 0 },
-			},
-			attributes: {
-				hp: { value: 45, max: 45, temp: 0, details: '' },
-				ac: { value: 17, details: '' },
-				speed: { value: 20, otherSpeeds: [{ type: 'climb', value: 20 }] },
-				perception: { value: 6, details: '' },
-				allSaves: { value: "+2 status to all saves vs, disease and poison" },
-				weaknesses: [
-					{ type: 'cold-iron', value: 3 },
-					{ type: 'good', value: 3 },
-				],
-			},
-			details: {
-				level: { value: 2 },
-				alignment: { value: 'CE' },
-				languages: { value: ['abyssal'], details: 'telepathy 100 feet' },
-				creatureType: 'Fiend',
-				source: { value: 'Harbinger House' },
-				blurb: 'Minor demon servant',
-				publicNotes: `<p>Dretches are among the lowest demons, often pressed into service by more powerful fiends. Nari uses them as guards throughout Harbinger House.</p>`,
-			},
-			saves: {
-				fortitude: { value: 9, saveDetail: '' },
-				reflex: { value: 5, saveDetail: '' },
-				will: { value: 6, saveDetail: '' },
-			},
-			traits: {
-				value: ['demon', 'fiend'],
-				rarity: 'common',
-				size: { value: 'sm' },
-				languages: { value: ['abyssal'], details: 'telepathy 100 feet' },
-				senses: [{ type: 'darkvision' }],
-			},
-		},
-		flags: {
-			'harbinger-house-pf2e': {
-				sourceId: 'dretch',
-				category: 'fiend',
-			},
-		},
-	},
-	items: [
-		createStrike('Claw', 10, { dice: 1, die: '6', type: 'slashing', modifier: 4 }, ['agile']),
-		createStrike('Bite', 10, { dice: 1, die: '8', type: 'piercing', modifier: 4 }, []),
-		createAction(
-			'Stinking Cloud',
-			2,
-			['divine', 'poison'],
-			`<p><strong>Frequency</strong> once per day</p>
-<p>The dretch creates a 10-foot burst of nauseating vapor within 30 feet. Creatures in the area must attempt a DC 18 Fortitude save.</p>
-<p><strong>Success</strong> The creature is unaffected.</p>
-<p><strong>Failure</strong> The creature is sickened 1.</p>
-<p><strong>Critical Failure</strong> The creature is sickened 2.</p>`,
-		),
-		systemSpell('darkness', 2, 'divine'),
-		systemSpell('fear', 1, 'divine'),
-	],
-};
+// Dretch → Pusk (remaster rename). Use the system compendium entry directly.
+export const DRETCH = systemActor('dretch', 'fiend', 'pusk', 'Pusk (Dretch)');
 
 export const MANES: HarbingerNPC = {
 	id: 'manes',
@@ -841,9 +770,9 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
 	],
 };
 
-export const FIENDS: HarbingerNPC[] = [DRETCH, MANES, CRANIUM_RAT_SWARM, GRAY_OOZE];
+export const FIENDS: NPCEntry[] = [DRETCH, MANES, CRANIUM_RAT_SWARM, GRAY_OOZE];
 
-export const GENERIC_NPCS: HarbingerNPC[] = [
+export const GENERIC_NPCS: NPCEntry[] = [
 	DABUS,
 	HARMONIUM_AGENT,
 	ANARCHIST,
