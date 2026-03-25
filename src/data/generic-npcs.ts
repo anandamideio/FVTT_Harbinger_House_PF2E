@@ -24,8 +24,9 @@ export const DRETCH: HarbingerNPC = {
 			attributes: {
 				hp: { value: 45, max: 45, temp: 0, details: '' },
 				ac: { value: 17, details: '' },
-				speed: { value: 20, otherSpeeds: [] },
+				speed: { value: 20, otherSpeeds: [{ type: 'climb', value: 20 }] },
 				perception: { value: 6, details: '' },
+				allSaves: { value: "+2 status to all saves vs, disease and poison" },
 				weaknesses: [
 					{ type: 'cold-iron', value: 3 },
 					{ type: 'good', value: 3 },
@@ -34,6 +35,7 @@ export const DRETCH: HarbingerNPC = {
 			details: {
 				level: { value: 2 },
 				alignment: { value: 'CE' },
+				languages: { value: ['abyssal'], details: 'telepathy 100 feet' },
 				creatureType: 'Fiend',
 				source: { value: 'Harbinger House' },
 				blurb: 'Minor demon servant',
