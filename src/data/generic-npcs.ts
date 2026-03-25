@@ -839,7 +839,6 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
 	],
 };
 
-// Export all generic NPCs and fiends
 export const FIENDS: HarbingerNPC[] = [DRETCH, MANES, CRANIUM_RAT_SWARM, GRAY_OOZE];
 
 export const GENERIC_NPCS: HarbingerNPC[] = [
