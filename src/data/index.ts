@@ -140,6 +140,8 @@ export function getContentSummary() {
 
 export type { NPCItemEntry } from './harbinger-residents';
 export {
+	createSpellcastingEntry,
+	createSpellcastingEntryWithSpells,
 	generateRuneWeaponName,
 	isSystemActionReference,
 	isSystemItemReference,

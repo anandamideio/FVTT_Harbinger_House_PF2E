@@ -173,6 +173,42 @@ export function createSpellcastingEntry(
 }
 
 /**
+ * Helper to create a spellcasting entry together with its associated spells.
+ * Returns an array ready to be spread into an NPC's items array.
+ *
+ * @param name - Display name (e.g. "Occult Innate Spells")
+ * @param tradition - Magical tradition
+ * @param spellAttack - Spell attack bonus
+ * @param spellDC - Spell save DC
+ * @param spells - Array of [spellKey, heightenedLevel?] tuples
+ * @param castingType - How spells are cast; defaults to 'innate'
+ * @returns Array of [spellcastingEntry, ...spells] ready to spread into items
+ *
+ * @example
+ * items: [
+ *   ...createSpellcastingEntryWithSpells('Occult Innate Spells', 'occult', 18, 26, [
+ *     ['darkness', 4],
+ *     ['fear', 1],
+ *     ['mindLink'],
+ *   ]),
+ * ]
+ */
+export function createSpellcastingEntryWithSpells(
+	name: string,
+	tradition: MagicTradition,
+	spellAttack: number,
+	spellDC: number,
+	spells: Array<[SystemSpellKey | string, number?]>,
+	castingType: 'innate' | 'prepared' | 'spontaneous' | 'focus' = 'innate',
+): [ItemData, ...SystemSpellReference[]] {
+	const casting = createSpellcastingEntry(name, tradition, spellAttack, spellDC, castingType);
+	const spellRefs = spells.map(([key, heightenedLevel]) =>
+		systemSpell(key, heightenedLevel, tradition, casting.id),
+	);
+	return [casting.item, ...spellRefs];
+}
+
+/**
  * Helper to create spell items for NPCs
  *
  * @param name - The name of the spell
