@@ -1,12 +1,12 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 /**
  * Rollup plugin to inject markdown content at build time
  *
  * This plugin reads harbinger_house_complete.md and makes it available
  * as a virtual module that can be imported by the journal data file.
  */
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-
 export default function markdownPlugin() {
   const virtualModuleId = 'virtual:harbinger-markdown';
   const resolvedVirtualModuleId = '\0' + virtualModuleId;
