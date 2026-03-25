@@ -1,8 +1,3 @@
-/**
- * Base Importer Class
- * Provides common functionality for importing content into FoundryVTT
- */
-
 import { log, logError, MODULE_ID } from '../config';
 
 export interface ImportResult {
