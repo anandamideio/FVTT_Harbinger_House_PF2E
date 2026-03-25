@@ -260,16 +260,21 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 	 * Apply spell customizations
 	 */
 	private applySpellCustomizations(itemData: ItemData, ref: SystemSpellReference): ItemData {
+		if (!itemData.system) itemData.system = { description: { value: '' } };
+		if (!itemData.system.location) itemData.system.location = {};
+
+		// Link spell to its spellcasting entry
+		if (ref.entryId) {
+			itemData.system.location.value = ref.entryId;
+		}
+
 		// Apply heightened level
 		if (ref.heightenedLevel !== undefined) {
-			if (!itemData.system) itemData.system = { description: { value: '' } };
-			if (!itemData.system.location) itemData.system.location = {};
 			itemData.system.location.heightenedLevel = ref.heightenedLevel;
 		}
 
 		// Apply tradition override
 		if (ref.tradition) {
-			if (!itemData.system) itemData.system = { description: { value: '' } };
 			itemData.system.traditions = { value: [ref.tradition] };
 		}
 

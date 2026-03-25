@@ -321,6 +321,8 @@ export interface SystemSpellReference {
 	heightenedLevel?: number;
 	/** Spellcasting tradition override */
 	tradition?: 'arcane' | 'divine' | 'occult' | 'primal';
+	/** The _id of the spellcastingEntry this spell belongs to */
+	entryId?: string;
 }
 
 /**

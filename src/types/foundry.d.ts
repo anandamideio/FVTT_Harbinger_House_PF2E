@@ -962,6 +962,7 @@ declare global {
 		};
 		location?: {
 			heightenedLevel?: number;
+			value?: string;
 		};
 	}
 
@@ -969,13 +970,23 @@ declare global {
 	// Union Type for All Item Systems
 	// ==========================================================================
 
+	interface PF2eSpellcastingEntrySystem {
+		prepared: { flexible: boolean; value: 'innate' | 'prepared' | 'spontaneous' | 'focus' };
+		proficiency: { value: number };
+		showSlotlessLevels: { value: boolean };
+		slots: Record<string, unknown>;
+		spelldc: { dc: number; mod: number; value: number };
+		tradition: { value: string };
+	}
+
 	type PF2eItemSystem = PF2eItemSystemBase &
 		Partial<Omit<PF2eActionSystem, keyof PF2eItemSystemBase>> &
 		Partial<Omit<PF2eWeaponSystem, keyof PF2eItemSystemBase | 'range' | 'damage'>> &
 		Partial<Omit<PF2eArmorSystem, keyof PF2eItemSystemBase>> &
 		Partial<Omit<PF2eEquipmentSystem, keyof PF2eItemSystemBase>> &
 		Partial<Omit<PF2eConsumableSystem, keyof PF2eItemSystemBase>> &
-		Partial<Omit<PF2eSpellSystem, keyof PF2eItemSystemBase | 'range' | 'damage'>> & {
+		Partial<Omit<PF2eSpellSystem, keyof PF2eItemSystemBase | 'range' | 'damage'>> &
+		Partial<PF2eSpellcastingEntrySystem> & {
 			range?: PF2eWeaponSystem['range'] | PF2eSpellSystem['range'];
 			damage?: PF2eWeaponSystem['damage'] | PF2eSpellSystem['damage'];
 		};

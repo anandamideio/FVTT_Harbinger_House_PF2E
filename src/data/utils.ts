@@ -115,6 +115,64 @@ export function createStrike(
 }
 
 /**
+ * Generate a random 16-character hex ID for embedded Foundry items.
+ * Used to pre-assign stable _id values so spells can reference their spellcasting entry
+ * before the actor is created.
+ */
+function generateItemId(): string {
+	return Array.from({ length: 16 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+}
+
+/**
+ * Helper to create a spellcasting entry item for an NPC.
+ *
+ * Returns both the item data and the pre-assigned entry ID so that spells can
+ * reference the entry via systemSpell(..., casting.id).
+ *
+ * @param name - Display name (e.g. "Occult Innate Spells")
+ * @param tradition - Magical tradition
+ * @param spellAttack - Spell attack bonus (the modifier value, e.g. 18)
+ * @param spellDC - Spell save DC (e.g. 26)
+ * @param castingType - How spells are cast; defaults to 'innate'
+ * @returns Object with the ItemData and the pre-assigned entry ID
+ *
+ * @example
+ * const casting = createSpellcastingEntry('Occult Innate Spells', 'occult', 18, 26);
+ * items: [
+ *   casting.item,
+ *   systemSpell('darkness', 4, 'occult', casting.id),
+ * ]
+ */
+export function createSpellcastingEntry(
+	name: string,
+	tradition: MagicTradition,
+	spellAttack: number,
+	spellDC: number,
+	castingType: 'innate' | 'prepared' | 'spontaneous' | 'focus' = 'innate',
+): { item: ItemData & { _id: string }; id: string } {
+	const id = generateItemId();
+	return {
+		id,
+		item: {
+			_id: id,
+			name,
+			type: 'spellcastingEntry',
+			img: 'systems/pf2e/icons/default-icons/spellcastingEntry.svg',
+			system: {
+				description: { value: '' },
+				prepared: { flexible: false, value: castingType },
+				proficiency: { value: 1 },
+				rules: [],
+				showSlotlessLevels: { value: false },
+				slots: {},
+				spelldc: { dc: spellDC, mod: 0, value: spellAttack },
+				tradition: { value: tradition },
+			},
+		},
+	};
+}
+
+/**
  * Helper to create spell items for NPCs
  *
  * @param name - The name of the spell
@@ -213,6 +271,7 @@ export function systemSpell(
 	spell: SystemSpellKey | string,
 	heightenedLevel?: number,
 	tradition?: MagicTradition,
+	entryId?: string,
 ): SystemSpellReference {
 	const uuid = resolveSpellUUID(spell);
 	return {
@@ -220,6 +279,7 @@ export function systemSpell(
 		uuid,
 		heightenedLevel,
 		tradition,
+		entryId,
 	};
 }
 
