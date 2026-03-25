@@ -324,6 +324,16 @@ export const DABUS: HarbingerNPC = {
 			'passive',
 			[],
 			`<p>Dabus gain a +2 circumstance bonus to Crafting checks to repair structures or trim razorvine.</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'crafting',
+					value: 2,
+					type: 'circumstance',
+					predicate: ['action:repair'],
+					label: 'Civic Duty',
+				},
+			],
 		),
 		createAction(
 			"The Lady's Servants",
@@ -469,6 +479,17 @@ export const ANARCHIST: HarbingerNPC = {
 			'passive',
 			[],
 			`<p>The anarchist deals an extra 2d6 precision damage to flat-footed creatures.</p>`,
+			[
+				{
+					key: 'DamageDice',
+					selector: 'strike-damage',
+					diceNumber: 2,
+					dieSize: 'd6',
+					category: 'precision',
+					predicate: ['target:condition:off-guard'],
+					label: 'Sneak Attack',
+				},
+			],
 		),
 		createAction(
 			'Revolutionary Fervor',
@@ -697,6 +718,22 @@ export const BARMY: HarbingerNPC = {
 			'passive',
 			[],
 			`<p>The barmy's chaotic thought patterns grant them a +2 circumstance bonus to Will saves against mental effects but a −2 penalty to initiative (already included in Perception).</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'will',
+					value: 2,
+					type: 'circumstance',
+					predicate: ['mental'],
+					label: 'Addled Mind',
+				},
+				{
+					key: 'FlatModifier',
+					selector: 'initiative',
+					value: -2,
+					label: 'Addled Mind',
+				},
+			],
 		),
 		createAction(
 			'Innate Spark',
@@ -769,6 +806,22 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
 			'passive',
 			[],
 			`<p>The Godsman gains a +2 circumstance bonus to Diplomacy checks to calm distressed individuals and to Medicine checks to treat mental conditions.</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'diplomacy',
+					value: 2,
+					type: 'circumstance',
+					label: "Believer's Patience (calm distressed individuals)",
+				},
+				{
+					key: 'FlatModifier',
+					selector: 'medicine',
+					value: 2,
+					type: 'circumstance',
+					label: "Believer's Patience (treat mental conditions)",
+				},
+			],
 		),
 		createAction(
 			'Source Philosophy',

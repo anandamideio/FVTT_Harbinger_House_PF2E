@@ -51,6 +51,7 @@ export function createAction(
 	actionType: ActionType,
 	traits: ActionTrait[] = [],
 	description: string = '',
+	rules: object[] = [],
 ): ItemData {
 	// Determine the actionType value and actions cost based on input
 	let actionTypeValue: string;
@@ -72,7 +73,7 @@ export function createAction(
 		img: 'systems/pf2e/icons/default-icons/action.svg',
 		system: {
 			description: { value: description },
-			rules: [],
+			rules,
 			slug: name.toLowerCase().replace(/\s+/g, '-'),
 			actionType: { value: actionTypeValue },
 			actions: { value: actionsCost },
@@ -97,6 +98,7 @@ export function createStrike(
 	damage: { dice: number; die: string; type: string; modifier: number },
 	traits: NPCAttackTrait[] = [],
 	description: string = '',
+	rules: object[] = [],
 ): ItemData {
 	return {
 		name,
@@ -104,7 +106,7 @@ export function createStrike(
 		img: 'systems/pf2e/icons/default-icons/melee.svg',
 		system: {
 			description: { value: description },
-			rules: [],
+			rules,
 			slug: name.toLowerCase().replace(/\s+/g, '-'),
 			traits: { value: traits },
 			damageRolls: {

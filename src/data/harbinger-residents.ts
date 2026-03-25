@@ -107,6 +107,14 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			['aura', 'emotion', 'mental'],
 			`<p><strong>Aura</strong> 10 feet</p>
 <p>Creatures that enter the aura or start their turn there must succeed at a DC 29 Will save or be unable to harm Trolan (as sanctuary). On a critical failure, the creature becomes helpful toward Trolan for 1 minute.</p>`,
+			[
+				{
+					key: 'Aura',
+					slug: 'field-of-fellowship',
+					radius: 10,
+					traits: ['emotion', 'mental'],
+				},
+			],
 		),
 		createAction(
 			'Inspire Courage',
@@ -119,6 +127,22 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			'passive',
 			[],
 			`<p>Trolan believes himself beloved by the Lady of Pain. He gains a +2 circumstance bonus to saves against effects that would make him doubt this belief.</p>`,
+		),
+		createAction(
+			'Magic Resistance',
+			'passive',
+			[],
+			`<p>+2 status bonus to all saving throws against magic.</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'saving-throw',
+					value: 2,
+					type: 'status',
+					predicate: ['item:trait:magical'],
+					label: 'Magic Resistance',
+				},
+			],
 		),
 		...createSpellcastingEntryWithSpells('Occult Innate Spells', 'occult', 19, 29, [
 			['charm', 4],
@@ -299,6 +323,24 @@ export const NARCOVI: HarbingerNPC = {
 			'passive',
 			[],
 			`<p>When Narcovi Coerces or Requests information from a creature, she gains a +2 circumstance bonus to the check.</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'intimidation',
+					value: 2,
+					type: 'circumstance',
+					predicate: ['action:coerce'],
+					label: 'Hardhead Interrogation',
+				},
+				{
+					key: 'FlatModifier',
+					selector: 'diplomacy',
+					value: 2,
+					type: 'circumstance',
+					predicate: ['action:request'],
+					label: 'Hardhead Interrogation',
+				},
+			],
 		),
 	],
 };
@@ -373,6 +415,25 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 			{ dice: 3, die: '8', type: 'slashing', modifier: 11 },
 			['magical', 'versatile-p', 'unholy'],
 			`+2 greater striking anarchic longsword. Deals 2d6 spirit damage (4d6 vs. lawful creatures).`,
+			[
+				{
+					key: 'DamageDice',
+					selector: '{item|_id}-damage',
+					diceNumber: 2,
+					dieSize: 'd6',
+					damageType: 'spirit',
+					label: 'Spirit Damage',
+				},
+				{
+					key: 'DamageDice',
+					selector: '{item|_id}-damage',
+					diceNumber: 2,
+					dieSize: 'd6',
+					damageType: 'spirit',
+					predicate: ['target:trait:lawful'],
+					label: 'Extra Spirit Damage vs Lawful',
+				},
+			],
 		),
 		createAction(
 			'Know Alignment',
@@ -393,6 +454,22 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 			`<p>Sougad makes a melee Strike. On a hit, the target takes an additional 4d12 electricity damage and is stunned 1.</p>`,
 		),
 		createAction('Dimension Door', 2, ['teleportation'], `<p>As the spell. Usable once per day.</p>`),
+		createAction(
+			'Magic Resistance',
+			'passive',
+			[],
+			`<p>+2 status bonus to saving throws against magic.</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'saving-throw',
+					value: 2,
+					type: 'status',
+					predicate: ['item:trait:magical'],
+					label: 'Magic Resistance',
+				},
+			],
+		),
 		createAction(
 			'Ritual Murder',
 			'passive',
@@ -565,6 +642,16 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 			{ dice: 2, die: '8', type: 'slashing', modifier: 8 },
 			['agile', 'finesse', 'magical'],
 			'Deals an additional 1d6 evil damage.',
+			[
+				{
+					key: 'DamageDice',
+					selector: '{item|_id}-damage',
+					diceNumber: 1,
+					dieSize: 'd6',
+					damageType: 'spirit',
+					label: 'Evil Damage',
+				},
+			],
 		),
 		systemWeapon('longsword', { potency: 1, striking: 'striking' }),
 		createAction(
@@ -582,6 +669,22 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 			1,
 			['concentrate', 'divine', 'polymorph'],
 			`<p>Nari can take on the appearance of any Small or Medium humanoid. She has practiced appearing as the Lady of Pain, gaining a +4 circumstance bonus to Deception checks to maintain this specific disguise.</p>`,
+		),
+		createAction(
+			'Magic Resistance',
+			'passive',
+			[],
+			`<p>+1 status bonus to all saving throws against magic.</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'saving-throw',
+					value: 1,
+					type: 'status',
+					predicate: ['item:trait:magical'],
+					label: 'Magic Resistance',
+				},
+			],
 		),
 		...createSpellcastingEntryWithSpells('Divine Innate Spells', 'divine', 21, 30, [
 			['dominate', 6],
