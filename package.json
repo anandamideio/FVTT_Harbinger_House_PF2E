@@ -5,7 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "rollup -c",
-		"watch": "rollup -c -w",
+		"build:local": "rollup -c --environment BUILD:local",
+		"watch": "rollup -c -w --environment BUILD:local",
 		"clean": "rm -rf dist/*.js dist/*.js.map build/",
 		"typecheck": "tsc --noEmit",
 		"lint": "biome check --write",
