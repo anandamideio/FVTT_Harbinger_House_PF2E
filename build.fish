@@ -19,16 +19,16 @@ echo "✅ Found harbinger_house_complete.md"
 # Install dependencies if needed
 if not test -d node_modules
     echo "📦 Installing dependencies..."
-    npm install
+    pnpm install
 end
 
 # Clean old build
 echo "🧹 Cleaning old build..."
-npm run clean
+pnpm run clean
 
 # Build the module
 echo "🔨 Building TypeScript..."
-npm run build
+pnpm run build
 
 # Check if build succeeded
 if test $status -eq 0
