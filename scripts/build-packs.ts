@@ -1,14 +1,3 @@
-/**
- * Build Compendium Packs
- *
- * Generates LevelDB compendium packs from the module's TypeScript data sources.
- * Run via: tsx scripts/build-packs.ts
- *
- * This script runs in Node.js (not Foundry), so it uses only the pure data
- * transformation functions from src/data/to-foundry-data.ts which have no
- * Foundry runtime dependencies.
- */
-
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -122,37 +111,37 @@ async function main() {
 	// Build NPC pack
 	const npcEntries = ALL_NPCS.map((npc) => ({
 		id: npc.id,
-		data: npcEntryToDocumentData(npc) as Record<string, unknown>,
+		data: npcEntryToDocumentData(npc),
 	}));
 
 	// Build Item pack
 	const itemEntries = ALL_ITEMS.map((item) => ({
 		id: item.id,
-		data: itemToDocumentData(item) as Record<string, unknown>,
+		data: itemToDocumentData(item),
 	}));
 
 	// Build Spell pack
 	const spellEntries = ALL_SPELLS.map((spell) => ({
 		id: spell.id,
-		data: spellToDocumentData(spell) as Record<string, unknown>,
+		data: spellToDocumentData(spell),
 	}));
 
 	// Build Hazard pack
 	const hazardEntries = ALL_HAZARDS.map((hazard) => ({
 		id: hazard.id,
-		data: hazardToDocumentData(hazard) as Record<string, unknown>,
+		data: hazardToDocumentData(hazard),
 	}));
 
 	// Build Journal pack
 	const journalEntries = ALL_JOURNALS.map((journal) => ({
 		id: journal.id,
-		data: journalToDocumentData(journal) as Record<string, unknown>,
+		data: journalToDocumentData(journal),
 	}));
 
 	// Build Scene pack
 	const sceneEntries = ALL_SCENES.map((scene) => ({
 		id: scene.id,
-		data: sceneToDocumentData(scene) as Record<string, unknown>,
+		data: sceneToDocumentData(scene),
 	}));
 
 	const packs: PackDefinition[] = [

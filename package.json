@@ -10,8 +10,8 @@
 		"watch": "BUILD=local vite build --watch",
 		"clean": "rm -rf dist/*.js dist/*.js.map build/ packs/",
 		"typecheck": "tsc --noEmit",
-		"lint": "biome check --write",
-		"lint:ci": "biome check",
+		"lint": "pnpm eslint ./src --fix",
+		"lint:ci": "pnpm eslint ./src",
 		"test": "vitest run",
 		"test:watch": "vitest"
 	},
