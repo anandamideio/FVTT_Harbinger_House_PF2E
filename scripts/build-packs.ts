@@ -53,13 +53,37 @@ function createStats() {
 	};
 }
 
+/** Foundry document types mapped to LevelDB sublevel keys and embedded doc keys. */
+type FoundryDocType = 'Actor' | 'Item' | 'JournalEntry' | 'Scene';
+
+interface DBKeys {
+	dbKey: string;
+	embeddedKey: string | null;
+}
+
+function getDBKeys(docType: FoundryDocType): DBKeys {
+	switch (docType) {
+		case 'Actor':
+			return { dbKey: 'actors', embeddedKey: 'items' };
+		case 'Item':
+			return { dbKey: 'items', embeddedKey: null };
+		case 'JournalEntry':
+			return { dbKey: 'journal', embeddedKey: 'pages' };
+		case 'Scene':
+			return { dbKey: 'scenes', embeddedKey: null };
+	}
+}
+
 interface PackDefinition {
 	name: string;
-	entries: Array<{ id: string; data: Record<string, unknown> }>;
+	docType: FoundryDocType;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	entries: Array<{ id: string; data: any }>;
 }
 
 /**
- * Write a single compendium pack to a LevelDB database.
+ * Write a single compendium pack to a LevelDB database using sublevels,
+ * matching Foundry's expected format.
  */
 async function writePack(packDef: PackDefinition): Promise<void> {
 	const packPath = path.join(PACKS_DIR, packDef.name);
@@ -70,29 +94,55 @@ async function writePack(packDef: PackDefinition): Promise<void> {
 	}
 	fs.mkdirSync(packPath, { recursive: true });
 
-	const db = new ClassicLevel<string, string>(packPath, {
-		keyEncoding: 'utf8',
-		valueEncoding: 'utf8',
-	});
-
+	const dbOptions = { keyEncoding: 'utf8' as const, valueEncoding: 'json' as const };
+	const db = new ClassicLevel<string, Record<string, unknown>>(packPath, dbOptions);
 	await db.open();
 
+	const { dbKey, embeddedKey } = getDBKeys(packDef.docType);
+	const documentDb = db.sublevel<string, Record<string, unknown>>(dbKey, dbOptions);
+	await documentDb.open();
+	const embeddedDb = embeddedKey
+		? db.sublevel<string, Record<string, unknown>>(`${dbKey}.${embeddedKey}`, dbOptions)
+		: null;
+	if (embeddedDb) await embeddedDb.open();
+
 	try {
-		const batch = db.batch();
+		const docBatch = documentDb.batch();
+		const embeddedBatch = embeddedDb?.batch();
 
 		for (const entry of packDef.entries) {
 			const docId = generateId(entry.id);
-			const doc = {
+			const doc: Record<string, unknown> = {
 				...entry.data,
 				_id: docId,
 				_stats: createStats(),
 			};
 
-			const key = `!items!${docId}`;
-			batch.put(key, JSON.stringify(doc));
+			// Extract embedded documents (items on actors, pages on journals)
+			// into their own sublevel, replacing the array with ID references
+			if (embeddedKey && embeddedBatch && Array.isArray(doc[embeddedKey])) {
+				const embeddedDocs = doc[embeddedKey] as Record<string, unknown>[];
+				const embeddedIds: string[] = [];
+
+				for (const embDoc of embeddedDocs) {
+					const embId =
+						(embDoc._id as string) || generateId(`${entry.id}-${embDoc.name || embeddedIds.length}`);
+					embDoc._id = embId;
+					embDoc._stats = createStats();
+					embeddedBatch.put(`${docId}.${embId}`, embDoc);
+					embeddedIds.push(embId);
+				}
+
+				doc[embeddedKey] = embeddedIds;
+			}
+
+			docBatch.put(docId, doc);
 		}
 
-		await batch.write();
+		await docBatch.write();
+		if (embeddedBatch?.length) {
+			await embeddedBatch.write();
+		}
 		console.log(`  ✓ ${packDef.name}: ${packDef.entries.length} documents`);
 	} finally {
 		await db.close();
@@ -145,12 +195,12 @@ async function main() {
 	}));
 
 	const packs: PackDefinition[] = [
-		{ name: 'harbinger-house-npcs', entries: npcEntries },
-		{ name: 'harbinger-house-items', entries: itemEntries },
-		{ name: 'harbinger-house-spells', entries: spellEntries },
-		{ name: 'harbinger-house-hazards', entries: hazardEntries },
-		{ name: 'harbinger-house-journals', entries: journalEntries },
-		{ name: 'harbinger-house-scenes', entries: sceneEntries },
+		{ name: 'harbinger-house-npcs', docType: 'Actor', entries: npcEntries },
+		{ name: 'harbinger-house-items', docType: 'Item', entries: itemEntries },
+		{ name: 'harbinger-house-spells', docType: 'Item', entries: spellEntries },
+		{ name: 'harbinger-house-hazards', docType: 'Actor', entries: hazardEntries },
+		{ name: 'harbinger-house-journals', docType: 'JournalEntry', entries: journalEntries },
+		{ name: 'harbinger-house-scenes', docType: 'Scene', entries: sceneEntries },
 	];
 
 	for (const pack of packs) {
