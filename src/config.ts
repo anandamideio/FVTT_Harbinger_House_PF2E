@@ -1,7 +1,4 @@
-/**
- * Module Configuration
- * Central place for all module constants and settings
- */
+import consola from 'consola';
 
 export const MODULE_ID = 'harbinger-house-pf2e';
 export const MODULE_NAME = 'Harbinger House PF2e';
@@ -37,11 +34,6 @@ export const LANG_PREFIX = 'HARBINGER-HOUSE';
  * @param key - The localization key (e.g., 'import.title')
  * @param data - Optional data for string interpolation
  * @returns The localized string
- *
- * Why this approach?
- * - Foundry's i18n.localize() doesn't handle interpolation
- * - i18n.format() does, but we want a unified API
- * - This function handles both cases seamlessly
  */
 export function localize(key: string, data?: Record<string, unknown>): string {
 	const fullKey = `${LANG_PREFIX}.${key}`;
@@ -51,35 +43,18 @@ export function localize(key: string, data?: Record<string, unknown>): string {
 	return game.i18n.localize(fullKey);
 }
 
-/**
- * Log a message to the console with module prefix
- */
 export function log(...args: unknown[]): void {
-	console.log(`${MODULE_NAME} |`, ...args);
+	consola.info(`${MODULE_NAME} |`, ...args);
 }
 
-/**
- * Log an error to the console with module prefix
- */
 export function logError(...args: unknown[]): void {
-	console.error(`${MODULE_NAME} |`, ...args);
+	consola.error(`${MODULE_NAME} |`, ...args);
 }
 
-/**
- * Log a warning to the console with module prefix
- */
 export function logWarn(...args: unknown[]): void {
-	console.warn(`${MODULE_NAME} |`, ...args);
+	consola.warn(`${MODULE_NAME} |`, ...args);
 }
 
-/**
- * Register all module settings
- *
- * Why use settings?
- * - Persists user preferences across sessions
- * - Allows GMs to control module behavior
- * - Enables tracking of what's been imported
- */
 export function registerSettings(): void {
 	// Show import dialog on load
 	game.settings.register(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG, {

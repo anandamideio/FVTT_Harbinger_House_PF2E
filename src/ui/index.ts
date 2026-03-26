@@ -4,10 +4,6 @@ import DeleteContent from './components/DeleteContent.svelte';
 import ImportContent from './components/ImportContent.svelte';
 import WelcomeContent from './components/WelcomeContent.svelte';
 
-/**
- * Mount a Svelte component inside a Foundry Dialog.
- * The component receives an `onClose` prop that closes the dialog.
- */
 function mountInDialog(
 	title: string,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

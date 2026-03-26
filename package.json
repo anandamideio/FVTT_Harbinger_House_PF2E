@@ -54,5 +54,8 @@
 		"planescape",
 		"harbinger-house"
 	],
-	"license": "MIT"
+	"license": "MIT",
+	"dependencies": {
+		"consola": "^3.4.2"
+	}
 }

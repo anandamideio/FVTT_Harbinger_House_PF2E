@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      consola:
+        specifier: ^3.4.2
+        version: 3.4.2
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -996,6 +1000,10 @@ packages:
   commander@9.5.0:
     resolution: {integrity: sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==}
     engines: {node: ^12.20.0 || >=14}
+
+  consola@3.4.2:
+    resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
+    engines: {node: ^14.18.0 || >=16.10.0}
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
@@ -2922,6 +2930,8 @@ snapshots:
   commander@12.1.0: {}
 
   commander@9.5.0: {}
+
+  consola@3.4.2: {}
 
   convert-source-map@2.0.0: {}
 

@@ -1,9 +1,9 @@
+import { log, logWarn, MODULE_ID } from '../config';
+
 /**
  * Migration System
  *
- * Runs data migrations on world documents imported by this module.
- * When the module's data format changes between versions, migrations
- * transform existing world content to match the new format.
+ * Runs data migrations on documents imported by this module.
  *
  * How it works:
  * 1. Each world stores a schemaVersion setting (starts at 0)
@@ -11,8 +11,6 @@
  * 3. Run any pending migrations in order
  * 4. Update schemaVersion after each successful migration
  */
-
-import { log, logWarn, MODULE_ID } from '../config';
 
 export interface Migration {
 	/** Version number this migration brings the schema to */
