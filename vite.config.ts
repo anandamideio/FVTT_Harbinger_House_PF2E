@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import markdownPlugin from './vite-plugin-markdown.mjs';
 import { execSync } from 'child_process';
 import fs from 'fs';
@@ -85,6 +86,11 @@ export default defineConfig({
     codeSplitting: false,
   },
   plugins: [
+    svelte({
+      compilerOptions: {
+        css: 'injected',
+      },
+    }),
     markdownPlugin(),
     copyPlugin(devVersion),
   ],

@@ -17,6 +17,6 @@
     "types": ["node", "@league-of-foundry-developers/foundry-vtt-types"],
     "noEmit": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.svelte"],
   "exclude": ["node_modules", "scripts"]
 }
