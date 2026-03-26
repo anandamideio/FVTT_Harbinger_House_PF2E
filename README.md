@@ -1,5 +1,5 @@
 # Harbinger House PF2E Module
-
+[![CI](https://github.com/anandamideio/FVTT_Harbinger_House_PF2E/actions/workflows/ci.yml/badge.svg)](https://github.com/anandamideio/FVTT_Harbinger_House_PF2E/actions/workflows/ci.yml)
 
 ## Why did I make this?
 A friend recently mentioned how they miss some of our adventure's in Sigil, and, so I though to myself, "Well, I own this adventure, so why not try and convert it to Pathfinder 2e? Seems like a solid chance to see the work that goes into a adventure module".
