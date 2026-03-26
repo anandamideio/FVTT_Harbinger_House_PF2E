@@ -11,7 +11,13 @@
     "**/logs": true,
     "**/node_modules/**": true,
     "**/tmp/**": true,
-    "eslint*.*": true
+    "eslint*.*": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/packs": true
   },
-  "explorerExclude.backup": {}
+  "explorerExclude.backup": {},
+  "cSpell.words": [
+    "Spellcasting"
+  ]
 }
