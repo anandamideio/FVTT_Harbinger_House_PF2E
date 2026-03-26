@@ -265,12 +265,13 @@ Hooks.once('ready', async () => {
  * This hook automatically adds the harbinger-journal CSS class to journals
  * created by this module, giving them an aged manuscript appearance
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 Hooks.on('renderJournalSheet', (...args: any[]) => {
 	const [app, html] = args;
 
 	// Check if this journal was created by our module
 	const journal = app.object;
-	const isHarbingerJournal = journal?.flags?.[MODULE_ID]?.themed;
+	const isHarbingerJournal = journal?.flags?.[MODULE_ID]?.managed || journal?.flags?.[MODULE_ID]?.imported
 
 	if (isHarbingerJournal) {
 		// Add the harbinger-journal class to the sheet

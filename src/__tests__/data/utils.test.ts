@@ -229,7 +229,7 @@ describe('isSystemItemReference', () => {
 	});
 
 	it('returns false for null', () => {
-		// @ts-expect-error
+		// @ts-expect-error - Purposely checking error behavior
 		expect(isSystemItemReference(null)).toBe(false);
 	});
 });

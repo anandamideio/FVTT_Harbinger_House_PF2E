@@ -10,7 +10,9 @@ import WelcomeContent from './components/WelcomeContent.svelte';
  */
 function mountInDialog(
 	title: string,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	component: any,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	getProps: (dialog: DialogClass) => Record<string, any>,
 	options: DialogOptions,
 ): void {

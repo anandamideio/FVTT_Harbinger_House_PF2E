@@ -4,7 +4,7 @@
  */
 
 import type { WeaponRune } from './pf2e-runes';
-import type { PF2eTrait, WeaponTrait } from './pf2e-traits';
+import type { PF2eTrait } from './pf2e-traits';
 
 // Foundry Global Types
 declare global {

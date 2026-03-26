@@ -10,7 +10,8 @@ import { SpellImporter } from '../../importers/spell-importer';
  * Type-widening helper for test assertions. Allows deep property access
  * on typed return values where we know the structure from the test setup.
  */
-// biome-ignore lint/suspicious/noExplicitAny: test helper needs flexible deep access
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function d(val: unknown): any {
 	return val;
 }
