@@ -1,14 +1,3 @@
-/**
- * Harbinger House PF2e Module
- * Main entry point
- *
- * This module provides converted PF2e content for the Harbinger House adventure.
- * It hooks into Foundry's lifecycle to:
- * 1. Register module settings
- * 2. Show import dialog when first loaded
- * 3. Provide API for programmatic access
- */
-
 import { localize, log, logError, MODULE_ID, registerSettings, SETTINGS } from './config';
 import {
 	// Hazard data
@@ -47,16 +36,6 @@ import {
 import { registerMigrationSettings, runPendingMigrations } from './migration';
 import { showImportDialog, showWelcomeDialog } from './ui';
 
-/**
- * Module API
- * Exposed on the module for external access
- *
- * This comprehensive API allows other modules or macros to:
- * - Import specific content types
- * - Query available content
- * - Delete imported content
- * - Access raw data for custom use
- */
 interface HarbingerHouseAPI {
 	// Import functions
 	importNPCs: typeof npcImporter.importAll;
@@ -262,8 +241,7 @@ Hooks.once('ready', async () => {
 
 /**
  * Apply themed styling to Harbinger House journals
- * This hook automatically adds the harbinger-journal CSS class to journals
- * created by this module, giving them an aged manuscript appearance
+ * This hook automatically adds the harbinger-journal CSS class to journals (only those created by us)
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 Hooks.on('renderJournalSheet', (...args: any[]) => {
