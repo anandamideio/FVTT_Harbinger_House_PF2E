@@ -20,6 +20,7 @@ import {
 	sceneImporter,
 	spellImporter,
 } from '../../importers';
+import type { ImportResult } from '../../importers';
 import CategorySection from './CategorySection.svelte';
 import ProgressBar from './ProgressBar.svelte';
 
@@ -102,7 +103,7 @@ async function handleImport() {
 
 		if (importNpcs) {
 			progressText = 'Importing NPCs...';
-			let result;
+			let result: ImportResult;
 			if (isPackAvailable(PACKS.NPCS)) {
 				result = await npcImporter.importFromCompendium(
 					PACKS.NPCS,
@@ -130,7 +131,7 @@ async function handleImport() {
 
 		if (importItems) {
 			progressText = 'Importing Items...';
-			let result;
+			let result: ImportResult;
 			if (isPackAvailable(PACKS.ITEMS)) {
 				result = await itemImporter.importFromCompendium(
 					PACKS.ITEMS,
@@ -158,7 +159,7 @@ async function handleImport() {
 
 		if (importSpells) {
 			progressText = 'Importing Spells...';
-			let result;
+			let result: ImportResult;
 			if (isPackAvailable(PACKS.SPELLS)) {
 				result = await spellImporter.importFromCompendium(PACKS.SPELLS, {
 					folderName: 'Harbinger House Spells',
@@ -179,7 +180,7 @@ async function handleImport() {
 
 		if (importHazards) {
 			progressText = 'Importing Hazards...';
-			let result;
+			let result: ImportResult;
 			if (isPackAvailable(PACKS.HAZARDS)) {
 				result = await hazardImporter.importFromCompendium(
 					PACKS.HAZARDS,
