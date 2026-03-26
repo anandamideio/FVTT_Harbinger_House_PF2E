@@ -4,9 +4,9 @@
 	"description": "Harbinger House PF2e conversion for FoundryVTT",
 	"type": "module",
 	"scripts": {
-		"build": "rollup -c",
-		"build:local": "rollup -c --environment BUILD:local",
-		"watch": "rollup -c -w --environment BUILD:local",
+		"build": "vite build",
+		"build:local": "BUILD=local vite build",
+		"watch": "BUILD=local vite build --watch",
 		"clean": "rm -rf dist/*.js dist/*.js.map build/",
 		"typecheck": "tsc --noEmit",
 		"lint": "biome check --write",
@@ -19,13 +19,10 @@
 		"@pixi/assets": "github:foundry-vtt-types/pixi-assets#main",
 		"@pixi/compressed-textures": "github:foundry-vtt-types/pixi-compressed-textures#main",
 		"@pixi/core": "github:foundry-vtt-types/pixi-core#main",
-		"@rollup/plugin-node-resolve": "^16.0.3",
-		"@rollup/plugin-typescript": "^12.3.0",
 		"@types/node": "^25.5.0",
-		"rollup": "^4.60.0",
-		"rollup-plugin-copy": "^3.5.0",
 		"tslib": "^2.6.2",
 		"typescript": "^5.3.3",
+		"vite": "^8.0.2",
 		"vitest": "^4.1.0"
 	},
 	"pnpm": {

@@ -1,7 +1,5 @@
-import typescript from '@rollup/plugin-typescript';
-import resolve from '@rollup/plugin-node-resolve';
-import copy from 'rollup-plugin-copy';
-import markdownPlugin from './rollup-plugin-markdown.mjs';
+import { defineConfig } from 'vite';
+import markdownPlugin from './vite-plugin-markdown.mjs';
 import { execSync } from 'child_process';
 import fs from 'fs';
 
@@ -31,16 +29,30 @@ function getRemoteUrl() {
   }
 }
 
-function moduleJsonPlugin(version) {
+function copyPlugin(version: string | null) {
   return {
-    name: 'module-json',
-    writeBundle() {
+    name: 'copy-assets',
+    closeBundle() {
+      // Always copy assets to dist/assets
+      fs.cpSync('src/assets', 'dist/assets', { recursive: true });
+
+      if (!version) return;
+
+      // Local build: mirror everything into BUILD_DIR
+      fs.mkdirSync(`${BUILD_DIR}/dist`, { recursive: true });
+      fs.copyFileSync('dist/module.js', `${BUILD_DIR}/dist/module.js`);
+      if (fs.existsSync('dist/module.js.map')) {
+        fs.copyFileSync('dist/module.js.map', `${BUILD_DIR}/dist/module.js.map`);
+      }
+      fs.cpSync('src/assets', `${BUILD_DIR}/dist/assets`, { recursive: true });
+      fs.cpSync('lang', `${BUILD_DIR}/lang`, { recursive: true });
+      fs.cpSync('styles', `${BUILD_DIR}/styles`, { recursive: true });
+
       const manifest = JSON.parse(fs.readFileSync('module.json', 'utf-8'));
       manifest.version = version;
       manifest.url = getRemoteUrl();
       manifest.manifest = '';
       manifest.download = '';
-      fs.mkdirSync(BUILD_DIR, { recursive: true });
       fs.writeFileSync(`${BUILD_DIR}/module.json`, JSON.stringify(manifest, null, '\t'));
     }
   };
@@ -52,35 +64,28 @@ if (IS_LOCAL) {
   console.log(`Building local dev version: ${devVersion}`);
 }
 
-export default {
-  input: 'src/module.ts',
-  output: IS_LOCAL
-    ? [
-        { file: 'dist/module.js', format: 'es', sourcemap: true },
-        { file: `${BUILD_DIR}/dist/module.js`, format: 'es', sourcemap: true },
-      ]
-    : { file: 'dist/module.js', format: 'es', sourcemap: true },
+export default defineConfig({
+  base: './',
+  publicDir: false,
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    sourcemap: true,
+    minify: false,
+    target: 'es2022',
+    modulePreload: false,
+    rollupOptions: {
+      input: 'src/module.ts',
+      output: {
+        dir: 'dist',
+        entryFileNames: 'module.js',
+        format: 'es',
+      },
+    },
+    codeSplitting: false,
+  },
   plugins: [
     markdownPlugin(),
-    resolve(),
-    typescript({
-      tsconfig: './tsconfig.json',
-      compilerOptions: {
-        noEmit: false,
-        declaration: false,
-        outDir: '.',
-      },
-    }),
-    copy({
-      targets: [
-        { src: 'src/assets/**/*', dest: 'dist/assets' },
-        ...(IS_LOCAL ? [
-          { src: 'src/assets/**/*', dest: `${BUILD_DIR}/dist/assets` },
-          { src: 'lang', dest: BUILD_DIR },
-          { src: 'styles', dest: BUILD_DIR },
-        ] : []),
-      ]
-    }),
-    ...(IS_LOCAL ? [moduleJsonPlugin(devVersion)] : []),
+    copyPlugin(devVersion),
   ],
-};
+});
