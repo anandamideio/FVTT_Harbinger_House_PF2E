@@ -108,7 +108,6 @@ async function handleImport() {
 				result = await npcImporter.importFromCompendium(
 					PACKS.NPCS,
 					{
-						folderName: 'Harbinger House',
 						onProgress: (current: number, total: number, name: string) => {
 							progressPercent = Math.round((current / total) * 100);
 							progressText = `Importing NPC: ${name}`;
@@ -136,7 +135,6 @@ async function handleImport() {
 				result = await itemImporter.importFromCompendium(
 					PACKS.ITEMS,
 					{
-						folderName: 'Harbinger House Items',
 						onProgress: (current: number, total: number, name: string) => {
 							progressPercent = Math.round((current / total) * 100);
 							progressText = `Importing Item: ${name}`;
@@ -162,7 +160,7 @@ async function handleImport() {
 			let result: ImportResult;
 			if (isPackAvailable(PACKS.SPELLS)) {
 				result = await spellImporter.importFromCompendium(PACKS.SPELLS, {
-					folderName: 'Harbinger House Spells',
+					folderName: 'Harbinger House Spells',  // Spells use flat folder (no categories)
 					onProgress: (_current: number, _total: number, name: string) => {
 						progressText = `Importing Spell: ${name}`;
 					},
@@ -185,7 +183,6 @@ async function handleImport() {
 				result = await hazardImporter.importFromCompendium(
 					PACKS.HAZARDS,
 					{
-						folderName: 'Harbinger House Hazards',
 						onProgress: (current: number, total: number, name: string) => {
 							progressPercent = Math.round((current / total) * 100);
 							progressText = `Importing Hazard: ${name}`;
@@ -211,7 +208,6 @@ async function handleImport() {
 			let result;
 			if (isPackAvailable(PACKS.JOURNALS)) {
 				result = await journalImporter.importFromCompendium(PACKS.JOURNALS, {
-					folderName: 'Harbinger House Adventure',
 					onProgress: (current: number, total: number, name: string) => {
 						progressPercent = Math.round((current / total) * 100);
 						progressText = `Importing Journal: ${name}`;
@@ -235,7 +231,6 @@ async function handleImport() {
 			let result;
 			if (isPackAvailable(PACKS.SCENES)) {
 				result = await sceneImporter.importFromCompendium(PACKS.SCENES, {
-					folderName: 'Harbinger House Maps',
 					onProgress: (current: number, total: number, name: string) => {
 						progressPercent = Math.round((current / total) * 100);
 						progressText = `Importing Scene: ${name}`;

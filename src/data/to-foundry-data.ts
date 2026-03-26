@@ -216,6 +216,7 @@ export function journalToDocumentData(journal: HarbingerJournal): JournalEntryDa
 			[MODULE_ID]: {
 				imported: true,
 				sourceId: journal.id,
+				folder: journal.folder || 'Reference',
 				importedAt: Date.now(),
 			},
 		},
@@ -279,6 +280,7 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 		flags: {
 			[MODULE_ID]: {
 				sourceId: scene.id,
+				folder: scene.folder || 'Maps',
 				imported: true,
 			},
 		},
@@ -410,6 +412,7 @@ export function npcToDocumentData(npc: HarbingerNPC): ActorData {
 			[MODULE_ID]: {
 				imported: true,
 				sourceId: npc.id,
+				category: npc.category,
 				importedAt: Date.now(),
 				...(unresolved.length > 0 ? { unresolvedItems: unresolved } : {}),
 			},

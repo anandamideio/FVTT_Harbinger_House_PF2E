@@ -374,6 +374,88 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 	}
 
 	/**
+	 * Import NPCs from compendium, organized by category into subfolders
+	 */
+	async importFromCompendium(
+		packId: string,
+		options: ImportOptions = {},
+		filter?: (doc: FoundryDocument) => boolean,
+	): Promise<ImportResult> {
+		const result: ImportResult = {
+			success: true,
+			imported: 0,
+			failed: 0,
+			errors: [],
+			documents: [],
+		};
+
+		const pack = game.packs.get(packId);
+		if (!pack) {
+			result.errors.push(`Compendium pack not found: ${packId}`);
+			result.success = false;
+			return result;
+		}
+
+		const documents = await pack.getDocuments();
+		const toImport = filter ? documents.filter(filter) : documents;
+		if (toImport.length === 0) return result;
+
+		// Create parent folder
+		const parentFolder = await this.getOrCreateFolder('Harbinger House', 'Actor');
+
+		// Group documents by category flag
+		const byCategory = new Map<string, FoundryDocument[]>();
+		for (const doc of toImport) {
+			const category = (doc.flags?.[MODULE_ID]?.category as string) || 'generic-npc';
+			if (!byCategory.has(category)) byCategory.set(category, []);
+			byCategory.get(category)!.push(doc);
+		}
+
+		// Import each category into its subfolder
+		for (const [category, docs] of byCategory) {
+			const subfolder = await this.getOrCreateSubfolder(getCategoryLabel(category), parentFolder);
+
+			for (let i = 0; i < docs.length; i++) {
+				const doc = docs[i];
+				const sourceId = doc.flags?.[MODULE_ID]?.sourceId as string | undefined;
+
+				try {
+					if (sourceId) {
+						const existing = await this.findExistingDocument(sourceId);
+						if (existing && !options.updateExisting) {
+							result.documents.push(existing);
+							result.imported++;
+							continue;
+						}
+					}
+
+					const docData = doc.toObject() as Record<string, unknown>;
+					delete docData._id;
+					if (subfolder) docData.folder = subfolder.id;
+
+					let processedData = docData as unknown as ActorData;
+					processedData = await this.postProcessCompendiumImport(doc, processedData);
+
+					const created = await (Actor as unknown as { create(data: ActorData): Promise<FoundryDocument> }).create(processedData);
+					const newDoc = Array.isArray(created) ? created[0] : created;
+					result.documents.push(newDoc);
+					result.imported++;
+
+					if (options.onProgress) {
+						options.onProgress(result.imported, toImport.length, doc.name || 'Unknown');
+					}
+				} catch (error) {
+					result.errors.push(`Failed to import ${doc.name}: ${error}`);
+					result.failed++;
+				}
+			}
+		}
+
+		result.success = result.failed === 0;
+		return result;
+	}
+
+	/**
 	 * Import NPCs organized by category into subfolders
 	 */
 	async importByCategory(options: NPCImportOptions = {}): Promise<ImportResult> {
