@@ -1,13 +1,14 @@
-// @ts-check
+// eslint.config.js
 import svelteConfig from './svelte.config.js';
-import globals from 'globals';
-import eslint from '@eslint/js';
 import { defineConfig } from 'eslint/config';
-import tseslint from 'typescript-eslint';
+import globals from 'globals';
+import js from '@eslint/js';
+import ts from 'typescript-eslint';
 import svelte from 'eslint-plugin-svelte';
 
 export default defineConfig(
-  eslint.configs.recommended,
+  js.configs.recommended,
+  ts.configs.recommended,
   svelte.configs.recommended,
   {
     languageOptions: {
@@ -19,9 +20,22 @@ export default defineConfig(
     }
   },
   {
-    files: ['**/*.svelte', '**/*.svelte.js'],
+    files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+    // See more details at: https://typescript-eslint.io/packages/parser/
     languageOptions: {
       parserOptions: {
+        projectService: true,
+        // Enable typescript parsing for `.svelte` files.
+        extraFileExtensions: ['.svelte'],
+
+        // Specify a parser for each language, if needed:
+        // parser: {
+        //   ts: ts.parser,
+        //   typescript: ts.parser
+        //   js: espree,            // add `import espree from 'espree'`
+        // },
+        parser: ts.parser,
+
         // explicitly importing allows for better compatibilty and functionality with rules and other tooling that depend on the config file.
         //
         // Note: `eslint --cache` will fail with non-serializable properties.
@@ -37,12 +51,10 @@ export default defineConfig(
       }
     }
   },
-  tseslint.configs.recommendedTypeChecked,
   {
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-      },
-    },
-  },
+    rules: {
+      // Override or add rule settings here, such as:
+      // 'svelte/rule-name': 'error'
+    }
+  }
 );
