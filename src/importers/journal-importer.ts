@@ -1,4 +1,3 @@
-import { MODULE_ID } from '../config';
 import {
 	ALL_JOURNALS,
 	getFolderLabel,
@@ -6,6 +5,7 @@ import {
 	JOURNALS_BY_FOLDER,
 	type JournalFolder,
 } from '../data/journals';
+import { journalToDocumentData } from '../data/to-foundry-data';
 import type { JournalEntryData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
@@ -38,32 +38,7 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 	 * Convert a HarbingerJournal to FoundryVTT Journal Entry data
 	 */
 	toDocumentData(journal: HarbingerJournal): JournalEntryData {
-		return {
-			name: journal.name,
-			pages: journal.pages.map((page, index) => ({
-				name: page.name,
-				type: page.type,
-				title: page.title || { show: true, level: 1 },
-				text: page.text,
-				src: page.src,
-				video: page.video,
-				sort: (index + 1) * 100,
-				ownership: {
-					default: 0, // GM only by default
-				},
-			})),
-			ownership: {
-				default: 0, // GM only by default
-			},
-			sort: journal.sort || 0,
-			flags: {
-				[MODULE_ID]: {
-					imported: true,
-					sourceId: journal.id,
-					importedAt: Date.now(),
-				},
-			},
-		};
+		return journalToDocumentData(journal);
 	}
 
 	/**

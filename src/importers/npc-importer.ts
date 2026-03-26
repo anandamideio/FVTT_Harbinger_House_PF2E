@@ -17,7 +17,8 @@ import {
 	type SystemSpellReference,
 	type SystemWeaponReference,
 } from '../data';
-import type { ActorData, HarbingerNPC, ItemData } from '../types/foundry';
+import { npcEntryToDocumentData } from '../data/to-foundry-data';
+import type { ActorData, ItemData } from '../types/foundry';
 import type { WeaponRune } from '../types/pf2e-runes';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
@@ -61,48 +62,81 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 	/**
 	 * Convert NPCEntry to Foundry Actor data.
 	 * For SystemActorReferences, returns a placeholder — real data is fetched in preProcessDocumentData.
+	 * For custom NPCs, includes inline items; system refs stored in flags for runtime resolution.
 	 */
 	toDocumentData(npc: NPCEntry): ActorData {
-		if (isSystemActorReference(npc)) {
-			return {
-				name: npc.displayName ?? npc.id,
-				type: 'npc',
-				flags: {
-					[MODULE_ID]: {
-						imported: true,
-						sourceId: npc.id,
-						importedAt: Date.now(),
-					},
-				},
-			} as ActorData;
-		}
-
-		return {
-			name: npc.data.name,
-			type: npc.data.type,
-			img: npc.data.img || this.getDefaultImage(npc),
-			system: { ...npc.data.system },
-			prototypeToken: this.getTokenData(npc),
-			items: [], // Items resolved in preProcessDocumentData
-			flags: {
-				[MODULE_ID]: {
-					imported: true,
-					sourceId: npc.id,
-					importedAt: Date.now(),
-				},
-			},
-		};
+		return npcEntryToDocumentData(npc);
 	}
 
 	/**
-	 * Resolve system actor references and item references before document creation
+	 * Resolve system actor references and item references before document creation.
+	 * Inline items are already on documentData.items from toDocumentData().
+	 * This resolves system references (stored in flags.unresolvedItems) and appends them.
 	 */
 	protected async preProcessDocumentData(npc: NPCEntry, documentData: ActorData): Promise<ActorData> {
 		if (isSystemActorReference(npc)) {
 			return this.resolveSystemActor(npc, documentData);
 		}
-		const resolvedItems = await this.resolveItems((npc.items || []) as NPCItemEntry[]);
-		documentData.items = resolvedItems;
+
+		// Resolve system item references and merge with existing inline items
+		const unresolvedItems = (documentData.flags?.[MODULE_ID]?.unresolvedItems || []) as NPCItemEntry[];
+		if (unresolvedItems.length > 0) {
+			const resolvedSystemItems = await this.resolveItems(unresolvedItems);
+			documentData.items = [...(documentData.items || []), ...resolvedSystemItems];
+			// Clean up the temporary flag
+			if (documentData.flags?.[MODULE_ID]) {
+				delete documentData.flags[MODULE_ID].unresolvedItems;
+			}
+		}
+
+		return documentData;
+	}
+
+	/**
+	 * Post-process NPCs imported from compendium packs.
+	 * Resolves system actor references and unresolved item references
+	 * that couldn't be baked into the LevelDB pack at build time.
+	 */
+	protected async postProcessCompendiumImport(
+		_compendiumDoc: FoundryDocument,
+		documentData: ActorData,
+	): Promise<ActorData> {
+		const flags = documentData.flags?.[MODULE_ID];
+
+		// Handle system actor references (stubs that need full data from system compendiums)
+		if (flags?.systemActorRef) {
+			const uuid = flags.systemActorRef as string;
+			try {
+				const actor = await fromUuid(uuid);
+				if (actor) {
+					const actorData = actor.toObject() as ActorData;
+					delete actorData._id;
+					if (flags?.sourceId) {
+						actorData.name = documentData.name || actorData.name;
+					}
+					actorData.flags = {
+						...actorData.flags,
+						[MODULE_ID]: { ...flags, systemActorRef: undefined },
+					};
+					return actorData;
+				}
+				logError(`Could not find system actor: ${uuid}`);
+			} catch (error) {
+				logError(`Failed to resolve system actor ${uuid}:`, error);
+			}
+			return documentData;
+		}
+
+		// Handle unresolved item references on custom NPCs
+		const unresolvedItems = (flags?.unresolvedItems || []) as NPCItemEntry[];
+		if (unresolvedItems.length > 0) {
+			const resolvedSystemItems = await this.resolveItems(unresolvedItems);
+			documentData.items = [...(documentData.items || []), ...resolvedSystemItems];
+			if (documentData.flags?.[MODULE_ID]) {
+				delete documentData.flags[MODULE_ID].unresolvedItems;
+			}
+		}
+
 		return documentData;
 	}
 
@@ -299,82 +333,6 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 		delete itemData._id;
 
 		return itemData;
-	}
-
-	/**
-	 * Get default token configuration for an NPC
-	 */
-	private getTokenData(npc: HarbingerNPC): Partial<TokenData> {
-		const sys = npc.data.system as Partial<PF2eActorSystem> | undefined;
-		const size = sys?.traits?.size?.value || 'med';
-		const tokenSize = this.getTokenSize(size);
-
-		return {
-			name: npc.data.name,
-			displayName: 20, // OWNER_HOVER
-			displayBars: 20, // OWNER_HOVER
-			bar1: { attribute: 'attributes.hp' },
-			disposition: this.getDisposition(npc),
-			width: tokenSize,
-			height: tokenSize,
-			texture: {
-				src: npc.data.img || this.getDefaultImage(npc),
-			},
-			sight: {
-				enabled: true,
-				range: sys?.traits?.senses?.some((s: { type: string }) => s.type === 'darkvision') ? 60 : 0,
-			},
-			actorLink: npc.category === 'major-npc', // Link major NPCs
-		};
-	}
-
-	/**
-	 * Get token size based on creature size
-	 */
-	private getTokenSize(size: string): number {
-		const sizes: Record<string, number> = {
-			tiny: 0.5,
-			sm: 1,
-			med: 1,
-			lg: 2,
-			huge: 3,
-			grg: 4,
-		};
-		return sizes[size] || 1;
-	}
-
-	/**
-	 * Get token disposition based on NPC data
-	 */
-	private getDisposition(npc: HarbingerNPC): number {
-		const sys = npc.data.system as Partial<PF2eActorSystem> | undefined;
-		const alignment = sys?.details?.alignment?.value || '';
-
-		// PF2e typically uses traits instead of alignment, but we can infer from our data
-		if (alignment.includes('G') || npc.category === 'major-npc') {
-			// Good aligned or major NPCs might be neutral initially
-			return 0; // NEUTRAL
-		}
-		if (alignment.includes('E') || npc.category === 'fiend') {
-			return -1; // HOSTILE
-		}
-		return 0; // NEUTRAL
-	}
-
-	/**
-	 * Get a default image based on NPC category/type
-	 */
-	private getDefaultImage(npc: HarbingerNPC): string {
-		// Default images by category - these are placeholders
-		// In a real module, you'd have custom art
-		const defaults: Record<NPCCategory, string> = {
-			'major-npc': 'icons/svg/mystery-man.svg',
-			'harbinger-resident': 'icons/svg/mystery-man.svg',
-			'generic-npc': 'icons/svg/mystery-man.svg',
-			fiend: 'icons/svg/skull.svg',
-			cultist: 'icons/svg/cowled.svg',
-		};
-		return defaults[npc.category as NPCCategory] || 'icons/svg/mystery-man.svg';
 	}
 
 	/**

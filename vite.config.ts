@@ -49,6 +49,11 @@ function copyPlugin(version: string | null) {
       fs.cpSync('lang', `${BUILD_DIR}/lang`, { recursive: true });
       fs.cpSync('styles', `${BUILD_DIR}/styles`, { recursive: true });
 
+      // Copy built compendium packs if they exist
+      if (fs.existsSync('packs')) {
+        fs.cpSync('packs', `${BUILD_DIR}/packs`, { recursive: true });
+      }
+
       const manifest = JSON.parse(fs.readFileSync('module.json', 'utf-8'));
       manifest.version = version;
       manifest.url = getRemoteUrl();

@@ -128,22 +128,16 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			[],
 			`<p>Trolan believes himself beloved by the Lady of Pain. He gains a +2 circumstance bonus to saves against effects that would make him doubt this belief.</p>`,
 		),
-		createAction(
-			'Magic Resistance',
-			'passive',
-			[],
-			`<p>+2 status bonus to all saving throws against magic.</p>`,
-			[
-				{
-					key: 'FlatModifier',
-					selector: 'saving-throw',
-					value: 2,
-					type: 'status',
-					predicate: ['item:trait:magical'],
-					label: 'Magic Resistance',
-				},
-			],
-		),
+		createAction('Magic Resistance', 'passive', [], `<p>+2 status bonus to all saving throws against magic.</p>`, [
+			{
+				key: 'FlatModifier',
+				selector: 'saving-throw',
+				value: 2,
+				type: 'status',
+				predicate: ['item:trait:magical'],
+				label: 'Magic Resistance',
+			},
+		]),
 		...createSpellcastingEntryWithSpells('Occult Innate Spells', 'occult', 19, 29, [
 			['charm', 4],
 			['suggestion', 4],
@@ -454,22 +448,16 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 			`<p>Sougad makes a melee Strike. On a hit, the target takes an additional @Damage[4d12[electricity]] damage and is stunned 1.</p>`,
 		),
 		createAction('Dimension Door', 2, ['teleportation'], `<p>As the spell. Usable once per day.</p>`),
-		createAction(
-			'Magic Resistance',
-			'passive',
-			[],
-			`<p>+2 status bonus to saving throws against magic.</p>`,
-			[
-				{
-					key: 'FlatModifier',
-					selector: 'saving-throw',
-					value: 2,
-					type: 'status',
-					predicate: ['item:trait:magical'],
-					label: 'Magic Resistance',
-				},
-			],
-		),
+		createAction('Magic Resistance', 'passive', [], `<p>+2 status bonus to saving throws against magic.</p>`, [
+			{
+				key: 'FlatModifier',
+				selector: 'saving-throw',
+				value: 2,
+				type: 'status',
+				predicate: ['item:trait:magical'],
+				label: 'Magic Resistance',
+			},
+		]),
 		createAction(
 			'Ritual Murder',
 			'passive',
@@ -670,22 +658,16 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 			['concentrate', 'divine', 'polymorph'],
 			`<p>Nari can take on the appearance of any Small or Medium humanoid. She has practiced appearing as the Lady of Pain, gaining a +4 circumstance bonus to Deception checks to maintain this specific disguise.</p>`,
 		),
-		createAction(
-			'Magic Resistance',
-			'passive',
-			[],
-			`<p>+1 status bonus to all saving throws against magic.</p>`,
-			[
-				{
-					key: 'FlatModifier',
-					selector: 'saving-throw',
-					value: 1,
-					type: 'status',
-					predicate: ['item:trait:magical'],
-					label: 'Magic Resistance',
-				},
-			],
-		),
+		createAction('Magic Resistance', 'passive', [], `<p>+1 status bonus to all saving throws against magic.</p>`, [
+			{
+				key: 'FlatModifier',
+				selector: 'saving-throw',
+				value: 1,
+				type: 'status',
+				predicate: ['item:trait:magical'],
+				label: 'Magic Resistance',
+			},
+		]),
 		...createSpellcastingEntryWithSpells('Divine Innate Spells', 'divine', 21, 30, [
 			['dominate', 6],
 			['translocate', 5],

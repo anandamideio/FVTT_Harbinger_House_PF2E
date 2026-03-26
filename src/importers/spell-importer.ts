@@ -1,5 +1,6 @@
 import { log, logError, MODULE_ID } from '../config';
 import { ALL_SPELLS, type HarbingerSpell } from '../data/spells';
+import { spellToDocumentData } from '../data/to-foundry-data';
 import type { ItemData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
@@ -37,38 +38,7 @@ export class SpellImporter extends BaseImporter<HarbingerSpell, typeof ItemClass
 	 * Convert HarbingerSpell to Foundry Item (spell) data
 	 */
 	toDocumentData(spell: HarbingerSpell): ItemData {
-		const itemData: ItemData = {
-			name: spell.data.name,
-			type: 'spell',
-			img: spell.data.img || this.getDefaultImage(spell),
-			system: { ...spell.data.system },
-			flags: {
-				[MODULE_ID]: {
-					sourceId: spell.id,
-					imported: true,
-				},
-				...spell.data.flags,
-			},
-		};
-
-		return itemData;
-	}
-
-	/**
-	 * Get a default image for spells (using their traits to determine the most appropriate icon)
-	 * TODO: Expand this with more traits
-	 */
-	private getDefaultImage(spell: HarbingerSpell): string {
-		const traits = spell.data.system?.traits?.value || [];
-
-		if (traits.includes('fire')) return 'icons/magic/fire/flame-burning-hand-brightness.webp';
-		if (traits.includes('cold')) return 'icons/magic/water/snowflake-ice-snow-white.webp';
-		if (traits.includes('mental')) return 'icons/magic/perception/eye-ringed-glow-blue-purple.webp';
-		if (traits.includes('arcane')) return 'icons/magic/control/buff-flight-wings-runes-purple.webp';
-		if (traits.includes('death')) return 'icons/magic/death/skull-humanoid-runes-red.webp';
-		if (traits.includes('scrying')) return 'icons/magic/perception/eye-ringed-glow-yellow.webp';
-
-		return 'icons/svg/explosion.svg';
+		return spellToDocumentData(spell);
 	}
 
 	getItemId(spell: HarbingerSpell): string {

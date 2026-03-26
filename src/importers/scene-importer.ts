@@ -1,5 +1,6 @@
-import { log, MODULE_ID } from '../config';
+import { log } from '../config';
 import { ALL_SCENES, type HarbingerScene, SCENES_BY_FOLDER } from '../data/scenes';
+import { sceneToDocumentData } from '../data/to-foundry-data';
 import type { SceneData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
@@ -32,65 +33,7 @@ export class SceneImporter extends BaseImporter<HarbingerScene, typeof SceneClas
 	 * Convert a HarbingerScene to FoundryVTT Scene data
 	 */
 	toDocumentData(scene: HarbingerScene): SceneData {
-		return {
-			name: scene.name,
-			img: scene.img,
-			background: {
-				src: scene.background.src,
-			},
-			foreground: null,
-			thumb: scene.img, // Use same image for thumbnail
-			width: scene.width,
-			height: scene.height,
-			padding: 0,
-			initial: {
-				x: scene.initial.x,
-				y: scene.initial.y,
-				scale: scene.initial.scale,
-			},
-			backgroundColor: '#000000',
-			grid: {
-				type: scene.grid.type,
-				size: scene.grid.size,
-				color: '#000000',
-				alpha: 0.2,
-				distance: scene.grid.distance,
-				units: scene.grid.units,
-			},
-			tokenVision: true,
-			fogExploration: true,
-			fogReset: Date.now(),
-			globalLight: false,
-			globalLightThreshold: null,
-			darkness: 0,
-			drawings: [],
-			tokens: [],
-			lights: [],
-			notes: [],
-			sounds: [],
-			templates: [],
-			tiles: [],
-			walls: [],
-			playlist: null,
-			playlistSound: null,
-			journal: null,
-			journalEntryPage: null,
-			weather: '',
-			folder: null, // Will be set by folder creation
-			sort: scene.sort || 0,
-			ownership: {
-				default: 0, // GM only by default
-			},
-			flags: {
-				[MODULE_ID]: {
-					sourceId: scene.id,
-					imported: true,
-				},
-			},
-			navigation: scene.navigation,
-			navOrder: scene.navOrder,
-			navName: '',
-		};
+		return sceneToDocumentData(scene);
 	}
 
 	/**

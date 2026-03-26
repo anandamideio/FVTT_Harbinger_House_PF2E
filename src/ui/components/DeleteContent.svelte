@@ -1,39 +1,41 @@
 <script lang="ts">
-  import { deleteAllImportedContent } from '../../importers';
-  import { logError } from '../../config';
-  import ProgressBar from './ProgressBar.svelte';
+import { logError } from '../../config';
+import { deleteAllImportedContent } from '../../importers';
+import ProgressBar from './ProgressBar.svelte';
 
-  let { onClose }: {
-    onClose: () => void;
-  } = $props();
+let {
+	onClose,
+}: {
+	onClose: () => void;
+} = $props();
 
-  let progressActive = $state(false);
-  let progressPercent = $state(0);
-  let progressText = $state('Ready to delete...');
-  let buttonsDisabled = $state(false);
+let progressActive = $state(false);
+let progressPercent = $state(0);
+let progressText = $state('Ready to delete...');
+let buttonsDisabled = $state(false);
 
-  async function handleDelete() {
-    progressActive = true;
-    buttonsDisabled = true;
+async function handleDelete() {
+	progressActive = true;
+	buttonsDisabled = true;
 
-    try {
-      progressText = 'Deleting content...';
-      const results = await deleteAllImportedContent();
+	try {
+		progressText = 'Deleting content...';
+		const results = await deleteAllImportedContent();
 
-      const total = results.npcs + results.items + results.spells + results.hazards + results.journals + results.scenes;
-      progressPercent = 100;
-      progressText = `Deleted ${total} items.`;
+		const total = results.npcs + results.items + results.spells + results.hazards + results.journals + results.scenes;
+		progressPercent = 100;
+		progressText = `Deleted ${total} items.`;
 
-      ui.notifications?.info(`Harbinger House: Deleted ${total} imported items`);
+		ui.notifications?.info(`Harbinger House: Deleted ${total} imported items`);
 
-      setTimeout(() => onClose(), 1000);
-    } catch (error) {
-      logError('Delete failed:', error);
-      progressText = `Error: ${error}`;
-      ui.notifications?.error(`Delete failed: ${error}`);
-      buttonsDisabled = false;
-    }
-  }
+		setTimeout(() => onClose(), 1000);
+	} catch (error) {
+		logError('Delete failed:', error);
+		progressText = `Error: ${error}`;
+		ui.notifications?.error(`Delete failed: ${error}`);
+		buttonsDisabled = false;
+	}
+}
 </script>
 
 <div class="harbinger-house-dialog">

@@ -23,29 +23,20 @@ import {
 	ALL_SCENES,
 	// Spell data
 	ALL_SPELLS,
-	getCategoryLabel,
 	// Summary
 	getContentSummary,
-	getFolderLabel,
 	getHazardById,
-	getHazardCategoryLabel,
 	getItemById,
-	getItemCategoryLabel,
 	getNPCById,
 	getSpellById,
 	HAZARDS_BY_CATEGORY,
-	type HazardCategory,
 	ITEMS_BY_CATEGORY,
-	type ItemCategory,
 	JOURNALS_BY_FOLDER,
-	type JournalFolder,
-	type NPCCategory,
 	NPCS_BY_CATEGORY,
 } from './data';
 import {
 	deleteAllImportedContent,
 	hazardImporter,
-	type ImportResult,
 	importAllContent,
 	itemImporter,
 	journalImporter,
@@ -53,7 +44,8 @@ import {
 	sceneImporter,
 	spellImporter,
 } from './importers';
-import { showDeleteConfirmDialog, showImportDialog, showWelcomeDialog } from './ui';
+import { registerMigrationSettings, runPendingMigrations } from './migration';
+import { showImportDialog, showWelcomeDialog } from './ui';
 
 /**
  * Module API
@@ -135,6 +127,7 @@ Hooks.once('init', async () => {
 
 	// Register module settings
 	registerSettings();
+	registerMigrationSettings();
 
 	// Register API on game object for external access
 	game.harbingerHouse = {
@@ -254,6 +247,9 @@ Hooks.once('ready', async () => {
 		ui.notifications?.error(localize('errors.wrongSystem'));
 		return;
 	}
+
+	// Run pending data migrations before showing any dialogs
+	await runPendingMigrations();
 
 	const showDialog = game.settings.get(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG);
 	if (showDialog) {

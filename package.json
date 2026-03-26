@@ -4,10 +4,11 @@
 	"description": "Harbinger House PF2e conversion for FoundryVTT",
 	"type": "module",
 	"scripts": {
-		"build": "vite build",
-		"build:local": "BUILD=local vite build",
+		"build": "vite build && tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts",
+		"build:local": "BUILD=local vite build && tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts",
+		"build:packs": "tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts",
 		"watch": "BUILD=local vite build --watch",
-		"clean": "rm -rf dist/*.js dist/*.js.map build/",
+		"clean": "rm -rf dist/*.js dist/*.js.map build/ packs/",
 		"typecheck": "tsc --noEmit",
 		"lint": "biome check --write",
 		"lint:ci": "biome check",
@@ -22,8 +23,10 @@
 		"@pixi/core": "github:foundry-vtt-types/pixi-core#main",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@types/node": "^25.5.0",
+		"classic-level": "^3.0.0",
 		"svelte": "^5.55.0",
 		"tslib": "^2.6.2",
+		"tsx": "^4.21.0",
 		"typescript": "^5.3.3",
 		"vite": "^8.0.2",
 		"vitest": "^4.1.1"
@@ -35,7 +38,10 @@
 				"@pixi/assets": "7",
 				"@pixi/compressed-textures": "7"
 			}
-		}
+		},
+		"onlyBuiltDependencies": [
+			"classic-level"
+		]
 	},
 	"keywords": [
 		"foundry-vtt",

@@ -6,6 +6,7 @@ import {
 	type HarbingerHazard,
 	type HazardCategory,
 } from '../data/hazards';
+import { hazardToDocumentData } from '../data/to-foundry-data';
 import type { ActorData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
@@ -51,100 +52,7 @@ export class HazardImporter extends BaseImporter<HarbingerHazard, typeof ActorCl
 	 * Convert HarbingerHazard to Foundry Actor (hazard) data
 	 */
 	toDocumentData(hazard: HarbingerHazard): ActorData {
-		const data = hazard.data;
-
-		// Hazards use PF2eHazardSystem
-		const system: Record<string, unknown> = {
-			description: data.system.description,
-			traits: {
-				value: data.system.traits.value,
-				rarity: data.system.traits.rarity || 'common',
-			},
-			details: {
-				level: data.system.details.level,
-				disable: data.system.details.disable || '',
-				reset: data.system.details.reset || '',
-				routine: data.system.details.routine || '',
-				isComplex: data.system.details.isComplex,
-			},
-			attributes: {
-				ac: data.system.attributes?.ac || { value: 0 },
-				hp: data.system.attributes?.hp || { value: 0, max: 0 },
-				hardness:
-					typeof data.system.attributes?.hardness === 'number'
-						? data.system.attributes.hardness
-						: ((data.system.attributes?.hardness as { value: number } | undefined)?.value ?? 0),
-				stealth: {
-					value: data.system.attributes?.stealth?.value || 0,
-					dc: data.system.attributes?.stealth?.dc || 0,
-					details: data.system.attributes?.stealth?.details || '',
-				},
-			},
-			saves: {
-				fortitude: { value: data.system.saves?.fortitude?.value || 0 },
-				reflex: { value: data.system.saves?.reflex?.value || 0 },
-				will: { value: data.system.saves?.will?.value || 0 },
-			},
-			immunities: data.system.immunities || { value: [] },
-			weaknesses: data.system.weaknesses || [],
-			resistances: data.system.resistances || [],
-		};
-
-		const actorData: ActorData = {
-			name: data.name,
-			type: 'hazard',
-			img: data.img || this.getDefaultImage(hazard),
-			system,
-			prototypeToken: this.getTokenData(hazard),
-			flags: {
-				[MODULE_ID]: {
-					sourceId: hazard.id,
-					category: hazard.category,
-					location: hazard.location,
-					imported: true,
-				},
-			},
-		};
-
-		return actorData;
-	}
-
-	/**
-	 * Get default token configuration for a hazard
-	 */
-	private getTokenData(hazard: HarbingerHazard): Partial<TokenData> {
-		const isComplex = hazard.data.system.details.isComplex;
-
-		return {
-			name: hazard.data.name,
-			displayName: 20, // OWNER_HOVER
-			displayBars: isComplex ? 20 : 0, // Show HP bar for complex hazards
-			bar1: isComplex ? { attribute: 'attributes.hp' } : null,
-			disposition: -1, // HOSTILE
-			width: 1,
-			height: 1,
-			texture: {
-				src: hazard.data.img || this.getDefaultImage(hazard),
-			},
-			sight: {
-				enabled: false,
-			},
-			actorLink: false,
-		};
-	}
-
-	/**
-	 * Get a default image based on hazard category
-	 */
-	private getDefaultImage(hazard: HarbingerHazard): string {
-		const categoryDefaults: Record<HazardCategory, string> = {
-			trap: 'icons/svg/trap.svg',
-			environmental: 'icons/svg/hazard.svg',
-			haunt: 'icons/svg/skull.svg',
-			aura: 'icons/svg/aura.svg',
-		};
-
-		return categoryDefaults[hazard.category] || 'icons/svg/hazard.svg';
+		return hazardToDocumentData(hazard);
 	}
 
 	getItemId(hazard: HarbingerHazard): string {

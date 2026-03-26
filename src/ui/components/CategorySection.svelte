@@ -1,33 +1,33 @@
 <script lang="ts">
-  interface Category {
-    id: string;
-    label: string;
-    count: number;
-  }
+interface Category {
+	id: string;
+	label: string;
+	count: number;
+}
 
-  let {
-    title,
-    icon,
-    enabled = $bindable(true),
-    categories,
-    selectedIds = $bindable<string[]>([]),
-    description,
-  }: {
-    title: string;
-    icon: string;
-    enabled: boolean;
-    categories?: Category[];
-    selectedIds?: string[];
-    description?: string;
-  } = $props();
+let {
+	title,
+	icon,
+	enabled = $bindable(true),
+	categories,
+	selectedIds = $bindable<string[]>([]),
+	description,
+}: {
+	title: string;
+	icon: string;
+	enabled: boolean;
+	categories?: Category[];
+	selectedIds?: string[];
+	description?: string;
+} = $props();
 
-  function toggleCategory(id: string, checked: boolean) {
-    if (checked) {
-      selectedIds = [...selectedIds, id];
-    } else {
-      selectedIds = selectedIds.filter(i => i !== id);
-    }
-  }
+function toggleCategory(id: string, checked: boolean) {
+	if (checked) {
+		selectedIds = [...selectedIds, id];
+	} else {
+		selectedIds = selectedIds.filter((i) => i !== id);
+	}
+}
 </script>
 
 <div class="content-section">

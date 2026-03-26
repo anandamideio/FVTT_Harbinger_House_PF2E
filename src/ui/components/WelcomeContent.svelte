@@ -1,12 +1,15 @@
 <script lang="ts">
-  import { getContentSummary } from '../../data';
+import { getContentSummary } from '../../data';
 
-  let { onImport, onClose }: {
-    onImport: () => void;
-    onClose: () => void;
-  } = $props();
+let {
+	onImport,
+	onClose,
+}: {
+	onImport: () => void;
+	onClose: () => void;
+} = $props();
 
-  const summary = getContentSummary();
+const summary = getContentSummary();
 </script>
 
 <div class="harbinger-house-dialog">

@@ -13,6 +13,7 @@ export const PACKS = {
 	SPELLS: `${MODULE_ID}.harbinger-house-spells`,
 	HAZARDS: `${MODULE_ID}.harbinger-house-hazards`,
 	JOURNALS: `${MODULE_ID}.harbinger-house-journals`,
+	SCENES: `${MODULE_ID}.harbinger-house-scenes`,
 } as const;
 
 // Settings keys
@@ -23,6 +24,7 @@ export const SETTINGS = {
 	IMPORTED_SPELLS: 'importedSpells',
 	IMPORTED_HAZARDS: 'importedHazards',
 	IMPORTED_JOURNALS: 'importedJournals',
+	SCHEMA_VERSION: 'schemaVersion',
 	DEBUG_MODE: 'debugMode',
 } as const;
 

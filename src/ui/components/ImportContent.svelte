@@ -1,168 +1,272 @@
 <script lang="ts">
-  import {
-    ALL_SCENES,
-    ALL_SPELLS,
-    getCategoryLabel,
-    getFolderLabel,
-    getHazardCategoryLabel,
-    getItemCategoryLabel,
-    HAZARDS_BY_CATEGORY,
-    ITEMS_BY_CATEGORY,
-    JOURNALS_BY_FOLDER,
-    NPCS_BY_CATEGORY,
-  } from '../../data';
-  import {
-    hazardImporter,
-    itemImporter,
-    journalImporter,
-    npcImporter,
-    sceneImporter,
-    spellImporter,
-  } from '../../importers';
-  import { logError } from '../../config';
-  import CategorySection from './CategorySection.svelte';
-  import ProgressBar from './ProgressBar.svelte';
+import { logError, MODULE_ID, PACKS } from '../../config';
+import {
+	ALL_SCENES,
+	ALL_SPELLS,
+	getCategoryLabel,
+	getFolderLabel,
+	getHazardCategoryLabel,
+	getItemCategoryLabel,
+	HAZARDS_BY_CATEGORY,
+	ITEMS_BY_CATEGORY,
+	JOURNALS_BY_FOLDER,
+	NPCS_BY_CATEGORY,
+} from '../../data';
+import {
+	hazardImporter,
+	itemImporter,
+	journalImporter,
+	npcImporter,
+	sceneImporter,
+	spellImporter,
+} from '../../importers';
+import CategorySection from './CategorySection.svelte';
+import ProgressBar from './ProgressBar.svelte';
 
-  let { onClose, onDelete }: {
-    onClose: () => void;
-    onDelete: () => void;
-  } = $props();
+let {
+	onClose,
+	onDelete,
+}: {
+	onClose: () => void;
+	onDelete: () => void;
+} = $props();
 
-  // Build category data
-  const npcCategories = Object.entries(NPCS_BY_CATEGORY)
-    .filter(([_, npcs]) => npcs.length > 0)
-    .map(([category, npcs]) => ({ id: category, label: getCategoryLabel(category), count: npcs.length }));
+// Build category data
+const npcCategories = Object.entries(NPCS_BY_CATEGORY)
+	.filter(([_, npcs]) => npcs.length > 0)
+	.map(([category, npcs]) => ({ id: category, label: getCategoryLabel(category), count: npcs.length }));
 
-  const itemCategories = Object.entries(ITEMS_BY_CATEGORY)
-    .filter(([_, items]) => items.length > 0)
-    .map(([category, items]) => ({ id: category, label: getItemCategoryLabel(category as any), count: items.length }));
+const itemCategories = Object.entries(ITEMS_BY_CATEGORY)
+	.filter(([_, items]) => items.length > 0)
+	.map(([category, items]) => ({ id: category, label: getItemCategoryLabel(category as any), count: items.length }));
 
-  const hazardCategories = Object.entries(HAZARDS_BY_CATEGORY)
-    .filter(([_, hazards]) => hazards.length > 0)
-    .map(([category, hazards]) => ({ id: category, label: getHazardCategoryLabel(category as any), count: hazards.length }));
+const hazardCategories = Object.entries(HAZARDS_BY_CATEGORY)
+	.filter(([_, hazards]) => hazards.length > 0)
+	.map(([category, hazards]) => ({
+		id: category,
+		label: getHazardCategoryLabel(category as any),
+		count: hazards.length,
+	}));
 
-  const journalFolders = Object.entries(JOURNALS_BY_FOLDER)
-    .filter(([_, journals]) => journals.length > 0)
-    .map(([folder, journals]) => ({ id: folder, label: getFolderLabel(folder as any), count: journals.length }));
+const journalFolders = Object.entries(JOURNALS_BY_FOLDER)
+	.filter(([_, journals]) => journals.length > 0)
+	.map(([folder, journals]) => ({ id: folder, label: getFolderLabel(folder as any), count: journals.length }));
 
-  // Section enabled states
-  let importNpcs = $state(true);
-  let importItems = $state(true);
-  let importSpells = $state(true);
-  let importHazards = $state(true);
-  let importJournals = $state(true);
-  let importScenes = $state(true);
+// Section enabled states
+let importNpcs = $state(true);
+let importItems = $state(true);
+let importSpells = $state(true);
+let importHazards = $state(true);
+let importJournals = $state(true);
+let importScenes = $state(true);
 
-  // Selected categories (all selected by default)
-  let selectedNpcCategories = $state(npcCategories.map(c => c.id));
-  let selectedItemCategories = $state(itemCategories.map(c => c.id));
-  let selectedHazardCategories = $state(hazardCategories.map(c => c.id));
-  let selectedJournalFolders = $state(journalFolders.map(c => c.id));
+// Selected categories (all selected by default)
+let selectedNpcCategories = $state(npcCategories.map((c) => c.id));
+let selectedItemCategories = $state(itemCategories.map((c) => c.id));
+let selectedHazardCategories = $state(hazardCategories.map((c) => c.id));
+let selectedJournalFolders = $state(journalFolders.map((c) => c.id));
 
-  // Progress state
-  let progressActive = $state(false);
-  let progressPercent = $state(0);
-  let progressText = $state('Preparing...');
-  let buttonsDisabled = $state(false);
+// Progress state
+let progressActive = $state(false);
+let progressPercent = $state(0);
+let progressText = $state('Preparing...');
+let buttonsDisabled = $state(false);
 
-  async function handleImport() {
-    progressActive = true;
-    buttonsDisabled = true;
+/**
+ * Check if a compendium pack has content.
+ * Falls back to in-memory import if the pack is empty (e.g., pre-built packs not available).
+ */
+function isPackAvailable(packId: string): boolean {
+	const pack = game.packs.get(packId);
+	return !!pack && pack.index.size > 0;
+}
 
-    try {
-      let totalImported = 0;
-      let totalFailed = 0;
+/**
+ * Create a category filter function for compendium imports.
+ * Filters documents by their module flags category/folder.
+ */
+function categoryFilter(selectedCategories: string[], flagKey: string = 'category') {
+	return (doc: any) => {
+		const category = doc.flags?.[MODULE_ID]?.[flagKey];
+		return !category || selectedCategories.includes(category);
+	};
+}
 
-      if (importNpcs) {
-        progressText = 'Importing NPCs...';
-        const result = await npcImporter.importByCategory({
-          categories: selectedNpcCategories as any[],
-          onProgress: (current: number, total: number, name: string) => {
-            progressPercent = Math.round((current / total) * 100);
-            progressText = `Importing NPC: ${name}`;
-          },
-        });
-        totalImported += result.imported;
-        totalFailed += result.failed;
-      }
+async function handleImport() {
+	progressActive = true;
+	buttonsDisabled = true;
 
-      if (importItems) {
-        progressText = 'Importing Items...';
-        const result = await itemImporter.importByCategory({
-          categories: selectedItemCategories as any[],
-          onProgress: (current: number, total: number, name: string) => {
-            progressPercent = Math.round((current / total) * 100);
-            progressText = `Importing Item: ${name}`;
-          },
-        });
-        totalImported += result.imported;
-        totalFailed += result.failed;
-      }
+	try {
+		let totalImported = 0;
+		let totalFailed = 0;
 
-      if (importSpells) {
-        progressText = 'Importing Spells...';
-        const result = await spellImporter.importAll({
-          onProgress: (_current: number, _total: number, name: string) => {
-            progressText = `Importing Spell: ${name}`;
-          },
-        });
-        totalImported += result.imported;
-        totalFailed += result.failed;
-      }
+		if (importNpcs) {
+			progressText = 'Importing NPCs...';
+			let result;
+			if (isPackAvailable(PACKS.NPCS)) {
+				result = await npcImporter.importFromCompendium(
+					PACKS.NPCS,
+					{
+						folderName: 'Harbinger House',
+						onProgress: (current: number, total: number, name: string) => {
+							progressPercent = Math.round((current / total) * 100);
+							progressText = `Importing NPC: ${name}`;
+						},
+					},
+					categoryFilter(selectedNpcCategories),
+				);
+			} else {
+				result = await npcImporter.importByCategory({
+					categories: selectedNpcCategories as any[],
+					onProgress: (current: number, total: number, name: string) => {
+						progressPercent = Math.round((current / total) * 100);
+						progressText = `Importing NPC: ${name}`;
+					},
+				});
+			}
+			totalImported += result.imported;
+			totalFailed += result.failed;
+		}
 
-      if (importHazards) {
-        progressText = 'Importing Hazards...';
-        const result = await hazardImporter.importByCategory({
-          categories: selectedHazardCategories as any[],
-          onProgress: (current: number, total: number, name: string) => {
-            progressPercent = Math.round((current / total) * 100);
-            progressText = `Importing Hazard: ${name}`;
-          },
-        });
-        totalImported += result.imported;
-        totalFailed += result.failed;
-      }
+		if (importItems) {
+			progressText = 'Importing Items...';
+			let result;
+			if (isPackAvailable(PACKS.ITEMS)) {
+				result = await itemImporter.importFromCompendium(
+					PACKS.ITEMS,
+					{
+						folderName: 'Harbinger House Items',
+						onProgress: (current: number, total: number, name: string) => {
+							progressPercent = Math.round((current / total) * 100);
+							progressText = `Importing Item: ${name}`;
+						},
+					},
+					categoryFilter(selectedItemCategories),
+				);
+			} else {
+				result = await itemImporter.importByCategory({
+					categories: selectedItemCategories as any[],
+					onProgress: (current: number, total: number, name: string) => {
+						progressPercent = Math.round((current / total) * 100);
+						progressText = `Importing Item: ${name}`;
+					},
+				});
+			}
+			totalImported += result.imported;
+			totalFailed += result.failed;
+		}
 
-      if (importJournals) {
-        progressText = 'Importing Journals...';
-        const result = await journalImporter.importAll({
-          folders: selectedJournalFolders as any[],
-          onProgress: (current: number, total: number, name: string) => {
-            progressPercent = Math.round((current / total) * 100);
-            progressText = `Importing Journal: ${name}`;
-          },
-        });
-        totalImported += result.imported;
-        totalFailed += result.failed;
-      }
+		if (importSpells) {
+			progressText = 'Importing Spells...';
+			let result;
+			if (isPackAvailable(PACKS.SPELLS)) {
+				result = await spellImporter.importFromCompendium(PACKS.SPELLS, {
+					folderName: 'Harbinger House Spells',
+					onProgress: (_current: number, _total: number, name: string) => {
+						progressText = `Importing Spell: ${name}`;
+					},
+				});
+			} else {
+				result = await spellImporter.importAll({
+					onProgress: (_current: number, _total: number, name: string) => {
+						progressText = `Importing Spell: ${name}`;
+					},
+				});
+			}
+			totalImported += result.imported;
+			totalFailed += result.failed;
+		}
 
-      if (importScenes) {
-        progressText = 'Importing Scenes...';
-        const result = await sceneImporter.importAll({
-          onProgress: (current: number, total: number, name: string) => {
-            progressPercent = Math.round((current / total) * 100);
-            progressText = `Importing Scene: ${name}`;
-          },
-        });
-        totalImported += result.imported;
-        totalFailed += result.failed;
-      }
+		if (importHazards) {
+			progressText = 'Importing Hazards...';
+			let result;
+			if (isPackAvailable(PACKS.HAZARDS)) {
+				result = await hazardImporter.importFromCompendium(
+					PACKS.HAZARDS,
+					{
+						folderName: 'Harbinger House Hazards',
+						onProgress: (current: number, total: number, name: string) => {
+							progressPercent = Math.round((current / total) * 100);
+							progressText = `Importing Hazard: ${name}`;
+						},
+					},
+					categoryFilter(selectedHazardCategories),
+				);
+			} else {
+				result = await hazardImporter.importByCategory({
+					categories: selectedHazardCategories as any[],
+					onProgress: (current: number, total: number, name: string) => {
+						progressPercent = Math.round((current / total) * 100);
+						progressText = `Importing Hazard: ${name}`;
+					},
+				});
+			}
+			totalImported += result.imported;
+			totalFailed += result.failed;
+		}
 
-      progressPercent = 100;
-      progressText = `Complete! Imported ${totalImported} items.`;
+		if (importJournals) {
+			progressText = 'Importing Journals...';
+			let result;
+			if (isPackAvailable(PACKS.JOURNALS)) {
+				result = await journalImporter.importFromCompendium(PACKS.JOURNALS, {
+					folderName: 'Harbinger House Adventure',
+					onProgress: (current: number, total: number, name: string) => {
+						progressPercent = Math.round((current / total) * 100);
+						progressText = `Importing Journal: ${name}`;
+					},
+				});
+			} else {
+				result = await journalImporter.importAll({
+					folders: selectedJournalFolders as any[],
+					onProgress: (current: number, total: number, name: string) => {
+						progressPercent = Math.round((current / total) * 100);
+						progressText = `Importing Journal: ${name}`;
+					},
+				});
+			}
+			totalImported += result.imported;
+			totalFailed += result.failed;
+		}
 
-      ui.notifications?.info(
-        `Harbinger House: Imported ${totalImported} items${totalFailed > 0 ? ` (${totalFailed} failed)` : ''}`,
-      );
+		if (importScenes) {
+			progressText = 'Importing Scenes...';
+			let result;
+			if (isPackAvailable(PACKS.SCENES)) {
+				result = await sceneImporter.importFromCompendium(PACKS.SCENES, {
+					folderName: 'Harbinger House Maps',
+					onProgress: (current: number, total: number, name: string) => {
+						progressPercent = Math.round((current / total) * 100);
+						progressText = `Importing Scene: ${name}`;
+					},
+				});
+			} else {
+				result = await sceneImporter.importAll({
+					onProgress: (current: number, total: number, name: string) => {
+						progressPercent = Math.round((current / total) * 100);
+						progressText = `Importing Scene: ${name}`;
+					},
+				});
+			}
+			totalImported += result.imported;
+			totalFailed += result.failed;
+		}
 
-      setTimeout(() => onClose(), 1500);
-    } catch (error) {
-      logError('Import failed:', error);
-      progressText = `Error: ${error}`;
-      ui.notifications?.error(`Import failed: ${error}`);
-      buttonsDisabled = false;
-    }
-  }
+		progressPercent = 100;
+		progressText = `Complete! Imported ${totalImported} items.`;
+
+		ui.notifications?.info(
+			`Harbinger House: Imported ${totalImported} items${totalFailed > 0 ? ` (${totalFailed} failed)` : ''}`,
+		);
+
+		setTimeout(() => onClose(), 1500);
+	} catch (error) {
+		logError('Import failed:', error);
+		progressText = `Error: ${error}`;
+		ui.notifications?.error(`Import failed: ${error}`);
+		buttonsDisabled = false;
+	}
+}
 </script>
 
 <div class="harbinger-house-dialog">

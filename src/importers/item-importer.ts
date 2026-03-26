@@ -6,6 +6,7 @@ import {
 	ITEMS_BY_CATEGORY,
 	type ItemCategory,
 } from '../data/items';
+import { itemToDocumentData } from '../data/to-foundry-data';
 import type { ItemData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
@@ -50,50 +51,7 @@ export class ItemImporter extends BaseImporter<HarbingerItem, typeof ItemClass> 
 	 * Convert HarbingerItem to Foundry Item data
 	 */
 	toDocumentData(item: HarbingerItem): ItemData {
-		const itemData: ItemData = {
-			name: item.data.name,
-			type: item.data.type,
-			img: item.data.img || this.getDefaultImage(item),
-			system: { ...item.data.system },
-			flags: {
-				[MODULE_ID]: {
-					sourceId: item.id,
-					category: item.category,
-					imported: true,
-				},
-				...item.data.flags,
-			},
-		};
-
-		return itemData;
-	}
-
-	/**
-	 * Get a default image based on item category/type
-	 */
-	private getDefaultImage(item: HarbingerItem): string {
-		// First check by item type
-		const typeDefaults: Record<string, string> = {
-			weapon: 'icons/svg/sword.svg',
-			armor: 'icons/svg/shield.svg',
-			equipment: 'icons/svg/chest.svg',
-			consumable: 'icons/svg/pill.svg',
-		};
-
-		if (typeDefaults[item.data.type]) {
-			return typeDefaults[item.data.type];
-		}
-
-		// Then check by category
-		const categoryDefaults: Record<ItemCategory, string> = {
-			artifact: 'icons/commodities/gems/gem-faceted-radiant-purple.webp',
-			weapon: 'icons/svg/sword.svg',
-			armor: 'icons/svg/shield.svg',
-			equipment: 'icons/svg/chest.svg',
-			consumable: 'icons/svg/pill.svg',
-		};
-
-		return categoryDefaults[item.category] || 'icons/svg/item-bag.svg';
+		return itemToDocumentData(item);
 	}
 
 	getItemId(item: HarbingerItem): string {

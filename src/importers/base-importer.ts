@@ -215,6 +215,116 @@ export abstract class BaseImporter<T, C extends DocumentClass = DocumentClass> {
 	}
 
 	/**
+	 * Import documents from a compendium pack into the world.
+	 * This is the preferred import path — content lives in LevelDB packs
+	 * and is imported to the world on demand.
+	 *
+	 * @param packId - Full pack ID (e.g., 'harbinger-house-pf2e.harbinger-house-npcs')
+	 * @param options - Import options (folder, progress, etc.)
+	 * @param filter - Optional filter function to select which documents to import
+	 */
+	async importFromCompendium(
+		packId: string,
+		options: ImportOptions = {},
+		filter?: (doc: FoundryDocument) => boolean,
+	): Promise<ImportResult> {
+		const result: ImportResult = {
+			success: true,
+			imported: 0,
+			failed: 0,
+			errors: [],
+			documents: [],
+		};
+
+		const pack = game.packs.get(packId);
+		if (!pack) {
+			const errorMsg = `Compendium pack not found: ${packId}`;
+			logError(errorMsg);
+			result.errors.push(errorMsg);
+			result.success = false;
+			return result;
+		}
+
+		log(`Importing from compendium: ${packId}`);
+
+		const documents = await pack.getDocuments();
+		const toImport = filter ? documents.filter(filter) : documents;
+
+		if (toImport.length === 0) {
+			log('No documents to import from compendium');
+			return result;
+		}
+
+		let folder: FolderClass | null = options.folder || null;
+		if (!folder && options.folderName) {
+			folder = await this.getOrCreateFolder(options.folderName, this.documentType);
+		}
+
+		for (let i = 0; i < toImport.length; i++) {
+			const doc = toImport[i];
+			const sourceId = doc.flags?.[MODULE_ID]?.sourceId as string | undefined;
+
+			try {
+				// Skip if already imported and not updating
+				if (sourceId) {
+					const existing = await this.findExistingDocument(sourceId);
+					if (existing && !options.updateExisting) {
+						log(`Skipping existing ${this.documentType}: ${doc.name}`);
+						result.documents.push(existing);
+						result.imported++;
+						continue;
+					}
+				}
+
+				// Get the document data and apply folder
+				const docData = doc.toObject() as Record<string, unknown>;
+				delete docData._id; // Let Foundry generate a new world ID
+
+				if (folder) {
+					docData.folder = folder.id;
+				}
+
+				// Run any post-processing (e.g., resolving system references for NPCs)
+				let processedData = docData as unknown as DocumentDataFor<C>;
+				processedData = await this.postProcessCompendiumImport(doc, processedData);
+
+				// Create the document in the world
+				const created = await (
+					this.documentClass as unknown as { create(data: DocumentDataFor<C>): Promise<FoundryDocument> }
+				).create(processedData);
+				const newDoc = Array.isArray(created) ? created[0] : created;
+
+				result.documents.push(newDoc);
+				result.imported++;
+
+				if (options.onProgress) {
+					options.onProgress(i + 1, toImport.length, doc.name || 'Unknown');
+				}
+			} catch (error) {
+				const errorMsg = `Failed to import ${doc.name}: ${error}`;
+				logError(errorMsg);
+				result.errors.push(errorMsg);
+				result.failed++;
+			}
+		}
+
+		result.success = result.failed === 0;
+		log(`Compendium import complete: ${result.imported} succeeded, ${result.failed} failed`);
+		return result;
+	}
+
+	/**
+	 * Hook for subclasses to post-process documents imported from compendium packs.
+	 * Override this to resolve system references, apply customizations, etc.
+	 */
+	protected async postProcessCompendiumImport(
+		_compendiumDoc: FoundryDocument,
+		documentData: DocumentDataFor<C>,
+	): Promise<DocumentDataFor<C>> {
+		return documentData;
+	}
+
+	/**
 	 * Delete all documents imported by this importer
 	 */
 	async deleteAllImported(): Promise<number> {

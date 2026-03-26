@@ -40,6 +40,9 @@ build/Release
 # Local Foundry development build (symlink target)
 build/
 
+# Built compendium packs (LevelDB binary artifacts)
+packs/
+
 # Dependency directories
 node_modules/
 jspm_packages/
