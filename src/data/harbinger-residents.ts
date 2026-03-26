@@ -66,7 +66,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 				source: { value: 'Harbinger House' },
 				blurb: 'Tiefling bard who believes himself beloved by the Lady of Pain',
 				publicNotes: `<p>Once Trolan of Ecstasy, now <strong>Trolan the Mad</strong> (and later Trolan the Beloved), the bard has one great love in his life: the Lady of Pain. His natural charisma and innate abilities have attracted many followers to his cause.</p>
-<p><strong>Field of Fellowship:</strong> Creatures within 10 feet must succeed at a DC 29 Will save or be unable to harm Trolan (as sanctuary). Critical failure makes the creature helpful toward him.</p>
+<p><strong>Field of Fellowship:</strong> Creatures within 10 feet must succeed at a @Check[type:will|dc:29] or be unable to harm Trolan (as sanctuary). Critical failure makes the creature helpful toward him.</p>
 <p><strong>Regeneration 10:</strong> Trolan regains all lost hit points within 24 hours unless slain. This regeneration is deactivated by death effects.</p>`,
 			},
 			saves: {
@@ -106,7 +106,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			'passive',
 			['aura', 'emotion', 'mental'],
 			`<p><strong>Aura</strong> 10 feet</p>
-<p>Creatures that enter the aura or start their turn there must succeed at a DC 29 Will save or be unable to harm Trolan (as sanctuary). On a critical failure, the creature becomes helpful toward Trolan for 1 minute.</p>`,
+<p>Creatures that enter the aura or start their turn there must succeed at a @Check[type:will|dc:29] or be unable to harm Trolan (as sanctuary). On a critical failure, the creature becomes helpful toward Trolan for 1 minute.</p>`,
 			[
 				{
 					key: 'Aura',
@@ -230,7 +230,7 @@ export const CRIMJAK: HarbingerNPC = {
 			'Abyssal Wrath',
 			2,
 			['divine', 'fire'],
-			`<p>Crimjak unleashes a burst of Abyssal flame in a 20-foot emanation. Creatures in the area take 8d6 fire damage (DC 27 basic Reflex save). Crimjak can't use Abyssal Wrath again for 1d4 rounds.</p>`,
+			`<p>Crimjak unleashes a burst of Abyssal flame in a 20-foot emanation. Creatures in the area take @Damage[8d6[fire]] damage (@Check[type:reflex|dc:27] basic save). Crimjak can't use Abyssal Wrath again for 1d4 rounds.</p>`,
 		),
 		...createSpellcastingEntryWithSpells('Arcane Innate Spells', 'arcane', 17, 27, [
 			['translocate', 5],
@@ -445,13 +445,13 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 			'Cause Fear',
 			2,
 			['divine', 'emotion', 'fear', 'mental'],
-			`<p>A creature within 30 feet must succeed at a DC 30 Will save or become frightened 2 (frightened 3 on critical failure).</p>`,
+			`<p>A creature within 30 feet must succeed at a @Check[type:will|dc:30] or become frightened 2 (frightened 3 on critical failure).</p>`,
 		),
 		createAction(
 			'Shocking Grasp',
 			2,
 			['electricity'],
-			`<p>Sougad makes a melee Strike. On a hit, the target takes an additional 4d12 electricity damage and is stunned 1.</p>`,
+			`<p>Sougad makes a melee Strike. On a hit, the target takes an additional @Damage[4d12[electricity]] damage and is stunned 1.</p>`,
 		),
 		createAction('Dimension Door', 2, ['teleportation'], `<p>As the spell. Usable once per day.</p>`),
 		createAction(
@@ -547,7 +547,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 			'Sermon of Madness',
 			2,
 			['auditory', 'divine', 'mental'],
-			`<p>Browen delivers a maddening sermon. Each creature within 30 feet that can hear him must attempt a DC 30 Will save.</p>
+			`<p>Browen delivers a maddening sermon. Each creature within 30 feet that can hear him must attempt a @Check[type:will|dc:30].</p>
 <p><strong>Critical Success</strong> The creature is unaffected.</p>
 <p><strong>Success</strong> The creature is stupefied 1 for 1 round.</p>
 <p><strong>Failure</strong> The creature is confused for 1 round.</p>
@@ -658,7 +658,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 			'Embrace',
 			1,
 			['divine', 'emotion', 'incapacitation', 'mental'],
-			`<p>The succubus attempts to embrace a creature within reach. If the creature allows the embrace or is grabbed, it must attempt a DC 30 Will save.</p>
+			`<p>The succubus attempts to embrace a creature within reach. If the creature allows the embrace or is grabbed, it must attempt a @Check[type:will|dc:30].</p>
 <p><strong>Critical Success</strong> The creature is unaffected.</p>
 <p><strong>Success</strong> The creature is stupefied 1 for 1 round.</p>
 <p><strong>Failure</strong> The creature is stupefied 2 and fascinated with the succubus for 1 minute.</p>

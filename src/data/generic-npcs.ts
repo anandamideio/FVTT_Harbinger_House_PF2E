@@ -53,7 +53,7 @@ export const MANES: HarbingerNPC = {
 				source: { value: 'Harbinger House' },
 				blurb: 'Mindless demon fodder',
 				publicNotes: `<p>Manes are the lowliest of demons—the misshapen, mindless souls of evil mortals consigned to the Abyss.</p>
-<p><strong>Death Burst:</strong> When a manes dies, it explodes in a burst of acidic vapor, dealing 1d6 acid damage to creatures within 10 feet (DC 14 basic Reflex save).</p>`,
+<p><strong>Death Burst:</strong> When a manes dies, it explodes in a burst of acidic vapor, dealing @Damage[1d6[acid]] damage to creatures within 10 feet (@Check[type:reflex|dc:14] basic save).</p>`,
 			},
 			saves: {
 				fortitude: { value: 8, saveDetail: '' },
@@ -82,7 +82,7 @@ export const MANES: HarbingerNPC = {
 			'Death Burst',
 			'passive',
 			['acid', 'divine'],
-			`<p>When the manes dies, it explodes in a burst of acidic vapor. Each creature within 10 feet takes 1d6 acid damage (DC 14 basic Reflex save).</p>`,
+			`<p>When the manes dies, it explodes in a burst of acidic vapor. Each creature within 10 feet takes @Damage[1d6[acid]] damage (@Check[type:reflex|dc:14] basic save).</p>`,
 		),
 	],
 };
@@ -153,7 +153,7 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 			'Swarming Bites',
 			1,
 			[],
-			`<p>Each creature in the swarm's space takes 2d8 piercing damage (DC 22 basic Reflex save).</p>`,
+			`<p>Each creature in the swarm's space takes @Damage[2d8[piercing]] damage (@Check[type:reflex|dc:22] basic save).</p>`,
 		),
 		createAction(
 			'Collective Intelligence',
@@ -207,7 +207,7 @@ export const GRAY_OOZE: HarbingerNPC = {
 				source: { value: 'Harbinger House' },
 				blurb: 'Acidic ooze that corrodes metal',
 				publicNotes: `<p>Gray oozes are found in Teela's bathroom in Harbinger House. They corrode metal on contact.</p>
-<p><strong>Metal Corrosion:</strong> A creature struck by the gray ooze's pseudopod must succeed at a DC 21 Reflex save or their metal armor or weapon takes 1d6 acid damage (ignoring Hardness). On a critical failure, the item takes double damage.</p>`,
+<p><strong>Metal Corrosion:</strong> A creature struck by the gray ooze's pseudopod must succeed at a @Check[type:reflex|dc:21] or their metal armor or weapon takes @Damage[1d6[acid]] damage (ignoring Hardness). On a critical failure, the item takes double damage.</p>`,
 			},
 			saves: {
 				fortitude: { value: 13, saveDetail: '' },
@@ -244,7 +244,7 @@ export const GRAY_OOZE: HarbingerNPC = {
 			'Metal Corrosion',
 			'passive',
 			[],
-			`<p>A creature struck by the gray ooze's pseudopod must succeed at a DC 21 Reflex save or their metal armor or weapon takes 1d6 acid damage (ignoring Hardness). On a critical failure, the item takes double damage.</p>`,
+			`<p>A creature struck by the gray ooze's pseudopod must succeed at a @Check[type:reflex|dc:21] or their metal armor or weapon takes @Damage[1d6[acid]] damage (ignoring Hardness). On a critical failure, the item takes double damage.</p>`,
 		),
 	],
 };
@@ -574,7 +574,7 @@ export const XERO_BAOX: HarbingerNPC = {
 			'Bard Slaying Arrow',
 			1,
 			['magical'],
-			`<p>Xero fires the slaying arrow. If it hits a bard, that creature must succeed at a DC 32 Fortitude save or die instantly. On a success, the target takes 10d10 piercing damage.</p>`,
+			`<p>Xero fires the slaying arrow. If it hits a bard, that creature must succeed at a @Check[type:fortitude|dc:32] or die instantly. On a success, the target takes @Damage[10d10[piercing]] damage.</p>`,
 		),
 		createAction(
 			'Fanatic Assault',

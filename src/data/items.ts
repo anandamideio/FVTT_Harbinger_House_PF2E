@@ -75,7 +75,7 @@ const THE_FOCRUX: HarbingerItem = {
 <p>The focrux can only be destroyed by magical weapons. A creature must succeed at a Strike against <strong>AC 24</strong> with a magical weapon. Rather than dealing damage, each successful Strike forces the focrux to attempt a <strong>DC 15 flat check</strong> (with a bonus equal to the weapon's item bonus). On a failure, the focrux shatters.</p>
 <p><strong>When the focrux is destroyed:</strong></p>
 <ul>
-<li>Everyone within 30 feet takes <strong>10d10 piercing damage</strong> (DC 40 basic Reflex save) from the explosion of sharp shards and planar energy</li>
+<li>Everyone within 30 feet takes @Damage[10d10[piercing]] damage (@Check[type:reflex|dc:40] basic save) from the explosion of sharp shards and planar energy</li>
 <li>A pillar of light erupts through the roof, alerting the Lady of Pain</li>
 <li>The anti-scrying field immediately ends</li>
 <li>All planar portals within Harbinger House become unstable</li>
@@ -383,7 +383,7 @@ const STAFF_OF_WITHERING: HarbingerItem = {
 <hr/>
 <p><strong>Withering Touch</strong> <span class="action-glyph">2</span> (necromancy, magical)</p>
 <p><strong>Frequency</strong> once per day</p>
-<p><strong>Effect</strong> You make a melee Strike with the staff. On a hit, in addition to normal damage, the target must succeed at a <strong>DC 29 Fortitude save</strong> or become <strong>enfeebled 2</strong> and <strong>drained 1</strong>. On a critical failure, the conditions increase to <strong>enfeebled 3</strong> and <strong>drained 2</strong>.</p>`,
+<p><strong>Effect</strong> You make a melee Strike with the staff. On a hit, in addition to normal damage, the target must succeed at a @Check[type:fortitude|dc:29] or become <strong>enfeebled 2</strong> and <strong>drained 1</strong>. On a critical failure, the conditions increase to <strong>enfeebled 3</strong> and <strong>drained 2</strong>.</p>`,
 			},
 			rules: [],
 			slug: 'staff-of-withering',
@@ -455,11 +455,11 @@ const TEELAS_MIRROR_OF_MORTALITY: HarbingerItem = {
 <hr/>
 <h3>Deadly Fascination</h3>
 <p><em>(aura, emotion, enchantment, visual) 10 feet</em></p>
-<p>Any creature that sees its reflection in the mirror must attempt a <strong>DC 27 Will save</strong>.</p>
+<p>Any creature that sees its reflection in the mirror must attempt a @Check[type:will|dc:27].</p>
 <p><strong>Critical Success:</strong> The creature is unaffected and immune to this mirror for 24 hours.</p>
 <p><strong>Success:</strong> The creature is fascinated for 1 round but can look away freely afterward.</p>
-<p><strong>Failure:</strong> The creature is fascinated and cannot willingly look away for 1d4 rounds. At the end of each round, it takes <strong>1d4 negative damage</strong> as its life force drains away.</p>
-<p><strong>Critical Failure:</strong> As failure, but the fascination lasts 1d4 minutes, and the damage increases to <strong>2d4 negative damage</strong> per round.</p>
+<p><strong>Failure:</strong> The creature is fascinated and cannot willingly look away for 1d4 rounds. At the end of each round, it takes @Damage[1d4[negative]] damage as its life force drains away.</p>
+<p><strong>Critical Failure:</strong> As failure, but the fascination lasts 1d4 minutes, and the damage increases to @Damage[2d4[negative]] per round.</p>
 <hr/>
 <p><strong>Destruction:</strong> The mirror can be destroyed by dealing 30 points of positive energy damage to it or by casting <em>remove curse</em> at 5th level or higher while smashing it.</p>`,
 			},
@@ -599,7 +599,7 @@ const ELIXIR_OF_MADNESS: HarbingerItem = {
 				value: `<p>This swirling, iridescent liquid smells faintly of burning metal and seems to whisper at the edge of hearing.</p>
 <hr/>
 <p><strong>Activate</strong> <span class="action-glyph">1</span> (Interact)</p>
-<p><strong>Effect</strong> You drink the elixir. You must attempt a <strong>DC 26 Will save</strong>.</p>
+<p><strong>Effect</strong> You drink the elixir. You must attempt a @Check[type:will|dc:26].</p>
 <p><strong>Critical Success:</strong> You are unaffected.</p>
 <p><strong>Success:</strong> You are <strong>stupefied 1</strong> for 1 hour.</p>
 <p><strong>Failure:</strong> You are <strong>stupefied 2</strong> and <strong>confused</strong> for 1 minute, then <strong>stupefied 2</strong> for 1 hour.</p>
@@ -729,7 +729,7 @@ const SCROLL_STONE_TO_FLESH: HarbingerItem = {
 				value: `<p>This scroll contains a 6th-level <em>stone to flesh</em> spell. Two such scrolls are found in Area 27 of Harbinger House.</p>
 <hr/>
 <p><strong>Activate</strong> Cast a Spell</p>
-<p><strong>Effect</strong> You cast <em>stone to flesh</em> at 6th level. The spell returns a petrified creature (or a portion of a creature) to flesh. The creature must attempt a <strong>DC 27 Fortitude save</strong>.</p>
+<p><strong>Effect</strong> You cast <em>stone to flesh</em> at 6th level. The spell returns a petrified creature (or a portion of a creature) to flesh. The creature must attempt a @Check[type:fortitude|dc:27].</p>
 <p><strong>Critical Success:</strong> The creature is fully restored.</p>
 <p><strong>Success:</strong> The creature is restored but is <strong>slowed 1</strong> for 24 hours.</p>
 <p><strong>Failure:</strong> The creature is restored but is <strong>slowed 1</strong> for 1 week and is permanently <strong>drained 1</strong>.</p>

@@ -37,20 +37,20 @@ const KAYDIS_MIND_TRAP: HarbingerHazard = {
 <h3>Stupor Field</h3>
 <p><span class="action-glyph">R</span> <em>(aura, enchantment, mental)</em></p>
 <p><strong>Trigger</strong> A creature enters the room</p>
-<p><strong>Effect</strong> The triggering creature and all creatures in the room must attempt a <strong>DC 26 Will save</strong> at the start of each of their turns.</p>
+<p><strong>Effect</strong> The triggering creature and all creatures in the room must attempt a @Check[type:will|dc:26] at the start of each of their turns.</p>
 <p><strong>Critical Success:</strong> The creature is unaffected this round and gains a +2 circumstance bonus to future saves against this hazard.</p>
-<p><strong>Success:</strong> The creature takes <strong>4 mental damage</strong>.</p>
+<p><strong>Success:</strong> The creature takes @Damage[4[mental]] damage.</p>
 <p><strong>Failure:</strong> The creature takes mental damage based on distance from Kaydi:
 <ul>
-<li>Within 5 feet: <strong>4d8 mental damage</strong></li>
-<li>5-10 feet: <strong>3d6 mental damage</strong></li>
-<li>10-15 feet: <strong>2d6 mental damage</strong></li>
+<li>Within 5 feet: @Damage[4d8[mental]] damage</li>
+<li>5-10 feet: @Damage[3d6[mental]] damage</li>
+<li>10-15 feet: @Damage[2d6[mental]] damage</li>
 </ul>
 </p>
 <p><strong>Critical Failure:</strong> As failure, but damage is doubled, and the creature is <strong>slowed 1</strong> until the start of their next turn.</p>
 <hr/>
 <p><strong>Special:</strong> When a creature's Hit Points are reduced to 0 by this effect, they fall into a catatonic sleep rather than dying. They can only be awakened by removing them from the room or waking Kaydi.</p>
-<p>The room's door disappears after all creatures enter. To find the exit, creatures must succeed at a <strong>DC 28 Perception</strong> check to locate the hidden door (which only appears while Kaydi is awake).</p>`,
+<p>The room's door disappears after all creatures enter. To find the exit, creatures must succeed at a @Check[type:perception|dc:28] to locate the hidden door (which only appears while Kaydi is awake).</p>`,
 			},
 			rules: [],
 			slug: 'kaydis-mind-trap',
@@ -88,7 +88,7 @@ const REPEATING_FIREBALL_TRAP: HarbingerHazard = {
 <h3>Fireball</h3>
 <p><span class="action-glyph">R</span></p>
 <p><strong>Trigger</strong> A creature stands on the hallway floor</p>
-<p><strong>Effect</strong> The magic mouth speaks its warning and launches a fireball that deals <strong>13d6 fire damage</strong> to all creatures in the hall (<strong>DC 29 basic Reflex save</strong>).</p>
+<p><strong>Effect</strong> The magic mouth speaks its warning and launches a fireball that deals @Damage[13d6[fire]] damage to all creatures in the hall (@Check[type:reflex|dc:29] basic save).</p>
 <hr/>
 <h3>Routine</h3>
 <p>(1 action) On its turn, if any creature remains standing on the floor, the magic mouth repeats its warning and launches another fireball. This continues every round until no creatures are on the floor.</p>
@@ -140,13 +140,13 @@ const MIRROR_OF_MORTALITY_TRAP: HarbingerHazard = {
 <h3>Deadly Reflection</h3>
 <p><span class="action-glyph">R</span> <em>(emotion, visual)</em></p>
 <p><strong>Trigger</strong> A creature sees its reflection in the mirror</p>
-<p><strong>Effect</strong> The creature must attempt a <strong>DC 25 Will save</strong>.</p>
+<p><strong>Effect</strong> The creature must attempt a @Check[type:will|dc:25].</p>
 <p><strong>Critical Success:</strong> The creature is unaffected and immune for 24 hours.</p>
 <p><strong>Success:</strong> The creature is <strong>fascinated</strong> for 1 round but can look away freely.</p>
-<p><strong>Failure:</strong> The creature is <strong>fascinated</strong> and can't willingly look away for 1d4 rounds. It takes <strong>1d4 negative damage</strong> at the end of each of its turns.</p>
-<p><strong>Critical Failure:</strong> As failure, but the duration is 1d4 minutes and the damage is <strong>2d4 negative</strong> per round.</p>
+<p><strong>Failure:</strong> The creature is <strong>fascinated</strong> and can't willingly look away for 1d4 rounds. It takes @Damage[1d4[negative]] damage at the end of each of its turns.</p>
+<p><strong>Critical Failure:</strong> As failure, but the duration is 1d4 minutes and the damage is @Damage[2d4[negative]] per round.</p>
 <hr/>
-<p><strong>Special:</strong> A creature that closes its eyes can attempt a <strong>DC 20 Will save</strong> as a free action at the start of each of its turns to end the fascinated condition, but it is then blinded until it opens its eyes.</p>`,
+<p><strong>Special:</strong> A creature that closes its eyes can attempt a @Check[type:will|dc:20] as a free action at the start of each of its turns to end the fascinated condition, but it is then blinded until it opens its eyes.</p>`,
 			},
 			rules: [],
 			slug: 'mirror-of-mortality-trap',
@@ -187,13 +187,13 @@ const THE_ENDLESS_STAIRS: HarbingerHazard = {
 <h3>Infinite Loop</h3>
 <p><span class="action-glyph">F</span></p>
 <p><strong>Trigger</strong> A creature travels more than 100 feet on the stairs</p>
-<p><strong>Effect</strong> The creature continues looping through the same section of stairs, unable to reach an endpoint. They take <strong>1 mental damage</strong> per 10 minutes of fruitless travel as frustration builds.</p>
+<p><strong>Effect</strong> The creature continues looping through the same section of stairs, unable to reach an endpoint. They take @Damage[1[mental]] damage per 10 minutes of fruitless travel as frustration builds.</p>
 <hr/>
 <p><strong>Special:</strong> Creatures can escape by:</p>
 <ul>
 <li>Finding the secret door back to the Hall of Doors</li>
 <li>Using <em>plane shift</em>, <em>dimension door</em>, or similar magic</li>
-<li>Succeeding at a <strong>DC 28 Survival</strong> check to "navigate" the impossible geometry (reveals the door's location)</li>
+<li>Succeeding at a @Check[type:survival|dc:28] to "navigate" the impossible geometry (reveals the door's location)</li>
 </ul>`,
 			},
 			rules: [],
@@ -230,7 +230,7 @@ const BROWN_MOLD: HarbingerHazard = {
 <hr/>
 <h3>Heat Drain</h3>
 <p><em>(aura, cold) 5 feet</em></p>
-<p>Any creature that enters the aura or starts its turn there takes <strong>5d8 cold damage</strong> (<strong>DC 23 basic Fortitude save</strong>) as the mold drains heat from their body.</p>
+<p>Any creature that enters the aura or starts its turn there takes @Damage[5d8[cold]] damage (@Check[type:fortitude|dc:23] basic save) as the mold drains heat from their body.</p>
 <hr/>
 <h3>Fire Vulnerability</h3>
 <p>If fire is brought within 5 feet of brown mold, the mold instantly doubles in size. A torch causes it to double, flaming oil quadruples it, and a <em>fireball</em> causes it to grow eightfold. Each size increase expands the aura by 5 feet.</p>
@@ -275,12 +275,12 @@ const FOCRUX_EXPLOSION: HarbingerHazard = {
 <h3>Destruction Cascade</h3>
 <p><span class="action-glyph">R</span></p>
 <p><strong>Trigger</strong> The focrux is destroyed (see The Focrux item entry)</p>
-<p><strong>Effect</strong> The focrux explodes in a <strong>30-foot emanation</strong>. All creatures in the area take <strong>10d10 piercing damage</strong> from shards and <strong>4d10 force damage</strong> from planar energy (<strong>DC 38 basic Reflex save</strong>).</p>
-<p>Additionally, all creatures in the area are exposed to raw planar energy. Each creature must attempt a <strong>DC 36 Will save</strong>.</p>
+<p><strong>Effect</strong> The focrux explodes in a <strong>30-foot emanation</strong>. All creatures in the area take @Damage[10d10[piercing]] damage from shards and @Damage[4d10[force]] damage from planar energy (@Check[type:reflex|dc:38] basic save).</p>
+<p>Additionally, all creatures in the area are exposed to raw planar energy. Each creature must attempt a @Check[type:will|dc:36].</p>
 <p><strong>Critical Success:</strong> The creature is unaffected by the planar exposure.</p>
 <p><strong>Success:</strong> The creature is <strong>dazzled</strong> for 1 round.</p>
 <p><strong>Failure:</strong> The creature is <strong>stunned 2</strong> and <strong>dazzled</strong> for 1 minute.</p>
-<p><strong>Critical Failure:</strong> The creature is <strong>stunned 4</strong>, <strong>blinded</strong> for 1 minute, and must succeed at a <strong>DC 36 Fortitude save</strong> or be <em>plane shifted</em> to a random Outer Plane.</p>
+<p><strong>Critical Failure:</strong> The creature is <strong>stunned 4</strong>, <strong>blinded</strong> for 1 minute, and must succeed at a @Check[type:fortitude|dc:36] or be <em>plane shifted</em> to a random Outer Plane.</p>
 <hr/>
 <h3>Divine Attention</h3>
 <p>The explosion creates a pillar of light visible from anywhere in Sigil. The Lady of Pain immediately becomes aware of the situation and arrives to deal with any creatures attempting to achieve godhood. Her arrival automatically kills Nari and Sougad (no save); other creatures are unaffected unless they are newly ascended powers, who are instead cast out of Sigil.</p>
@@ -323,7 +323,7 @@ const CHANCES_FIELD_OF_BAD_LUCK: HarbingerHazard = {
 <hr/>
 <h3>Bad Luck Aura</h3>
 <p><em>(aura, enchantment, misfortune) 15 feet</em></p>
-<p>Any creature except Chance that starts its turn in or enters the aura must attempt a <strong>DC 26 Will save</strong> before taking any actions that round.</p>
+<p>Any creature except Chance that starts its turn in or enters the aura must attempt a @Check[type:will|dc:26] before taking any actions that round.</p>
 <p><strong>Critical Success:</strong> The creature is unaffected this round.</p>
 <p><strong>Success:</strong> The creature takes a <strong>-1 status penalty</strong> to all checks and DCs this round.</p>
 <p><strong>Failure:</strong> Something goes wrong with the creature's first action of the round. If it's a Strike, the weapon slips or misfires. If it's a spell, the wrong components are grabbed. If it's movement, they trip. The action is wasted.</p>
