@@ -26,12 +26,14 @@ async function handleDelete() {
 		progressPercent = 100;
 		progressText = `Deleted ${total} items.`;
 
+		// eslint-disable-next-line no-undef
 		ui.notifications?.info(`Harbinger House: Deleted ${total} imported items`);
 
 		setTimeout(() => onClose(), 1000);
 	} catch (error) {
 		logError('Delete failed:', error);
 		progressText = `Error: ${error}`;
+		// eslint-disable-next-line no-undef
 		ui.notifications?.error(`Delete failed: ${error}`);
 		buttonsDisabled = false;
 	}

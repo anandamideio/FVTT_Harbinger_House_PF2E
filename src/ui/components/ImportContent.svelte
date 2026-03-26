@@ -11,6 +11,9 @@ import {
 	ITEMS_BY_CATEGORY,
 	JOURNALS_BY_FOLDER,
 	NPCS_BY_CATEGORY,
+	type HazardCategory,
+	type ItemCategory,
+	type NPCCategory,
 } from '../../data';
 import {
 	hazardImporter,
@@ -34,24 +37,24 @@ let {
 
 // Build category data
 const npcCategories = Object.entries(NPCS_BY_CATEGORY)
-	.filter(([_, npcs]) => npcs.length > 0)
+	.filter(([, npcs]) => npcs.length > 0)
 	.map(([category, npcs]) => ({ id: category, label: getCategoryLabel(category), count: npcs.length }));
 
 const itemCategories = Object.entries(ITEMS_BY_CATEGORY)
-	.filter(([_, items]) => items.length > 0)
-	.map(([category, items]) => ({ id: category, label: getItemCategoryLabel(category as any), count: items.length }));
+	.filter(([, items]) => items.length > 0)
+	.map(([category, items]) => ({ id: category, label: getItemCategoryLabel(category as ItemCategory), count: items.length }));
 
 const hazardCategories = Object.entries(HAZARDS_BY_CATEGORY)
-	.filter(([_, hazards]) => hazards.length > 0)
+	.filter(([, hazards]) => hazards.length > 0)
 	.map(([category, hazards]) => ({
 		id: category,
-		label: getHazardCategoryLabel(category as any),
+		label: getHazardCategoryLabel(category as HazardCategory),
 		count: hazards.length,
 	}));
 
 const journalFolders = Object.entries(JOURNALS_BY_FOLDER)
-	.filter(([_, journals]) => journals.length > 0)
-	.map(([folder, journals]) => ({ id: folder, label: getFolderLabel(folder as any), count: journals.length }));
+	.filter(([, journals]) => journals.length > 0)
+	.map(([folder, journals]) => ({ id: folder, label: getFolderLabel(folder), count: journals.length }));
 
 // Section enabled states
 let importNpcs = $state(true);
@@ -78,6 +81,7 @@ let buttonsDisabled = $state(false);
  * Falls back to in-memory import if the pack is empty (e.g., pre-built packs not available).
  */
 function isPackAvailable(packId: string): boolean {
+	// eslint-disable-next-line no-undef
 	const pack = game.packs.get(packId);
 	return !!pack && pack.index.size > 0;
 }
@@ -87,9 +91,10 @@ function isPackAvailable(packId: string): boolean {
  * Filters documents by their module flags category/folder.
  */
 function categoryFilter(selectedCategories: string[], flagKey: string = 'category') {
-	return (doc: any) => {
+	// eslint-disable-next-line no-undef
+	return (doc: FoundryDocument) => {
 		const category = doc.flags?.[MODULE_ID]?.[flagKey];
-		return !category || selectedCategories.includes(category);
+		return !category || selectedCategories.includes(category as string);
 	};
 }
 
@@ -117,7 +122,7 @@ async function handleImport() {
 				);
 			} else {
 				result = await npcImporter.importByCategory({
-					categories: selectedNpcCategories as any[],
+					categories: selectedNpcCategories as NPCCategory[],
 					onProgress: (current: number, total: number, name: string) => {
 						progressPercent = Math.round((current / total) * 100);
 						progressText = `Importing NPC: ${name}`;
@@ -144,7 +149,7 @@ async function handleImport() {
 				);
 			} else {
 				result = await itemImporter.importByCategory({
-					categories: selectedItemCategories as any[],
+					categories: selectedItemCategories as ItemCategory[],
 					onProgress: (current: number, total: number, name: string) => {
 						progressPercent = Math.round((current / total) * 100);
 						progressText = `Importing Item: ${name}`;
@@ -192,7 +197,7 @@ async function handleImport() {
 				);
 			} else {
 				result = await hazardImporter.importByCategory({
-					categories: selectedHazardCategories as any[],
+					categories: selectedHazardCategories as HazardCategory[],
 					onProgress: (current: number, total: number, name: string) => {
 						progressPercent = Math.round((current / total) * 100);
 						progressText = `Importing Hazard: ${name}`;
@@ -215,7 +220,7 @@ async function handleImport() {
 				});
 			} else {
 				result = await journalImporter.importAll({
-					folders: selectedJournalFolders as any[],
+					folders: selectedJournalFolders,
 					onProgress: (current: number, total: number, name: string) => {
 						progressPercent = Math.round((current / total) * 100);
 						progressText = `Importing Journal: ${name}`;
@@ -251,6 +256,7 @@ async function handleImport() {
 		progressPercent = 100;
 		progressText = `Complete! Imported ${totalImported} items.`;
 
+		// eslint-disable-next-line no-undef
 		ui.notifications?.info(
 			`Harbinger House: Imported ${totalImported} items${totalFailed > 0 ? ` (${totalFailed} failed)` : ''}`,
 		);
@@ -259,6 +265,7 @@ async function handleImport() {
 	} catch (error) {
 		logError('Import failed:', error);
 		progressText = `Error: ${error}`;
+		// eslint-disable-next-line no-undef
 		ui.notifications?.error(`Import failed: ${error}`);
 		buttonsDisabled = false;
 	}

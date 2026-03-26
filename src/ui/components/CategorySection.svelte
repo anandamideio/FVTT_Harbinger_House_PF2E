@@ -47,7 +47,7 @@ function toggleCategory(id: string, checked: boolean) {
 
   {#if categories && enabled}
     <div class="category-grid">
-      {#each categories as cat}
+      {#each categories as cat (cat.id)}
         <label class="category-item">
           <input
             type="checkbox"
