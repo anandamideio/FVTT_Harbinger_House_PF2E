@@ -339,6 +339,7 @@ declare global {
 	interface PF2eActorSystem {
 		abilities?: Record<string, AbilityData>;
 		attributes: AttributesData;
+		perception?: PerceptionData;
 		details: DetailsData;
 		saves: SavesData;
 		skills?: Record<string, SkillData>;
@@ -365,12 +366,6 @@ declare global {
 			value: number;
 			otherSpeeds: SpeedData[];
 		};
-		perception?: {
-			value: number;
-			details: string;
-			senses?: SenseData[];
-			spikedarvision?: boolean;
-		};
 		immunities?: ImmunityData[];
 		weaknesses?: WeaknessData[];
 		resistances?: ResistanceData[];
@@ -379,6 +374,12 @@ declare global {
 	interface SpeedData {
 		type: string;
 		value: number;
+	}
+
+	interface PerceptionData {
+		mod: number;
+		details?: string;
+		senses?: SenseData[];
 	}
 
 	interface ImmunityData {

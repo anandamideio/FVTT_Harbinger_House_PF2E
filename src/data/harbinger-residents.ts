@@ -56,9 +56,9 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 				hp: { value: 145, max: 145, temp: 0, details: '' },
 				ac: { value: 29, details: '' },
 				speed: { value: 25, otherSpeeds: [] },
-				perception: { value: 17, details: '' },
 				resistances: [{ type: 'fire', value: 5 }],
 			},
+			perception: { mod: 17, details: '' },
 			details: {
 				level: { value: 10 },
 				alignment: { value: 'CG' },
@@ -173,13 +173,13 @@ export const CRIMJAK: HarbingerNPC = {
 				hp: { value: 160, max: 160, temp: 0, details: '' },
 				ac: { value: 28, details: '' },
 				speed: { value: 30, otherSpeeds: [{ type: 'fly', value: 40 }] },
-				perception: { value: 18, details: 'see invisibility' },
 				immunities: [{ type: 'electricity' }, { type: 'poison' }],
 				resistances: [
 					{ type: 'cold', value: 10 },
 					{ type: 'fire', value: 10 },
 				],
 			},
+			perception: { mod: 18, details: 'see invisibility' },
 			details: {
 				level: { value: 9 },
 				alignment: { value: 'CE' },
@@ -261,8 +261,8 @@ export const NARCOVI: HarbingerNPC = {
 				hp: { value: 155, max: 155, temp: 0, details: '' },
 				ac: { value: 29, details: '' },
 				speed: { value: 20, otherSpeeds: [] },
-				perception: { value: 19, details: '' },
 			},
+			perception: { mod: 19, details: '' },
 			details: {
 				level: { value: 9 },
 				alignment: { value: 'LG' },
@@ -365,8 +365,8 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 				hp: { value: 210, max: 210, temp: 0, details: '' },
 				ac: { value: 33, details: '' },
 				speed: { value: 30, otherSpeeds: [] },
-				perception: { value: 20, details: '' },
 			},
+			perception: { mod: 20, details: '' },
 			details: {
 				level: { value: 12 },
 				alignment: { value: 'CE' },
@@ -499,8 +499,8 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 				hp: { value: 195, max: 195, temp: 0, details: '' },
 				ac: { value: 31, details: '' },
 				speed: { value: 20, otherSpeeds: [] },
-				perception: { value: 24, details: '' },
 			},
+			perception: { mod: 24, details: '' },
 			details: {
 				level: { value: 12 },
 				alignment: { value: 'CE' },
@@ -586,12 +586,12 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 				hp: { value: 185, max: 185, temp: 0, details: '' },
 				ac: { value: 30, details: '' },
 				speed: { value: 25, otherSpeeds: [{ type: 'fly', value: 35 }] },
-				perception: { value: 20, details: '' },
 				weaknesses: [
 					{ type: 'cold-iron', value: 10 },
 					{ type: 'good', value: 10 },
 				],
 			},
+			perception: { mod: 20, details: '' },
 			details: {
 				level: { value: 11 },
 				alignment: { value: 'CE' },

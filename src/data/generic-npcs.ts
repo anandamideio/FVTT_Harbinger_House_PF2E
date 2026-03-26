@@ -35,7 +35,6 @@ export const MANES: HarbingerNPC = {
 				hp: { value: 15, max: 15, temp: 0, details: '' },
 				ac: { value: 14, details: '' },
 				speed: { value: 20, otherSpeeds: [] },
-				perception: { value: 4, details: '' },
 				immunities: [{ type: 'electricity' }, { type: 'poison' }],
 				weaknesses: [
 					{ type: 'cold-iron', value: 2 },
@@ -46,6 +45,7 @@ export const MANES: HarbingerNPC = {
 					{ type: 'fire', value: 2 },
 				],
 			},
+			perception: { mod: 4, details: '' },
 			details: {
 				level: { value: 0 },
 				alignment: { value: 'CE' },
@@ -107,7 +107,6 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 				hp: { value: 60, max: 60, temp: 0, details: '' },
 				ac: { value: 21, details: '' },
 				speed: { value: 30, otherSpeeds: [{ type: 'climb', value: 15 }] },
-				perception: { value: 13, details: 'thoughtsense 30 feet' },
 				immunities: [{ type: 'precision' }],
 				weaknesses: [
 					{ type: 'area-damage', value: 5 },
@@ -115,6 +114,7 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 				],
 				resistances: [{ type: 'physical', value: 5 }],
 			},
+			perception: { mod: 13, details: 'thoughtsense 30 feet' },
 			details: {
 				level: { value: 5 },
 				alignment: { value: 'NE' },
@@ -189,7 +189,6 @@ export const GRAY_OOZE: HarbingerNPC = {
 				hp: { value: 60, max: 60, temp: 0, details: '' },
 				ac: { value: 14, details: '' },
 				speed: { value: 10, otherSpeeds: [{ type: 'climb', value: 10 }] },
-				perception: { value: 8, details: 'motion sense 60 feet, no vision' },
 				immunities: [
 					{ type: 'acid' },
 					{ type: 'critical-hits' },
@@ -200,6 +199,7 @@ export const GRAY_OOZE: HarbingerNPC = {
 					{ type: 'visual' },
 				],
 			},
+			perception: { mod: 8, details: 'motion sense 60 feet, no vision' },
 			details: {
 				level: { value: 4 },
 				alignment: { value: 'N' },
@@ -273,9 +273,9 @@ export const DABUS: HarbingerNPC = {
 				hp: { value: 90, max: 90, temp: 0, details: '' },
 				ac: { value: 23, details: '' },
 				speed: { value: 0, otherSpeeds: [{ type: 'fly', value: 25 }] },
-				perception: { value: 14, details: '' },
 				immunities: [{ type: 'effects targeting ground or air' }],
 			},
+			perception: { mod: 14, details: '' },
 			details: {
 				level: { value: 6 },
 				alignment: { value: 'N' },
@@ -364,8 +364,8 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
 				hp: { value: 75, max: 75, temp: 0, details: '' },
 				ac: { value: 23, details: '' },
 				speed: { value: 20, otherSpeeds: [] },
-				perception: { value: 12, details: '' },
 			},
+			perception: { mod: 12, details: '' },
 			details: {
 				level: { value: 5 },
 				alignment: { value: 'LG' },
@@ -437,8 +437,8 @@ export const ANARCHIST: HarbingerNPC = {
 				hp: { value: 110, max: 110, temp: 0, details: '' },
 				ac: { value: 25, details: '' },
 				speed: { value: 25, otherSpeeds: [] },
-				perception: { value: 13, details: '' },
 			},
+			perception: { mod: 13, details: '' },
 			details: {
 				level: { value: 7 },
 				alignment: { value: 'CN' },
@@ -527,9 +527,9 @@ export const XERO_BAOX: HarbingerNPC = {
 				hp: { value: 210, max: 210, temp: 0, details: '' },
 				ac: { value: 33, details: '' },
 				speed: { value: 25, otherSpeeds: [] },
-				perception: { value: 20, details: '' },
 				resistances: [{ type: 'fire', value: 5 }],
 			},
+			perception: { mod: 20, details: '' },
 			details: {
 				level: { value: 12 },
 				alignment: { value: 'CE' },
@@ -605,8 +605,8 @@ export const LADYS_CULTIST: HarbingerNPC = {
 				hp: { value: 12, max: 12, temp: 0, details: '' },
 				ac: { value: 13, details: '' },
 				speed: { value: 25, otherSpeeds: [] },
-				perception: { value: 4, details: '' },
 			},
+			perception: { mod: 4, details: '' },
 			details: {
 				level: { value: 0 },
 				alignment: { value: 'N' },
@@ -678,8 +678,8 @@ export const BARMY: HarbingerNPC = {
 				hp: { value: 30, max: 30, temp: 0, details: '' },
 				ac: { value: 15, details: '' },
 				speed: { value: 25, otherSpeeds: [] },
-				perception: { value: 6, details: '' },
 			},
+			perception: { mod: 6, details: '' },
 			details: {
 				level: { value: 2 },
 				alignment: { value: 'N' },
@@ -764,8 +764,8 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
 				hp: { value: 18, max: 18, temp: 0, details: '' },
 				ac: { value: 14, details: '' },
 				speed: { value: 25, otherSpeeds: [] },
-				perception: { value: 6, details: '' },
 			},
+			perception: { mod: 6, details: '' },
 			details: {
 				level: { value: 1 },
 				alignment: { value: 'N' },
