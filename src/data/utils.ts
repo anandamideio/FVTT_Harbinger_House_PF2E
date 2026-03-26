@@ -1,7 +1,3 @@
-/**
- * Shared utility functions for NPC data creation
- */
-
 import type { ItemData } from '../types/foundry.d.ts';
 import type { ActionTrait, MagicTradition, NPCAttackTrait, SpellTrait } from '../types/pf2e-traits';
 import {

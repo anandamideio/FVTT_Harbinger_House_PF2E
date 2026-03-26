@@ -1,3 +1,15 @@
+import { MODULE_ID } from '../config';
+import type { ActorData, ItemData, JournalEntryData, SceneData } from '../types/foundry';
+import type { HarbingerNPC, NPCCategory, NPCEntry, NPCItemEntry } from './harbinger-residents';
+import { isSystemActorReference } from './harbinger-residents';
+import type { HarbingerHazard, HazardCategory } from './hazards';
+import type { HarbingerItem, ItemCategory } from './items';
+import type { HarbingerJournal } from './journals';
+import type { HarbingerScene } from './scenes';
+import type { HarbingerSpell } from './spells';
+import type { SystemActorReference } from './system-items';
+import { isSystemItemReference } from './utils';
+
 /**
  * Pure Data Transformation Functions
  *
@@ -10,17 +22,6 @@
  * - Runtime importers (src/importers/*) for world imports
  */
 
-import { MODULE_ID } from '../config';
-import type { ActorData, ItemData, JournalEntryData, SceneData } from '../types/foundry';
-import type { HarbingerNPC, NPCCategory, NPCEntry, NPCItemEntry } from './harbinger-residents';
-import { isSystemActorReference } from './harbinger-residents';
-import type { HarbingerHazard, HazardCategory } from './hazards';
-import type { HarbingerItem, ItemCategory } from './items';
-import type { HarbingerJournal } from './journals';
-import type { HarbingerScene } from './scenes';
-import type { HarbingerSpell } from './spells';
-import type { SystemActorReference } from './system-items';
-import { isSystemItemReference } from './utils';
 
 // ============================================================================
 // Items

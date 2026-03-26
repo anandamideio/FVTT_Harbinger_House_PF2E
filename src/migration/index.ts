@@ -25,7 +25,7 @@ export interface Migration {
  * Current schema version. Bump this when adding a new migration.
  * Version 1 = initial baseline (no transforms needed, just sets the version).
  */
-export const CURRENT_SCHEMA_VERSION = 1;
+export const CURRENT_SCHEMA_VERSION = 2;
 
 /** Schema version setting key */
 export const SCHEMA_VERSION_SETTING = 'schemaVersion';

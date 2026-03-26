@@ -1,13 +1,3 @@
-/**
- * PF2e System Compendium Item References
- *
- * This file contains UUID mappings to items in the PF2e system compendiums.
- * Using system items ensures compatibility with system updates and reduces
- * maintenance burden for standard equipment.
- *
- * UUID Format: Compendium.pf2e.<pack>.Item.<id>
- */
-
 // =============================================================================
 // WEAPONS
 // =============================================================================

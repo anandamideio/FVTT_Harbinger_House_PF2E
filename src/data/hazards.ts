@@ -104,7 +104,7 @@ const REPEATING_FIREBALL_TRAP: HarbingerHazard = {
 			details: {
 				level: { value: 10 },
 				disable:
-					'DC 31 Thievery (master) to disable the trigger mechanism, or dispel magic (5th level, counteract DC 28) targeting the magic mouth',
+					'@Check[type:thievery|dc:31] DC 31 Thievery (master) to disable the trigger mechanism, or @Check[type:arcana|dc:28] DC 28 Arcana (counteract) to dispel magic (5th level) targeting the magic mouth',
 				reset:
 					'The trap does not reset once disabled. However, if merely avoided (by not standing on the floor), it remains active indefinitely.',
 				routine: 'On each round, if any creature is touching the floor, the trap launches another fireball.',
