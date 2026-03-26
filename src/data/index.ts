@@ -31,7 +31,7 @@ export const ALL_NPCS: NPCEntry[] = [...HARBINGER_RESIDENTS, ...FIENDS, ...GENER
 
 // NPCs grouped by category for UI display
 export const NPCS_BY_CATEGORY = {
-	'harbinger-resident': HARBINGER_RESIDENTS,
+	'major-npc': HARBINGER_RESIDENTS,
 	fiend: FIENDS,
 	'generic-npc': GENERIC_NPCS.filter((npc) => npc.category === 'generic-npc'),
 	cultist: GENERIC_NPCS.filter((npc) => npc.category === 'cultist'),
@@ -40,10 +40,11 @@ export const NPCS_BY_CATEGORY = {
 // Get human-readable NPC category names
 export function getCategoryLabel(category: string): string {
 	const labels: Record<string, string> = {
+		'major-npc': 'Harbinger House Residents',
 		'harbinger-resident': 'Harbinger House Residents',
 		fiend: 'Fiends & Monsters',
 		'generic-npc': 'Generic NPCs',
-		cultist: 'Cultists & Common NPCs',
+		cultist: 'Cultist & Common NPCs',
 	};
 	return labels[category] || category;
 }

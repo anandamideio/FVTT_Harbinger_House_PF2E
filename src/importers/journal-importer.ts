@@ -10,6 +10,12 @@ import { journalToDocumentData } from '../data/to-foundry-data';
 import type { JournalEntryData } from '../types/foundry';
 import { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
 
+function deriveFolderFromName(name: string): string {
+	if (name?.startsWith('Chapter')) return 'Chapters';
+	if (name === 'Introduction') return 'Introduction';
+	return 'Reference';
+}
+
 export interface JournalImportOptions extends ImportOptions {
 	/** Import only specific folders */
 	folders?: JournalFolder[];
@@ -69,10 +75,11 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 		const toImport = filter ? documents.filter(filter) : documents;
 		if (toImport.length === 0) return result;
 
-		// Group documents by folder flag
+		// Group documents by folder flag, falling back to name-based detection
 		const byFolder = new Map<string, FoundryDocument[]>();
 		for (const doc of toImport) {
-			const folder = (doc.flags?.[MODULE_ID]?.folder as string) || 'Reference';
+			const flagFolder = doc.flags?.[MODULE_ID]?.folder as string | undefined;
+			const folder = flagFolder || deriveFolderFromName(doc.name as string);
 			if (!byFolder.has(folder)) byFolder.set(folder, []);
 			byFolder.get(folder)!.push(doc);
 		}

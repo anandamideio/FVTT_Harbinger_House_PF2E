@@ -472,7 +472,7 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 
 		// Import each category - use only categories that exist in NPCS_BY_CATEGORY
 		const categories =
-			options.categories || (['harbinger-resident', 'fiend', 'generic-npc', 'cultist'] as NPCCategory[]);
+			options.categories || (['major-npc', 'fiend', 'generic-npc', 'cultist'] as NPCCategory[]);
 
 		for (const category of categories) {
 			const categoryNPCs = (NPCS_BY_CATEGORY as Record<string, NPCEntry[]>)[category] || [];
