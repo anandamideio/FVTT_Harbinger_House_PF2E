@@ -50,7 +50,7 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 
 		if (options.folders && options.folders.length > 0) {
 			journalsToImport = journalsToImport.filter(
-				(j) => j.folder && options.folders!.includes(j.folder as JournalFolder),
+				(j) => j.folder && options.folders!.includes(j.folder),
 			);
 		}
 
@@ -120,7 +120,7 @@ export class JournalImporter extends BaseImporter<HarbingerJournal, typeof Journ
 	getJournalCount(): Record<JournalFolder, number> {
 		return Object.entries(JOURNALS_BY_FOLDER).reduce(
 			(acc, [folder, journals]) => {
-				acc[folder as JournalFolder] = journals.length;
+				acc[folder] = journals.length;
 				return acc;
 			},
 			{} as Record<JournalFolder, number>,

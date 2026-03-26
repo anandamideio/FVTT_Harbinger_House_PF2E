@@ -26,7 +26,7 @@ export type NPCEntry = HarbingerNPC | SystemActorReference;
 
 /** Type guard to check if an NPCEntry is a system actor reference */
 export function isSystemActorReference(entry: NPCEntry): entry is SystemActorReference {
-	return 'type' in entry && (entry as SystemActorReference).type === 'system-actor';
+	return 'type' in entry && (entry).type === 'system-actor';
 }
 
 // Re-export SystemActorReference for consumers

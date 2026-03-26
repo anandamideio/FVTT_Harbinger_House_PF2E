@@ -186,7 +186,7 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 						resolved.push(resolvedItem);
 					}
 				} else {
-					const itemData = item as ItemData;
+					const itemData = item;
 					resolved.push({
 						...(itemData._id ? { _id: itemData._id } : {}),
 						name: itemData.name,

@@ -300,7 +300,7 @@ function getNPCDefaultImage(npc: HarbingerNPC): string {
 		fiend: 'icons/svg/skull.svg',
 		cultist: 'icons/svg/cowled.svg',
 	};
-	return defaults[npc.category as NPCCategory] || 'icons/svg/mystery-man.svg';
+	return defaults[npc.category] || 'icons/svg/mystery-man.svg';
 }
 
 function getTokenSize(size: string): number {
@@ -377,7 +377,7 @@ export function extractInlineItems(items: NPCItemEntry[]): { inline: ItemData[];
 		if (isSystemItemReference(item)) {
 			unresolved.push(item);
 		} else {
-			const itemData = item as ItemData;
+			const itemData = item;
 			inline.push({
 				...(itemData._id ? { _id: itemData._id } : {}),
 				name: itemData.name,
