@@ -3,12 +3,15 @@ import type { ActionTrait, MagicTradition, NPCAttackTrait, SpellTrait } from '..
 import {
 	resolveActionUUID,
 	resolveActorUUID,
+	resolveEquipmentUUID,
 	resolveSpellUUID,
 	resolveWeaponUUID,
 	type SystemActionKey,
 	type SystemActionReference,
 	type SystemActorKey,
 	type SystemActorReference,
+	type SystemEquipmentKey,
+	type SystemEquipmentReference,
 	type SystemSpellKey,
 	type SystemSpellReference,
 	type SystemWeaponKey,
@@ -20,6 +23,7 @@ import {
 export type {
 	SystemActionReference,
 	SystemActorReference,
+	SystemEquipmentReference,
 	SystemSpellReference,
 	SystemWeaponReference,
 } from './system-items';
@@ -379,17 +383,25 @@ export function systemAction(action: SystemActionKey | string, customDescription
 	};
 }
 
+export function systemEquipment(equipment: SystemEquipmentKey | string): SystemEquipmentReference {
+	const uuid = resolveEquipmentUUID(equipment);
+	return {
+		type: 'system-equipment',
+		uuid,
+	};
+}
+
 /**
  * Type guard to check if an item is a system reference
  */
 export function isSystemItemReference(
-	item: ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference,
-): item is SystemWeaponReference | SystemSpellReference | SystemActionReference {
+	item: ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference | SystemEquipmentReference,
+): item is SystemWeaponReference | SystemSpellReference | SystemActionReference | SystemEquipmentReference {
 	return (
 		typeof item === 'object' &&
 		item !== null &&
 		'type' in item &&
-		(item.type === 'system-weapon' || item.type === 'system-spell' || item.type === 'system-action')
+		(item.type === 'system-weapon' || item.type === 'system-spell' || item.type === 'system-action' || item.type === 'system-equipment')
 	);
 }
 

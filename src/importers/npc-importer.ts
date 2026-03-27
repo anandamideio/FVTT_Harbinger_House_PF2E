@@ -14,6 +14,7 @@ import {
 	NPCS_BY_CATEGORY,
 	type SystemActionReference,
 	type SystemActorReference,
+	type SystemEquipmentReference,
 	type SystemSpellReference,
 	type SystemWeaponReference,
 } from '../data';
@@ -208,7 +209,7 @@ export class NPCImporter extends BaseImporter<NPCEntry, typeof ActorClass> {
 	 * Resolve a system item reference to actual item data
 	 */
 	private async resolveSystemItem(
-		ref: SystemWeaponReference | SystemSpellReference | SystemActionReference,
+		ref: SystemWeaponReference | SystemSpellReference | SystemActionReference | SystemEquipmentReference,
 	): Promise<ItemData | null> {
 		try {
 			// Fetch the item from the compendium using fromUuid

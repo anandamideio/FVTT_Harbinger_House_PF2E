@@ -2,16 +2,17 @@ import type { ActorData, ItemData } from '../types/foundry.d.ts';
 import type {
 	SystemActionReference,
 	SystemActorReference,
+	SystemEquipmentReference,
 	SystemSpellReference,
 	SystemWeaponReference,
 } from './system-items';
-import { createAction, createSpellcastingEntryWithSpells, createStrike, systemAction, systemWeapon } from './utils';
+import { createAction, createSpellcastingEntryWithSpells, createStrike, systemAction, systemEquipment, systemWeapon } from './utils';
 
 // NPC Categories for organization
 export type NPCCategory = 'major-npc' | 'harbinger-resident' | 'generic-npc' | 'fiend' | 'cultist';
 
 /** Union type for any item that can be on an NPC */
-export type NPCItemEntry = ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference;
+export type NPCItemEntry = ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference | SystemEquipmentReference;
 
 export interface HarbingerNPC {
 	id: string;
@@ -464,6 +465,7 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 			['divine'],
 			`<p>When Sougad kills a lawful creature with his law slayer, he absorbs planar energy. After killing 13 lawful creatures in the proper ritual, he ascends to godhood.</p>`,
 		),
+		systemEquipment('bootsOfPropulsion'),
 	],
 };
 

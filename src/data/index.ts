@@ -156,6 +156,7 @@ export {
 
 export type {
 	SystemActionReference,
+	SystemEquipmentReference,
 	SystemSpellReference,
 	SystemWeaponReference,
 	WeaponRuneConfig,

@@ -181,6 +181,19 @@ export const SYSTEM_SPELLS = {
 
 export type SystemSpellKey = keyof typeof SYSTEM_SPELLS;
 
+
+// =============================================================================
+// Equipment (Non-Weapon, Non-Armor)
+// =============================================================================
+
+export const SYSTEM_EQUIPMENT = {
+	// Boots of Propulsion
+	bootsOfPropulsion: 'Compendium.pf2e.equipment-srd.Item.Ck5k13uTNqibLFJk',
+} as const;
+
+export type SystemEquipmentKey = keyof typeof SYSTEM_EQUIPMENT;
+
+
 // =============================================================================
 // ACTIONS
 // =============================================================================
@@ -327,9 +340,18 @@ export interface SystemActionReference {
 }
 
 /**
+ * Describes a piece of equipment (non-weapon, non-armor) from the system compendium
+ */
+export interface SystemEquipmentReference {
+	type: 'system-equipment';
+	/** The key from SYSTEM_EQUIPMENT or a raw UUID */
+	uuid: string;
+}
+
+/**
  * Union type for any system item reference
  */
-export type SystemItemReference = SystemWeaponReference | SystemSpellReference | SystemActionReference;
+export type SystemItemReference = SystemWeaponReference | SystemSpellReference | SystemActionReference | SystemEquipmentReference;
 
 /**
  * Resolve a weapon key to its UUID
@@ -350,4 +372,11 @@ export function resolveSpellUUID(key: SystemSpellKey | string): string {
  */
 export function resolveActionUUID(key: SystemActionKey | string): string {
 	return SYSTEM_ACTIONS[key as SystemActionKey] ?? key;
+}
+
+/**
+ * Resolve an equipment key to its UUID
+ */
+export function resolveEquipmentUUID(key: SystemEquipmentKey | string): string {
+	return SYSTEM_EQUIPMENT[key as SystemEquipmentKey] ?? key;
 }
