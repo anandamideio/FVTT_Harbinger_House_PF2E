@@ -43,7 +43,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 	data: {
 		name: 'Trolan the Mad',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/Trolan_The_Mad.png',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Trolan_The_Mad.png',
 		system: {
 			abilities: {
 				str: { mod: 1 },
@@ -97,7 +97,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: 1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Trolan.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Trolan.png' },
 		},
 	},
 	items: [
@@ -154,7 +154,7 @@ export const CRIMJAK: HarbingerNPC = {
 	data: {
 		name: 'Crimjak the Marquis Cambion',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/Crimjack.jpg',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Crimjack.jpg',
 		system: {
 			abilities: {
 				str: { mod: 6 },
@@ -211,7 +211,7 @@ export const CRIMJAK: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: -1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Crimjack.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Crimjack.png' },
 		},
 	},
 	items: [
@@ -249,7 +249,7 @@ export const NARCOVI: HarbingerNPC = {
 	data: {
 		name: 'Narcovi',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/Narcovi.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Narcovi.webp',
 		system: {
 			abilities: {
 				str: { mod: 4 },
@@ -309,7 +309,7 @@ export const NARCOVI: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: 1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Narcovi.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Narcovi.png' },
 		},
 	},
 	items: [
@@ -360,7 +360,7 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 	data: {
 		name: 'Sougad Lawshredder',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/Sougad Lawshredder.png',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Sougad Lawshredder.png',
 		system: {
 			abilities: {
 				str: { mod: 5 },
@@ -421,7 +421,7 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: -1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Sougad.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Sougad.png' },
 		},
 	},
 	items: [
@@ -496,7 +496,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 	data: {
 		name: 'Pastor Browen',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/paster_bowen.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/paster_bowen.webp',
 		system: {
 			abilities: {
 				str: { mod: 3 },
@@ -556,7 +556,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: -1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Paster Bowen.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Paster Bowen.png' },
 		},
 	},
 	items: [
@@ -590,7 +590,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 	data: {
 		name: 'Nari the Schemer',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/nari_succubus_abyss.png',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/nari_succubus_abyss.png',
 		system: {
 			abilities: {
 				str: { mod: 2 },
@@ -657,7 +657,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: -1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Nari.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Nari.png' },
 		},
 	},
 	items: [

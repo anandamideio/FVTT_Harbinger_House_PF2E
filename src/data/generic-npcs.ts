@@ -21,7 +21,7 @@ export const MANES: HarbingerNPC = {
 	data: {
 		name: 'Manes',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/manes.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/manes.webp',
 		system: {
 			abilities: {
 				str: { mod: 1 },
@@ -93,7 +93,7 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 	data: {
 		name: 'Cranium Rat Swarm',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/Planescape-CRANIUM-RATS-IN-DISGUISE01.jpg',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Planescape-CRANIUM-RATS-IN-DISGUISE01.jpg',
 		system: {
 			abilities: {
 				str: { mod: 0 },
@@ -152,7 +152,7 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 			displayName: 20,
 			actorLink: false,
 			disposition: -1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Cranium_Rats.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Cranium_Rats.png' },
 		},
 	},
 	items: [
@@ -182,7 +182,7 @@ export const GRAY_OOZE: HarbingerNPC = {
 	data: {
 		name: 'Gray Ooze',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/gray-ooze.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/gray-ooze.webp',
 		system: {
 			abilities: {
 				str: { mod: 4 },
@@ -266,7 +266,7 @@ export const DABUS: HarbingerNPC = {
 	data: {
 		name: 'Dabus',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/Dabus.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Dabus.webp',
 		system: {
 			abilities: {
 				str: { mod: 3 },
@@ -322,7 +322,7 @@ export const DABUS: HarbingerNPC = {
 			displayName: 20,
 			actorLink: false,
 			disposition: 0,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Dabus.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Dabus.png' },
 		},
 	},
 	items: [
@@ -364,7 +364,7 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
 	data: {
 		name: 'Harmonium Agent',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/character-images/PGFactionHarmonium.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/PGFactionHarmonium.webp',
 		system: {
 			abilities: {
 				str: { mod: 4 },
@@ -417,7 +417,7 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
 			displayName: 20,
 			actorLink: false,
 			disposition: 1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Harmonium.png' },
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Harmonium.png' },
 		},
 	},
 	items: [
@@ -444,7 +444,7 @@ export const ANARCHIST: HarbingerNPC = {
 	data: {
 		name: 'Anarchist',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/anarchist.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/anarchist.webp',
 		system: {
 			abilities: {
 				str: { mod: 4 },
@@ -534,7 +534,7 @@ export const XERO_BAOX: HarbingerNPC = {
 	data: {
 		name: 'Xero Baox',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/xero-baox.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/xero-baox.webp',
 		system: {
 			abilities: {
 				str: { mod: 5 },
@@ -612,7 +612,7 @@ export const LADYS_CULTIST: HarbingerNPC = {
 	data: {
 		name: "Lady's Cultist",
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/cultist.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/cultist.webp',
 		system: {
 			abilities: {
 				str: { mod: 0 },
@@ -685,7 +685,7 @@ export const BARMY: HarbingerNPC = {
 	data: {
 		name: 'Barmy',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/barmy.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/barmy.webp',
 		system: {
 			abilities: {
 				str: { mod: 2 },
@@ -771,7 +771,7 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
 	data: {
 		name: 'Godsman Caretaker',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/godsman.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/godsman.webp',
 		system: {
 			abilities: {
 				str: { mod: 1 },
