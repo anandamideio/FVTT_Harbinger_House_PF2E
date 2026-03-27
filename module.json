@@ -37,7 +37,78 @@
 		}
 	],
 	"packs": [
-
+		{
+			"name": "harbinger-house-npcs",
+			"label": "Harbinger House NPCs",
+			"path": "packs/harbinger-house-npcs",
+			"type": "Actor",
+			"ownership": {
+				"PLAYER": "OBSERVER",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "pf2e",
+			"flags": {}
+		},
+		{
+			"name": "harbinger-house-items",
+			"label": "Harbinger House Items",
+			"path": "packs/harbinger-house-items",
+			"type": "Item",
+			"ownership": {
+				"PLAYER": "OBSERVER",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "pf2e",
+			"flags": {}
+		},
+		{
+			"name": "harbinger-house-hazards",
+			"label": "Harbinger House Hazards",
+			"path": "packs/harbinger-house-hazards",
+			"type": "Actor",
+			"ownership": {
+				"PLAYER": "OBSERVER",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "pf2e",
+			"flags": {}
+		},
+		{
+			"name": "harbinger-house-journals",
+			"label": "Harbinger House Adventure",
+			"path": "packs/harbinger-house-journals",
+			"type": "JournalEntry",
+			"ownership": {
+				"PLAYER": "NONE",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "pf2e",
+			"flags": {}
+		},
+		{
+			"name": "harbinger-house-spells",
+			"label": "Harbinger House Spells",
+			"path": "packs/harbinger-house-spells",
+			"type": "Item",
+			"ownership": {
+				"PLAYER": "OBSERVER",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "pf2e",
+			"flags": {}
+		},
+		{
+			"name": "harbinger-house-scenes",
+			"label": "Harbinger House Maps",
+			"path": "packs/harbinger-house-scenes",
+			"type": "Scene",
+			"ownership": {
+				"PLAYER": "NONE",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "pf2e",
+			"flags": {}
+		}
 	],
 	"flags": {
 		"harbinger-house-pf2e": {
