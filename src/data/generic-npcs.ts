@@ -147,6 +147,13 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 				category: 'fiend',
 			},
 		},
+		prototypeToken: {
+			name: 'Cranium Rat Swarm',
+			displayName: 20,
+			actorLink: false,
+			disposition: -1,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Cranium_Rats.png' },
+		},
 	},
 	items: [
 		createAction(
@@ -310,6 +317,13 @@ export const DABUS: HarbingerNPC = {
 				category: 'generic-npc',
 			},
 		},
+		prototypeToken: {
+			name: 'Dabus',
+			displayName: 20,
+			actorLink: false,
+			disposition: 0,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Dabus.png' },
+		},
 	},
 	items: [
 		createStrike('Tool', 15, { dice: 2, die: '8', type: 'bludgeoning', modifier: 5 }, ['versatile-s']),
@@ -397,6 +411,13 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
 				sourceId: 'harmonium-agent',
 				category: 'generic-npc',
 			},
+		},
+		prototypeToken: {
+			name: 'Harmonium Agent',
+			displayName: 20,
+			actorLink: false,
+			disposition: 1,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Harmonium.png' },
 		},
 	},
 	items: [

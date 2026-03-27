@@ -97,7 +97,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: 1,
-			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/trolan.webp' },
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Trolan.png' },
 		},
 	},
 	items: [
@@ -206,6 +206,13 @@ export const CRIMJAK: HarbingerNPC = {
 				category: 'major-npc',
 			},
 		},
+		prototypeToken: {
+			name: 'Crimjak the Marquis Cambion',
+			displayName: 20,
+			actorLink: true,
+			disposition: -1,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Crimjack.png' },
+		},
 	},
 	items: [
 		systemWeapon('longsword', { potency: 1, striking: 'striking' }, undefined, 'Deals an additional 1d6 evil damage.'),
@@ -296,6 +303,13 @@ export const NARCOVI: HarbingerNPC = {
 				sourceId: 'narcovi',
 				category: 'major-npc',
 			},
+		},
+		prototypeToken: {
+			name: 'Narcovi',
+			displayName: 20,
+			actorLink: true,
+			disposition: 1,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Narcovi.png' },
 		},
 	},
 	items: [
@@ -402,6 +416,13 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 				category: 'major-npc',
 			},
 		},
+		prototypeToken: {
+			name: 'Sougad Lawshredder',
+			displayName: 20,
+			actorLink: true,
+			disposition: -1,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Sougad.png' },
+		},
 	},
 	items: [
 		createStrike(
@@ -475,7 +496,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 	data: {
 		name: 'Pastor Browen',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/browen.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/paster_bowen.webp',
 		system: {
 			abilities: {
 				str: { mod: 3 },
@@ -529,6 +550,13 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 				sourceId: 'pastor-browen',
 				category: 'major-npc',
 			},
+		},
+		prototypeToken: {
+			name: 'Pastor Browen',
+			displayName: 20,
+			actorLink: true,
+			disposition: -1,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Paster Bowen.png' },
 		},
 	},
 	items: [
@@ -623,6 +651,13 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 				sourceId: 'nari-the-schemer',
 				category: 'major-npc',
 			},
+		},
+		prototypeToken: {
+			name: 'Nari the Schemer',
+			displayName: 20,
+			actorLink: true,
+			disposition: -1,
+			texture: { src: 'modules/harbinger-house-pf2e/assets/tokens/Nari.png' },
 		},
 	},
 	items: [
