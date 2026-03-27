@@ -93,7 +93,7 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 	data: {
 		name: 'Cranium Rat Swarm',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/cranium-rats.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/Planescape-CRANIUM-RATS-IN-DISGUISE01.jpg',
 		system: {
 			abilities: {
 				str: { mod: 0 },
@@ -259,7 +259,7 @@ export const DABUS: HarbingerNPC = {
 	data: {
 		name: 'Dabus',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/dabus.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/Dabus.webp',
 		system: {
 			abilities: {
 				str: { mod: 3 },
@@ -350,7 +350,7 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
 	data: {
 		name: 'Harmonium Agent',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/harmonium-agent.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/PGFactionHarmonium.webp',
 		system: {
 			abilities: {
 				str: { mod: 4 },

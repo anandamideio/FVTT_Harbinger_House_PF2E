@@ -43,7 +43,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 	data: {
 		name: 'Trolan the Mad',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/trolan.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/Trolan_The_Mad.png',
 		system: {
 			abilities: {
 				str: { mod: 1 },
@@ -154,7 +154,7 @@ export const CRIMJAK: HarbingerNPC = {
 	data: {
 		name: 'Crimjak the Marquis Cambion',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/crimjak.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/Crimjack.jpg',
 		system: {
 			abilities: {
 				str: { mod: 6 },
@@ -242,7 +242,7 @@ export const NARCOVI: HarbingerNPC = {
 	data: {
 		name: 'Narcovi',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/narcovi.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/Narcovi.webp',
 		system: {
 			abilities: {
 				str: { mod: 4 },
@@ -346,7 +346,7 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 	data: {
 		name: 'Sougad Lawshredder',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/sougad.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/Sougad Lawshredder.png',
 		system: {
 			abilities: {
 				str: { mod: 5 },
@@ -562,7 +562,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 	data: {
 		name: 'Nari the Schemer',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/assets/tokens/nari.webp',
+		img: 'modules/harbinger-house-pf2e/assets/character-images/nari_succubus_abyss.png',
 		system: {
 			abilities: {
 				str: { mod: 2 },
