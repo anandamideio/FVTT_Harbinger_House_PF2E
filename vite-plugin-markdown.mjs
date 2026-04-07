@@ -26,11 +26,8 @@ export default function markdownPlugin() {
           // Read the markdown file from project root
           const markdownPath = join(process.cwd(), 'harbinger_house_complete.md');
           const markdown = readFileSync(markdownPath, 'utf-8');
-
-          // Escape the content for safe JavaScript string injection
           const escaped = JSON.stringify(markdown);
 
-          // Export as ES module
           return `export default ${escaped};`;
         } catch (error) {
           console.error('Failed to load harbinger_house_complete.md:', error);

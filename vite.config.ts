@@ -88,7 +88,6 @@ export default defineConfig({
         format: 'es',
       },
     },
-    codeSplitting: false,
   },
   plugins: [
     svelte({

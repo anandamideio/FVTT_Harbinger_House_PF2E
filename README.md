@@ -12,4 +12,5 @@ I started by setting up an OCR pipeline to extract the text from my PDF, and the
 - Pathfinder 2e content by: Paizo Inc.
 - Adventure written by: Bill Slavicsek
 - Original adventure published by: TSR, Inc. in 1996
-- Artwork by: Various artists, sourced from the original adventure and PF2e system compendiums
+- Artwork by: Various artists, sourced from my pdf of the original adventure and PF2e system compendiums
+- Maps by: Reddit user u/Willerman (https://www.reddit.com/r/planescapesetting/comments/1p84ekn/maps_for_harbinger_house/)
