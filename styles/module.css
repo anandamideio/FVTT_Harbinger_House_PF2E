@@ -7,6 +7,64 @@
  * Accent: Amber (#d4a017)
  */
 
+@font-face {
+	font-family: "Exocet Blizzard";
+	src: url("../dist/assets/fonts/exocet-blizzard-heavy.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Exocet Blizzard";
+	src: url("../dist/assets/fonts/exocet-blizzard-medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Exocet Blizzard Light";
+	src: url("../dist/assets/fonts/exocet-blizzard-light.ttf") format("truetype");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Rotis Serif";
+	src: url("../dist/assets/fonts/Rotis Serif Std Regular.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Rotis Serif";
+	src: url("../dist/assets/fonts/Rotis Serif Std 55 Regular.otf") format("opentype");
+	font-weight: 450;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Rotis Serif Bold";
+	src:
+		url("../dist/assets/fonts/Rotis Serif Std Bold.otf") format("opentype"),
+		url("../dist/assets/fonts/Rotis Serif Std 65 Bold.otf") format("opentype");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Rotis Serif Italic";
+	src: url("../dist/assets/fonts/Rotis Serif Std Italic.otf") format("opentype");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
 /* ================================
    harbinger-house-dialog (inline dialog wrapper class)
    ================================ */
@@ -489,7 +547,7 @@
 .journal-sheet.harbinger-journal .editor-content {
 	background: transparent;
 	color: var(--harbinger-text);
-	font-family: "Crimson Text", "Georgia", "Times New Roman", serif;
+	font-family: "Rotis Serif", "Georgia", "Times New Roman", serif;
 	font-size: 14px;
 	line-height: 1.7;
 	padding: 2rem;
@@ -504,7 +562,7 @@ span.page-title {
 .journal-sheet.harbinger-journal h1,
 .journal-sheet.harbinger-journal .journal-entry-content h1 {
 	color: var(--harbinger-primary);
-	font-family: "Cinzel", "Georgia", serif;
+	font-family: "Exocet Blizzard", "Georgia", serif;
 	font-size: 2rem;
 	font-weight: 700;
 	text-align: center;
@@ -519,7 +577,7 @@ span.page-title {
 .journal-sheet.harbinger-journal h2,
 .journal-sheet.harbinger-journal .journal-entry-content h2 {
 	color: var(--harbinger-primary);
-	font-family: "Cinzel", "Georgia", serif;
+	font-family: "Exocet Blizzard Light", "Georgia", serif;
 	font-size: 1.5rem;
 	font-weight: 600;
 	margin: 1.25rem 0 0.75rem 0;
@@ -531,7 +589,7 @@ span.page-title {
 .journal-sheet.harbinger-journal h3,
 .journal-sheet.harbinger-journal .journal-entry-content h3 {
 	color: var(--harbinger-secondary);
-	font-family: "Cinzel", "Georgia", serif;
+	font-family: "Exocet Blizzard Light", "Georgia", serif;
 	font-size: 1.2rem;
 	font-weight: 600;
 	margin: 1rem 0 0.5rem 0;
@@ -560,9 +618,13 @@ span.page-title {
 	margin: 1.5rem 2rem;
 	padding: 1rem 1.5rem;
 	font-style: italic;
-	font-family: "Quattrocento", "Georgia", serif;
+	font-family: "Rotis Serif Italic", "Georgia", "Times New Roman", serif;
 	color: #2a1a0a;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.journal-sheet.harbinger-journal strong {
+	font-family: "Rotis Serif Bold", "Rotis Serif", "Georgia", "Times New Roman", serif;
 }
 
 /* Tables - like stat blocks or inventories */
@@ -575,7 +637,7 @@ span.page-title {
 .journal-sheet.harbinger-journal th {
 	background: var(--harbinger-secondary);
 	color: var(--harbinger-parchment);
-	font-family: "Cinzel", serif;
+	font-family: "Exocet Blizzard Light", "Exocet Blizzard", "Georgia", serif;
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 1px;
@@ -651,7 +713,7 @@ span.page-title {
 
 .journal-sheet.harbinger-journal .window-title {
 	color: var(--harbinger-accent);
-	font-family: "Cinzel", serif;
+	font-family: "Exocet Blizzard", "Georgia", serif;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 	letter-spacing: 1px;
 }
