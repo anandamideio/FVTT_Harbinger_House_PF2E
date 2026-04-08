@@ -11,11 +11,14 @@ function getNextDevVersion() {
   try {
     const raw = execSync('git tag --sort=-version:refname').toString().trim();
     const tags = raw.split('\n').filter(t => /^v?\d+\.\d+\.\d+$/.test(t.trim()));
-    if (tags.length === 0) return '0.0.1-dev';
-    const [major, minor, patch] = tags[0].trim().replace(/^v/, '').split('.').map(Number);
-    return `${major}.${minor}.${patch + 1}-dev`;
+    const base = tags.length === 0
+      ? '0.0.1'
+      : (() => { const [major, minor, patch] = tags[0].trim().replace(/^v/, '').split('.').map(Number); return `${major}.${minor}.${patch + 1}`; })();
+    // Include a timestamp so each local build gets a unique version,
+    // which triggers the update dialog when content data changes
+    return `${base}-dev.${Date.now()}`;
   } catch {
-    return '0.0.1-dev';
+    return `0.0.1-dev.${Date.now()}`;
   }
 }
 
