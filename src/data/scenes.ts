@@ -26,6 +26,10 @@ export interface HarbingerScene {
 	/** Navigation order */
 	navigation: boolean;
 	navOrder: number;
+	/** If false, players do not need a token with vision on this scene */
+	tokenVision?: boolean;
+	/** If false, scene fog exploration progress is not recorded */
+	fogExploration?: boolean;
 	/** Folder for organization */
 	folder?: string;
 	sort?: number;
@@ -36,6 +40,33 @@ export interface HarbingerScene {
  * Organized by floor/area
  */
 export const ALL_SCENES: HarbingerScene[] = [
+	{
+		id: 'scene-sigil',
+		name: 'Sigil',
+		img: 'modules/harbinger-house-pf2e/dist/assets/maps/Sigil.jpg',
+		background: {
+			src: 'modules/harbinger-house-pf2e/dist/assets/maps/Sigil.jpg',
+		},
+		grid: {
+			type: 1,
+			size: 70,
+			distance: 5,
+			units: 'ft',
+		},
+		initial: {
+			x: null,
+			y: null,
+			scale: 1,
+		},
+		width: 6400,
+		height: 4400,
+		navigation: true,
+		navOrder: -1,
+		tokenVision: false,
+		fogExploration: false,
+		folder: 'Harbinger House',
+		sort: 0,
+	},
 	{
 		id: 'scene-first-floor',
 		name: 'Harbinger House - First Floor',

@@ -1092,6 +1092,9 @@ declare global {
 			distance: number;
 			units: string;
 		};
+		fog?: {
+			exploration?: boolean;
+		};
 		tokenVision?: boolean;
 		fogExploration?: boolean;
 		fogReset?: number;

@@ -14,6 +14,7 @@ I started by setting up an OCR pipeline to extract the text from my PDF, and the
 - Original adventure published by: TSR, Inc. in 1996
 - Artwork by: Various artists, sourced from my pdf of the original adventure and PF2e system compendiums
 - Maps by: [Reddit user u/Willerman](https://www.reddit.com/r/planescapesetting/comments/1p84ekn/maps_for_harbinger_house/)
+- Rooftop Map By [Tych Maps](https://www.patreon.com/cw/tychmaps)
 - Parchment texture image from [My Free Textures](https://www.myfreetextures.com/wp-content/uploads/2011/06/another-rough-old-and-worn-parchment-paper.jpg)
 - Exocet font: [WFonts](https://www.wfonts.com/font/exocet)
 - Rotis Serif font: [Fonts Geek](https://fontsgeek.com/rotis-serif-std-font)

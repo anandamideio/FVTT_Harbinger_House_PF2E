@@ -4,7 +4,7 @@ import { log, logDebug, logError, logWarn, MODULE_ID } from './config';
  * Pre-computed deterministic IDs matching build-packs.ts output.
  * Generated via: MD5(sourceId).substring(0, 16)
  */
-const STARTING_SCENE_ID = 'aca450c8288821de'; // scene-first-floor
+const STARTING_SCENE_ID = '851e935c54e67e62'; // scene-sigil
 const GETTING_STARTED_JOURNAL_ID = '373d8b09682157da'; // journal-1
 
 /** Background image for login screen customization */
@@ -919,7 +919,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	}
 
 	/**
-	 * Activate the starting scene (First Floor) after import.
+	 * Activate the starting scene (Sigil) after import.
 	 */
 	async #activateStartingScene() {
 		try {

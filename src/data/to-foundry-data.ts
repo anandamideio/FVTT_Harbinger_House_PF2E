@@ -248,6 +248,9 @@ export function journalToDocumentData(journal: HarbingerJournal): JournalEntryDa
 // ============================================================================
 
 export function sceneToDocumentData(scene: HarbingerScene): SceneData {
+	const tokenVision = scene.tokenVision ?? true;
+	const fogExploration = scene.fogExploration ?? true;
+
 	return {
 		name: scene.name,
 		img: scene.img,
@@ -273,8 +276,11 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 			distance: scene.grid.distance,
 			units: scene.grid.units,
 		},
-		tokenVision: true,
-		fogExploration: true,
+		tokenVision,
+		fogExploration,
+		fog: {
+			exploration: fogExploration,
+		},
 		fogReset: Date.now(),
 		globalLight: false,
 		globalLightThreshold: null,
