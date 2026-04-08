@@ -1883,24 +1883,25 @@ When the PCs enter this room, Aztral picks the most powerful-looking one to abso
 
 During the encounter, Aztral keeps asking the PCs if any of them have a lawful outlook on life. "Are you lawful? You look like a lawful sod. You should head right up to the party. There's a place at Nari's table for lawful sods like you." He doesn't provide any further information about the party or Nari.
 
-**Aztral of the Many Faces** (Pl/♂ human/F4/—/CE)
-
-| Stat | Value |
-|---|---|
-| THAC0 | 17 |
-| #AT | 1 |
-| Dmg | 1d2 (wooden spoon) |
-| AC | 6 (Dex bonus) |
-| hp | 26 |
-| MV | 12 |
-| MR | 25% |
-| SZ | M (6 feet tall) |
-| ML | champion (15) |
-| XP | 1,400 |
-
-**Special Abilities**
-- SA: innate ability (absorption)
-Str 11, Dex 18, Con 13, Int 14, Wis 8, Cha 11.
+> [!statblock]
+> **Aztral of the Many Faces** (Pl/♂ human/F4/—/CE)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 17 |
+> | #AT | 1 |
+> | Dmg | 1d2 (wooden spoon) |
+> | AC | 6 (Dex bonus) |
+> | hp | 26 |
+> | MV | 12 |
+> | MR | 25% |
+> | SZ | M (6 feet tall) |
+> | ML | champion (15) |
+> | XP | 1,400 |
+>
+> **Special Abilities**
+> - SA: innate ability (absorption)
+> Str 11, Dex 18, Con 13, Int 14, Wis 8, Cha 11.
 
 ### 8. Hall of Doors
 
@@ -1935,24 +1936,25 @@ If the PCs do calm Galkin down, he tells them what little he knows about Nari.
 
 **DM Note:** If the PCs open any of the windows in this room, they simply find themselves looking out of one of the House's towers, high above Sigil's streets.
 
-**Galkin Farseer** (Pl/♂ human/F10/Bleak Cabal/CN)
-
-| Stat | Value |
-|---|---|
-| THAC0 | 11 |
-| #AT | 3/2 |
-| Dmg | 1d6+2 (short sword of quickness +2) |
-| AC | 8 (Dex bonus) |
-| hp | 64 |
-| MV | 12 |
-| MR | 10% |
-| SZ | M (5 feet tall) |
-| ML | fanatic (18) |
-| XP | 5,000 |
-
-**Special Abilities**
-- SA: Strength bonus (+1 to damage rolls), innate ability (becomes a lightning bolt at will on a successful Constitution check; causes 6d6 points of damage per attack and moves at the speed of light)
-Str 16, Dex 16, Con 14, Int 15, Wis 10, Cha 12.
+> [!statblock]
+> **Galkin Farseer** (Pl/♂ human/F10/Bleak Cabal/CN)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 11 |
+> | #AT | 3/2 |
+> | Dmg | 1d6+2 (short sword of quickness +2) |
+> | AC | 8 (Dex bonus) |
+> | hp | 64 |
+> | MV | 12 |
+> | MR | 10% |
+> | SZ | M (5 feet tall) |
+> | ML | fanatic (18) |
+> | XP | 5,000 |
+>
+> **Special Abilities**
+> - SA: Strength bonus (+1 to damage rolls), innate ability (becomes a lightning bolt at will on a successful Constitution check; causes 6d6 points of damage per attack and moves at the speed of light)
+> Str 16, Dex 16, Con 14, Int 15, Wis 10, Cha 12.
 
 ### 11-18. The Twins
 
@@ -1984,24 +1986,25 @@ Vorina has bright blond hair, blue eyes, and tanned, healthy skin. If the PCs ha
 > [!read-aloud]
 > "Many of the residents have disappeared," Vorina explains. "I don't want to join them."
 
-**Vorina** (Pl/♀ human/P9/Society of Sensation/CG)
-
-| Stat | Value |
-|---|---|
-| THAC0 | 16 |
-| #AT | 1 |
-| Dmg | 1d3 (fists) |
-| AC | 8 (Dex bonus) |
-| hp | 38 |
-| MV | 12 |
-| MR | 30% |
-| SZ | M (6 feet tall) |
-| ML | steady (12) |
-| XP | 3,000 |
-
-**Special Abilities**
-- SA: cleric spells (4 1st-level, 4 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level), innate abilities (*create food and water* [three times per day], *heal* [two times per day], *plant growth* [three times per day], *purify food and drink* [three times per day])
-Str 9, Dex 16, Con 18, Int 12, Wis 16, Cha 17.
+> [!statblock]
+> **Vorina** (Pl/♀ human/P9/Society of Sensation/CG)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 16 |
+> | #AT | 1 |
+> | Dmg | 1d3 (fists) |
+> | AC | 8 (Dex bonus) |
+> | hp | 38 |
+> | MV | 12 |
+> | MR | 30% |
+> | SZ | M (6 feet tall) |
+> | ML | steady (12) |
+> | XP | 3,000 |
+>
+> **Special Abilities**
+> - SA: cleric spells (4 1st-level, 4 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level), innate abilities (*create food and water* [three times per day], *heal* [two times per day], *plant growth* [three times per day], *purify food and drink* [three times per day])
+> Str 9, Dex 16, Con 18, Int 12, Wis 16, Cha 17.
 
 ### 14. Vorina's Bedchamber
 
@@ -2026,49 +2029,51 @@ Teela won't say much about Nari, except to remark that opposing her is fruitless
 > [!read-aloud]
 > "Every new power needs worshipers," Teela says. "Bow down before Nari or die."
 
-**Teela** (Pl/♀ human/W9/Dustmen/CE)
-
-| Stat | Value |
-|---|---|
-| THAC0 | 18 |
-| #AT | 1 |
-| Dmg | 1d4+1 (staff of withering) |
-| AC | 6 (bracers of AC 6) |
-| hp | 21 |
-| MV | 12 |
-| MR | 30% |
-| SZ | M (6 feet tall) |
-| ML | champion (16) |
-| XP | 9,000 |
-
-**Special Abilities**
-- SA: wizard spells (4 1st-level, 3 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level); innate abilities (*cause light wounds* [three times per day], *energy drain* [two times per day], *harm* [reverse of heal, once per day], *vampiric touch* [three times per day])
-Str 11, Dex 12, Con 8, Int 17, Wis 12, Cha 9.
+> [!statblock]
+> **Teela** (Pl/♀ human/W9/Dustmen/CE)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 18 |
+> | #AT | 1 |
+> | Dmg | 1d4+1 (staff of withering) |
+> | AC | 6 (bracers of AC 6) |
+> | hp | 21 |
+> | MV | 12 |
+> | MR | 30% |
+> | SZ | M (6 feet tall) |
+> | ML | champion (16) |
+> | XP | 9,000 |
+>
+> **Special Abilities**
+> - SA: wizard spells (4 1st-level, 3 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level); innate abilities (*cause light wounds* [three times per day], *energy drain* [two times per day], *harm* [reverse of heal, once per day], *vampiric touch* [three times per day])
+> Str 11, Dex 12, Con 8, Int 17, Wis 12, Cha 9.
 
 ### 17. Teela's Bath
 
 A sunken tub fills much of the tile-covered floor in this chamber. The entire place looks like a swamp, as molds and slimes grow across the tiles, over the walls and ceiling, and atop the foul, stagnant water. If the PCs poke around in here, they encounter Teela's pets — a gray ooze and a brown mold.
 
-**Gray Ooze (1)**
-
-| Stat | Value |
-|---|---|
-| THAC0 | 17 |
-| #AT | 1 |
-| Dmg | 2d8 |
-| AC | 8 |
-| HD | 3+3 |
-| hp | 19 |
-| MV | 1 |
-| SZ | L (10 feet) |
-| Int | animal (1) |
-| AL | N |
-| ML | average (10) |
-| XP | 270 |
-
-**Special Abilities**
-- SA: corrodes metal (chain mail in one round, plate mail in two, magical armor in one round per each plus to AC)
-- SD: immune to spells (except lightning bolt) and fire- and cold-based attacks
+> [!statblock]
+> **Gray Ooze (1)**
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 17 |
+> | #AT | 1 |
+> | Dmg | 2d8 |
+> | AC | 8 |
+> | HD | 3+3 |
+> | hp | 19 |
+> | MV | 1 |
+> | SZ | L (10 feet) |
+> | Int | animal (1) |
+> | AL | N |
+> | ML | average (10) |
+> | XP | 270 |
+>
+> **Special Abilities**
+> - SA: corrodes metal (chain mail in one round, plate mail in two, magical armor in one round per each plus to AC)
+> - SD: immune to spells (except lightning bolt) and fire- and cold-based attacks
 
 **Brown Mold (1):**
 AC 9; MV 0; SA Freezing (drains heat equal to 4d8 points of damage per round from victims within 5 feet); SD absorbs heat (a torch makes it double in size, flaming oil makes it quadruple, fireball-like spells make it grow eightfold); SZ S (2-foot-wide patch); Int non (0); AL N; XP 15.
@@ -2091,24 +2096,25 @@ When the PCs arrive, Gorg approaches them in manic glee and tries to turn as man
 
 **DM Note:** Area 27 contains two *stone to flesh* scrolls, which can be used to restore any PCs who succumb to Gorg's gaze attack.
 
-**Gorg Redeyes** (Pl/♂ bariaur/I3/Free League/CN)
-
-| Stat | Value |
-|---|---|
-| THAC0 | 19 |
-| #AT | 1 |
-| Dmg | 1d4 (dagger) |
-| AC | 6 |
-| hp | 13 |
-| MV | 15 |
-| MR | 35% |
-| SZ | L (7 feet tall) |
-| ML | champion (15) |
-| XP | 975 |
-
-**Special Abilities**
-- SA: wizard spells (2 1st-level), innate ability (gaze turns flesh creatures to stone [three times per day])
-Str 14, Dex 12, Con 13, Int 13, Wis 10, Cha 16.
+> [!statblock]
+> **Gorg Redeyes** (Pl/♂ bariaur/I3/Free League/CN)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 19 |
+> | #AT | 1 |
+> | Dmg | 1d4 (dagger) |
+> | AC | 6 |
+> | hp | 13 |
+> | MV | 15 |
+> | MR | 35% |
+> | SZ | L (7 feet tall) |
+> | ML | champion (15) |
+> | XP | 975 |
+>
+> **Special Abilities**
+> - SA: wizard spells (2 1st-level), innate ability (gaze turns flesh creatures to stone [three times per day])
+> Str 14, Dex 12, Con 13, Int 13, Wis 10, Cha 16.
 
 ### 21. The Rock Garden
 
