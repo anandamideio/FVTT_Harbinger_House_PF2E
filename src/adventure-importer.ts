@@ -5,6 +5,7 @@ import { log, logDebug, logError, logWarn, MODULE_ID } from './config';
  * Generated via: MD5(sourceId).substring(0, 16)
  */
 const STARTING_SCENE_ID = '851e935c54e67e62'; // scene-sigil
+const STARTING_SCENE_SOURCE_ID = 'scene-sigil';
 const GETTING_STARTED_JOURNAL_ID = '373d8b09682157da'; // journal-1
 
 /** Background image for login screen customization */
@@ -923,13 +924,34 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 */
 	async #activateStartingScene() {
 		try {
-			let lookupStrategy: 'deterministic-id' | 'module-flag' | 'none' = 'none';
+			let lookupStrategy:
+				| 'deterministic-id'
+				| 'module-source-id'
+				| 'scene-name'
+				| 'module-flag'
+				| 'none' = 'none';
 
 			// Try to find by deterministic ID first
 			let scene = game.scenes?.find(
 				(s: FoundryDocument) => s.id === STARTING_SCENE_ID,
 			);
 			if (scene) lookupStrategy = 'deterministic-id';
+
+			// Prefer a stable sourceId lookup in case imported world IDs differ.
+			if (!scene) {
+				scene = game.scenes?.find(
+					(s: FoundryDocument) => s.flags?.[MODULE_ID]?.sourceId === STARTING_SCENE_SOURCE_ID,
+				);
+				if (scene) lookupStrategy = 'module-source-id';
+			}
+
+			// Additional fallback for legacy worlds or migrated imports.
+			if (!scene) {
+				scene = game.scenes?.find(
+					(s: FoundryDocument) => s.flags?.[MODULE_ID] !== undefined && s.name === 'Sigil',
+				);
+				if (scene) lookupStrategy = 'scene-name';
+			}
 
 			// Fallback: find the first scene from our module
 			if (!scene) {
@@ -941,6 +963,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 
 			if (scene) {
 				await (scene as SceneClass).activate();
+				await Promise.resolve((scene as unknown as { view: () => unknown }).view());
 				this.#debug('activateStartingScene found scene', {
 					lookupStrategy,
 					sceneId: scene.id,
