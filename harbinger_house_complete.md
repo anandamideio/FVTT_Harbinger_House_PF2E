@@ -2131,85 +2131,89 @@ If Trolan is present, Tomin laughs hysterically.
 > [!read-aloud]
 > "The Lady can't see you here," he cackles. "She can't see any of us! That's why Nari's going to win! I love her!"
 
-**Tomin** (Pl/♂ human/F7/Believers of the Source/CE)
+> [!statblock]
+> **Tomin** (Pl/♂ human/F7/Believers of the Source/CE)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 14 |
+> | #AT | 3/2 |
+> | Dmg | 2d4+1 (broad sword +1) |
+> | AC | 7 (magical cloak, Dex bonus) |
+> | hp | 49 |
+> | MV | 12 |
+> | MR | 25% |
+> | SZ | M (6 feet tall) |
+> | ML | fanatic (18) |
+> | XP | 3,000 |
+>
+> **Special Abilities**
+> - SA: Strength bonus (+1 to attack and damage rolls), innate ability (create figments calls forth four small figments, two medium figments, or one large figment every round)
+> - SD: immune to charm and illusion spells
+> Str 17, Dex 15, Con 15, Int 13, Wis 14, Cha 12.
 
-| Stat | Value |
-|---|---|
-| THAC0 | 14 |
-| #AT | 3/2 |
-| Dmg | 2d4+1 (broad sword +1) |
-| AC | 7 (magical cloak, Dex bonus) |
-| hp | 49 |
-| MV | 12 |
-| MR | 25% |
-| SZ | M (6 feet tall) |
-| ML | fanatic (18) |
-| XP | 3,000 |
+> [!statblock]
+> **Figment, Small**
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 19 |
+> | #AT | 1 |
+> | Dmg | 1d4+1 |
+> | AC | 8 |
+> | HD | 2+1 |
+> | hp | 9 |
+> | MV | 6 |
+> | SZ | S (3 feet tall) |
+> | Int | animal (1) |
+> | AL | N |
+> | ML | champion (16) |
+> | XP | 120 |
+>
+> **Special Abilities**
+> - SD: +1 weapons or better to hit
 
-**Special Abilities**
-- SA: Strength bonus (+1 to attack and damage rolls), innate ability (create figments calls forth four small figments, two medium figments, or one large figment every round)
-- SD: immune to charm and illusion spells
-Str 17, Dex 15, Con 15, Int 13, Wis 14, Cha 12.
+> [!statblock]
+> **Figment, Medium**
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 15 |
+> | #AT | 2 |
+> | Dmg | 1d6+2 |
+> | AC | 4 |
+> | HD | 5+2 |
+> | hp | 26 |
+> | MV | 9 |
+> | SZ | M (6 feet tall) |
+> | Int | semi (3) |
+> | AL | N |
+> | ML | fanatic (17) |
+> | XP | 420 |
+>
+> **Special Abilities**
+> - SD: +1 weapons or better to hit
 
-**Figment, Small**
-
-| Stat | Value |
-|---|---|
-| THAC0 | 19 |
-| #AT | 1 |
-| Dmg | 1d4+1 |
-| AC | 8 |
-| HD | 2+1 |
-| hp | 9 |
-| MV | 6 |
-| SZ | S (3 feet tall) |
-| Int | animal (1) |
-| AL | N |
-| ML | champion (16) |
-| XP | 120 |
-
-**Special Abilities**
-- SD: +1 weapons or better to hit
-
-**Figment, Medium**
-
-| Stat | Value |
-|---|---|
-| THAC0 | 15 |
-| #AT | 2 |
-| Dmg | 1d6+2 |
-| AC | 4 |
-| HD | 5+2 |
-| hp | 26 |
-| MV | 9 |
-| SZ | M (6 feet tall) |
-| Int | semi (3) |
-| AL | N |
-| ML | fanatic (17) |
-| XP | 420 |
-
-**Special Abilities**
-- SD: +1 weapons or better to hit
-
-**Figment, Large**
-
-| Stat | Value |
-|---|---|
-| THAC0 | 13 |
-| #AT | 3 |
-| Dmg | 1d8+3 |
-| AC | 0 |
-| HD | 8+3 |
-| hp | 43 |
-| MV | 12 |
-| SZ | L (9 feet tall) |
-| Int | low (5) |
-| AL | N |
-| ML | fearless (19) |
-| XP | 1,400 |
-
-**Special Abilities**
-- SD: +2 weapons or better to hit
+> [!statblock]
+> **Figment, Large**
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 13 |
+> | #AT | 3 |
+> | Dmg | 1d8+3 |
+> | AC | 0 |
+> | HD | 8+3 |
+> | hp | 43 |
+> | MV | 12 |
+> | SZ | L (9 feet tall) |
+> | Int | low (5) |
+> | AL | N |
+> | ML | fearless (19) |
+> | XP | 1,400 |
+>
+> **Special Abilities**
+> - SD: +2 weapons or better to hit
 
 ### 22. Corridor of Doors
 
@@ -2251,24 +2255,25 @@ Kaydi becomes a demipower of sleep with the following spell-like abilities: *dee
 
 **The Real Chant:** If Kaydi does become a power, the focrux protects her from the Lady of Pain's notice. A property of Sigil itself, however, affects powers who somehow wind up in the city. They feel pain that starts as a dull ache but builds to intolerable levels within 1d4 hours, at which time they must leave the Cage to escape the pain.
 
-**Kaydi** (Pl/♀ human/0/—/NG)
-
-| Stat | Value |
-|---|---|
-| THAC0 | 20 |
-| #AT | 1 |
-| Dmg | by weapon |
-| AC | 10 |
-| hp | 6 |
-| MV | 12 |
-| MR | 15% |
-| SZ | M (5 feet tall) |
-| ML | average (9) |
-| XP | 65 |
-
-**Special Abilities**
-- SA: innate ability (stupor field)
-Str 7, Dex 8, Con 8, Int 11, Wis 9, Cha 13.
+> [!statblock]
+> **Kaydi** (Pl/♀ human/0/—/NG)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 20 |
+> | #AT | 1 |
+> | Dmg | by weapon |
+> | AC | 10 |
+> | hp | 6 |
+> | MV | 12 |
+> | MR | 15% |
+> | SZ | M (5 feet tall) |
+> | ML | average (9) |
+> | XP | 65 |
+>
+> **Special Abilities**
+> - SA: innate ability (stupor field)
+> Str 7, Dex 8, Con 8, Int 11, Wis 9, Cha 13.
 
 ### 24. Common Hall
 
@@ -2315,25 +2320,26 @@ Chance has a few innate powers that help him. First, he's extremely lucky. All g
 
 If the battle goes badly for Chance, he dives through the mirror to hide in his secret room. If the PCs follow, they find him rolling his dice over and over, trying to decide what to do.
 
-**Chance** (Pl/♂ human/T8/Fated/CE)
-
-| Stat | Value |
-|---|---|
-| THAC0 | 17 |
-| #AT | 1 |
-| Dmg | 1d6+1 (short sword +1) |
-| AC | 3 (studded leather, Dex bonus) |
-| hp | 32 |
-| MV | 12 |
-| MR | 45% |
-| SZ | M (5 feet tall) |
-| ML | elite (13) |
-| XP | 3,000 |
-
-**Special Abilities**
-- SA: backstab damage x3, innate abilities (extreme luck, field of bad luck)
-- SD: tumbling (AC reduced to -1 when this is the only action Chance takes in a round)
-Str 15, Dex 18, Con 11, Int 14, Wis 8, Cha 15.
+> [!statblock]
+> **Chance** (Pl/♂ human/T8/Fated/CE)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 17 |
+> | #AT | 1 |
+> | Dmg | 1d6+1 (short sword +1) |
+> | AC | 3 (studded leather, Dex bonus) |
+> | hp | 32 |
+> | MV | 12 |
+> | MR | 45% |
+> | SZ | M (5 feet tall) |
+> | ML | elite (13) |
+> | XP | 3,000 |
+>
+> **Special Abilities**
+> - SA: backstab damage x3, innate abilities (extreme luck, field of bad luck)
+> - SD: tumbling (AC reduced to -1 when this is the only action Chance takes in a round)
+> Str 15, Dex 18, Con 11, Int 14, Wis 8, Cha 15.
 
 ### 29. Chance's Chamber
 
@@ -2418,28 +2424,29 @@ Sougad either has Bereth (if she was awakened and allowed to wander after the en
 
 **Slipping the Blinds:** If Trolan's absent from the battle, the DM should still have Nari polymorph into the Lady of Pain (so the planarity can record her transformation for later proof that the succubus tricked Trolan). One possible solution: The energy in the shapechanging planarity causes Nari to involuntarily change her own form; each round, she takes on a new appearance, one of which is the Lady of Pain.
 
-**Manes (3 per PC)**
-
-| Stat | Value |
-|---|---|
-| THAC0 | 20 |
-| #AT | 3 |
-| Dmg | 1d2/1d2/1d4 or by weapon |
-| AC | 8 |
-| HD | 1 |
-| hp | 6 each |
-| MV | 6 |
-| MR | 10% |
-| SZ | S (3 feet tall) |
-| Int | semi (2) |
-| AL | CE |
-| XP | 975 |
-
-**Special Abilities**
-- SA: acidic vapor (when slain, manes becomes vapor that causes 1d6 points of damage to all those within 10 feet; save vs. poison to avoid)
-- SD: immune to mind-affecting spells, electricity, nonmagical fire, and poison; half damage from cold, magical fire, and gas
-
-**Spell-like abilities** (usable at will once per round): darkness 15' radius, infravision, and teleport without error.
+> [!statblock]
+> **Manes (3 per PC)**
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 20 |
+> | #AT | 3 |
+> | Dmg | 1d2/1d2/1d4 or by weapon |
+> | AC | 8 |
+> | HD | 1 |
+> | hp | 6 each |
+> | MV | 6 |
+> | MR | 10% |
+> | SZ | S (3 feet tall) |
+> | Int | semi (2) |
+> | AL | CE |
+> | XP | 975 |
+>
+> **Special Abilities**
+> - SA: acidic vapor (when slain, manes becomes vapor that causes 1d6 points of damage to all those within 10 feet; save vs. poison to avoid)
+> - SD: immune to mind-affecting spells, electricity, nonmagical fire, and poison; half damage from cold, magical fire, and gas
+>
+> **Spell-like abilities** (usable at will once per round): darkness 15' radius, infravision, and teleport without error.
 
 The DM should finish up the third round and let everyone make a new initiative roll. The NPCs each take the following actions on their initiative numbers, depending on the actions of the PCs:
 
