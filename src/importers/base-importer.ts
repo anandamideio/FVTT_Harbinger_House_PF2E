@@ -8,6 +8,13 @@ export interface ImportResult {
 	documents: FoundryDocument[];
 }
 
+export interface RefreshResult {
+	updated: number;
+	skipped: number;
+	failed: number;
+	errors: string[];
+}
+
 export interface ImportOptions {
 	/** Target folder name for imported content */
 	folderName?: string;
@@ -322,6 +329,88 @@ export abstract class BaseImporter<T, C extends DocumentClass = DocumentClass> {
 		documentData: DocumentDataFor<C>,
 	): Promise<DocumentDataFor<C>> {
 		return documentData;
+	}
+
+	/**
+	 * Refresh world documents that were previously imported from a compendium pack.
+	 * Compares each world document (matched by sourceId) with the latest compendium
+	 * version and updates it if the data has changed.
+	 */
+	async refreshFromCompendium(
+		packId: string,
+		options: { onProgress?: (current: number, total: number, name: string) => void } = {},
+	): Promise<RefreshResult> {
+		const result: RefreshResult = { updated: 0, skipped: 0, failed: 0, errors: [] };
+
+		const pack = game.packs.get(packId);
+		if (!pack) {
+			result.errors.push(`Compendium pack not found: ${packId}`);
+			return result;
+		}
+
+		const collection = this.getCollection();
+		if (!collection) return result;
+
+		// Get all world documents imported by this module
+		const importedDocs = collection.filter(
+			(doc) => doc.flags?.[MODULE_ID]?.imported === true,
+		);
+		if (importedDocs.length === 0) return result;
+
+		// Load all compendium documents and index them by sourceId
+		const compendiumDocs = await pack.getDocuments();
+		const compendiumBySourceId = new Map<string, FoundryDocument>();
+		for (const doc of compendiumDocs) {
+			const sourceId = doc.flags?.[MODULE_ID]?.sourceId as string | undefined;
+			if (sourceId) compendiumBySourceId.set(sourceId, doc);
+		}
+
+		let processed = 0;
+		for (const worldDoc of importedDocs) {
+			const sourceId = worldDoc.flags?.[MODULE_ID]?.sourceId as string | undefined;
+			if (!sourceId) {
+				result.skipped++;
+				processed++;
+				continue;
+			}
+
+			const compendiumDoc = compendiumBySourceId.get(sourceId);
+			if (!compendiumDoc) {
+				result.skipped++;
+				processed++;
+				continue;
+			}
+
+			try {
+				// Get fresh data from compendium
+				const freshData = compendiumDoc.toObject() as Record<string, unknown>;
+				delete freshData._id;
+
+				// Preserve world document's folder assignment
+				freshData.folder = (worldDoc as unknown as Record<string, unknown>).folder ?? null;
+
+				// Run post-processing (e.g., resolve system actor/item references for NPCs)
+				let processedData = freshData as unknown as DocumentDataFor<C>;
+				processedData = await this.postProcessCompendiumImport(compendiumDoc, processedData);
+
+				// Update the world document
+				await worldDoc.update(processedData);
+				result.updated++;
+
+				if (options.onProgress) {
+					options.onProgress(++processed, importedDocs.length, worldDoc.name || 'Unknown');
+				}
+			} catch (error) {
+				const errorMsg = `Failed to refresh ${worldDoc.name}: ${error}`;
+				logError(errorMsg);
+				result.errors.push(errorMsg);
+				result.failed++;
+				processed++;
+			}
+		}
+
+		log(`Content refresh complete: ${result.updated} updated, ${result.skipped} skipped, ${result.failed} failed`);
+		return result;
 	}
 
 	/**
