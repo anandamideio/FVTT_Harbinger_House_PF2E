@@ -5,7 +5,7 @@ import { npcImporter } from './npc-importer';
 import { sceneImporter } from './scene-importer';
 import { spellImporter } from './spell-importer';
 
-export { BaseImporter, type ImportOptions, type ImportResult } from './base-importer';
+export { BaseImporter, type ImportOptions, type ImportResult, type RefreshResult } from './base-importer';
 export { HazardImporter, type HazardImportOptions, hazardImporter } from './hazard-importer';
 export { ItemImporter, type ItemImportOptions, itemImporter } from './item-importer';
 export { JournalImporter, type JournalImportOptions, journalImporter } from './journal-importer';
