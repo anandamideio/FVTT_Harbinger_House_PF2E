@@ -2,6 +2,7 @@ import { mount, unmount } from 'svelte';
 import { MODULE_NAME } from '../config';
 import DeleteContent from './components/DeleteContent.svelte';
 import ImportContent from './components/ImportContent.svelte';
+import UpdateContent from './components/UpdateContent.svelte';
 import WelcomeContent from './components/WelcomeContent.svelte';
 
 function mountInDialog(
@@ -68,6 +69,19 @@ export function showImportDialog(): void {
 			},
 		}),
 		{ width: 500, height: 'auto', classes: ['harbinger-house-import'] },
+	);
+}
+
+export function showUpdateDialog(oldVersion: string, newVersion: string): void {
+	mountInDialog(
+		`${MODULE_NAME} - Update Available`,
+		UpdateContent,
+		(dialog) => ({
+			oldVersion,
+			newVersion,
+			onClose: () => dialog.close(),
+		}),
+		{ width: 450, classes: ['harbinger-house-update'] },
 	);
 }
 

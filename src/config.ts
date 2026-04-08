@@ -22,6 +22,7 @@ export const SETTINGS = {
 	IMPORTED_HAZARDS: 'importedHazards',
 	IMPORTED_JOURNALS: 'importedJournals',
 	SCHEMA_VERSION: 'schemaVersion',
+	INSTALLED_MODULE_VERSION: 'installedModuleVersion',
 	DEBUG_MODE: 'debugMode',
 } as const;
 
@@ -110,6 +111,16 @@ export function registerSettings(): void {
 		config: false,
 		type: Object,
 		default: {},
+	});
+
+	// Track which module version was last active when content was imported/refreshed
+	game.settings.register(MODULE_ID, SETTINGS.INSTALLED_MODULE_VERSION, {
+		name: 'Installed Module Version',
+		hint: 'Tracks the module version to detect content updates',
+		scope: 'world',
+		config: false,
+		type: String,
+		default: '0.0.0',
 	});
 
 	// Debug mode

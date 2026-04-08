@@ -34,7 +34,7 @@ import {
 	spellImporter,
 } from './importers';
 import { registerMigrationSettings, runPendingMigrations } from './migration';
-import { showImportDialog, showWelcomeDialog } from './ui';
+import { showImportDialog, showUpdateDialog, showWelcomeDialog } from './ui';
 
 interface HarbingerHouseAPI {
 	// Import functions
@@ -201,7 +201,7 @@ Hooks.once('setup', async () => {
 /**
  * Ready hook
  * Called when the game is fully loaded and ready
- * This is where we show the import dialog
+ * Handles version detection and shows appropriate dialog
  */
 Hooks.once('ready', async () => {
 	log('Harbinger House module ready');
@@ -212,10 +212,7 @@ Hooks.once('ready', async () => {
 		`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards, ${summary.journals} journals`,
 	);
 
-	// Only show dialog if:
-	// 1. User is a GM
-	// 2. Setting allows it
-	// 3. PF2e system is active
+	// Only GMs get dialogs and migrations
 	if (!game.user?.isGM) {
 		log('Not a GM, skipping import dialog');
 		return;
@@ -230,12 +227,37 @@ Hooks.once('ready', async () => {
 	// Run pending data migrations before showing any dialogs
 	await runPendingMigrations();
 
-	const showDialog = game.settings.get(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG);
-	if (showDialog) {
-		// Small delay to ensure UI is ready
+	// Version-aware dialog routing
+	const installedVersion = game.settings.get(MODULE_ID, SETTINGS.INSTALLED_MODULE_VERSION) as string;
+	const currentVersion = game.modules.get(MODULE_ID)?.version ?? '0.0.0';
+
+	// Check if any content has been imported into the world
+	const hasImportedContent =
+		game.actors?.some((a) => a.flags?.[MODULE_ID]?.imported === true) ||
+		game.items?.some((i) => i.flags?.[MODULE_ID]?.imported === true) ||
+		(game.journal as Collection<FoundryDocument> | undefined)?.some(
+			(j) => j.flags?.[MODULE_ID]?.imported === true,
+		) ||
+		false;
+
+	if (installedVersion !== '0.0.0' && installedVersion !== currentVersion && hasImportedContent) {
+		// Module was updated — offer to refresh imported content
+		log(`Module updated: ${installedVersion} → ${currentVersion}`);
 		setTimeout(() => {
-			showWelcomeDialog();
+			showUpdateDialog(installedVersion, currentVersion);
 		}, 500);
+	} else if (!hasImportedContent) {
+		// Fresh install or no content imported yet — show welcome/import dialog
+		const showDialog = game.settings.get(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG);
+		if (showDialog) {
+			setTimeout(() => {
+				showWelcomeDialog();
+			}, 500);
+		}
+	} else if (installedVersion === '0.0.0' && hasImportedContent) {
+		// Content exists but no version tracked (upgrade from pre-versioning) — store current
+		await game.settings.set(MODULE_ID, SETTINGS.INSTALLED_MODULE_VERSION, currentVersion);
+		log(`Backfilled installed module version to ${currentVersion}`);
 	}
 });
 
