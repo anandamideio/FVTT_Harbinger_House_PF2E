@@ -27,6 +27,8 @@ type SystemItemReferenceData = {
 
 type ActorImportData = Record<string, unknown> & {
 	name?: string;
+	img?: string;
+	prototypeToken?: Record<string, unknown>;
 	items?: Record<string, unknown>[];
 	flags?: Record<string, Record<string, unknown>>;
 	_stats?: {
@@ -491,6 +493,33 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 						system: sourceData.system,
 						items: sourceData.items,
 					};
+
+					const hasExplicitImage = (value: unknown): value is string =>
+						typeof value === 'string' && value.length > 0 && !value.startsWith('icons/svg/');
+
+					const actorHasPortrait = hasExplicitImage(actor.img);
+					if (!actorHasPortrait && hasExplicitImage(sourceData.img)) {
+						updateData.img = sourceData.img;
+					}
+
+					const actorPrototypeToken =
+						actor.prototypeToken && typeof actor.prototypeToken === 'object'
+							? (actor.prototypeToken as Record<string, unknown>)
+							: undefined;
+					const actorTexture =
+						actorPrototypeToken?.texture && typeof actorPrototypeToken.texture === 'object'
+							? (actorPrototypeToken.texture as Record<string, unknown>)
+							: undefined;
+					const actorHasTokenTexture = hasExplicitImage(actorTexture?.src);
+
+					const sourcePrototypeToken =
+						sourceData.prototypeToken && typeof sourceData.prototypeToken === 'object'
+							? (sourceData.prototypeToken as Record<string, unknown>)
+							: undefined;
+					if (!actorHasTokenTexture && sourcePrototypeToken) {
+						updateData.prototypeToken = sourcePrototypeToken;
+					}
+
 					if (sourceData.effects) {
 						updateData.effects = sourceData.effects;
 					}
