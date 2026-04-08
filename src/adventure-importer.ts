@@ -1,4 +1,4 @@
-import { log, logError, logWarn, MODULE_ID } from './config';
+import { log, logDebug, logError, logWarn, MODULE_ID } from './config';
 
 /**
  * Pre-computed deterministic IDs matching build-packs.ts output.
@@ -34,6 +34,14 @@ type ActorImportData = Record<string, unknown> & {
 	};
 };
 
+function summarizeDocumentCounts(record: unknown): Record<string, number> {
+	if (!record || typeof record !== 'object') return {};
+
+	return Object.fromEntries(
+		Object.entries(record as Record<string, unknown>).map(([type, docs]) => [type, Array.isArray(docs) ? docs.length : 0]),
+	);
+}
+
 /**
  * Custom AdventureImporter for Harbinger House.
  *
@@ -48,6 +56,20 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	constructor(options?: Record<string, unknown>) {
 		super(options);
 		this.options.classes.push('harbinger-house');
+		this.#debug('Importer constructed', {
+			adventureId: this.document?.id,
+			adventureName: this.document?.name,
+			classes: this.options.classes,
+		});
+	}
+
+	#debug(message: string, data?: Record<string, unknown>) {
+		if (data) {
+			logDebug(`[Importer] ${message}`, data);
+			return;
+		}
+
+		logDebug(`[Importer] ${message}`);
 	}
 
 	/**
@@ -55,6 +77,8 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 * These render as checkboxes in the import dialog.
 	 */
 	_prepareImportOptionsSchema() {
+		this.#debug('_prepareImportOptionsSchema invoked');
+
 		const fields = foundry.data.fields;
 		return new fields.SchemaField({
 			customizeLogin: new fields.BooleanField({
@@ -81,10 +105,16 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 * - Converts hints to label tooltips for cleaner UI (AV pattern)
 	 */
 	async _onRender(context: unknown, options: unknown) {
+		this.#debug('_onRender start', {
+			contextType: typeof context,
+			optionsType: typeof options,
+		});
+
 		await super._onRender(context, options);
 
 		// Inject flavor text before the overview section
 		const overview = this.element.querySelector('.adventure-overview');
+		let hintCount = 0;
 		if (overview) {
 			const flavor = document.createElement('blockquote');
 			flavor.className = 'harbinger-flavor';
@@ -96,6 +126,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		for (const fg of Array.from(this.element.querySelectorAll('.import-options .form-group'))) {
 			const hint = fg.querySelector('.hint');
 			if (!hint) continue;
+			hintCount += 1;
 			const label = fg.querySelector('label');
 			if (label) {
 				label.toggleAttribute('data-tooltip', true);
@@ -103,6 +134,84 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			}
 			hint.remove();
 		}
+
+		this.#debug('_onRender complete', {
+			overviewFound: Boolean(overview),
+			hintsConverted: hintCount,
+			rootClasses: this.options.classes,
+		});
+	}
+
+	/**
+	 * V13 currently routes Adventure#import through a V1 sheet lookup internally.
+	 * We pass our callbacks explicitly here so _preImport/_onImport always run.
+	 */
+	async _processSubmitData(
+		event: SubmitEvent,
+		form: HTMLFormElement,
+		formData: { object?: Record<string, unknown> },
+		options?: unknown,
+	): Promise<void> {
+		void event;
+		void options;
+
+		const processed = (formData.object ?? {}) as Record<string, unknown>;
+
+		const coerceBoolean = (value: unknown): boolean | undefined => {
+			if (typeof value === 'boolean') return value;
+			if (typeof value === 'number') return value !== 0;
+			if (typeof value === 'string') {
+				const normalized = value.trim().toLowerCase();
+				if (['true', '1', 'on', 'yes'].includes(normalized)) return true;
+				if (['false', '0', 'off', 'no', ''].includes(normalized)) return false;
+			}
+			return undefined;
+		};
+
+		const readCheckbox = (name: string): HTMLInputElement | null =>
+			form.querySelector<HTMLInputElement>(`input[name="${name}"]`) ??
+			form.querySelector<HTMLInputElement>(`input[name$=".${name}"]`);
+
+		const resolveOption = (key: 'customizeLogin' | 'displayJournal' | 'activateScene', fallback: boolean): boolean => {
+			const fromProcessed = coerceBoolean(processed[key]);
+			if (fromProcessed !== undefined) return fromProcessed;
+
+			const input = readCheckbox(key);
+			if (input) return input.checked;
+
+			return fallback;
+		};
+
+		const customizeLogin = resolveOption('customizeLogin', false);
+		const displayJournal = resolveOption('displayJournal', true);
+		const activateScene = resolveOption('activateScene', true);
+
+		const importOptions: Record<string, unknown> = {
+			...processed,
+			customizeLogin,
+			displayJournal,
+			activateScene,
+			dialog: false,
+			preImport: [this._preImport.bind(this)],
+			postImport: [this._onImport.bind(this)],
+		};
+
+		this.#debug('_processSubmitData invoking Adventure.import with explicit callbacks', {
+			processedKeys: Object.keys(processed),
+			importKeys: Object.keys(importOptions),
+			resolvedOptions: {
+				customizeLogin,
+				displayJournal,
+				activateScene,
+			},
+			formInputs: Array.from(form.querySelectorAll('input[name]')).map((input) =>
+				(input as HTMLInputElement).name,
+			),
+		});
+
+		await (this.document as unknown as {
+			import: (opts: Record<string, unknown>) => Promise<Record<string, unknown>>;
+		}).import(importOptions);
 	}
 
 	/**
@@ -119,33 +228,91 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		},
 		importOptions: Record<string, boolean>,
 	) {
-		void importOptions;
+		log('[Importer] _preImport hook called');
+		this.#debug('_preImport payload', {
+			importOptions,
+			toCreate: summarizeDocumentCounts(data.toCreate),
+			toUpdate: summarizeDocumentCounts(data.toUpdate),
+		});
 
 		if ('Actor' in data.toCreate) {
+			this.#debug('_preImport processing Actor.toCreate', { count: data.toCreate.Actor.length });
 			await this.#resolveActorItemReferences(data.toCreate.Actor);
 			await this.#mergeCompendiumActors(data.toCreate.Actor);
 		}
 		if ('Actor' in data.toUpdate) {
+			this.#debug('_preImport processing Actor.toUpdate', { count: data.toUpdate.Actor.length });
 			await this.#resolveActorItemReferences(data.toUpdate.Actor);
 			await this.#mergeCompendiumActors(data.toUpdate.Actor);
 		}
+
+		this.#debug('_preImport complete');
 	}
 
 	/**
 	 * Post-import: execute enabled option handlers.
 	 */
 	async _onImport(importResult: Record<string, unknown>, importOptions: Record<string, boolean>) {
-		await this.#ensureJournalFolderHierarchy();
+		const options = importOptions as Partial<Record<'customizeLogin' | 'displayJournal' | 'activateScene', boolean>>;
+		const customizeLogin = options.customizeLogin ?? false;
+		const displayJournal = options.displayJournal ?? true;
+		const activateScene = options.activateScene ?? true;
 
-		if (importOptions.customizeLogin) {
-			await this.#customizeLoginScreen();
+		log('[Importer] _onImport hook called');
+		this.#debug('_onImport payload', {
+			importOptions,
+			resolvedOptions: {
+				customizeLogin,
+				displayJournal,
+				activateScene,
+			},
+			created: summarizeDocumentCounts((importResult as { created?: unknown }).created),
+			updated: summarizeDocumentCounts((importResult as { updated?: unknown }).updated),
+		});
+
+		try {
+			this.#debug('_onImport step start: ensureJournalFolderHierarchy');
+			await this.#ensureJournalFolderHierarchy();
+			this.#debug('_onImport step success: ensureJournalFolderHierarchy');
+		} catch (err) {
+			logError('[Importer] _onImport step failed: ensureJournalFolderHierarchy', err);
 		}
-		if (importOptions.displayJournal) {
-			await this.#displayGettingStartedJournal();
+
+		if (customizeLogin) {
+			try {
+				this.#debug('_onImport step start: customizeLoginScreen');
+				await this.#customizeLoginScreen();
+				this.#debug('_onImport step success: customizeLoginScreen');
+			} catch (err) {
+				logError('[Importer] _onImport step failed: customizeLoginScreen', err);
+			}
+		} else {
+			this.#debug('_onImport option disabled: customizeLogin');
 		}
-		if (importOptions.activateScene) {
-			await this.#activateStartingScene();
+		if (displayJournal) {
+			try {
+				this.#debug('_onImport step start: displayGettingStartedJournal');
+				await this.#displayGettingStartedJournal();
+				this.#debug('_onImport step success: displayGettingStartedJournal');
+			} catch (err) {
+				logError('[Importer] _onImport step failed: displayGettingStartedJournal', err);
+			}
+		} else {
+			this.#debug('_onImport option disabled: displayJournal');
 		}
+		if (activateScene) {
+			try {
+				this.#debug('_onImport step start: activateStartingScene');
+				await this.#activateStartingScene();
+				this.#debug('_onImport step success: activateStartingScene');
+			} catch (err) {
+				logError('[Importer] _onImport step failed: activateStartingScene', err);
+			}
+		} else {
+			this.#debug('_onImport option disabled: activateScene');
+		}
+
+		this.#debug('_onImport complete');
 	}
 
 	/**
@@ -153,11 +320,20 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 * into embedded actor items before the import creates/upates world actors.
 	 */
 	async #resolveActorItemReferences(actors: Record<string, unknown>[]) {
+		let actorsWithUnresolved = 0;
+		let resolvedItems = 0;
+
 		for (const rawActor of actors) {
 			const actor = rawActor as ActorImportData;
 			const moduleFlags = actor.flags?.[MODULE_ID] as Record<string, unknown> | undefined;
 			const unresolved = moduleFlags?.unresolvedItems;
 			if (!Array.isArray(unresolved) || unresolved.length === 0) continue;
+
+			actorsWithUnresolved += 1;
+			this.#debug('Resolving unresolved actor item refs', {
+				actor: actor.name ?? 'Unknown',
+				unresolvedCount: unresolved.length,
+			});
 
 			if (!Array.isArray(actor.items)) actor.items = [];
 			const items = actor.items as Record<string, unknown>[];
@@ -182,6 +358,12 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 
 					this.#applySystemItemReferenceOverrides(itemData, ref);
 					items.push(itemData);
+					resolvedItems += 1;
+					this.#debug('Resolved system item reference', {
+						actor: actor.name ?? 'Unknown',
+						uuid: ref.uuid,
+						type: ref.type ?? 'unknown',
+					});
 				} catch (err) {
 					logError(`Failed resolving system item reference for ${actor.name ?? 'Unknown'}:`, err);
 				}
@@ -190,6 +372,12 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			// Prevent stale unresolved data from lingering after we embed concrete items.
 			if (moduleFlags) delete moduleFlags.unresolvedItems;
 		}
+
+		this.#debug('#resolveActorItemReferences complete', {
+			actorsScanned: actors.length,
+			actorsWithUnresolved,
+			resolvedItems,
+		});
 	}
 
 	/**
@@ -259,15 +447,25 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 * Merge canonical system data into actors that reference PF2e compendium entries.
 	 */
 	async #mergeCompendiumActors(actors: Record<string, unknown>[]) {
+		let mergedCount = 0;
+		let skippedNoSource = 0;
+		let skippedNonPf2e = 0;
+
 		for (const rawActor of actors) {
 			const actor = rawActor as ActorImportData;
 			const stats = actor._stats;
 			const moduleFlags = actor.flags?.[MODULE_ID] as { systemActorRef?: string } | undefined;
 			const sourceId = stats?.compendiumSource ?? moduleFlags?.systemActorRef;
-			if (!sourceId) continue;
+			if (!sourceId) {
+				skippedNoSource += 1;
+				continue;
+			}
 
 			// Only merge if the source is from the PF2e system (not our own module)
-			if (!sourceId.startsWith('Compendium.pf2e.')) continue;
+			if (!sourceId.startsWith('Compendium.pf2e.')) {
+				skippedNonPf2e += 1;
+				continue;
+			}
 
 			try {
 				const source = await fromUuid(sourceId);
@@ -283,12 +481,24 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 					// Preserve the compendium source reference
 					updateData['_stats.compendiumSource'] = source.flags?.core?.sourceId ?? sourceId;
 					foundry.utils.mergeObject(actor, updateData);
+					mergedCount += 1;
+					this.#debug('Merged compendium actor data', {
+						actor: actor.name ?? 'Unknown',
+						sourceId,
+					});
 					log(`Merged system data for actor: ${actor.name}`);
 				}
 			} catch (err) {
 				logError(`Failed to merge compendium data for ${actor.name}:`, err);
 			}
 		}
+
+		this.#debug('#mergeCompendiumActors complete', {
+			actorsScanned: actors.length,
+			mergedCount,
+			skippedNoSource,
+			skippedNonPf2e,
+		});
 	}
 
 	/**
@@ -302,6 +512,10 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			(j: FoundryDocument) => j.flags?.[MODULE_ID]?.sourceId !== undefined,
 		);
 		if (journals.length === 0) return;
+
+		this.#debug('Ensuring journal folder hierarchy', {
+			journalCount: journals.length,
+		});
 
 		let root = game.folders.find(
 			(f: FoundryDocument) => f.type === 'JournalEntry' && f.name === 'Harbinger House Adventure',
@@ -361,6 +575,12 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			const folderHint = journal.flags?.[MODULE_ID]?.folder;
 			const target = folderHint === 'Reference' ? reference : chapters;
 			if (journal.folder?.id !== target.id) {
+				this.#debug('Reassigning journal folder', {
+					journal: journal.name,
+					from: journal.folder?.id ?? null,
+					to: target.id,
+					folderHint: typeof folderHint === 'string' ? folderHint : 'Chapters',
+				});
 				await journal.update({ folder: target.id });
 			}
 		}
@@ -384,10 +604,15 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 				background: LOGIN_BACKGROUND,
 			};
 
-			await fetchJsonWithTimeout(foundry.utils.getRoute('setup'), {
+			const response = await fetchJsonWithTimeout(foundry.utils.getRoute('setup'), {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(worldData),
+			});
+
+			this.#debug('customizeLoginScreen response', {
+				status: response.status,
+				ok: response.ok,
 			});
 
 			game.world.updateSource(worldData);
@@ -402,16 +627,20 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 */
 	async #displayGettingStartedJournal() {
 		try {
+			let lookupStrategy: 'deterministic-id' | 'module-flag' | 'any-module-flag' | 'none' = 'none';
+
 			// Try to find by deterministic ID first
 			let journal = game.journal?.find(
 				(j: FoundryDocument) => j.id === GETTING_STARTED_JOURNAL_ID,
 			);
+			if (journal) lookupStrategy = 'deterministic-id';
 
 			// Fallback: find any journal with our flag
 			if (!journal) {
 				journal = game.journal?.find(
 					(j: FoundryDocument) => j.flags?.[MODULE_ID]?.isHarbingerHouse === true,
 				);
+				if (journal) lookupStrategy = 'module-flag';
 			}
 
 			// Fallback: find the first journal from our module
@@ -419,11 +648,19 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 				journal = game.journal?.find(
 					(j: FoundryDocument) => j.flags?.[MODULE_ID] !== undefined,
 				);
+				if (journal) lookupStrategy = 'any-module-flag';
 			}
 
 			if (journal) {
 				(journal as unknown as { sheet: { render: (force: boolean) => void } }).sheet.render(true);
+				this.#debug('displayGettingStartedJournal found journal', {
+					lookupStrategy,
+					journalId: journal.id,
+					journalName: journal.name,
+				});
 				log(`Displaying journal: ${journal.name}`);
+			} else {
+				logWarn('No Harbinger House journal found to display after import');
 			}
 		} catch (err) {
 			logError('Failed to display Getting Started journal:', err);
@@ -435,21 +672,32 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 */
 	async #activateStartingScene() {
 		try {
+			let lookupStrategy: 'deterministic-id' | 'module-flag' | 'none' = 'none';
+
 			// Try to find by deterministic ID first
 			let scene = game.scenes?.find(
 				(s: FoundryDocument) => s.id === STARTING_SCENE_ID,
 			);
+			if (scene) lookupStrategy = 'deterministic-id';
 
 			// Fallback: find the first scene from our module
 			if (!scene) {
 				scene = game.scenes?.find(
 					(s: FoundryDocument) => s.flags?.[MODULE_ID] !== undefined,
 				);
+				if (scene) lookupStrategy = 'module-flag';
 			}
 
 			if (scene) {
 				await (scene as SceneClass).activate();
+				this.#debug('activateStartingScene found scene', {
+					lookupStrategy,
+					sceneId: scene.id,
+					sceneName: scene.name,
+				});
 				log(`Activated starting scene: ${scene.name}`);
+			} else {
+				logWarn('No Harbinger House scene found to activate after import');
 			}
 		} catch (err) {
 			logError('Failed to activate starting scene:', err);
