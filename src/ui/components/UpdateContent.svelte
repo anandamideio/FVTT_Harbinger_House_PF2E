@@ -4,11 +4,12 @@ import {
 	hazardImporter,
 	itemImporter,
 	journalImporter,
+	macroImporter,
 	npcImporter,
 	sceneImporter,
 	spellImporter,
 } from '../../importers';
-import type { RefreshResult } from '../../importers';
+import type { ImportResult, RefreshResult } from '../../importers';
 import ProgressBar from './ProgressBar.svelte';
 
 let {
@@ -45,6 +46,7 @@ async function handleApplyUpdates() {
 			{ id: PACKS.HAZARDS, importer: hazardImporter, label: 'Hazards' },
 			{ id: PACKS.JOURNALS, importer: journalImporter, label: 'Journals' },
 			{ id: PACKS.SCENES, importer: sceneImporter, label: 'Scenes' },
+			{ id: PACKS.MACROS, importer: macroImporter, label: 'Macros' },
 		];
 
 		for (let i = 0; i < packs.length; i++) {
@@ -60,6 +62,24 @@ async function handleApplyUpdates() {
 
 			totalUpdated += result.updated;
 			totalFailed += result.failed;
+
+			// If no world documents existed for this content type, the refresh
+			// had nothing to update. Import from compendium so new content types
+			// added in later module versions are picked up automatically.
+			if (result.updated === 0 && result.skipped === 0 && result.failed === 0) {
+				const compendiumPack = game.packs.get(pack.id);
+				if (compendiumPack && compendiumPack.index.size > 0) {
+					progressText = `Importing new ${pack.label}...`;
+					const importResult: ImportResult = await pack.importer.importFromCompendium(pack.id, {
+						folderName: `Harbinger House ${pack.label}`,
+						onProgress: (_current: number, _total: number, name: string) => {
+							progressText = `Importing ${pack.label}: ${name}`;
+						},
+					});
+					totalUpdated += importResult.imported;
+					totalFailed += importResult.failed;
+				}
+			}
 		}
 
 		progressPercent = 100;
