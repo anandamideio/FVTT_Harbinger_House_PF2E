@@ -27,6 +27,19 @@ const PACKS_DIR = path.resolve(import.meta.dirname, '..', 'packs');
 const SYSTEM_VERSION = '6.0.0';
 const CORE_VERSION = '13.0.0';
 
+// Module ID used for compendium UUID construction
+const MODULE_ID = 'harbinger-house-pf2e';
+
+/**
+ * PF2e schema version to stamp on actors/items.
+ * Matches MigrationRunnerBase.LATEST_SCHEMA_VERSION in the PF2e system codebase.
+ * This tells PF2e's ClientDatabaseBackend that our data is already at the current
+ * schema, preventing redundant in-memory migrations on every compendium fetch.
+ *
+ * Update this when bumping PF2e system compatibility.
+ */
+const PF2E_SCHEMA_VERSION = 0.955;
+
 /**
  * Generate a deterministic 16-character hex ID from a source identifier.
  * This ensures the same content always gets the same _id across builds,
@@ -38,8 +51,9 @@ function generateId(sourceId: string): string {
 
 /**
  * Create _stats metadata that Foundry expects on compendium documents.
+ * @param compendiumSource - Canonical compendium UUID for this document (e.g., Compendium.harbinger-house-pf2e.harbinger-house-npcs.Actor.abc123)
  */
-function createStats() {
+function createStats(compendiumSource?: string) {
 	const now = Date.now();
 	return {
 		systemId: 'pf2e',
@@ -48,7 +62,7 @@ function createStats() {
 		createdTime: now,
 		modifiedTime: now,
 		lastModifiedBy: 'harbinger-house-build',
-		compendiumSource: null,
+		compendiumSource: compendiumSource ?? null,
 		duplicateSource: null,
 	};
 }
@@ -110,13 +124,30 @@ async function writePack(packDef: PackDefinition): Promise<void> {
 		const docBatch = documentDb.batch();
 		const embeddedBatch = embeddedDb?.batch();
 
+		/** Build the canonical compendium UUID for a document */
+		const compendiumUUID = (docType: string, docId: string) =>
+			`Compendium.${MODULE_ID}.${packDef.name}.${docType}.${docId}`;
+
+		/** Whether this pack type should have _migration.version stamped */
+		const needsMigrationStamp = packDef.docType === 'Actor' || packDef.docType === 'Item';
+
 		for (const entry of packDef.entries) {
 			const docId = generateId(entry.id);
+			const docCompendiumSource = compendiumUUID(packDef.docType, docId);
 			const doc: Record<string, unknown> = {
 				...entry.data,
 				_id: docId,
-				_stats: createStats(),
+				_stats: createStats(docCompendiumSource),
 			};
+
+			// Stamp _migration.version on actors and items so PF2e's migration runner
+			// knows this data is already at the current schema
+			if (needsMigrationStamp && doc.system && typeof doc.system === 'object') {
+				(doc.system as Record<string, unknown>)._migration = {
+					version: PF2E_SCHEMA_VERSION,
+					previous: null,
+				};
+			}
 
 			// Extract embedded documents (items on actors, pages on journals)
 			// into their own sublevel, replacing the array with ID references
@@ -129,6 +160,13 @@ async function writePack(packDef: PackDefinition): Promise<void> {
 						(embDoc._id as string) || generateId(`${entry.id}-${embDoc.name || embeddedIds.length}`);
 					embDoc._id = embId;
 					embDoc._stats = createStats();
+					// Stamp _migration.version on embedded items (items on actors)
+					if (packDef.docType === 'Actor' && embeddedKey === 'items' && embDoc.system && typeof embDoc.system === 'object') {
+						(embDoc.system as Record<string, unknown>)._migration = {
+							version: PF2E_SCHEMA_VERSION,
+							previous: null,
+						};
+					}
 					embeddedBatch.put(`${docId}.${embId}`, embDoc);
 					embeddedIds.push(embId);
 				}
