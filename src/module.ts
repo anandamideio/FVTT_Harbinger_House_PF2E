@@ -1,5 +1,5 @@
 import { HarbingerHouseImporter } from './adventure-importer';
-import { ADVENTURE_PACK, localize, log, logError, MODULE_ID, registerSettings } from './config';
+import { ADVENTURE_PACK, localize, log, logDebug, logError, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
 
 /** Pre-computed Adventure document ID (MD5 of 'harbinger-house-adventure', first 16 hex chars) */
@@ -26,16 +26,28 @@ interface HarbingerHouseAPI {
  */
 async function openImporter(): Promise<void> {
 	try {
+		logDebug('[Importer] openImporter invoked', { packId: ADVENTURE_PACK });
+
 		const pack = game.packs.get(ADVENTURE_PACK);
 		if (!pack) {
 			logError('Adventure compendium pack not found');
 			return;
 		}
 		const adventures = await pack.getDocuments();
+		logDebug('[Importer] Adventure documents loaded', {
+			count: adventures.length,
+			ids: adventures.map((a) => a.id),
+		});
+
 		for (const adventureDoc of adventures) {
 			// Construct our custom importer directly so we always get Harbinger House styling and hooks.
 			const adventure = adventureDoc as unknown as AdventureClass;
 			const importer = new HarbingerHouseImporter({ document: adventure });
+			logDebug('[Importer] Rendering HarbingerHouseImporter instance', {
+				adventureId: adventure.id,
+				adventureName: adventure.name,
+				classes: importer.options.classes,
+			});
 			importer.render({ force: true });
 		}
 	} catch (err) {
