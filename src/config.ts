@@ -38,6 +38,19 @@ export function logWarn(...args: unknown[]): void {
 	consola.warn(`${MODULE_NAME} |`, ...args);
 }
 
+export function isDebugModeEnabled(): boolean {
+	try {
+		return Boolean(game.settings.get(MODULE_ID, SETTINGS.DEBUG_MODE));
+	} catch {
+		return false;
+	}
+}
+
+export function logDebug(...args: unknown[]): void {
+	if (!isDebugModeEnabled()) return;
+	consola.info(`${MODULE_NAME} [debug] |`, ...args);
+}
+
 export function registerSettings(): void {
 	// Show welcome/import dialog on load
 	game.settings.register(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG, {
