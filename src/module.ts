@@ -32,8 +32,11 @@ async function openImporter(): Promise<void> {
 			return;
 		}
 		const adventures = await pack.getDocuments();
-		for (const adventure of adventures) {
-			(adventure as unknown as { sheet: { render: (options: { force: boolean }) => void } }).sheet.render({ force: true });
+		for (const adventureDoc of adventures) {
+			// Construct our custom importer directly so we always get Harbinger House styling and hooks.
+			const adventure = adventureDoc as unknown as AdventureClass;
+			const importer = new HarbingerHouseImporter({ document: adventure });
+			importer.render({ force: true });
 		}
 	} catch (err) {
 		logError('Failed to open importer:', err);

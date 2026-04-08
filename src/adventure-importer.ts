@@ -1,4 +1,4 @@
-import { log, logError, MODULE_ID } from './config';
+import { log, logError, logWarn, MODULE_ID } from './config';
 
 /**
  * Pre-computed deterministic IDs matching build-packs.ts output.
@@ -9,6 +9,30 @@ const GETTING_STARTED_JOURNAL_ID = '373d8b09682157da'; // journal-1
 
 /** Background image for login screen customization */
 const LOGIN_BACKGROUND = `modules/${MODULE_ID}/dist/assets/Harbinger_House_Exterior.jpg`;
+
+type SystemItemReferenceData = {
+	type?: string;
+	uuid?: string;
+	runes?: {
+		potency?: number;
+		striking?: string;
+		property?: string[];
+	};
+	customName?: string;
+	customDescription?: string;
+	heightenedLevel?: number;
+	tradition?: string;
+	entryId?: string;
+};
+
+type ActorImportData = Record<string, unknown> & {
+	name?: string;
+	items?: Record<string, unknown>[];
+	flags?: Record<string, Record<string, unknown>>;
+	_stats?: {
+		compendiumSource?: string;
+	};
+};
 
 /**
  * Custom AdventureImporter for Harbinger House.
@@ -30,7 +54,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 * Define import options as BooleanFields.
 	 * These render as checkboxes in the import dialog.
 	 */
-	_prepareImportOptionsSchema(_options?: unknown) {
+	_prepareImportOptionsSchema() {
 		const fields = foundry.data.fields;
 		return new fields.SchemaField({
 			customizeLogin: new fields.BooleanField({
@@ -57,7 +81,6 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 * - Converts hints to label tooltips for cleaner UI (AV pattern)
 	 */
 	async _onRender(context: unknown, options: unknown) {
-		// @ts-expect-error - calling super on Foundry ApplicationV2
 		await super._onRender(context, options);
 
 		// Inject flavor text before the overview section
@@ -70,7 +93,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		}
 
 		// Swap hints for label tooltips
-		for (const fg of this.element.querySelectorAll('.import-options .form-group')) {
+		for (const fg of Array.from(this.element.querySelectorAll('.import-options .form-group'))) {
 			const hint = fg.querySelector('.hint');
 			if (!hint) continue;
 			const label = fg.querySelector('label');
@@ -96,14 +119,24 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		},
 		importOptions: Record<string, boolean>,
 	) {
-		if ('Actor' in data.toCreate) await this.#mergeCompendiumActors(data.toCreate.Actor);
-		if ('Actor' in data.toUpdate) await this.#mergeCompendiumActors(data.toUpdate.Actor);
+		void importOptions;
+
+		if ('Actor' in data.toCreate) {
+			await this.#resolveActorItemReferences(data.toCreate.Actor);
+			await this.#mergeCompendiumActors(data.toCreate.Actor);
+		}
+		if ('Actor' in data.toUpdate) {
+			await this.#resolveActorItemReferences(data.toUpdate.Actor);
+			await this.#mergeCompendiumActors(data.toUpdate.Actor);
+		}
 	}
 
 	/**
 	 * Post-import: execute enabled option handlers.
 	 */
 	async _onImport(importResult: Record<string, unknown>, importOptions: Record<string, boolean>) {
+		await this.#ensureJournalFolderHierarchy();
+
 		if (importOptions.customizeLogin) {
 			await this.#customizeLoginScreen();
 		}
@@ -116,12 +149,121 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	}
 
 	/**
+	 * Resolve system item references stored at flags[MODULE_ID].unresolvedItems
+	 * into embedded actor items before the import creates/upates world actors.
+	 */
+	async #resolveActorItemReferences(actors: Record<string, unknown>[]) {
+		for (const rawActor of actors) {
+			const actor = rawActor as ActorImportData;
+			const moduleFlags = actor.flags?.[MODULE_ID] as Record<string, unknown> | undefined;
+			const unresolved = moduleFlags?.unresolvedItems;
+			if (!Array.isArray(unresolved) || unresolved.length === 0) continue;
+
+			if (!Array.isArray(actor.items)) actor.items = [];
+			const items = actor.items as Record<string, unknown>[];
+
+			for (const rawRef of unresolved) {
+				const ref = rawRef as SystemItemReferenceData;
+				if (!ref?.uuid || typeof ref.uuid !== 'string') continue;
+
+				try {
+					const source = await fromUuid(ref.uuid);
+					if (!source) {
+						logWarn(`Unable to resolve system item reference for ${actor.name ?? 'Unknown'}: ${ref.uuid}`);
+						continue;
+					}
+
+					const itemData = structuredClone(source.toObject() as Record<string, unknown>);
+					itemData._id = foundry.utils.randomID(16);
+
+					if (typeof ref.customName === 'string' && ref.customName.length > 0) {
+						itemData.name = ref.customName;
+					}
+
+					this.#applySystemItemReferenceOverrides(itemData, ref);
+					items.push(itemData);
+				} catch (err) {
+					logError(`Failed resolving system item reference for ${actor.name ?? 'Unknown'}:`, err);
+				}
+			}
+
+			// Prevent stale unresolved data from lingering after we embed concrete items.
+			if (moduleFlags) delete moduleFlags.unresolvedItems;
+		}
+	}
+
+	/**
+	 * Apply reference-specific overrides after cloning a system item from compendium.
+	 */
+	#applySystemItemReferenceOverrides(itemData: Record<string, unknown>, ref: SystemItemReferenceData) {
+		const system =
+			itemData.system && typeof itemData.system === 'object'
+				? (itemData.system as Record<string, unknown>)
+				: null;
+
+		if (system && typeof ref.customDescription === 'string' && ref.customDescription.length > 0) {
+			const description =
+				system.description && typeof system.description === 'object'
+					? (system.description as Record<string, unknown>)
+					: {};
+			const existing = typeof description.value === 'string' ? description.value : '';
+			description.value = `${existing}${existing ? '<hr/>' : ''}<p>${ref.customDescription}</p>`;
+			system.description = description;
+		}
+
+		if (system && ref.type === 'system-weapon' && ref.runes && typeof ref.runes === 'object') {
+			const runes =
+				system.runes && typeof system.runes === 'object' ? (system.runes as Record<string, unknown>) : {};
+			if (typeof ref.runes.potency === 'number') runes.potency = ref.runes.potency;
+			if (typeof ref.runes.striking === 'string') runes.striking = ref.runes.striking;
+			if (Array.isArray(ref.runes.property)) {
+				runes.property = ref.runes.property.filter((r): r is string => typeof r === 'string');
+			}
+			system.runes = runes;
+		}
+
+		if (system && ref.type === 'system-spell') {
+			if (typeof ref.tradition === 'string' && ref.tradition.length > 0) {
+				system.traditions = { value: [ref.tradition] };
+			}
+
+			if (typeof ref.heightenedLevel === 'number') {
+				const level = system.level && typeof system.level === 'object' ? (system.level as Record<string, unknown>) : {};
+				level.value = ref.heightenedLevel;
+				system.level = level;
+			}
+
+			if (typeof ref.entryId === 'string' && ref.entryId.length > 0) {
+				const location =
+					system.location && typeof system.location === 'object'
+						? (system.location as Record<string, unknown>)
+						: {};
+				location.value = ref.entryId;
+				system.location = location;
+			}
+		}
+
+		const flags =
+			itemData.flags && typeof itemData.flags === 'object' ? (itemData.flags as Record<string, unknown>) : {};
+		const moduleFlags =
+			flags[MODULE_ID] && typeof flags[MODULE_ID] === 'object'
+				? (flags[MODULE_ID] as Record<string, unknown>)
+				: {};
+		if (typeof ref.uuid === 'string') moduleFlags.sourceUuid = ref.uuid;
+		moduleFlags.imported = true;
+		flags[MODULE_ID] = moduleFlags;
+		itemData.flags = flags;
+	}
+
+	/**
 	 * Merge canonical system data into actors that reference PF2e compendium entries.
 	 */
 	async #mergeCompendiumActors(actors: Record<string, unknown>[]) {
-		for (const actor of actors) {
-			const stats = actor._stats as { compendiumSource?: string } | undefined;
-			const sourceId = stats?.compendiumSource;
+		for (const rawActor of actors) {
+			const actor = rawActor as ActorImportData;
+			const stats = actor._stats;
+			const moduleFlags = actor.flags?.[MODULE_ID] as { systemActorRef?: string } | undefined;
+			const sourceId = stats?.compendiumSource ?? moduleFlags?.systemActorRef;
 			if (!sourceId) continue;
 
 			// Only merge if the source is from the PF2e system (not our own module)
@@ -147,6 +289,83 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 				logError(`Failed to merge compendium data for ${actor.name}:`, err);
 			}
 		}
+	}
+
+	/**
+	 * Ensure imported journals are organized under the expected root and sub-folders.
+	 * This is a defensive post-import step for cases where folder nesting is not preserved.
+	 */
+	async #ensureJournalFolderHierarchy() {
+		if (!game.folders || !game.journal) return;
+
+		const journals = game.journal.filter(
+			(j: FoundryDocument) => j.flags?.[MODULE_ID]?.sourceId !== undefined,
+		);
+		if (journals.length === 0) return;
+
+		let root = game.folders.find(
+			(f: FoundryDocument) => f.type === 'JournalEntry' && f.name === 'Harbinger House Adventure',
+		) as FolderClass | undefined;
+		if (!root) {
+			root = await (Folder.create({
+				name: 'Harbinger House Adventure',
+				type: 'JournalEntry',
+				color: '#6e0000',
+				folder: null,
+				flags: {
+					[MODULE_ID]: {
+						isHarbingerHouse: true,
+					},
+				},
+			}) as Promise<FolderClass>);
+		}
+
+		const findJournalFolder = (name: string) =>
+			game.folders?.find(
+				(f: FoundryDocument) => f.type === 'JournalEntry' && f.name === name,
+			) as FolderClass | undefined;
+
+		let chapters = findJournalFolder('Chapters');
+		if (!chapters) {
+			chapters = await (Folder.create({
+				name: 'Chapters',
+				type: 'JournalEntry',
+				folder: root.id,
+				flags: {
+					[MODULE_ID]: {
+						isHarbingerHouse: true,
+					},
+				},
+			}) as Promise<FolderClass>);
+		} else if (chapters.folder?.id !== root.id) {
+			await chapters.update({ folder: root.id });
+		}
+
+		let reference = findJournalFolder('Reference');
+		if (!reference) {
+			reference = await (Folder.create({
+				name: 'Reference',
+				type: 'JournalEntry',
+				folder: root.id,
+				flags: {
+					[MODULE_ID]: {
+						isHarbingerHouse: true,
+					},
+				},
+			}) as Promise<FolderClass>);
+		} else if (reference.folder?.id !== root.id) {
+			await reference.update({ folder: root.id });
+		}
+
+		for (const journal of journals) {
+			const folderHint = journal.flags?.[MODULE_ID]?.folder;
+			const target = folderHint === 'Reference' ? reference : chapters;
+			if (journal.folder?.id !== target.id) {
+				await journal.update({ folder: target.id });
+			}
+		}
+
+		log('Ensured Harbinger House journal folder hierarchy');
 	}
 
 	/**
