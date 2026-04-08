@@ -655,3 +655,120 @@ span.page-title {
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 	letter-spacing: 1px;
 }
+
+/* ================================
+   Adventure Importer
+   ================================ */
+
+.harbinger-house.adventure-importer {
+	--hh-primary: #6e0000;
+	--hh-secondary: #2a2a2a;
+	--hh-accent: #c9a227;
+	--hh-accent-dark: #8b7355;
+	--hh-purple: #4a3f5c;
+	--hh-text-light: #e8e6e3;
+	--hh-parchment: #f4e8d0;
+}
+
+/* Hide default window title — the banner serves as the header */
+.harbinger-house.adventure-importer header.window-header h1.window-title,
+.harbinger-house.adventure-importer header.window-header i.window-icon {
+	visibility: hidden;
+}
+
+/* Main content area */
+.harbinger-house.adventure-importer .window-content {
+	padding: 0;
+	overflow: visible;
+}
+
+/* Banner image */
+.harbinger-house.adventure-importer figure.adventure-banner {
+	margin: 0;
+}
+
+.harbinger-house.adventure-importer figure.adventure-banner img {
+	border: none;
+	border-radius: 0;
+	object-position: center 30%;
+}
+
+.harbinger-house.adventure-importer figure.adventure-banner figcaption {
+	font-family: "Cinzel", "Georgia", serif;
+	color: var(--hh-accent);
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+	letter-spacing: 2px;
+}
+
+/* Form area */
+.harbinger-house.adventure-importer .window-content div.standard-form {
+	padding-right: 0;
+	overflow-y: scroll;
+}
+
+.harbinger-house.adventure-importer .window-content form {
+	justify-content: flex-start;
+	align-content: flex-start;
+}
+
+/* Adventure overview (description) */
+.harbinger-house.adventure-importer .adventure-contents .adventure-overview {
+	padding: 0.75rem 1rem;
+}
+
+.harbinger-house.adventure-importer .adventure-contents .adventure-overview p {
+	font-size: var(--font-size-14);
+	line-height: 1.5;
+}
+
+/* Flavor text injected by _onRender */
+.harbinger-house.adventure-importer .harbinger-flavor {
+	border-left: 3px solid var(--hh-accent);
+	padding: 0.5rem 1rem;
+	margin: 0 0 0.75rem 0;
+	font-style: italic;
+	font-family: "Crimson Text", "Georgia", serif;
+	font-size: var(--font-size-14);
+	color: var(--hh-accent-dark);
+}
+
+/* Section headings */
+.harbinger-house.adventure-importer .adventure-contents h2 {
+	color: var(--hh-primary);
+	font-family: "Cinzel", "Georgia", serif;
+	letter-spacing: 1px;
+	border-bottom: 2px solid rgba(110, 0, 0, 0.2);
+	padding-bottom: 0.25rem;
+}
+
+/* Import options checkboxes */
+.harbinger-house.adventure-importer .import-options div.form-group,
+.harbinger-house.adventure-importer .import-controls div.form-group {
+	padding: 0.25rem 0.5rem;
+}
+
+.harbinger-house.adventure-importer .import-options div.form-group label,
+.harbinger-house.adventure-importer .import-controls div.form-group label {
+	font-size: var(--font-size-14);
+}
+
+/* Footer buttons */
+.harbinger-house.adventure-importer footer.form-footer {
+	padding: 0.5rem 1rem;
+}
+
+.harbinger-house.adventure-importer footer.form-footer button {
+	background: linear-gradient(180deg, var(--hh-primary) 0%, #4a0000 100%);
+	border: 1px solid #8a0000;
+	color: var(--hh-text-light);
+	font-weight: bold;
+	padding: 0.5rem 1rem;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.harbinger-house.adventure-importer footer.form-footer button:hover {
+	background: linear-gradient(180deg, #8a0000 0%, var(--hh-primary) 100%);
+	box-shadow: 0 0 8px rgba(110, 0, 0, 0.4);
+}

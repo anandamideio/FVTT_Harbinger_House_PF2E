@@ -22,8 +22,11 @@ declare global {
 	const JournalEntry: typeof JournalEntryClass;
 	const Scene: typeof SceneClass;
 	const foundry: FoundryUtils;
+	const Adventure: typeof AdventureClass;
+	const DocumentSheetConfig: DocumentSheetConfigClass;
 
 	function fromUuid(uuid: string): Promise<FoundryDocument | null>;
+	function fetchJsonWithTimeout(url: string, options?: RequestInit): Promise<Response>;
 
 	interface Game {
 		system: {
@@ -41,6 +44,10 @@ declare global {
 		folders?: Collection<FolderClass>;
 		journal?: Collection<JournalEntryClass>;
 		scenes?: Collection<SceneClass>;
+		world: {
+			id: string;
+			updateSource(data: Record<string, unknown>): void;
+		};
 		ready: boolean;
 	}
 
@@ -54,7 +61,9 @@ declare global {
 		id: string;
 		active: boolean;
 		version: string;
+		description: string;
 		flags: Record<string, unknown>;
+		packs: { name: string }[];
 	}
 
 	interface UI {
@@ -167,17 +176,6 @@ declare global {
 		toObject(): object;
 		delete(): Promise<this>;
 		update(data: object): Promise<this>;
-	}
-
-	interface FoundryUtils {
-		utils: {
-			randomID(length?: number): string;
-			mergeObject<T extends object>(
-				original: T,
-				other: Partial<T>,
-				options?: { insertKeys?: boolean; insertValues?: boolean; overwrite?: boolean },
-			): T;
-		};
 	}
 
 	// Dialog
@@ -1175,6 +1173,96 @@ declare global {
 		sort?: number;
 		ownership?: Record<string, number>;
 		flags?: Record<string, Record<string, unknown>>;
+	}
+
+	// ======================================================================
+	// Adventure & AdventureImporter
+	// ======================================================================
+
+	class AdventureClass {
+		_id: string;
+		id: string;
+		name: string;
+		img?: string;
+		description: string;
+		flags: Record<string, Record<string, unknown>>;
+		sheet: {
+			render(options?: { force?: boolean }): void;
+		};
+		importContent(options?: Record<string, unknown>): Promise<Record<string, unknown>>;
+		toObject(): Record<string, unknown>;
+	}
+
+	interface DocumentSheetConfigClass {
+		registerSheet(
+			documentClass: typeof AdventureClass | typeof JournalEntryClass,
+			scope: string,
+			sheetClass: unknown,
+			options?: {
+				label?: string;
+				types?: string[];
+				makeDefault?: boolean;
+				canConfigure?: boolean;
+				canBeDefault?: boolean;
+			},
+		): void;
+	}
+
+	interface FoundryUtils {
+		utils: {
+			randomID(length?: number): string;
+			mergeObject<T extends object>(
+				original: T,
+				other: Partial<T>,
+				options?: { insertKeys?: boolean; insertValues?: boolean; overwrite?: boolean },
+			): T;
+			getRoute(path: string): string;
+		};
+		data: {
+			fields: {
+				SchemaField: new (fields: Record<string, unknown>) => unknown;
+				BooleanField: new (options: {
+					label?: string;
+					hint?: string;
+					initial?: boolean;
+				}) => unknown;
+			};
+		};
+		applications: {
+			sheets: {
+				AdventureImporter: typeof AdventureImporterClass;
+				journal: {
+					JournalEntrySheet: typeof JournalEntrySheetClass;
+				};
+			};
+		};
+	}
+
+	class AdventureImporterClass {
+		constructor(options?: Record<string, unknown>);
+		document: AdventureClass;
+		element: HTMLElement;
+		options: { classes: string[] };
+		render(options?: { force?: boolean }): void;
+		close(options?: Record<string, unknown>): Promise<void>;
+		_prepareImportOptionsSchema(options?: unknown): unknown;
+		_onRender(context: unknown, options: unknown): Promise<void>;
+		_preImport(
+			data: {
+				toCreate: Record<string, Record<string, unknown>[]>;
+				toUpdate: Record<string, Record<string, unknown>[]>;
+			},
+			importOptions: Record<string, boolean>,
+		): Promise<void>;
+		_onImport(
+			importResult: Record<string, unknown>,
+			importOptions: Record<string, boolean>,
+		): Promise<void>;
+	}
+
+	class JournalEntrySheetClass {
+		constructor(doc: JournalEntryClass, options?: Record<string, unknown>);
+		options: { classes: string[] };
 	}
 
 	// ======================================================================

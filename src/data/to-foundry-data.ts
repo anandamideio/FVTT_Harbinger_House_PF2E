@@ -19,8 +19,7 @@ import { isSystemItemReference } from './utils';
  * Foundry globals (game, fromUuid, Actor.create, etc.).
  *
  * Used by:
- * - Build script (scripts/build-packs.ts) to generate LevelDB compendium packs
- * - Runtime importers (src/importers/*) for world imports
+ * - Build script (scripts/build-packs.ts) to generate the Adventure LevelDB compendium pack
  */
 
 

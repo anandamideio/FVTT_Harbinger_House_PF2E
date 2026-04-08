@@ -4,8 +4,8 @@
 	"description": "Harbinger House PF2e conversion for FoundryVTT",
 	"type": "module",
 	"scripts": {
-		"build": "vite build && tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts",
-		"build:local": "BUILD=local vite build && tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts",
+		"build": "tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts && vite build",
+		"build:local": "tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts && BUILD=local vite build",
 		"build:packs": "tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts",
 		"watch": "BUILD=local vite build --watch",
 		"clean": "rm -rf dist/*.js dist/*.js.map build/ packs/",

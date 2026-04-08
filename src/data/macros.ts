@@ -61,34 +61,17 @@ if (!scene) {
 	},
 	{
 		id: 'open-import-dialog',
-		name: 'Open Import Dialog',
+		name: 'Open Adventure Importer',
 		type: 'script',
-		command: `// Open the Harbinger House content import dialog
+		command: `// Open the Harbinger House Adventure importer
 if (!game.user?.isGM) {
   ui.notifications.warn('Only a GM can import content.');
-} else if (game.harbingerHouse?.showImportDialog) {
-  game.harbingerHouse.showImportDialog();
+} else if (game.harbingerHouse?.openImporter) {
+  game.harbingerHouse.openImporter();
 } else {
   ui.notifications.error('Harbinger House module is not active.');
 }`,
 		img: 'icons/svg/download.svg',
-	},
-	{
-		id: 'open-update-dialog',
-		name: 'Open Update Content Dialog',
-		type: 'script',
-		command: `// Open the Harbinger House content update/refresh dialog
-const MODULE_ID = '${MODULE_ID}';
-if (!game.user?.isGM) {
-  ui.notifications.warn('Only a GM can update content.');
-} else if (game.harbingerHouse?.showUpdateDialog) {
-  const installedVersion = game.settings.get(MODULE_ID, 'installedModuleVersion');
-  const currentVersion = game.modules.get(MODULE_ID)?.version ?? '0.0.0';
-  game.harbingerHouse.showUpdateDialog(installedVersion, currentVersion);
-} else {
-  ui.notifications.error('Harbinger House module is not active.');
-}`,
-		img: 'icons/svg/upgrade.svg',
 	},
 	{
 		id: 'token-ring-styling',
