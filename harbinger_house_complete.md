@@ -259,16 +259,43 @@ Factions always play some part in a Planescape adventure, as most PCs belong to 
 # Chapter 1: The Streets of Sigil
 
 ## Trolan the Mad
+*Male tiefling planar, 10th-level bard*
 
-**Male tiefling planar, 10th-level bard**
+### Ability Scores
+| Str | Dex | Con | Int | Wis | Cha |
+|---:|---:|---:|---:|---:|---:|
+| 13 | 18 | 9 | 13 | 13 | 19 |
 
-**Str** 13, **Dex** 18, **Con** 9, **Int** 13, **Wis** 13, **Cha** 19
+### Combat
+| Stat | Value |
+|---|---|
+| THAC0 | 16 |
+| #AT | 1 |
+| Dmg | 1d6+1 (short sword +1) |
+| AC | 2 (ring of protection +4, Dex bonus) |
+| hp | 41 |
+| MV | 12 |
+| MR | 40% |
+| SZ | M (5 feet tall) |
+| AL | CG |
+| ML | champion (16) |
+| XP | 6,000 |
 
-**THAC0** 16; **#AT** 1; **Dmg** 1d6+1 (short sword +1); **AC** 2 (ring of protection +4, Dex bonus); **hp** 41; **MV** 12; **SA** wizard spells (3 1st-level, 3 2nd-level, 2 3rd-level, 1 4th-level); **SD** healing (regains all lost hit points within 24 hours unless slain); **MR** 40%; **SZ** M (5 feet tall); **AL** CG; **ML** champion (16); **XP** 6,000.
+### Special Abilities
+- SA: wizard spells (3 1st-level, 3 2nd-level, 2 3rd-level, 1 4th-level)
+- SD: healing (regains all lost hit points within 24 hours unless slain)
 
-**Thieving skills:** CW 70%, DN 60%, PP 50%, RL 50%
+### Thieving Skills
+| CW | DN | PP | RL |
+|---:|---:|---:|---:|
+| 70% | 60% | 50% | 50% |
 
-**Spell-like abilities** (usable at will, once per round, unless otherwise indicated): *charm person* (six times per day), *emotion* (three times per day), *friends*, and *suggestion* (three times per day).
+### Spell-Like Abilities
+Usable at will, once per round, unless noted otherwise:
+- charm person (six times per day)
+- emotion (three times per day)
+- friends
+- suggestion (three times per day)
 
 ----
 
@@ -284,11 +311,38 @@ To gain Trolan's help, **Nari**—who's taken command of the House—appeared to
 
 ## Crimjak the Marquis Cambion
 
-**Str** 19, **Dex** 16, **Con** 17, **Int** 18, **Wis** 14, **Cha** 16
+### Ability Scores
+| Str | Dex | Con | Int | Wis | Cha |
+|---:|---:|---:|---:|---:|---:|
+| 19 | 16 | 17 | 18 | 14 | 16 |
 
-**THAC0** 15; **#AT** 2; **Dmg** 1d8+3 (long sword +3); **AC** 0 (Dex bonus); **HD** 6; **hp** 42; **MV** 15; **SA** Strength bonus (+3 to attack rolls, +7 to damage rolls); wizard spells (4 1st-level, 2 2nd-level, 2 3rd-level); **SD** never surprised; immune to electricity, nonmagical fire, and poison; half damage from cold, magical fire, and gas; **MR** 30%; **SZ** M (7 feet tall); **AL** CE; **ML** elite (13); **XP** 6,000.
+### Combat
+| Stat | Value |
+|---|---|
+| THAC0 | 15 |
+| #AT | 2 |
+| Dmg | 1d8+3 (long sword +3) |
+| AC | 0 (Dex bonus) |
+| HD | 6 |
+| hp | 42 |
+| MV | 15 |
+| MR | 30% |
+| SZ | M (7 feet tall) |
+| AL | CE |
+| ML | elite (13) |
+| XP | 6,000 |
 
-**Spell-like abilities** (usable at will, once per round, unless otherwise indicated): *darkness 15' radius*, *infravision*, *levitate* (seven times per day), *polymorph self* (three times per day), and *teleport without error*.
+### Special Abilities
+- SA: Strength bonus (+3 to attack rolls, +7 to damage rolls); wizard spells (4 1st-level, 2 2nd-level, 2 3rd-level)
+- SD: never surprised; immune to electricity, nonmagical fire, and poison; half damage from cold, magical fire, and gas
+
+### Spell-Like Abilities
+Usable at will, once per round, unless noted otherwise:
+- darkness 15' radius
+- infravision
+- levitate (seven times per day)
+- polymorph self (three times per day)
+- teleport without error
 
 After learning of Harbinger House, Nari contacted an old friend back in the **Abyss**—Crimjak, for whom she'd lured many mortals to that chaotic evil plane. She told Crimjak that the time had come for him to repay a bit of his debt. Nari claimed he'd be rewarded many times over for helping her, as her goal was to push the House—a place full of magical planar energy—into the Abyss. 'Course, she left out the part about her becoming a new power, figuring that Crimjak didn't need to know everything.
 
@@ -296,11 +350,26 @@ After learning of Harbinger House, Nari contacted an old friend back in the **Ab
 
 ## Narcovi
 
-**Female dwarf planar, 9th-level fighter, Harmonium**
+*Female dwarf planar, 9th-level fighter, Harmonium*
 
-**Str** 14, **Dex** 12, **Con** 12, **Int** 17, **Wis** 14, **Cha** 10
+### Ability Scores
+| Str | Dex | Con | Int | Wis | Cha |
+|---:|---:|---:|---:|---:|---:|
+| 14 | 12 | 12 | 17 | 14 | 10 |
 
-**THAC0** 12; **#AT** 3/2; **Dmg** 1d8+3 (long sword +3); **AC** 0 (field plate +2); **hp** 54; **MV** 6; **SZ** M (4 feet tall); **AL** LG; **ML** champion (16); **XP** 2,000.
+### Combat
+| Stat | Value |
+|---|---|
+| THAC0 | 12 |
+| #AT | 3/2 |
+| Dmg | 1d8+3 (long sword +3) |
+| AC | 0 (field plate +2) |
+| hp | 54 |
+| MV | 6 |
+| SZ | M (4 feet tall) |
+| AL | LG |
+| ML | champion (16) |
+| XP | 2,000 |
 
 This feisty cutter's the chief investigator assigned by the Harmonium to look into the recent string of murders in the Cage. A tough, no-nonsense Hardhead, **Narcovi** loves to get the really difficult cases. She sees them as challenges befitting her investigative skills, and when a case comes her way, she throws everything she has into finding the solution. For this particular case, Narcovi's got eight Hardhead agents backing her up, and a dozen more searching the wards for clues, witnesses, and weird rumors that might lead her to the killer.
 
@@ -690,7 +759,7 @@ However, if the PCs barged in on their own, the Xaositects are hostile, thinking
 
 ### Talc Warehouses
 
-Three warehouses in the area deal in talc, the substance the PCs may find on Harmonium Street (if they spot Sougad) and at The Parted Veil bookshop. **Penbrum's Parchments and Papers**, **Logu's Bath Powder**, and **Grassif's Paints** each have a warehouse in the area, and each make extensive use of talc. The warehouses are marked on the DM's maps of Sigil. Their locations are not secret, and the PCs should be able to find them without much trouble. For example, Kesto Brighteyes or another PC contact can direct the group to any of the three.
+Three warehouses in the area deal in talc, the substance the PCs may find on Harmonium Street (if they spot Sougad) and at The Parted Veil bookshop. **Penbrum's Parchments and Papers**, **Logu's Bath Powder**, and **Grossif's Paints** each have a warehouse in the area, and each make extensive use of talc. The warehouses are marked on the DM's maps of Sigil. Their locations are not secret, and the PCs should be able to find them without much trouble. For example, Kesto Brighteyes or another PC contact can direct the group to any of the three.
 
 **Penbrum's Parchments and Papers:** Penbrum's Parchments and Papers has a large warehouse in The Lady's Ward, not far from the City Court. Most of the paper used by the Court comes from Penbrum's stores. If the PCs check out the warehouse, they must get past a complicated series of locks (−20% penalty to open lock rolls). However, a thorough search of the exterior of the building reveals another entrance: A loose board near the base of the back wall slides sideways to form a small but usable entrance. Only human-sized or smaller creatures can squeeze through the opening.
 
@@ -702,13 +771,13 @@ Inside the warehouse, a pack of cranium rats has made a nest in the paper stores
 
 The purse belonged to **Lini**, the third victim. It was left at the murder site by Sougad and later picked up by **Baskix Three-Fingers** (Pl/♂ gnome/0/Free League/CN), a homeless drunk who's been secretly living in this warehouse for the past few weeks. He discovered Lini's body in The Ascension while on his way home from a cheaper drinking hall. Since the berk was already dead and there wasn't anyone around, Baskix took her purse and headed back to the warehouse. The PCs should be able to quickly determine that the drunk is harmless and incapable of killing anyone in the method that's been used thus far. However, Baskix can provide one additional bit of information about the third murder; he shows the PCs a vrock feather he found at the tavern, its tip stained with dried blood.
 
-**Grassif's Paints:** This warehouse is located in the Lower Ward near Harbinger House, not far from Bloodgem Park. If the PCs take a look around inside, they find Sougad's lair. Skip to "Sougad and the Lady" on page 30 for the conclusion of this chapter of the adventure.
+**Grossif's Paints:** This warehouse is located in the Lower Ward near Harbinger House, not far from Bloodgem Park. If the PCs take a look around inside, they find Sougad's lair. Skip to "Sougad and the Lady" on page 30 for the conclusion of this chapter of the adventure.
 
 ### Spell Components
 
 If the PCs follow the spell component angle, they can learn quite a lot about their quarry. A number of shops that cater to the arcane arts—including The Friendly Fiend—are marked on the DM's maps of Sigil on the gatefold screen. It's up to the DM to create the encounters if the PCs decide to visit any or all of these places. The PCs might also visit any shops introduced in previous adventures or seek out contacts they've used before.
 
-Sougad purchased 13 sheets of the finest parchment from **Unrra's Arcana**. Each sheet bears three Ps—the watermark of Penbrum's Parchments and Papers. If the PCs describe Sougad (based on conversations with Kesto Brighteyes or Urchend), the shopkeeper (Pl/♀ tiefling/0/Transcendent Order/NE) recalls the man. "A creepy fellow. A perfect gentleman one moment, an abusive sod the next. He did pay in gold, though."
+Sougad purchased 13 sheets of the finest parchment from **Untra's Arcana**. Each sheet bears three Ps—the watermark of Penbrum's Parchments and Papers. If the PCs describe Sougad (based on conversations with Kesto Brighteyes or Urchend), the shopkeeper (Pl/♀ tiefling/0/Transcendent Order/NE) recalls the man. "A creepy fellow. A perfect gentleman one moment, an abusive sod the next. He did pay in gold, though."
 
 The clerk (Pr/♂ elf/0/Society of Sensation/LG) at another shop, **The Wizard's Mark**, doesn't remember anyone matching Sougad's description, but his store was broken into six nights back. "It was the oddest thing. Broke in as bold as a balor and took 12 vrock feathers from the jar over there. Nearly cleaned me out. As it is, the berk left me with only two. Oh, yes, the thief also lifted 12 nutshells, five bronze discs, and five iron rods."
 
@@ -752,7 +821,7 @@ If the PCs are on hand to save Kolz, they have to act quickly. Though Harlique s
 
 **DM Note:** If Sougad successfully slashes Kolz seven times, the PCs witness the transfer of planar energy—a red glow seems to be sucked out of the corpse, pour into Sougad's sword, and dissipate throughout the barmy's whole body.
 
-**Sliding the Blinds:** If the PCs don't discover Sougad's hideout in the talc warehouse (Grassif's Paints) by the second night of the adventure, the DM must determine another target from the possible factions listed in the "Introduction" for an eighth victim (or a ninth, if a PC was also killed). If the PCs still haven't found Sougad's hideout by the third night of the adventure, the DM should steer the group toward the conclusion of the chapter—allow an NPC to provide hints, bring forward a witness who's spotted someone living in the warehouse, and so on.
+**Sliding the Blinds:** If the PCs don't discover Sougad's hideout in the talc warehouse (Grossif's Paints) by the second night of the adventure, the DM must determine another target from the possible factions listed in the "Introduction" for an eighth victim (or a ninth, if a PC was also killed). If the PCs still haven't found Sougad's hideout by the third night of the adventure, the DM should steer the group toward the conclusion of the chapter—allow an NPC to provide hints, bring forward a witness who's spotted someone living in the warehouse, and so on.
 
 ---
 
@@ -850,10 +919,10 @@ The devotees of the Lady who go begging and preaching spread words of love about
 
 ## Sougad and the Lady
 
-Eventually, the PCs should track Sougad to his hiding place in Grassif's warehouse. This encounter is written from that perspective; the DM can change the location of this scene but then must also adjust the player text accordingly. When the PCs find Sougad, read:
+Eventually, the PCs should track Sougad to his hiding place in Grossif's warehouse. This encounter is written from that perspective; the DM can change the location of this scene but then must also adjust the player text accordingly. When the PCs find Sougad, read:
 
 > [!read-aloud]
-> You find a hidden lair in a dark corner of Grassif's warehouse. A bed, a map of the wards, clothes, a jug of wine, and a jar of Abyssal leeches mark this as someone's hiding place.
+> You find a hidden lair in a dark corner of Grossif's warehouse. A bed, a map of the wards, clothes, a jug of wine, and a jar of Abyssal leeches mark this as someone's hiding place.
 
 Sougad climbed up to a wooden beam near the ceiling as soon as he saw the PCs approach. When they begin to search the area, the barmy makes his presence known:
 
