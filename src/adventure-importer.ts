@@ -228,7 +228,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		},
 		importOptions: Record<string, boolean>,
 	) {
-		log('[Importer] _preImport hook called');
+		this.#debug('_preImport hook called');
 		this.#debug('_preImport payload', {
 			importOptions,
 			toCreate: summarizeDocumentCounts(data.toCreate),
@@ -258,7 +258,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		const displayJournal = options.displayJournal ?? true;
 		const activateScene = options.activateScene ?? true;
 
-		log('[Importer] _onImport hook called');
+		this.#debug('_onImport hook called');
 		this.#debug('_onImport payload', {
 			importOptions,
 			resolvedOptions: {
@@ -276,6 +276,22 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			this.#debug('_onImport step success: ensureJournalFolderHierarchy');
 		} catch (err) {
 			logError('[Importer] _onImport step failed: ensureJournalFolderHierarchy', err);
+		}
+
+		try {
+			this.#debug('_onImport step start: ensureActorFolderHierarchy');
+			await this.#ensureActorFolderHierarchy();
+			this.#debug('_onImport step success: ensureActorFolderHierarchy');
+		} catch (err) {
+			logError('[Importer] _onImport step failed: ensureActorFolderHierarchy', err);
+		}
+
+		try {
+			this.#debug('_onImport step start: ensureItemFolderHierarchy');
+			await this.#ensureItemFolderHierarchy();
+			this.#debug('_onImport step success: ensureItemFolderHierarchy');
+		} catch (err) {
+			logError('[Importer] _onImport step failed: ensureItemFolderHierarchy', err);
 		}
 
 		if (customizeLogin) {
@@ -486,7 +502,6 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 						actor: actor.name ?? 'Unknown',
 						sourceId,
 					});
-					log(`Merged system data for actor: ${actor.name}`);
 				}
 			} catch (err) {
 				logError(`Failed to merge compendium data for ${actor.name}:`, err);
@@ -585,7 +600,214 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			}
 		}
 
-		log('Ensured Harbinger House journal folder hierarchy');
+		this.#debug('Ensured Harbinger House journal folder hierarchy', {
+			journalCount: journals.length,
+			rootId: root.id,
+			chaptersId: chapters.id,
+			referenceId: reference.id,
+		});
+	}
+
+	/**
+	 * Find or create a folder with a specific type/name/parent.
+	 */
+	async #ensureFolder(
+		type: string,
+		name: string,
+		parentId: string | null,
+		color?: string,
+	): Promise<FolderClass> {
+		if (!game.folders) {
+			throw new Error('game.folders is unavailable');
+		}
+
+		const parentMatches = (folder: FoundryDocument): boolean =>
+			(parentId === null && !folder.folder) || folder.folder?.id === parentId;
+
+		let folder = game.folders.find(
+			(f: FoundryDocument) => f.type === type && f.name === name && parentMatches(f),
+		) as FolderClass | undefined;
+
+		if (!folder) {
+			folder = game.folders.find(
+				(f: FoundryDocument) => f.type === type && f.name === name,
+			) as FolderClass | undefined;
+		}
+
+		if (!folder) {
+			folder = await (Folder.create({
+				name,
+				type,
+				folder: parentId,
+				...(color ? { color } : {}),
+				flags: {
+					[MODULE_ID]: {
+						isHarbingerHouse: true,
+					},
+				},
+			}) as Promise<FolderClass>);
+
+			this.#debug('Created folder', {
+				type,
+				name,
+				parentId,
+				id: folder.id,
+			});
+			return folder;
+		}
+
+		if (!parentMatches(folder)) {
+			await folder.update({ folder: parentId });
+			this.#debug('Moved folder to expected parent', {
+				type,
+				name,
+				parentId,
+				id: folder.id,
+			});
+		}
+
+		return folder;
+	}
+
+	/**
+	 * Ensure actors and hazards are routed to category subfolders.
+	 */
+	async #ensureActorFolderHierarchy() {
+		if (!game.actors || !game.folders) return;
+
+		const actors = game.actors.filter(
+			(a: ActorClass) => a.flags?.[MODULE_ID]?.sourceId !== undefined,
+		);
+		if (actors.length === 0) return;
+
+		const npcRoot = await this.#ensureFolder('Actor', 'Harbinger House NPCs', null, '#6e0000');
+		const hazardRoot = await this.#ensureFolder('Actor', 'Harbinger House Hazards', null, '#4a3f5c');
+
+		const fiends = await this.#ensureFolder('Actor', 'Fiends & Monsters', npcRoot.id);
+		const cultists = await this.#ensureFolder('Actor', 'Cultist & Common NPCs', npcRoot.id);
+		const generic = await this.#ensureFolder('Actor', "Generic NPC's", npcRoot.id);
+		const residents = await this.#ensureFolder('Actor', 'Harbinger House Residents', npcRoot.id);
+
+		const environmentalHazards = await this.#ensureFolder('Actor', 'Environmental Hazards', hazardRoot.id);
+		const magicalTraps = await this.#ensureFolder('Actor', 'Magical Traps', hazardRoot.id);
+		const npcAuras = await this.#ensureFolder('Actor', 'NPC Auras', hazardRoot.id);
+
+		let reassigned = 0;
+
+		for (const actor of actors) {
+			const category = actor.flags?.[MODULE_ID]?.category;
+			const actorType = actor.type;
+
+			let target: FolderClass;
+
+			if (
+				actorType === 'hazard' ||
+				category === 'trap' ||
+				category === 'environmental' ||
+				category === 'aura' ||
+				category === 'haunt'
+			) {
+				target =
+					category === 'environmental'
+						? environmentalHazards
+						: category === 'aura'
+							? npcAuras
+							: magicalTraps;
+			} else {
+				target =
+					category === 'fiend'
+						? fiends
+						: category === 'cultist'
+							? cultists
+							: category === 'generic-npc' || category === 'generic-npcs'
+								? generic
+								: category === 'major-npc' || category === 'harbinger-resident'
+									? residents
+									: npcRoot;
+			}
+
+			if (actor.folder?.id !== target.id) {
+							await (actor as unknown as { update: (data: Record<string, unknown>) => Promise<unknown> }).update({
+								folder: target.id,
+							});
+				reassigned += 1;
+				this.#debug('Reassigned actor folder', {
+					actor: actor.name,
+					category: typeof category === 'string' ? category : 'unknown',
+					from: actor.folder?.id ?? null,
+					to: target.id,
+				});
+			}
+		}
+
+		this.#debug('Ensured actor/hazard folder hierarchy', {
+			actorCount: actors.length,
+			reassigned,
+		});
+	}
+
+	/**
+	 * Ensure items are routed to category subfolders while spells remain at root spell folder.
+	 */
+	async #ensureItemFolderHierarchy() {
+		if (!game.items || !game.folders) return;
+
+		const items = game.items.filter(
+			(i: ItemClass) => i.flags?.[MODULE_ID]?.sourceId !== undefined,
+		);
+		if (items.length === 0) return;
+
+		const itemRoot = await this.#ensureFolder('Item', 'Harbinger House Items', null, '#c9a227');
+		const spellRoot = await this.#ensureFolder('Item', 'Harbinger House Spells', null, '#4a3f5c');
+
+		const armor = await this.#ensureFolder('Item', 'Armor & Protective Items', itemRoot.id);
+		const artifacts = await this.#ensureFolder('Item', 'Artifacts', itemRoot.id);
+		const consumables = await this.#ensureFolder('Item', 'Consumables', itemRoot.id);
+		const weapons = await this.#ensureFolder('Item', 'Weapons', itemRoot.id);
+		const equipment = await this.#ensureFolder('Item', 'Wonderous Items & Equipment', itemRoot.id);
+
+		let reassigned = 0;
+
+		for (const item of items) {
+			const category = item.flags?.[MODULE_ID]?.category;
+
+			let target: FolderClass;
+			if (item.type === 'spell') {
+				target = spellRoot;
+			} else {
+				target =
+					category === 'armor'
+						? armor
+						: category === 'artifact'
+							? artifacts
+							: category === 'consumable'
+								? consumables
+								: category === 'weapon'
+									? weapons
+									: category === 'equipment'
+										? equipment
+										: itemRoot;
+			}
+
+			if (item.folder?.id !== target.id) {
+				await (item as unknown as { update: (data: Record<string, unknown>) => Promise<unknown> }).update({
+					folder: target.id,
+				});
+				reassigned += 1;
+				this.#debug('Reassigned item folder', {
+					item: item.name,
+					itemType: item.type,
+					category: typeof category === 'string' ? category : 'unknown',
+					from: item.folder?.id ?? null,
+					to: target.id,
+				});
+			}
+		}
+
+		this.#debug('Ensured item folder hierarchy', {
+			itemCount: items.length,
+			reassigned,
+		});
 	}
 
 	/**
