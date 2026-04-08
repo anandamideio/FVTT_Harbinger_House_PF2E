@@ -402,7 +402,25 @@ If the PCs are foolish enough to attack the dabus, they do get a response: The d
 
 **DM Note:** After this initial scene, the PCs should be introduced to news of the murders. One of the follow-up scenes described later in this chapter (or even "Quick Start II" or "Quick Start III") can be used to draw the PCs deeper into the story. If the DM uses a different opening for the adventure, the dabus' strange paint job can still be played out later, as the PCs explore the Cage.
 
-**Dabus (4 or var):** THAC0 15; #AT 1; Dmg 1d8 or by weapon; AC 7; HD 6; hp 26 each; MV 12; SD immune to spells that affect the surface beneath them or the air around them; SZ M (6 feet tall); Int very (12); AL N; ML steady (12); XP 420.
+**Dabus (4 or var)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 15 |
+| #AT | 1 |
+| Dmg | 1d8 or by weapon |
+| AC | 7 |
+| HD | 6 |
+| hp | 26 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | very (12) |
+| AL | N |
+| ML | steady (12) |
+| XP | 420 |
+
+**Special Abilities**
+- SD: immune to spells that affect the surface beneath them or the air around them
 
 ## Quick Start II: Relaxing in the Cage
 
@@ -427,7 +445,20 @@ If the PCs approach the male Athars in a friendly manner (offering to buy drinks
 - Each body has had the blood drained from it, and each crime scene has been remarkably clean of blood. (False.)
 - The murder victims were each discovered with the symbol of the Lady of Pain carved into their foreheads. (False.)
 
-**Male Bashers (3) (Pl/var/F3/Athar/LN):** THAC0 18; #AT 1; Dmg 1d6 (short sword); AC 6 (scale mail); hp 12 each; MV 12; SZ M (5 feet tall); Int average (10); ML average (10); XP 65.
+**Male Bashers (3) (Pl/var/F3/Athar/LN)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 18 |
+| #AT | 1 |
+| Dmg | 1d6 (short sword) |
+| AC | 6 (scale mail) |
+| hp | 12 each |
+| MV | 12 |
+| SZ | M (5 feet tall) |
+| Int | average (10) |
+| ML | average (10) |
+| XP | 65 |
 
 ### What the Female Cutter Knows
 
@@ -439,7 +470,20 @@ The female faction member is harder to talk to than her male companions, refusin
 - The **Guvners** have offered a substantial reward for information leading to the capture of the murderer. (True.)
 - The murderer isn't a regular berk at all, but a monster that's found its way into the Cage. (False; **Sougad Lawshredder** is the killer.)
 
-**Female Cutter (Pl/♀ human/F6/Athar/N):** THAC0 15; #AT 1; Dmg 1d8 (long sword); AC 4 (banded mail); hp 32; MV 12; SZ M (6 feet tall); Int very (12); ML elite (14); XP 270.
+**Female Cutter (Pl/♀ human/F6/Athar/N)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 15 |
+| #AT | 1 |
+| Dmg | 1d8 (long sword) |
+| AC | 4 (banded mail) |
+| hp | 32 |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | very (12) |
+| ML | elite (14) |
+| XP | 270 |
 
 ---
 
@@ -685,7 +729,25 @@ The dabus have cleaned up everything pertaining to the murder, including the sma
 
 **DM Note:** If the PCs are leatherheaded enough to attack the dabus, use the following statistics for the four in the library. However, be aware that enough dabus can be summoned to easily kill or incapacitate the PCs if things start getting out of hand.
 
-**Dabus (4 or var):** THAC0 15; #AT 1; Dmg 1d8 or by weapon; AC 7; HD 6; hp 26 each; MV 12; SD immune to spells that affect the surface beneath them or the air around them; SZ M (6 feet tall); Int very (12); AL N; ML steady (12); XP 420.
+**Dabus (4 or var)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 15 |
+| #AT | 1 |
+| Dmg | 1d8 or by weapon |
+| AC | 7 |
+| HD | 6 |
+| hp | 26 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | very (12) |
+| AL | N |
+| ML | steady (12) |
+| XP | 420 |
+
+**Special Abilities**
+- SD: immune to spells that affect the surface beneath them or the air around them
 
 ### Warning on Harmonium Street
 
@@ -739,7 +801,20 @@ Unless the PCs are connected to one of the three factions mentioned above, Narco
 
 If the PCs answer all of Narcovi's questions honestly and with some modicum of respect, she'll let them go with a simple warning. "I don't know where you come from, but in Sigil it's the Harmonium that makes the arrests. Stay out of this and you'll stay healthier—and free."
 
-**Harmonium Agents (8) (Pl/var/var/F5/Harmonium/LG):** THAC0 16; #AT 1; Dmg 1d8 (scimitar); AC 3 (banded mail); hp 25 each; MV 12; SZ M (6 feet tall); Int very (12); ML steady (12); XP 175.
+**Harmonium Agents (8) (Pl/var/var/F5/Harmonium/LG)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 16 |
+| #AT | 1 |
+| Dmg | 1d8 (scimitar) |
+| AC | 3 (banded mail) |
+| hp | 25 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | very (12) |
+| ML | steady (12) |
+| XP | 175 |
 
 ### Sougad's Hideout
 
@@ -755,7 +830,20 @@ If the PCs enter the hideout in the company of a Chaosman PC or the shopkeeper (
 
 However, if the PCs barged in on their own, the Xaositects are hostile, thinking the group's come to arrest or attack them. The Chaosmen fight to the death, though one tries to escape to warn the rest of the faction. The PCs must fight to the end or convince the Chaosmen they've come in peace. The trick here is to discover that the Chaosmen, in their own way, are as upset about the murders as the lawful factions are. If the PCs learn that the Chaosmen aren't behind the killings, they can help keep a faction war from erupting by passing the word along to Factol Ambar or Narcovi.
 
-**Chaosmen (1d6+3) (Pl/var/var/F2/Xaositects/CN):** THAC0 19; #AT 1; Dmg 1d6 (spear); AC 7 (ring mail); hp 11 each; MV 12; SZ M (6 feet tall); Int average (10); ML steady (12); XP 35.
+**Chaosmen (1d6+3) (Pl/var/var/F2/Xaositects/CN)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 19 |
+| #AT | 1 |
+| Dmg | 1d6 (spear) |
+| AC | 7 (ring mail) |
+| hp | 11 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | average (10) |
+| ML | steady (12) |
+| XP | 35 |
 
 ### Talc Warehouses
 
@@ -765,7 +853,26 @@ Three warehouses in the area deal in talc, the substance the PCs may find on Har
 
 Inside the warehouse, a pack of cranium rats has made a nest in the paper stores. There are 40 rats in the pack, which has a collective Intelligence of 8 and two wizard spells (*color spray* and *hypnotism*). The pack has nothing to do with the murders but reacts badly to anything that threatens the nest. If the PCs enter the warehouse and start looking around, the rats stalk them and wait for opportunities to strike. If **Penbrum** is informed about the rat infestation, he offers the PCs a reward of 500 gold pieces for clearing out his warehouse.
 
-**Cranium Rats (40):** THAC0 19; #AT 1; Dmg 1d4; AC 6; HD 1; hp 7 each; MV 15; SA wizard spells (*color spray*, *hypnotism*); SD save as creature of Hit Dice equal to group Intelligence; SZ T (6 inches long); Int var (1 point per every five living rats); AL NE; ML unsteady (7); XP 65.
+**Cranium Rats (40)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 19 |
+| #AT | 1 |
+| Dmg | 1d4 |
+| AC | 6 |
+| HD | 1 |
+| hp | 7 each |
+| MV | 15 |
+| SZ | T (6 inches long) |
+| Int | var (1 point per every five living rats) |
+| AL | NE |
+| ML | unsteady (7) |
+| XP | 65 |
+
+**Special Abilities**
+- SA: wizard spells (*color spray*, *hypnotism*)
+- SD: save as creature of Hit Dice equal to group Intelligence
 
 **Logu's Bath Powder:** Logu's Bath Powder provides its products to the bath houses frequented by the Ciphers. The business has one warehouse in the vicinity, a medium-sized building in the Lower Ward, not far from the Armory. Casks and boxes of powder made from talc fill the interior in orderly rows. If the PCs decide to explore this location, they discover that someone's living in the warehouse. Near the back, far from the normal traffic of the workers, a small den has been built. Casks and boxes make up the walls, while barrels form a crude table and chair. A bed of straw has been laid out in one corner. There are also the remains of recent meals, four empty wine skins, a few odds and ends, and a leather purse with the initials "LC" and the embroidered symbol of the Godsmen.
 
@@ -846,7 +953,20 @@ Ten Indep bashers soon find the PCs and get right to the point. Read:
 
 The bashers don't want to kill the PCs, but they will match force for force. If more than half of the bashers fall, the rest try to escape. If the PCs manage to capture an Indep for questioning, he tells them all about what Nari said. However, he can't name her, he doesn't know how to find her, and the description fits any number of young women in the Cage.
 
-**Indep Bashers (10) (Pl/var/var/F3/Free League/var):** THAC0 18; #AT 1; Dmg 1d6 (mace) or 1d8 (battle axe); AC 5 (chain mail); hp 17 each; MV 12; SZ M (6 feet tall); Int average (9); ML average (10); XP 65.
+**Indep Bashers (10) (Pl/var/var/F3/Free League/var)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 18 |
+| #AT | 1 |
+| Dmg | 1d6 (mace) or 1d8 (battle axe) |
+| AC | 5 (chain mail) |
+| hp | 17 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | average (9) |
+| ML | average (10) |
+| XP | 65 |
 
 ### Strange Dabus
 
@@ -860,7 +980,25 @@ Finally, there are many possible examples of the dabus cleaning areas that alrea
 
 **DM Note:** If the PCs attack the dabus, use the following statistics, keeping in mind that enough dabus can be summoned to easily put the PCs down.
 
-**Dabus (var):** THAC0 15; #AT 1; Dmg 1d8 or by weapon; AC 7; HD 6; hp 26 each; MV 12; SD immune to spells that affect the surface beneath them or the air around them; SZ M (6 feet tall); Int very (12); AL N; ML steady (12); XP 420.
+**Dabus (var)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 15 |
+| #AT | 1 |
+| Dmg | 1d8 or by weapon |
+| AC | 7 |
+| HD | 6 |
+| hp | 26 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | very (12) |
+| AL | N |
+| ML | steady (12) |
+| XP | 420 |
+
+**Special Abilities**
+- SD: immune to spells that affect the surface beneath them or the air around them
 
 ### Attack on Factol Ambar
 
@@ -889,7 +1027,23 @@ Tarrin does know he's supposed to meet "her" in Bloodgem Park after completing h
 
 On the other hand, if Tarrin successfully steals an item from the PCs, Narcovi returns to see them the next day to discuss why an item of theirs was found at the scene of another murder victim.
 
-**Tarrin (Pl/♂ human/T8/Revolutionary League/CN):** THAC0 17; #AT 1; Dmg 1d4+4 (dagger +4); AC 6 (studded leather +1); hp 35; MV 12; SA backstab x3, PP 70%; SZ M (5 feet tall); Int very (12); ML steady (11); XP 975.
+**Tarrin (Pl/♂ human/T8/Revolutionary League/CN)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 17 |
+| #AT | 1 |
+| Dmg | 1d4+4 (dagger +4) |
+| AC | 6 (studded leather +1) |
+| hp | 35 |
+| MV | 12 |
+| SZ | M (5 feet tall) |
+| Int | very (12) |
+| ML | steady (11) |
+| XP | 975 |
+
+**Special Abilities**
+- SA: backstab x3, PP 70%
 
 ### The Cult of the Lady
 
@@ -911,9 +1065,37 @@ The devotees of the Lady who go begging and preaching spread words of love about
 > [!read-aloud]
 > "The Lady loves you, and you should show her your love in return," the preacher proclaims. "As Trolan the Beloved has said, the Lady is love, and her presence shines for all to see. Come to Bloodgem Park and join us, for to win the Lady's love is better than anything else the multiverse has to offer."
 
-**Cultist:** THAC0 20; #AT 1; Dmg 1d3 (fists); AC 10 (robes); HD 1; hp 5 each; MV 12; SZ M (6 feet tall); Int average (10); AL var; ML champion (15); XP 15.
+**Cultist**
 
-**Bullies (5) (Pl/var/githzerai/F3/var/var):** THAC0 18; #AT 1; Dmg 1d6 (short sword); AC 7 (studded leather); hp 16 each; MV 12; SZ M (6 feet tall); Int low (7); ML unsteady (7); XP 65.
+| Stat | Value |
+|---|---|
+| THAC0 | 20 |
+| #AT | 1 |
+| Dmg | 1d3 (fists) |
+| AC | 10 (robes) |
+| HD | 1 |
+| hp | 5 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | average (10) |
+| AL | var |
+| ML | champion (15) |
+| XP | 15 |
+
+**Bullies (5) (Pl/var/githzerai/F3/var/var)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 18 |
+| #AT | 1 |
+| Dmg | 1d6 (short sword) |
+| AC | 7 (studded leather) |
+| hp | 16 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | low (7) |
+| ML | unsteady (7) |
+| XP | 65 |
 
 ---
 
