@@ -38,7 +38,7 @@ import {
 	spellImporter,
 } from './importers';
 import { registerMigrationSettings, runPendingMigrations } from './migration';
-import { showImportDialog, showUpdateDialog, showWelcomeDialog } from './ui';
+import { showDeleteConfirmDialog, showImportDialog, showUpdateDialog, showWelcomeDialog } from './ui';
 
 interface HarbingerHouseAPI {
 	// Import functions
@@ -57,6 +57,8 @@ interface HarbingerHouseAPI {
 
 	// UI functions
 	showImportDialog: typeof showImportDialog;
+	showUpdateDialog: typeof showUpdateDialog;
+	showDeleteConfirmDialog: typeof showDeleteConfirmDialog;
 
 	// Delete functions
 	deleteAllNPCs: () => Promise<number>;
@@ -135,6 +137,8 @@ Hooks.once('init', async () => {
 
 		// UI functions
 		showImportDialog,
+		showUpdateDialog,
+		showDeleteConfirmDialog,
 
 		// Delete functions
 		deleteAllNPCs: async () => {

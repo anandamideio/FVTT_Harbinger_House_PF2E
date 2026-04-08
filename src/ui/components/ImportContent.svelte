@@ -354,7 +354,7 @@ async function handleImport() {
       title="Macros"
       icon="fa-terminal"
       bind:enabled={importMacros}
-      description={`${ALL_MACROS.length} utility macros: Set Landing Page, Toggle Scene Lighting, Toggle Ambient Sounds, Token Ring Styling`}
+      description={`${ALL_MACROS.length} utility macros: Set Landing Page, Toggle Scene Lighting, Toggle Ambient Sounds, Token Ring Styling, Open Import Dialog, Open Update Content Dialog`}
     />
 
     <ProgressBar active={progressActive} percent={progressPercent} text={progressText} />
