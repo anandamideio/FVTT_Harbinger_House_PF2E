@@ -42,6 +42,7 @@ _A PLANESCAPE Adventure_
 
 ## Introduction
 
+> [!read-aloud]
 > A lot of barmy things happen in the Cage. That's just the nature of a place that's connected to everywhere and serves as a waystation for planewalkers from every corner of the multiverse.
 >
 > Still, a cutter knows that he can count on a certain amount of stability, even in a place like Sigil. Take the dabus, for instance. They repair what's broken, cut back the evergrowing razorvine, and otherwise serve as cryptic workers weaving their way through the streets of the city. 'Course, some berks learn there's more to the dabus when they threaten Sigil's high-up, the Lady of Pain. Then the dabus arrive as the Lady's agents, swift to punish. Either way, there's a degree of comfort in their ever-present activities.
@@ -50,6 +51,7 @@ _A PLANESCAPE Adventure_
 
 ### The Tale of Harbinger House
 
+> [!read-aloud]
 > "It shelters those who are still developing," **Factol Ambar** of the Godsmen explained to the new custodian as they walked along one of Sigil's cobbled streets. The woman beside him was **Bereth**, chosen from among the best the faction had to offer for the skills and compassion she possessed. "These are the forerunners of the next generation of powers," he continued, "a small group of individuals who have been mistaken for barmies by the rest of Sigil. We, however, know better."
 >
 > They walked in silence for a time, neither one speaking as they traveled from the Foundry toward the oldest section of the Lower Ward. The buildings in this area pressed in upon them, and the narrow streets became less crowded with every new turn they made. Bereth felt as though sinister eyes were watching her, but the factol was calm, and she didn't want to appear nervous or afraid while in his presence. She followed him onto an ancient street, set off by a spiky wall of stone and razorvine. It was a dead-end, she knew, and at its deepest point their destination waited.
@@ -76,17 +78,18 @@ _A PLANESCAPE Adventure_
 
 This section gives a Dungeon Master (DM) enough information to grasp what's really going on in the adventure. It includes an overview of Harbinger House; what's already happened to bring the story to the point at which the adventure begins; the dark of the planarity and the focrux, mysterious items of great power; and the roles played by the barmies Sougad and Trolan in the unfolding plot.
 
-#### The House
-
-Harbinger House sits on a quiet, dead-end street in the Lower Ward (though some claim it's in The Lady's Ward), towering above the neighboring buildings. Its multiple levels rise in all directions, piled haphazardly atop each other like blocks placed by a demented child. Walls tilt at insane angles, and dark windows reflect the lantern light of the nearby hovels. Staircases climb and descend around the House like latticework adornments. Some reach toward entryways, others lead nowhere. Finally, and perhaps most important, are the doors. Doors of all sizes and descriptions fill the walls of Harbinger House, inside and out — ornate doors, plain doors, elaborate open arches, simple sealed portals, doors of wood and stone and brass, and more. Doors are everywhere, and they're almost all locked tight.
-
-Harbinger House is a place of power, a nexus of energy, almost like a smaller version of Sigil itself. Its doors, like the portals of the Cage, open into the multiverse — if a berk has the proper key. But the key to the doors of Harbinger House is harder to come by than the keys that open the Cage. And there's good reason for that. The House shelters some of Sigil's most prominent barmies, so the caretakers take great pains to protect their secrets.
-
-Who are the caretakers? The **Believers of the Source** (also called the Godsmen) have taken it upon themselves to administer to both the House and its inhabitants. They believe that the House and the barmies they've selected to shelter are important to the Final Ascension. Remember, belief has power in the planes, so the conviction of the faction shouldn't be taken lightly. As the Godsmen see it, the residents of the House are powers-in-the-making, cutters and bloods almost ready to take the next step up the staircase of existence. The Godsmen have taken it upon themselves to care for them until the process finishes. Imagine the favors the faction might command when one of their charges reaches the full state of powerhood!
-
-As far as anyone knows, such an event hasn't happened — yet. But all of the barmies residing in the House do have a limited number of spell-like abilities that mark them — in the Godsmen's minds, anyway — as powers-in-the-making.
-
-Harbinger House itself is described in detail in Chapter III. The House is much larger on the inside than it appears to be from the outside; see the DM's screen for a partial map of the interior. It's a house of secrets, a place of mysteries hidden behind dark windows, a place as dangerous as it is alluring.
+> [!planar-note]
+> **The House**
+>
+> Harbinger House sits on a quiet, dead-end street in the Lower Ward (though some claim it's in The Lady's Ward), towering above the neighboring buildings. Its multiple levels rise in all directions, piled haphazardly atop each other like blocks placed by a demented child. Walls tilt at insane angles, and dark windows reflect the lantern light of the nearby hovels. Staircases climb and descend around the House like latticework adornments. Some reach toward entryways, others lead nowhere. Finally, and perhaps most important, are the doors. Doors of all sizes and descriptions fill the walls of Harbinger House, inside and out — ornate doors, plain doors, elaborate open arches, simple sealed portals, doors of wood and stone and brass, and more. Doors are everywhere, and they're almost all locked tight.
+>
+> Harbinger House is a place of power, a nexus of energy, almost like a smaller version of Sigil itself. Its doors, like the portals of the Cage, open into the multiverse — if a berk has the proper key. But the key to the doors of Harbinger House is harder to come by than the keys that open the Cage. And there's good reason for that. The House shelters some of Sigil's most prominent barmies, so the caretakers take great pains to protect their secrets.
+>
+> Who are the caretakers? The **Believers of the Source** (also called the Godsmen) have taken it upon themselves to administer to both the House and its inhabitants. They believe that the House and the barmies they've selected to shelter are important to the Final Ascension. Remember, belief has power in the planes, so the conviction of the faction shouldn't be taken lightly. As the Godsmen see it, the residents of the House are powers-in-the-making, cutters and bloods almost ready to take the next step up the staircase of existence. The Godsmen have taken it upon themselves to care for them until the process finishes. Imagine the favors the faction might command when one of their charges reaches the full state of powerhood!
+>
+> As far as anyone knows, such an event hasn't happened — yet. But all of the barmies residing in the House do have a limited number of spell-like abilities that mark them — in the Godsmen's minds, anyway — as powers-in-the-making.
+>
+> Harbinger House itself is described in detail in Chapter III. The House is much larger on the inside than it appears to be from the outside; see the DM's screen for a partial map of the interior. It's a house of secrets, a place of mysteries hidden behind dark windows, a place as dangerous as it is alluring.
 
 #### What Has Gone Before
 
@@ -114,19 +117,20 @@ Nari charmed Old Favur, the custodian, into telling her about the items Sougad h
 
 As for the focrux, Favur called it the heart of Harbinger House. "It looks like a larger version of the planarity," he said, "but its connection to the energy of the multiverse is much more powerful. If the planarity is the key, then the focrux is the floodgate waiting to be opened. And we will open it, when the Final Ascension is at hand."
 
-#### The Planarity and the Focrux
-
-At rest, the **planarity** appears to be a nondescript sphere of deep-blue stone, perfectly round and smooth, that fits in the palm of a hand. However, when it comes within 50 feet of a planar portal, the planarity reacts with excitement. It changes shape, and a storm of energy rises up from its depths to play along the inner surface of the stone. Spiky protrusions emerge from the smooth surface, jutting as much as three inches before plunging back into the stone. These protrusions extend and retract faster and faster as the planarity gets closer to a portal. At the same time, the inner storm intensifies into a raging dance of color.
-
-The planarity is a gate key, but not in the normal sense. Unlike other gate keys, which are linked to specific planar doors, the planarity has the power to open any portal in Harbinger House. In addition, it's the only key that unlocks the sealed doors there (both mundane and planar). The Godsmen's factol keeps the planarity in his possession at all times, sure that it'll play an important, if not pivotal, role in the Final Ascension.
-
-Anyone who holds the planarity can use it — that is, anyone who knows the command word. A body's just got to place the item in his open palm, approach any planar portal, and utter the right word. The planarity rises and floats a few inches above the palm, and the portal opens. The device doesn't work if it's in a pocket or pack, so accidental trips aren't possible.
-
-What's more, the planarity constantly records and stores images and sounds from activities in its immediate area. This feature was intended as a means to keep track of which portals were opened, and when. Only the factol of the Godsmen can call forth the full history of stored images, which "replay," life size, in plain sight. However, if the PCs gain possession of the planarity, they can summon images of the previous few hours — an ability that might prove important at the end of the adventure.
-
-The **focrux** is a bigger version of the planarity — about 15 feet in diameter. It stays inside Harbinger House at all times, as the Godsmen believe it to be the spiritual core of the House, a conduit for planar energies. All strange properties of the House — such as the fact that it's bigger on the inside than it appears on the outside — are powered by the focrux. It also causes the exterior of the House to reflect magic, preventing berks from harming the place or sneaking inside. As with the planarity, the Godsmen are certain that the focrux will prove to be critical to the Final Ascension.
-
-One property of the focrux that plays an important role in the adventure is its ability to block all of Harbinger House from scrying. No one — not even the Lady of Pain — can peer inside while the focrux is operational. Fact is, the focrux accounts for the uneasiness of the Lady (and, through her, the dabus), as she can't pinpoint the berk who dares to tamper with portals and powers in the heart of Sigil.
+> [!planar-note]
+> **The Planarity and the Focrux**
+>
+> At rest, the **planarity** appears to be a nondescript sphere of deep-blue stone, perfectly round and smooth, that fits in the palm of a hand. However, when it comes within 50 feet of a planar portal, the planarity reacts with excitement. It changes shape, and a storm of energy rises up from its depths to play along the inner surface of the stone. Spiky protrusions emerge from the smooth surface, jutting as much as three inches before plunging back into the stone. These protrusions extend and retract faster and faster as the planarity gets closer to a portal. At the same time, the inner storm intensifies into a raging dance of color.
+>
+> The planarity is a gate key, but not in the normal sense. Unlike other gate keys, which are linked to specific planar doors, the planarity has the power to open any portal in Harbinger House. In addition, it's the only key that unlocks the sealed doors there (both mundane and planar). The Godsmen's factol keeps the planarity in his possession at all times, sure that it'll play an important, if not pivotal, role in the Final Ascension.
+>
+> Anyone who holds the planarity can use it — that is, anyone who knows the command word. A body's just got to place the item in his open palm, approach any planar portal, and utter the right word. The planarity rises and floats a few inches above the palm, and the portal opens. The device doesn't work if it's in a pocket or pack, so accidental trips aren't possible.
+>
+> What's more, the planarity constantly records and stores images and sounds from activities in its immediate area. This feature was intended as a means to keep track of which portals were opened, and when. Only the factol of the Godsmen can call forth the full history of stored images, which "replay," life size, in plain sight. However, if the PCs gain possession of the planarity, they can summon images of the previous few hours — an ability that might prove important at the end of the adventure.
+>
+> The **focrux** is a bigger version of the planarity — about 15 feet in diameter. It stays inside Harbinger House at all times, as the Godsmen believe it to be the spiritual core of the House, a conduit for planar energies. All strange properties of the House — such as the fact that it's bigger on the inside than it appears on the outside — are powered by the focrux. It also causes the exterior of the House to reflect magic, preventing berks from harming the place or sneaking inside. As with the planarity, the Godsmen are certain that the focrux will prove to be critical to the Final Ascension.
+>
+> One property of the focrux that plays an important role in the adventure is its ability to block all of Harbinger House from scrying. No one — not even the Lady of Pain — can peer inside while the focrux is operational. Fact is, the focrux accounts for the uneasiness of the Lady (and, through her, the dabus), as she can't pinpoint the berk who dares to tamper with portals and powers in the heart of Sigil.
 
 #### Sougad and Trolan
 
@@ -168,76 +172,89 @@ Finally, the DM is encouraged to read the entire adventure before attempting to 
 
 Factions always play some part in a Planescape adventure, as most PCs belong to one philosophical fraternity or another. Because so much of this adventure revolves around Harbinger House, the Believers of the Source have a vested interest in the unfolding events. Their general reaction to the events of the story — along with that of the other factions — is outlined below.
 
-#### The Athar
+> [!faction-callout athar]
+> **The Athar**
+>
+> The Athar don't believe the chant about Harbinger House for a minute. A place full of barmy powers-in-the-making? Ha! A place full of barmy liars is more like it! The mysteries presented in the adventure attract the attention of the Lost, however. As the Defiers love to discover the secret behind everything and long to look upon the face of the unknowable, mysteries concerning the Lady of Pain, the dabus, and Sigil itself certainly spark the Athar's interest. 'Course, the faction's most concerned about the murder spree. Two lawful members of the Athar were victims of the murderer, and **Factol Terrance** calls for a quick solution.
 
-The Athar don't believe the chant about Harbinger House for a minute. A place full of barmy powers-in-the-making? Ha! A place full of barmy liars is more like it! The mysteries presented in the adventure attract the attention of the Lost, however. As the Defiers love to discover the secret behind everything and long to look upon the face of the unknowable, mysteries concerning the Lady of Pain, the dabus, and Sigil itself certainly spark the Athar's interest. 'Course, the faction's most concerned about the murder spree. Two lawful members of the Athar were victims of the murderer, and **Factol Terrance** calls for a quick solution.
+> [!faction-callout believers]
+> **Believers of the Source**
+>
+> The Believers of the Source have a natural connection to the events in this adventure. Harbinger House is a holding of the Godsmen, staffed by Godsmen, and supported by Godsmen funds. A problem that threatens the House and the Cage around it definitely concerns the faction.
+>
+> The Believers of the Source know that something of great importance is occurring in the shadow of Harbinger House. Faction officials could hire the PCs to look into matters, capture the escaped barmies (quietly and without fuss, of course), or recover the planarity after it's stolen from Factol Ambar in Chapter I. However, the Godsmen try their best not to have the faction publicly connected to the bad events plaguing Sigil. The faction wants to end Sougad's threat quickly, without letting too much information leak out. As for Trolan, if the Godsmen can't contain him, they'll do their best to claim he was never under their care. Other factions — especially those that consider the Godsmen to be their enemies, like the Bleak Cabal and the Dustmen — would love to get their hands on proof that the Godsmen messed up.
 
-#### Believers of the Source
+> [!faction-callout]
+> **The Bleak Cabal**
+>
+> The Bleak Cabal is especially interested in finding information that paints the Believers of the Source in a poor light. While blame for all of the trouble that revolves around Harbinger House falls on Nari's shoulders, a Bleaker could make a healthy case to at least discredit the Godsmen and gain favor in his own faction.
 
-The Believers of the Source have a natural connection to the events in this adventure. Harbinger House is a holding of the Godsmen, staffed by Godsmen, and supported by Godsmen funds. A problem that threatens the House and the Cage around it definitely concerns the faction.
+> [!faction-callout]
+> **The Doomguard**
+>
+> The Doomguard are quite interested in finding the murderer and putting a stop to the bloodshed. After all, lawful members of this faction are as likely to be targeted by Sougad as other lawfuls. If a member of the PC group belongs to the faction, he or she might be approached by the faction leaders to look into the ongoing murders before a Doomguard cutter ends up in the dead-book.
 
-The Believers of the Source know that something of great importance is occurring in the shadow of Harbinger House. Faction officials could hire the PCs to look into matters, capture the escaped barmies (quietly and without fuss, of course), or recover the planarity after it's stolen from Factol Ambar in Chapter I. However, the Godsmen try their best not to have the faction publicly connected to the bad events plaguing Sigil. The faction wants to end Sougad's threat quickly, without letting too much information leak out. As for Trolan, if the Godsmen can't contain him, they'll do their best to claim he was never under their care. Other factions — especially those that consider the Godsmen to be their enemies, like the Bleak Cabal and the Dustmen — would love to get their hands on proof that the Godsmen messed up.
+> [!faction-callout dustmen]
+> **The Dustmen**
+>
+> The law-killer obviously has no respect or appreciation for Death, though he is desperately trying to impress it with his bloody antics. All Sougad's accomplishing is to force his victims to go through the whole process again — and that's something no Dustman-in-good-standing can tolerate. Trolan, on the other hand, at least shows style and loving devotion in his mad rush toward Death's warm embrace.
+>
+> The faction leadership watches to make sure the murders don't spread to the Hive or otherwise impinge on the Dustmen's areas of interest, and they make an effort to collect the victims for the Mortuary, but they otherwise stay out of the proceedings.
 
-#### The Bleak Cabal
+> [!faction-callout]
+> **The Fated**
+>
+> The Fated see the actions of both Sougad and Trolan as signs of weakness and cowardice: Both seek to gain respect of a sort without properly earning it. What's more, the utter evil of Nari's scheme should perturb all but the most evil of the Fated.
+>
+> The faction leadership keeps a close eye on the murders of the members of the other factions, but refuses to get involved in matters that don't directly concern the Fated. The factol, **Duke Rowan Darkwood**, won't order his members to act unless a reward of some sort is involved. Anything less would be considered charity, and the Fated don't perform acts of charity for any reason.
 
-The Bleak Cabal is especially interested in finding information that paints the Believers of the Source in a poor light. While blame for all of the trouble that revolves around Harbinger House falls on Nari's shoulders, a Bleaker could make a healthy case to at least discredit the Godsmen and gain favor in his own faction.
+> [!faction-callout]
+> **The Fraternity of Order**
+>
+> The breakdown of law definitely disturbs the Fraternity of Order. Flagrant criminal acts, total disregard for the law, wanton acts of violence — it's enough to make a Guvner go barmy! Beyond the obviously evil acts of Sougad and the leatherheaded actions of Trolan, the thought of the dabus losing their ordered approach to city maintenance causes great distress in the hearts and minds of Guvners everywhere.
+>
+> While only one member of this faction winds up in the dead-book by the start of the adventure, the faction believes itself to be the murderer's primary target. Because of this, all other incidental events take a back seat as far as **Factol Hashkar** is concerned. He may even hire the PCs to bring the murderer to justice; after all, order must be reestablished before all of Sigil collapses into chaos!
 
-#### The Doomguard
+> [!faction-callout]
+> **The Free League**
+>
+> As a group, the Free League won't get involved; however, any PCs who are members of this faction might choose to throw in with whichever side seems to offer the best rewards.
 
-The Doomguard are quite interested in finding the murderer and putting a stop to the bloodshed. After all, lawful members of this faction are as likely to be targeted by Sougad as other lawfuls. If a member of the PC group belongs to the faction, he or she might be approached by the faction leaders to look into the ongoing murders before a Doomguard cutter ends up in the dead-book.
+> [!faction-callout harmonium]
+> **The Harmonium**
+>
+> Harmonium cutters'll seek to arrest the criminal responsible for the murders; Sougad's actions demand an appropriate response. Once the first victim is discovered, **Factol Sarin** mobilizes his Hardheads and assigns his best investigator, **Narcovi**, to solve the case (especially since one of the victims was a member of the Harmonium). Sarin believes that the murders are the work of a rival faction, probably the Xaositects or the Revolutionary League. As the factol's representative in this matter, Narcovi may enlist the PCs' help to catch the perpetrator — or pursue them as suspects as the murders continue.
 
-#### The Dustmen
+> [!faction-callout]
+> **The Mercykillers**
+>
+> The Mercykillers are charged with protecting justice, and the events surrounding Harbinger House threaten justice in all its forms. **Factol Nilesia** is furious that members of allied factions have been showing up in the dead-book, and the Mercykillers descend on the streets of Sigil like a penetrating mist. They'll never find Sougad, but that doesn't mean they can't cause trouble for the PCs. They can interfere with the PCs' own investigation, chase after them as suspects, or even go out of their way to ask the PCs for help.
 
-The law-killer obviously has no respect or appreciation for Death, though he is desperately trying to impress it with his bloody antics. All Sougad's accomplishing is to force his victims to go through the whole process again — and that's something no Dustman-in-good-standing can tolerate. Trolan, on the other hand, at least shows style and loving devotion in his mad rush toward Death's warm embrace.
+> [!faction-callout]
+> **The Revolutionary League**
+>
+> Anarchist cutters see Trolan as a heroic symbol. He's slapping the faces of law, order, and sanity, going so far as to risk death to change the rules and do things his own way. As for Sougad, some Anarchists see him as the harbinger of the True Revolution and revel in the chaos and fear he's inspired. Other members of the faction see him as a wild card who could doom the Revolution before it has a chance to move into full swing. The law-killer's methods are too extreme, they say, and the League has to keep itself dark from the factions that would destroy it.
+>
+> Harbinger House, however, appears to be nothing more than a glorified indoctrination camp. A true victory for the Revolution would be to discover what's happening in the House, and then set the prisoners free.
 
-The faction leadership watches to make sure the murders don't spread to the Hive or otherwise impinge on the Dustmen's areas of interest, and they make an effort to collect the victims for the Mortuary, but they otherwise stay out of the proceedings.
+> [!faction-callout]
+> **The Sign of One**
+>
+> A small but vocal portion of the Sign of One faction believes that the person responsible for imagining the multiverse is doing it from somewhere in the depths of Harbinger House. PC Signers have at least heard the theory, even if they don't believe it. Still, events happening around the House are worth looking into, just in case there's something to the chant.
 
-#### The Fated
+> [!faction-callout]
+> **The Society of Sensation**
+>
+> Sensates find the events surrounding Harbinger House to their liking. There are secrets to be learned in each experience, and nothing should be allowed to just pass by. Perhaps a Sensate wants to hear the words of Trolan, letting his own heart sail toward the enigmatic Lady of Pain. Or maybe he wants to feel the sharp touch of her shadow before the blades strike. Of course, death is an experience to be saved for the very end, and no Sensate wants that end to be in the near future.
+>
+> **Factol Montgomery** won't order anyone from the faction to investigate the murders or the actions of the cult. All Sensates are free to explore the fires of their senses, but only in an unofficial capacity.
 
-The Fated see the actions of both Sougad and Trolan as signs of weakness and cowardice: Both seek to gain respect of a sort without properly earning it. What's more, the utter evil of Nari's scheme should perturb all but the most evil of the Fated.
-
-The faction leadership keeps a close eye on the murders of the members of the other factions, but refuses to get involved in matters that don't directly concern the Fated. The factol, **Duke Rowan Darkwood**, won't order his members to act unless a reward of some sort is involved. Anything less would be considered charity, and the Fated don't perform acts of charity for any reason.
-
-#### The Fraternity of Order
-
-The breakdown of law definitely disturbs the Fraternity of Order. Flagrant criminal acts, total disregard for the law, wanton acts of violence — it's enough to make a Guvner go barmy! Beyond the obviously evil acts of Sougad and the leatherheaded actions of Trolan, the thought of the dabus losing their ordered approach to city maintenance causes great distress in the hearts and minds of Guvners everywhere.
-
-While only one member of this faction winds up in the dead-book by the start of the adventure, the faction believes itself to be the murderer's primary target. Because of this, all other incidental events take a back seat as far as **Factol Hashkar** is concerned. He may even hire the PCs to bring the murderer to justice; after all, order must be reestablished before all of Sigil collapses into chaos!
-
-#### The Free League
-
-As a group, the Free League won't get involved; however, any PCs who are members of this faction might choose to throw in with whichever side seems to offer the best rewards.
-
-#### The Harmonium
-
-Harmonium cutters'll seek to arrest the criminal responsible for the murders; Sougad's actions demand an appropriate response. Once the first victim is discovered, **Factol Sarin** mobilizes his Hardheads and assigns his best investigator, **Narcovi**, to solve the case (especially since one of the victims was a member of the Harmonium). Sarin believes that the murders are the work of a rival faction, probably the Xaositects or the Revolutionary League. As the factol's representative in this matter, Narcovi may enlist the PCs' help to catch the perpetrator — or pursue them as suspects as the murders continue.
-
-#### The Mercykillers
-
-The Mercykillers are charged with protecting justice, and the events surrounding Harbinger House threaten justice in all its forms. **Factol Nilesia** is furious that members of allied factions have been showing up in the dead-book, and the Mercykillers descend on the streets of Sigil like a penetrating mist. They'll never find Sougad, but that doesn't mean they can't cause trouble for the PCs. They can interfere with the PCs' own investigation, chase after them as suspects, or even go out of their way to ask the PCs for help.
-
-#### The Revolutionary League
-
-Anarchist cutters see Trolan as a heroic symbol. He's slapping the faces of law, order, and sanity, going so far as to risk death to change the rules and do things his own way. As for Sougad, some Anarchists see him as the harbinger of the True Revolution and revel in the chaos and fear he's inspired. Other members of the faction see him as a wild card who could doom the Revolution before it has a chance to move into full swing. The law-killer's methods are too extreme, they say, and the League has to keep itself dark from the factions that would destroy it.
-
-Harbinger House, however, appears to be nothing more than a glorified indoctrination camp. A true victory for the Revolution would be to discover what's happening in the House, and then set the prisoners free.
-
-#### The Sign of One
-
-A small but vocal portion of the Sign of One faction believes that the person responsible for imagining the multiverse is doing it from somewhere in the depths of Harbinger House. PC Signers have at least heard the theory, even if they don't believe it. Still, events happening around the House are worth looking into, just in case there's something to the chant.
-
-#### The Society of Sensation
-
-Sensates find the events surrounding Harbinger House to their liking. There are secrets to be learned in each experience, and nothing should be allowed to just pass by. Perhaps a Sensate wants to hear the words of Trolan, letting his own heart sail toward the enigmatic Lady of Pain. Or maybe he wants to feel the sharp touch of her shadow before the blades strike. Of course, death is an experience to be saved for the very end, and no Sensate wants that end to be in the near future.
-
-**Factol Montgomery** won't order anyone from the faction to investigate the murders or the actions of the cult. All Sensates are free to explore the fires of their senses, but only in an unofficial capacity.
-
-#### The Transcendent Order
-
-The Transcendent Order seeks a harmony of mind and body that makes quick action a virtue. With each new problem or obstacle thrown in their path, Ciphers not only attempt to make fast decisions and quick responses, they also try to make the right ones.
-
-**Factol Rhys** won't command the Ciphers to become directly involved in the events surrounding Harbinger House. She has no interest in letting her faction interfere in the internal politics of the Lower Ward and The Lady's Ward. The right action, in this case, is no action — it'll keep her and hers alive. 'Course, once the murderer moves on to
-
+> [!faction-callout]
+> **The Transcendent Order**
+>
+> The Transcendent Order seeks a harmony of mind and body that makes quick action a virtue. With each new problem or obstacle thrown in their path, Ciphers not only attempt to make fast decisions and quick responses, they also try to make the right ones.
+>
+> **Factol Rhys** won't command the Ciphers to become directly involved in the events surrounding Harbinger House. She has no interest in letting her faction interfere in the internal politics of the Lower Ward and The Lady's Ward. The right action, in this case, is no action — it'll keep her and hers alive. 'Course, once the murderer moves on to
 
 # Chapter 1: The Streets of Sigil
 
@@ -299,6 +316,7 @@ This chapter ends with a confrontation with **Sougad**, the barmy committing the
 
 This scene begins the adventure just as the PCs return to Sigil from a trip across the planes. They emerge from a portal to discover that things aren't exactly the way they remember them. For this quick start to be effective, the PCs must return through a portal in the Lower Ward or The Lady's Ward. Preferably, the portal should be near Harbinger House, as that's the area where the strange activities of the dabus are most concentrated. Read:
 
+> [!read-aloud]
 > You step through the glowing portal to stand in the shadows of a crowded Sigil street. Berks of all descriptions move past you, each in a hurry to get to wherever he or she is going. And in Sigil, they can be going, quite literally, anywhere.
 >
 > Across the cobbled street you notice a group of four dabus, servants of the Lady of Pain. They're busy painting the side of a two-story building. The dabus work silently, dipping brushes in buckets of blue paint and applying it with broad, sweeping strokes. Then you notice something else. The building that the dabus are painting has already been painted. A shiny, fresh coat of yellow gleams brightly beneath the growing blue, though the dabus continue their work as if the wall hadn't been painted in more than a century.
@@ -321,6 +339,7 @@ If the PCs are foolish enough to attack the dabus, they do get a response: The d
 
 Another possible beginning for this adventure centers around a relaxing dinner at the PCs' favorite inn or tavern. The details of the location are left to the DM so that the scene can be placed in an existing establishment in the campaign. The scene shouldn't take place too long after the PCs return to Sigil upon completing a previous adventure. As their food arrives and their mugs are refilled, an intriguing conversation at the next table turns to matters that might interest the PCs. Read or paraphrase the following to the players:
 
+> [!read-aloud]
 > As you start to eat, a couple of grim bashers at the next table catch your attention. There are four of them, three men and a woman, all dressed in the garb and icons of the **Athar**. They seem more dour than usual, and the words that carry over to your table may explain why. "Another body was found," the woman says, eliciting oaths and curses from the men. "Who was it this time?" one asks. "A Guvner? A Hardhead? One of us?" The woman raises her hand for silence. "It was Keluk," she tells them, and each lets out a sorrowful sigh. "He was found near the Shattered Temple, killed like the others."
 
 This beginning introduces the PCs to the murders that plague the Lower Ward and The Lady's Ward. The murders began about a week ago, and each night since one lawfully aligned faction member has ended up in the dead-book. Six bodies have been discovered to date, each from one of these factions: the Athar, the **Believers of the Source**, the **Fraternity of Order**, and the Harmonium. While no members of the **Doomguard** or the Mercykillers have turned up dead yet, both of these factions believe that it is only a matter of time until they get hit, too.
@@ -365,12 +384,14 @@ If the PCs enter the shop, A'kin rushes over to greet them. He offers cups of ho
 
 After a bit more small talk, A'kin asks if the PCs are looking for anything in particular or just browsing. He's recently acquired an item they might be interested in, though he's embarrassed by how much he'll have to charge for it. "Now, where did I put it?" he ponders, as the door swings open and another customer wanders in. Read:
 
+> [!read-aloud]
 > The chimes over the door announce the arrival of another customer. It's a male elf, dressed in amber and silver robes. He wears the bladed-head icon of the Lady of Pain around his neck, and a serene smile graces his handsome face.
 >
 > "I am new to your city, friend shopkeeper," the elf calls out. "Could you direct me to Bloodgem Park?"
 
 The elf, **Halelfar** (Pr/♂ elf/0/—/LG), recently found himself on the Outlands after spending the better part of his life on a nameless prime world. He's one of the Clueless, but he heard the words of Trolan and decided to take up the worship of the Lady of Pain. Halelfar paid for passage to Sigil with the last of his savings (passage being a gate key and directions to the proper gate), and now he's come to pay homage to the Lady with the other recent converts to Trolan's religion.
 
+> [!read-aloud]
 > "It's not far, my friend," A'kin replies, "but not all visitors to the Cage know the chant, if you tumble to my meaning. That symbol you wear, for instance—such an open display will get you in the dead-book before you ever reach Bloodgem Park."
 >
 > "Thanks for your concern, shopkeeper," the elf smiles, "but my love of the Lady will keep me safe."
@@ -383,6 +404,7 @@ Halelfar nods and walks back into the street, making no move to hide the icon. I
 
 If the PCs go after Halelfar and question him, they can learn some details about the new religion.
 
+> [!read-aloud]
 > "We love the Lady of Pain," the elf says with obvious devotion. "She is our moon, our sun, the very air we breathe. Without her love, we are nothing, so we have come to Sigil to court her and bask in her overwhelming beauty. You should join us, my friends, for the Lady will love you, too. We gather in Bloodgem Park two nights from now. The Lady can hardly refuse to respond to all of our affection."
 
 With that, Halelfar strides toward the park.
@@ -570,6 +592,7 @@ When the PCs leave The Ascension, the DM should have each make a Wisdom check at
 
 Urchend is deathly afraid of the Harmonium because their guards routinely round up street people for no apparent reason, so he hid while Narcovi was conducting her investigation. He wants to let somebody know what he saw, however. If the PCs have been friendly toward other street people, Urchend approaches them; otherwise, the PCs spot him and can go to his hiding place. In either case, once the PCs demonstrate that they mean the boy no harm, Urchend stammers:
 
+> [!read-aloud]
 > "I spied the killin' in The Ascension four nights ago. It was dark, but I saw two shapes movin' around behind the windows. A basher chased a woman around the common room with a sword, but he weren't swingin' it at her. I could hear him laughin'—an evil, barmy sound. Then he touched her, and a flash like lightnin' lit up the room. The woman screamed, and I saw the berk in that quick flash o' light. He was tall and strong, with wild hair and fiery eyes. Then it got dark again. I could hear him hack her to bits with his sword, but I couldn't see nothin'—at least, not till I spied a sparkly red glow creep outta her body, slide up his sword, and make the berk shine bright, just for a wink."
 
 Urchend didn't recognize the killer and can't tell the PCs anything more.
@@ -582,6 +605,7 @@ Urchend didn't recognize the killer and can't tell the PCs anything more.
 
 When the PCs arrive at the **City Court**, they find that the library in question has been temporarily closed. If they're working for the Guvners, the Harmonium, or the Mercykillers, they're allowed to examine the area. Otherwise, they must sneak in, charm their way past a Guvner guard, or bribe one of the non-Guvner workers who serve the Court. However they do it, the PCs should eventually gain access to the murder site. In the library, the PCs witness the following:
 
+> [!read-aloud]
 > Pushing open the doors to the Court library, you're greeted with an unexpected sight. All of the shelves of scrolls and books have been shoved into the far corner, along with the reading tables and chairs. The rest of the chamber is bare, and four dabus are busy cleaning the walls, floor, and ceiling with brushes, mops, and brooms.
 >
 > "They've been at it since we removed the body two days ago," comments a voice from behind you. You turn with a start, recognizing the old man with the large red nose and bushy white mustache as **Factol Hashkar**, high-up of the Guvners. "I've never seen them behave like this, cleaning the same spots over and over. It doesn't bode well for the Cage, I fear. But enough about our silent friends. Do you have some business here, or should I summon my guards?"
@@ -700,12 +724,14 @@ At this point in the adventure, she's experienced each of the six murders throug
 
 When the PCs meet Harlique, she looks as if she hasn't slept well in weeks. The DM should pick one of the PCs. Harlique saw that character battling Sougad in her dream and wants to enlist his aid. She approaches the group with a dance in her step but a haunted look in her eyes. She behaves like any other barmy they might meet, but an edge of sanity peeks through if the PCs look for it. Read the following:
 
+> [!read-aloud]
 > A young woman dressed in comfortable leathers and marked by long dark hair and haunted eyes dances toward you. "I know you," she sings, pointing at one of you. "I dreamed about you last night. You're going to fight the murderer." She never stops moving, spinning around you, bouncing, dancing, swaying.
 >
 > "I saw last night's murder," she says. "Except I guess it's really tonight's."
 
 If the PCs refuse to deal with Harlique, she follows them around and tells them what she dreamed regardless of their complaints. If they attack her, she laughs, "Let it be on your heads, berks," and dances into the shadows of a nearby alley before any real harm can befall her. If she does manage to pass on her vision, read the following:
 
+> [!read-aloud]
 > "Listen to the chant, cutters," the strange young woman almost sings, closing her eyes though she continues to dance and spin in place. "I dreamed of the murderer last night. He's a barmy, like me, from the House on the dead-end street. I saw him at a bake shop across from the Prison, hiding in the shadows of the door. He waited as Sigil grew dark and fell asleep, watching the Prison with hateful eyes. When the Watch called out 'Six lanterns and all's well,' he slid from the shadows and struck. The killer killed a Mercykiller. Red Death. Blood. Seven slashes of a flashing sword. He laughs, and another man dies..."
 
 Harlique trails off, her dream vision finished. She can't provide any other information on the next murder, the murderer, or the victim, but she can tell the PCs about Harbinger House if they ask specific questions. She doesn't know anything about Nari, Trolan, or Sougad, though she has seen all of them in her dreams.
@@ -746,6 +772,7 @@ Sometime during the PCs' investigation of the murders, Nari the succubus learns 
 
 Ten Indep bashers soon find the PCs and get right to the point. Read:
 
+> [!read-aloud]
 > You suddenly find yourselves surrounded by ten of the meanest bashers you've ever seen. They wear the symbol of the Free League, which means anyone could have hired them to come after you. "You berks need to learn some manners," one of the bashers sneers as he hefts his weapon. "And while we're teaching you, maybe you'd like to return the lady's pouch and save yourselves a second beating."
 
 The bashers don't want to kill the PCs, but they will match force for force. If more than half of the bashers fall, the rest try to escape. If the PCs manage to capture an Indep for questioning, he tells them all about what Nari said. However, he can't name her, he doesn't know how to find her, and the description fits any number of young women in the Cage.
@@ -786,6 +813,7 @@ Nari wants to frame the PCs for a murder that looks remarkably like one Sougad w
 
 A few hours after the attack on Factol Ambar, Tarrin the thief tries to steal something from the PCs as they walk through Sigil's streets—any item that can be traced back to the group. If the PCs catch him in the act, they can question him about the object he stole from Factol Ambar. Tarrin doesn't know a lot, and it's obvious that he's been charmed in some way. He doesn't know Nari's name, where to find her, or what she did with the item. Read:
 
+> [!read-aloud]
 > "I don't have it," the thief says with a wide smile. "I gave it to the beautiful woman. She wanted it so badly, I just had to get it for her. The same's true of your item. Let me give it to her!"
 
 Tarrin does know he's supposed to meet "her" in Bloodgem Park after completing his present mission. If the PCs go to the park, Nari spots them from her hiding place in the shadows of a copse of trees and realizes that Tarrin has failed. She disappears before the PCs even realize she's there.
@@ -800,6 +828,7 @@ Throughout the murder investigation, members of Those Who Court the Lady continu
 
 **Discrimination:** Because worship of the Lady of Pain is strictly forbidden, Those Who Court the Lady must deal with undisguised discrimination. Some cultists are thrown out of shops and inns by angry mobs. Others are refused even the most basic services in order to make them move on. The worst offense, however, occurs when a group of five bullies decide to beat up a cultist because of his beliefs. The PCs wander by just as things begin to heat up. Read:
 
+> [!read-aloud]
 > "We don't want your kind here, you barmy," an angry voice shouts from down a nearby alley. You see one of the cult members, dressed in silver and amber robes and adorned with the bladed head of the Lady of Pain, surrounded by five toughs. "We're just taking care of you before the Lady does it herself," another basher adds. Then they start hitting the cultist, who doesn't even lift a hand to defend himself.
 
 If the PCs just walk by, the cultist dies from the beating he receives. If the PCs go to his aid, the toughs call them barmy "for helping a berk who's already in the dead-book" and attack. The five bashers fight until two of their number fall, then flee. The cultist thanks the PCs for their help, but adds, "The Lady would've protected me."
@@ -810,6 +839,7 @@ If the PCs just walk by, the cultist dies from the beating he receives. If the P
 
 The devotees of the Lady who go begging and preaching spread words of love about Sigil's high-up. No one has ever spoken about the Lady of Pain in such flowery language. Indeed, the PCs can't remember when anyone really talked about her much at all. Read:
 
+> [!read-aloud]
 > "The Lady loves you, and you should show her your love in return," the preacher proclaims. "As Trolan the Beloved has said, the Lady is love, and her presence shines for all to see. Come to Bloodgem Park and join us, for to win the Lady's love is better than anything else the multiverse has to offer."
 
 **Cultist:** THAC0 20; #AT 1; Dmg 1d3 (fists); AC 10 (robes); HD 1; hp 5 each; MV 12; SZ M (6 feet tall); Int average (10); AL var; ML champion (15); XP 15.
@@ -822,10 +852,12 @@ The devotees of the Lady who go begging and preaching spread words of love about
 
 Eventually, the PCs should track Sougad to his hiding place in Grassif's warehouse. This encounter is written from that perspective; the DM can change the location of this scene but then must also adjust the player text accordingly. When the PCs find Sougad, read:
 
+> [!read-aloud]
 > You find a hidden lair in a dark corner of Grassif's warehouse. A bed, a map of the wards, clothes, a jug of wine, and a jar of Abyssal leeches mark this as someone's hiding place.
 
 Sougad climbed up to a wooden beam near the ceiling as soon as he saw the PCs approach. When they begin to search the area, the barmy makes his presence known:
 
+> [!read-aloud]
 > Dust sprinkles down from above. There, standing on a support beam next to an open window, is the wild-haired man. His grin looks confident and evil, and he appears to crackle with power up in the shadows.
 >
 > He looks down at you and laughs. "Fools!" he shouts, as he leaps through the window onto the roof.
@@ -846,6 +878,7 @@ Eventually, Sougad leads the PCs to a specific four-story building across from *
 
 Meanwhile, in Bloodgem Park across the street, 20 members of **Those Who Court the Lady** have gathered to show their devotion to Sigil's high-up. The PCs notice the crowd peripherally, though the majority of their attention is probably focused on Sougad. As the PCs move to engage Sougad in battle, the crowd begins to chant. Read:
 
+> [!read-aloud]
 > "Hear us, Lady, for your beauty and grace have attracted us from across the planes," the crowd chants in unison. "Accept our gifts and love, and in return show the love you feel for us!"
 
 The chant is repeated over and over as the battle rages on the rooftop; the PCs hear bits of it as their weapons clash with Sougad's law slayer blade.
@@ -854,10 +887,12 @@ Before the PCs can kill the barmy, he decides to escape through the portal and s
 
 Just as the battle with Sougad nears its end, a shadow crosses the rooftop. Any PCs who look up see the **Lady of Pain** floating above them and heading directly toward Bloodgem Park. Read:
 
+> [!read-aloud]
 > The chant grows louder, more intense, as the Lady of Pain draws near. Her shadow, as sharp as the blades protruding from her robes and headdress, slowly stretches toward the gathered crowd. As it draws closer, the chanters drop to their knees and present the gifts they brought her. The first cultist, flowers in hand, smiles happily as the Lady's shadow touches him. Then he screams in pain as blood pours from wounds that appear across his body — wounds that look like they were made by slashes from incredibly sharp blades. The cultists continue to chant, not one of them attempting to flee or beg for mercy. The shadow touches each one in turn, and in turn each one dies. It only takes a few moments, and then the Lady moves on, floating indifferently over the distant roofs.
 
 Once Sougad escapes, the PCs can check on the cultists. Among the slashed corpses, they recognize **Halelfar**, the young elf from The Friendly Fiend. The elf is drenched with his own blood, but he isn't quite dead yet.
 
+> [!read-aloud]
 > Halelfar looks up at you, his eyes slowly losing the glow of life but his face shining with an expression of peace and happiness. He smiles at you, then whispers, "Did you see? She came to me. The Lady truly loves me." Then he dies.
 
 With the Lady's passing, dabus and faction officials arrive to clean up the mess. One of these officials is **Narcovi**, who has lots of questions about what happened. Proceed to Chapter II, which opens with the resolution of the events in Bloodgem Park.
@@ -880,16 +915,20 @@ The dabus begin to clean away the blood and make the park presentable, but the a
 
 After a brief amount of time passes, Factol Ambar approaches the PCs with guards in tow. He arrived on the scene right after Narcovi, once he was certain the area was secure. If the PCs have never met him, Ambar introduces himself and gets right to the dark of his visit. Read:
 
+> [!read-aloud]
 > "Terrible tragedy," the factol comments, "but the Cage's high-up has her rules. Let's all learn the lesson of breaking them." After some small talk, the factol drops his voice to a conspiratory whisper. "May I speak with you for a moment?" He directs you to a quieter corner of the park. "The **Believers of the Source** have a few... problems," the factol admits with obvious reluctance. "We face much embarrassment and loss of position if these troubles aren't settled quickly."
 
+> [!read-aloud]
 > The factol glances around nervously, then pulls you deeper into the shadows. "The law-killer Sougad is our responsibility, and I fear these violent deaths are as well. You see, we provide care for poor sods who appear to be barmy but are actually powers-in-the-making. Sougad escaped from our care, and so did one other; one who loves the Lady of Pain with all his heart. I fear he's passed his feelings on to those who are easily swayed."
 
 Factol Ambar explains that the Godsmen maintain a shelter for these powers-to-be. He asks the PCs to recover the missing barmies before any more lives are lost, offering both jink and the gratitude of his faction. If the PCs agree, Ambar hands them the files on Trolan and Sougad (see "Factol Ambar's Files" on page 34, which should be photocopied and given to the players). He notes that all of the dead cultists came from Ecstasy, a gate-town on the Outlands — the best place to begin a search for Trolan. Ambar also asks about the portal Sougad used to escape. If the PCs point it out, Ambar sends one of his guards (a wizard) to check it out with a warp sense spell. A few moments later, the guard returns with the relevant information: The gate leads to Ecstasy, it requires a leaf from a star petal flower to activate, and it was indeed used in the recent past.
 
+> [!read-aloud]
 > "How fortunate for us," the factol says. "Perhaps this entire mess can be dealt with in one swift action. I will provide you with the necessary gate keys to speed you on your trip."
 
 Ambar finishes by stressing that he doesn't want Trolan injured.
 
+> [!read-aloud]
 > "Trolan's not a villain in the sense that Sougad is," Ambar states emphatically. "He's just misguided by his love for someone who can't and won't reciprocate. Bring him back here without injury, and the Believers of the Source will take care of him. As for Sougad, deal with him as you see fit."
 
 If the PCs refuse Ambar's offer, there are other ways to get them to Ecstasy. Narcovi could ask them to go on behalf of the Harmonium, as Sougad remains a threat that must be stopped. Kariana (see below) could convince them to rescue her brother from the cult's influence. Finally, if nothing else presents itself and the PCs refuse to leave Sigil, they could be tricked into heading to Ecstasy. Factol Ambar and Narcovi both have the means for planting a gate key on one of the PCs. In this case, at some point the PCs will step through an archway or door that's a portal to the gate-town and be transported to the location of Sougad's latest activities.
@@ -928,12 +967,14 @@ Kariana wears a simple blue robe with its hood pulled up over her satin-black ha
 
 Kariana waits until the PCs have finished talking to the factol before she approaches them. It doesn't matter what the outcome of their meeting with Ambar is; the PCs may still agree to help Kariana. Read:
 
+> [!read-aloud]
 > A figure in a blue, hooded robe walks toward you. While the figure's features are hidden, the shape beneath the robe is obviously female. She stops only a foot or two away from you, and you can see her large, dark eyes, pale skin, and wisps of black hair straying from the safety of her hood.
 >
 > "The chant's loud about you, cutters," she says in a sorrow-filled voice. "Did you really chase off the law-killer?"
 
 If the PCs answer truthfully, Kariana points toward the body of a dark-haired man, his handsome face slashed open as if by a sharp razor. As a pair of Dustmen drape a sheet over the dead sod and prepare to lift him onto the waiting wagon, the woman chokes back tears. Read:
 
+> [!read-aloud]
 > "That's Benjim. My brother. He was a happy, content body back in Ecstasy. Then he heard Trolan's words, and they led him to his death." She pauses, watching her brother's corpse disappear into the back of the Dustmen's wagon. "My younger brother, Kedd, is still out there, letting Trolan fill his head with images of love. But there's no love for them here — just death. I need help. Will you help me?"
 
 If the PCs are interested, Kariana explains that her brothers listened to Trolan speak in Ecstasy's Philosopher's Court, and both seemed different after the experience. "His words seeped into their souls. Both Benjim and Kedd fell in love with the Lady," she tells them. "Please — find Kedd before he makes a pilgrimage to the Cage. I'll pay you with everything I own." She holds out a small leather pouch containing 37 gold pieces, 62 silver pieces, and 45 copper pieces. It's the sum of her wealth, but she offers it all to the PCs if they agree to save her little brother.
@@ -1002,6 +1043,7 @@ In addition to the information provided by these three bodies, the PCs can learn
 
 Those who didn't know Trolan in his younger days can tell the PCs about his latest visit to Ecstasy. This information is compressed into the dialogue below, though the DM is encouraged to spread the revelations among as many residents of Ecstasy as necessary for good role-playing.
 
+> [!read-aloud]
 > "Trolan? Oh, you mean the leader of the berks that worship the Lady of Pain? Yeah, I saw him. He was here about a week ago. He spoke at the crossroads, telling the crowds that gathered all about his love of the Lady and what she told him. He claimed she was ready to accept open devotion, and that he was her beloved but she still had room in her heart for all who adored her. He spoke from the top of an iron pillar, and his voice was like the music of the planes. He preached for a whole day, and then he charged those who felt as he did to go to Sigil and show the Lady their love. Almost a dozen berks left Ecstasy at his side the next day, along with another dozen who'd followed him here. It didn't end after he was gone, though. Others who'd heard his words decided that Trolan was more than just a prophet. They figured the cutter was a power. So they took one of the abandoned temples and dedicated it to Trolan. Hey, that's their right, if it helps their personal growth."
 
 ## Major Locations in Ecstasy
@@ -1012,6 +1054,7 @@ This section details five major locations in the gate-town and the encounters th
 
 Whether the PCs go through the rooftop arch to get to Ecstasy or arrive through some other gate, they step into a beautiful garden of colorful, fragrant flowers. The portal on this side is an elaborate, free-standing arch covered with leafy vines. In the distance, the PCs can see stone and iron plinths reaching into the sky, which identify the location as Ecstasy, the City of Plinths. After all of the PCs step from Sigil into the garden, read:
 
+> [!read-aloud]
 > Captivating fragrances and colors surround you as you step from Sigil's dusty streets into a garden paradise. Beyond the tops of the hedges that form a wall around the garden, you can see great stone and iron monoliths stretching toward the sky. The garden path winds lazily toward an opening in the wall, passing by bushes full of roses, star petals, and bright blossoms you can't identify.
 >
 > You also notice a halfling sitting on a short plinth beside the path. His eyes are closed, his legs crossed, and a contented smile stretches across his face. On the plinth, an open jug of ale waits within easy reach.
@@ -1034,6 +1077,7 @@ If the PCs used a different gate, Artemor never saw Sougad. However, he admits t
 
 This finely appointed stable is the home of **Chereng** (Pl/♂ bariaur/0/Free League/CG), Trolan's childhood friend. Many of the older bodies in Ecstasy can direct the PCs here. The bariaur's sample dialogue follows; however, the DM shouldn't simply read the entire dialogue aloud. Instead, break it up according to how the PCs approach and question Chereng.
 
+> [!read-aloud]
 > "I knew Trolan," Chereng remembers. "We grew up together. I met him when we were both children. Trolan had just arrived, walking into the city on the road from the Outlands. He was only eight, but he apparently made his way here on his own. He never talked about it, but I knew he had been abandoned. We became fast friends, and his dreams and songs and stories were better than any words of wisdom spoken in the temples or shouted from the tops of the plinths. When I wanted to do something that was a little wicked or impinged on someone's personal space, Trolan would talk me out of it. Too bad I couldn't return the favor. He was a good soul, and I miss him a lot."
 
 ### 3. Miressa's Townhouse
@@ -1042,6 +1086,7 @@ This finely appointed stable is the home of **Chereng** (Pl/♂ bariaur/0/Free L
 
 As with Chereng's sample dialogue, the DM should parcel out the following information in normal conversation — not just read it from beginning to end.
 
+> [!read-aloud]
 > "Yes, I knew him. We were friends, then lovers. How I loved that young man! He had a voice like a summer's breeze and a smile that was brighter than the sun. Even my father liked him, for his bardic talents made him one of the best speakers at my father's debates. Not that Trolan spoke out often — at least, not before he heard about the Lady.
 >
 > "A cleric visited the city that year, on his way from Sigil to Elysium. He told stories about the City of Doors, and Trolan became fascinated with the images and chant of the place. When the cleric told him about the Lady of Pain, Trolan's eyes lit up with a fire that I could never ignite. He fell in love with Sigil's icon, composing songs and ballads to her while he was with me. Before the year ended, I knew that I had lost him. He said he was sorry. He said goodbye. Then he was gone, and my heart went with him. I tried to see him when he returned a few days ago, but he was still singing the Lady's praises. By the currents of Oceanus, how I hate her!"
@@ -1054,6 +1099,7 @@ This inn and tavern in the Temple District is run by a tiefling named **Ogan** (
 
 If the PCs ask Ogan about Trolan, they might learn the following information, revealed in bits and pieces during a normal conversation:
 
+> [!read-aloud]
 > "He was my best attraction in those days," Ogan remembers. "The berks who sit on top of the plinths'd climb down to listen to Trolan sing and play. 'Course, they drank plenty of ale and wine on those nights, and even the Dark Hunter was known to come by now and then to hear Trolan perform. Trolan was going to make me rich, and I was going to let him. Then that stupid cleric showed up and ruined everything!
 >
 > "You never tell an impressionable young sod like Trolan about something wondrous he can't ever have. It was a recipe for disaster! Now look what's going on. Trolan comes back and the locals've built him a temple!
@@ -1064,6 +1110,7 @@ If the PCs ask Ogan about Trolan, they might learn the following information, re
 
 At the inn, the PCs meet a seemingly friendly cleric who insists on helping them in their quest. However, the berk's really **Pastor Browen** (Pl/♂ human/P12/—/CE), a barmy from Harbinger House sent by Nari to delay the PCs and hinder their progress. Having learned that Trolan's been trapped in the gate-town of Curst for a few days, Browen approaches the PCs to pass on the news. The barmy hopes the PCs'll go there and get stuck as well.
 
+> [!read-aloud]
 > A man wearing spiky armor covered with odd protrusions walks over, carrying a full pitcher of ale. "Fill your mugs, bloods?" the man asks. You notice he has a huge mace slung at his belt and the symbol of the Xaositects pinned to his breast.
 
 Browen acts like an addle-coved Xaositect, but he never reveals his darker side, mentions the Mad God he worships, or tries to preach to the PCs at this time. Instead, he engages them in friendly conversation, waits for an appropriate opening, then lets them know what he's heard. "The barmy who's been singing about Sigil's high-up? I heard he's in Curst, preaching to the citizens and organizing a pilgrimage to the Cage." After he drops the bait, Pastor Browen downs his drink and wanders out of the inn.
@@ -1076,6 +1123,7 @@ After Trolan recruited a few of the locals and left Ecstasy to preach in other t
 
 While the new religion hasn't caught on like wildfire, it has gathered a handful of devoted followers. Among these devotees are a few lawful types who were passing through Ecstasy when the words of Trolan (as presented by Jakoly) made them see the light. Since the murders began, though, a lot more people have flocked to the temple's open doors. Jakoly's preaching has touched those who are frightened by recent events, and the young man is feeding those fears to bolster the new religion.
 
+> [!read-aloud]
 > "The Dark Hunter can't help you," Jakoly preaches. "Neither can the Sun Master nor the Philosopher King. But the Beloved will protect you. As he walks without harm at the Lady of Pain's side, so too will you walk without fearing the blade of the murderer that seeks to cut you."
 
 Some members of the temple can tell the PCs that Trolan was going to visit other gate-towns before heading back to Sigil. "By now he should be all the way to Curst," one of the devoted mentions.
@@ -1086,6 +1134,7 @@ Sougad knows Trolan from the time they both spent in Harbinger House. As the mur
 
 After the PCs have had some time to explore Ecstasy and learn of Sougad's activities, Lawshredder decides to find his tenth victim among the sods gathered at Trolan's temple — after he sets the place on fire! The PCs might track Sougad to the temple, or Sougad can spring into action while the PCs are talking with Jakoly and his flock. However it occurs, when the PCs and Sougad are both in the temple, read:
 
+> [!read-aloud]
 > Across the large, open hall, near the pillars that flank the walls, the berk you've come to know as Sougad Lawshredder explodes from the shadows, shouting as he swings his sword at the worshipers gathered there. "You will bow down to chaos and murder!" he screams. "You will worship me!"
 
 The hall is 150 feet wide, and the PCs start at the opposite side from where Sougad appears. Thus, the barmy gets one round to act before the PCs can retaliate. Sougad selects his target — a lawful berk with 37 hp and AC 10 — before leaping out of the shadows, and he hits the sod twice during the round for 18 total points of damage.
@@ -1094,6 +1143,7 @@ The DM should then roll initiative for the second round of combat. Sougad plans 
 
 As the second round progresses, the crowd of worshipers and curiosity-seekers begins to run in panic. On initiative 5, any PCs who haven't acted yet notice that flames are raging around the second-floor balcony of the temple (Sougad set the fire a few minutes before he appeared). The PCs must decide whether to fight the fire, help the crowd escape safely, battle Sougad, or perform some combination of these actions. Read:
 
+> [!read-aloud]
 > Fire! Flames dance along the second floor of the temple, painting the entire balcony in crimson heat and thick smoke. Members of the crowd notice the fire, too, and full-scale panic erupts around you.
 
 Sougad's placed the spell components for this murder next to a pillar, so he refuses to move too far from it. He must kill his victim within the prescribed range of 10 feet. If the PCs manage to save the first target, a similar berk foolishly rushes close enough for Sougad to attack. If that victim is saved, too, Sougad targets a lawful PC as his prey.
@@ -1128,6 +1178,7 @@ Whatever mode of travel the PCs decide to use (or the DM provides), they wind up
 
 As the PCs near the great outer wall of the town, one of the dead bodies speaks to them. Read:
 
+> [!read-aloud]
 > "Berks! Hey, berks! Don't do it! It's a trap!" calls a voice from the razorvine to the side of the road. You notice a body dangling in the vines, pierced by thorns in a hundred places. The body's partly decomposed, with patches of white bone showing through gaping holes in the decayed flesh. It's the body of a human male, wearing the tattered remains of leather armor and traveling clothes. Suddenly, its head turns completely around, gazing upon you with dead, withered eyes.
 >
 > "Don't you know the dark of it? I didn't, which explains the mess I'm in now," says the dead man, his flat, dry voice emerging like dust from a freshly opened grave. "Here's the chant: Curst won't let you out unless you've got someplace to be. Make sure you have someplace to go, or you'll have to stay. That's my advice — you can take it or pike it for all I care!"
@@ -1142,6 +1193,7 @@ Any PC who tries to examine the body must make a successful Dexterity check with
 
 The dusty approach to the Walled City is notably empty. The stillness is broken by the sounds of the PCs' footfalls and the occasional cry of an unseen bird. An unadorned wall circles the town, its exterior lacking even a hint of the razorvine that covers the interior. The road leads to a large gate that opens as the PCs get close. Read:
 
+> [!read-aloud]
 > The gate swings open, revealing two bashers with large pikes waiting to greet you. "Welcome to Curst," one of the bashers sneers. "Enjoy your stay," the other adds in a monotone voice. He waves you through with his gloved hand, not even bothering to ask your business or charge a fee, as so many other walled towns do.
 
 If the PCs enter, the bashers ignore them and quickly seal the gate. If the PCs ask questions, the bashers become impatient. "Are you coming in or what?" one asks. "We don't got all day, and we can't keep these open too long. So stop rattling our bone-box and make a decision." Once in town, the PCs notice that the inside of the wall looks much more formidable than the outside. Thick razorvine crawls up the wall, making it impossible to get closer than two feet to the actual fortification. A wide, circular road runs along the inside of the wall. Across it, stables, taverns, and inns form a ring of structures leading up to the next circular road.
@@ -1180,6 +1232,7 @@ In Chapter III, Trolan takes part in the exploration of Harbinger House and trie
 
 At some point, the PCs stand face-to-face with Trolan the Beloved. When this occurs, read:
 
+> [!read-aloud]
 > The man before you stands just a bit over five feet tall, with a thin form and obvious grace. His face shines with the glow of the plane-touched. Tapered ears, eyes of pure blue with a red-rimmed radiance, and the slightest growth of horns on his high forehead mark him for what he is — a tiefling, a child of the planes. Long reddish-blond hair frames his handsome face, and his beautiful smile draws both men and women to his side. He wears the same amber and silver robes as his followers. When he looks at you, you feel as though you would do almost anything he asked.
 >
 > "Have you come to hear my songs, good friends?" he asks. "Shall I tell you about the Lady, or have you come to join us on our pilgrimage to the heart of the Cage?"
@@ -1192,6 +1245,7 @@ During this meeting, the PCs learn that a large group of cultists is already on 
 
 If a PC asks why Trolan has involved so many people in his infatuation with the Lady of Pain, the tiefling provides an answer:
 
+> [!read-aloud]
 > "After years of hoping and wishing, the Lady finally came to me," Trolan explains. "She appeared to me at Harbinger House, and she spoke the words I longed to hear. She said she loved me, but I had to prove my love to her. To do this, she said I had to tell others how I felt and send them to Sigil to share my love with the Lady. I can still hear her beautiful voice in my head."
 
 **The Real Chant:** As far as anyone knows, the Lady of Pain has never spoken. It was Nari, disguised as the Lady, who appeared before Trolan at Harbinger House. However, if the PCs try to convince Trolan that the being that spoke to him — whatever it was — was *not* the real Lady, the tiefling simply smiles, shakes his head, and states that soon the PCs, too, will believe.
@@ -1224,6 +1278,7 @@ Pastor Browen surreptitiously watches the PCs as they try to escape from Curst. 
 
 As he attacks, the barmy — in his rage — inadvertently reveals more about his mission than he'd planned. Fact is, his rantings are clues to the PCs that something darker is behind the attack:
 
+> [!read-aloud]
 > "No! You'll not return yet! She's not ready! Those cultists must die! She needs the blood! The blood! Open the doors! Open all the doors!"
 
 Browen becomes more and more incoherent as he continues to yell. The PCs might misinterpret his ravings to mean that the mysterious "she" literally needs the blood of the cultists, missing the point that the poor sods are just a distraction to cloak her true activities.
@@ -1267,6 +1322,7 @@ Other possibilities: Kariana wants to know if they've found her brother Kedd; **
 
 If the PCs can't locate Harbinger House on their own, they can ask Factol Ambar for directions; he'll be at the Great Foundry, the headquarters of the Godsmen. Ambar thanks the PCs for returning Trolan and asks them to take the barmy back to the House.
 
+> [!read-aloud]
 > "Custodian Bereth will be happy to see Trolan," Ambar admits casually. "She'll be very helpful when you get there. Afterward, return here and we'll see to your reward."
 
 Ambar also seems disturbed that he still hasn't recovered the missing planarity (stolen for Nari in Chapter I). If the PCs question him about it, the factol divulges a bit more about the item than he had in the past, confessing that the planarity opens portals and records images of surrounding events for later historical study. He asks the PCs to keep an eye out for it when they return Trolan to the House.
@@ -1279,12 +1335,14 @@ If the PCs seem reluctant to visit Harbinger House at all, the DM can have sever
 
 The trip through Sigil's streets to Harbinger House reveals that the dabus continue to display uncharacteristic behavior. They're still cleaning "dirt" from spotless cobblestones, painting freshly painted walls, and trimming razorvine to the very roots. The closer the group gets to Harbinger House, the more dabus they see hard at work. During the trip, one dabus turns to gaze upon the PCs and Trolan. Read:
 
+> [!read-aloud]
 > A nearby dabus lowers his paintbrush and turns in your direction. He stares at you, his mouth open, as though he were about to speak, but no sound emerges. A symbol appears above his head, however, hovering where you can easily see it: the fiendish symbol, pierced by a downward arrow. A moment later the symbol fades and the dabus goes back to what he was doing, once again ignoring you and your companions.
 
 The symbol is the icon of the Abyss. The dabus, and perhaps through him the Lady of Pain, is providing a warning to the PCs as to the nature of the true enemy. In a way, this is also a call for help, as the dabus haven't been able to trace their nervousness to its source (due to the scrying shield generated by the focrux).
 
 When the PCs reach the dead-end street where Harbinger House resides, they immediately notice something odd: There are no dabus working on the street. In fact, there's almost no one around. The nearby hovels appear tightly locked or deserted. No street beggars or merchants are evident. Compared to the hustle and bustle on the surrounding streets, the deathly silence and stillness of this street should be particularly jarring to the PCs. Read:
 
+> [!read-aloud]
 > The street you were directed to is set off from the rest of Sigil by a spiky wall of stone and razorvine. Once you pass through the gate formed by the arching walls, you notice an immediate difference from the other streets you walked down. There aren't any people here, or dabus, or shouting merchants, or arguing faction members. It's quiet, deserted, and terribly dark. Shadows fill every corner. The walls and the leaning hovels block much of Sigil's dim light. It's hard to imagine that a huge mansion sits among these decrepit structures. Then you see it, and everything you imagined is swept away.
 >
 > Harbinger House fills the end of the street, climbing above the high walls that surround three sides of its massive structure. It's a place of insanity, for no clear-headed architect designed this jumble of towers, levels, and wings. Its oddly tilted walls, weirdly slanted roofs, and uneven windows make it almost painful to look at. There are doors, arches, and staircases everywhere, covering surfaces that should instead be covered by shingles or tiles or paint.
@@ -1345,10 +1403,12 @@ The front door leads into a large entrance hall. A thick rug decorated with the 
 
 When the PCs enter this room, read:
 
+> [!read-aloud]
 > At first glance there's no one to greet you, but then you hear the squeak of a rocking chair. A rocker by the fireplace on the right teeters at a rapid pace, its back toward you to hide its occupant.
 
 If the PCs approach the rocker, they can see who's sitting there. Read:
 
+> [!read-aloud]
 > A young man sits in the rocker, wrapped tightly in a thick blanket and shivering though the nearby fire blazes hotly. He stares blankly into the flames, mouthing words in a whisper almost too low to hear. If you strain, you can pick up his chant, which he repeats over and over again. "Chaos dance and chaos burn, the Abyss is that for which I yearn."
 
 This is one of the Godsmen (Pl/♂ human/0/Believers of the Source/LN) who helped care for Harbinger House, as the badge he wears on his tunic indicates (though it's currently hidden by the blanket). Nari has broken the faction members, turning them into even bigger barmies than the addle-coves they used to administer to. Those whose minds collapsed have been given easy chants to sing until the House slides over to the Abyss. If they can't actually join Nari, at least they'll pay lip service to the doctrine of her home plane.
@@ -1369,12 +1429,14 @@ The office contains a large desk, a couch, a number of chairs, and a bookcase fu
 
 If the PCs spend time looking through the mess, they can find a few clues that might help them. One is the custodian's journal. The beginning of the journal features entries made by **Old Favur**, the custodian before Bereth. His entries end about four weeks ago, though quite a number of pages have been torn out after that. The very last page written by Favur talks about a young woman he met at The Ascension:
 
+> [!read-aloud]
 > "Nari's a beautiful woman with dark hair and laughing eyes. She makes me feel almost as young as she is! We talked for hours, and she promised to meet me tomorrow night for dinner."
 
 Favur's portion of the journal ends there.
 
 The journal picks up after the ripped-out pages with the first entries made by Bereth. There are a week's worth of these, dealing with normal House business. But one entry, dated three days ago, may intrigue the PCs. It reads:
 
+> [!read-aloud]
 > "I'm still bothered by the bad omen that greeted my first day here at the House. Two of those in our care escaped, including one we've learned to fear over the years — Sougad Lawshredder. I'm afraid that the murders now taking place throughout the Lower Ward and The Lady's Ward are his doing. I also believe that the recent arrival of berks claiming to love the Lady of Pain can be traced to the other escapee — Trolan of Ecstasy. I won't be able to rest easily until both of them are returned to these walls.
 >
 > "Of course, this might not be the safest place for them. It could be my imagination, but I have the feeling that something's wrong here. A few of the residents have mentioned a strange woman wandering the halls, and while I don't believe them, I can't help wondering where this shared delusion is coming from."
@@ -1383,6 +1445,7 @@ The journal picks up after the ripped-out pages with the first entries made by B
 
 When the PCs enter the custodian's living quarters, Trolan locates and opens the secret door (marked on the map) and takes them through to a small, square, empty room.
 
+> [!read-aloud]
 > "This is where the focrux used to be," he says. "I always spent hours meditating in here, calmed by its soothing energies."
 
 All Trolan can tell the PCs about the focrux is that the Godsmen called it "the heart of the House" and that it was said to prevent outsiders from looking inside. However, residual energies left in this chamber by the focrux bring Trolan's natural healing ability to the fore. If allowed a few moments to meditate, Trolan gains the power to deliver a healing touch to the PCs. The PCs who've been kind to Trolan up to this point in the adventure receive the equivalent of *cure serious wounds* — Trolan's touch restores 2d8+1 lost hit points. The PCs who've been neutral or nasty to Trolan receive the equivalent of *cure light wounds*, regaining 1d8 lost hit points.
@@ -1405,6 +1468,7 @@ A wide variety of ingredients cover the great table here, and all five huge kett
 
 These Godsmen have been driven to insanity by Nari's seductive urgings. She's made them chaotic evil through her subtle manipulations, which becomes evident if the PCs linger in the kitchen. Read:
 
+> [!read-aloud]
 > The man wears a loincloth and an apron as he moves from steaming pot to boiling kettle, tossing ingredients into each pot from a basket he carries. There doesn't seem to be a pattern to his recipe, and his ingredients don't look very appetizing — a handful of worms, a pinch of insect shells, a dash of sharp glass. "For the celebration," he whispers when he sees you. "We're moving today and Nari wants to have a party!"
 >
 > The woman wears a sack that's been altered to serve as a long tunic, gathered at her waist with a length of razorvine. Her knee-high leather boots are spattered with dark, wet stains, and she wears a necklace with the Godsmen's icon as a bandanna around her head. She dances from pot to pot, sniffing the aromas.
@@ -1427,6 +1491,7 @@ Once Aztral absorbs a PC's personality and talents, he gains that character's na
 
 When the PCs enter this room, Aztral picks the most powerful-looking one to absorb first. Read:
 
+> [!read-aloud]
 > A lone figure sits in a large, comfortable-looking chair in this dining hall. He's a human male with short-cropped black hair, silver eyes, and a plain white tunic over black pants. He waves a long wooden spoon and smiles at you. "Welcome to the domain of Aztral," he exclaims, leaping from his chair. "These chairs, those tables, the fireplaces! Everything you see is mine!"
 >
 > He steps toward you, and for a moment his whole body turns silvery, like the surface of a mirror. You see your own reflection in his silvery form, and then the effect is gone. "Well," Aztral says gleefully, "now that I'm you, there can only be one of me!" With that, he swings his wooden spoon at you, its glowing head suddenly looking very dangerous.
@@ -1465,6 +1530,7 @@ Before they can speak with him, the PCs must calm Galkin down by helping him reg
 
 If the PCs do calm Galkin down, he tells them what little he knows about Nari.
 
+> [!read-aloud]
 > "She's not what she appears to be," Galkin explains. "She wants to take the House into the Abyss — to use its secrets in the Blood War."
 
 **DM Note:** If the PCs open any of the windows in this room, they simply find themselves looking out of one of the House's towers, high above Sigil's streets.
@@ -1495,10 +1561,12 @@ A beautiful bathtub with running water occupies much of this room. A fluffy rug,
 
 When the PCs enter this room, Vorina is soaking in her tub and appears quite surprised to have visitors.
 
+> [!read-aloud]
 > "Was I expecting you?" she asks, rising slightly from the soapy water.
 
 Vorina has bright blond hair, blue eyes, and tanned, healthy skin. If the PCs have been injured, Vorina uses her healing powers to help them. She won't leave her part of the wing, won't oppose her sister (though she will warn the PCs to avoid the other end of the wing), and only discusses Nari in the most general way. She's afraid that if she makes too much of a deal of opposing the succubus, she'll have to face Nari's wrath.
 
+> [!read-aloud]
 > "Many of the residents have disappeared," Vorina explains. "I don't want to join them."
 
 **Vorina** (Pl/♀ human/P9/Society of Sensation/CG):
@@ -1525,6 +1593,7 @@ Teela's in the kitchen when the PCs arrive. She's preparing a special dish for N
 
 Teela won't say much about Nari, except to remark that opposing her is fruitless.
 
+> [!read-aloud]
 > "Every new power needs worshipers," Teela says. "Bow down before Nari or die."
 
 **Teela** (Pl/♀ human/W9/Dustmen/CE):
@@ -1575,6 +1644,7 @@ Tomin's figments come in three types: small, medium, and large. Small figments a
 
 If Trolan is present, Tomin laughs hysterically.
 
+> [!read-aloud]
 > "The Lady can't see you here," he cackles. "She can't see any of us! That's why Nari's going to win! I love her!"
 
 **Tomin** (Pl/♂ human/F7/Believers of the Source/CE):
@@ -1594,10 +1664,12 @@ THAC0 13; #AT 3; Dmg 1d8+3; AC 0; HD 8+3; hp 43; MV 12; SD +2 weapons or better 
 
 When the PCs step through one of the portals that leads to this corridor of doors, they see Nari in the form of a beautiful, young, human female. She stands near the locked door farthest from their entry point. Read:
 
+> [!read-aloud]
 > You step into a long corridor with doors all along the wall you entered by, but only a single door on the wall across from you. There's also a person here: A young woman with long, dark hair, a slinky, dark dress, and the most beautiful figure you've ever seen stands at one of the doors a few feet away from you. She smiles at you, and you notice that she has a strange object in her right hand. Actually, it floats just above her open palm. It's a small globe with protrusions that constantly emerge and retract. The center of the globe is black, with swirling colors dancing within.
 
 Nari tries to use her charm ability on one of the male PCs. If she succeeds, that character thinks about her for the rest of the adventure and turns against his companions in the final battle. Whether or not Nari succeeds in charming the PC, read:
 
+> [!read-aloud]
 > "You've been trying to ruin my plans for quite some time now," the young woman says in a voice that makes your pulse race. "You'll regret your actions, I promise you that. Soon this House will be mine, and then I'll find you all permanent places within it." With that, huge bat wings emerge from her back and she whispers a word you can't hear. The floating globe flashes and the door beside her swings open without a touch. She steps through, and the door slams shut before you can reach it.
 
 The door Nari stepped through locks behind her. Only the planarity can open the door. Nothing else — neither physical force nor magic — can unlock it. The PCs must choose one of the other doors to exit this corridor.
@@ -1638,6 +1710,7 @@ This hall, with its soft chairs and low tables, serves as a common room where th
 
 A barmy (Pl/♂ gnome/0/Believers of the Source/LN) hides rather badly behind a wall hanging. He's scared witless, but if the PCs approach him in a nonthreatening manner, he tells them what he's hiding from.
 
+> [!read-aloud]
 > "The pretty woman with bat wings is taking all the lawfuls. She's going to kill them and drink their blood! But she won't get me! She won't!"
 
 ### 25. Laundry
@@ -1686,16 +1759,19 @@ Chance lives among all kinds of games of chance and decision-aiding devices. Car
 
 If the PCs get Chance to trust and talk to them (he's very receptive to things that improve his odds, including gifts of lucky coins and such), he reveals that Sougad visited recently and took a few handfuls of leeches with him. However, he can't recall if it was an hour ago, a day ago, or a week ago. If the PCs press him about Sougad, Chance opens a hollow divination stick and pulls out a rolled-up scroll that was hidden inside.
 
+> [!read-aloud]
 > "I won this from him playing cards. He wasn't too happy about it — he's a real sore loser — but I won, yes I did. It's mine now."
 
 The scroll details the steps of the ritual that Sougad and Nari hope will turn them into powers. Chance won't surrender the scroll, but the PCs can try to win it from him in a game of dice or give him a "lucky" item in exchange. By reading the scroll, the PCs can learn the steps of the ritual as presented in "The Dark of the Murders" (see page 17 in Chapter I).
 
 If the PCs ask Chance about Nari, he admits that her plan can't work.
 
+> [!read-aloud]
 > "Nah, the House won't slip into the Abyss," he sneers. "The Lady won't let it. Course, if she don't know it's happening, what can she do? That's the thing about the focrux, it hides the House from the Lady."
 
 If asked about the focrux, Chance says:
 
+> [!read-aloud]
 > "It's a big globe that changes shape and has stars inside it. Sougad says its energy can make him a power."
 
 **DM Note:** If the PCs don't follow Chance immediately through the secret door in the mirror, he gets to imbibe one of the potions of extra healing. If they delay for more than three rounds, Chance drinks another potion (if he needs it).
@@ -1720,6 +1796,7 @@ This cross-shaped chamber has been prepared for Nari's version of Sougad's ritua
 
 A pair of double doors is set into each wall. One pair provides the PCs with a way into the chamber; the locked doors will later provide an entry point for Sougad. The other two pairs of doors lead to Nari's bedchamber (Area 32) and to a corridor that opens into the Abyss. When the PCs enter this chamber, read:
 
+> [!read-aloud]
 > Arcane symbols have been inscribed on the walls, floor, and ceiling of this cross-shaped chamber. The symbols glow with a faint, evil light. In the center of the room, a large globe floats about 10 feet above the floor. The globe, almost 15 feet across, appears to be made of deep-blue stone, perfectly round and smooth. Thirteen sods, bound and gagged, are tied to stakes in a circle around the globe. Each sod has a different number of slashing wounds, and all appear to be alive — barely.
 
 The symbols are all marks of chaos and evil, with quite a few representations of the icon of the Abyss (the infinity symbol pierced by a downward arrow). The globe is the **focrux**, a larger version of the planarity that Nari, Sougad, and the Godsmen believe is the heart of the House. It projects an aura that blocks the probing presence of the Lady of Pain and her agents; as long as it remains intact and operating, the Lady can't sense what Nari is trying to do.
@@ -1730,12 +1807,14 @@ The 13 sods are Nari's contribution to the ritual; she plans to kill them to bec
 
 After the PCs have looked around the chamber but before they head to any of the other doors or try to free the captives, the doors leading to the Abyss swing open. Into the room strides **Crimjak**, the marquis cambion, along with three wretched manes per PC:
 
+> [!read-aloud]
 > The doors to the left swing open and crash against the wall. A whiff of noxious vapor emerges from the open doorway, rolling around the tall figure striding forth. The towering humanoid stands 7 feet tall, with pitch-black skin, pointed ears, and a wicked collection of spiked armor and weapons. A number of short, pale, bloated beasts crawl around his feet, snarling and slashing the air with their long claws.
 >
 > "You berks are definitely in the wrong place at the wrong time," the tall creature growls bitterly, hefting his ornate sword and moving toward you.
 
 Crimjak wants to destroy the PCs or at least keep them busy while Nari completes her ritual, and he's brought enough manes from the Abyss to grab the group's attention. As soon as the fiends and the PCs start fighting, the commotion brings Nari, wearing her true form, out of her chamber. She hurries toward the focrux, a long sword in one hand and the planarity in the other. The planarity reacts to the larger globe and vice versa. Read:
 
+> [!read-aloud]
 > As the succubus approaches the floating globe, a storm of energy rises to the surface of the globe and begins to dance within it. Spiky protrusions emerge from the surface, jut as far as two feet from the globe, then plunge back into the stormy depths. The smaller globe floating just above the succubus's hand reacts in the same manner, mirroring the actions of the larger globe.
 >
 > Nari begins to sing a chaotic chant, and all the barmies throughout the House that she's charmed or otherwise convinced to join her begin to chant as well. The chaotic clamor reverberates in the very walls.
@@ -1750,6 +1829,7 @@ The PCs now have choices to make. Do they all fight the cambion and the manes, o
 
 - In the third round, Sougad emerges from behind the final set of doors. The surprise of his sudden appearance causes Nari to lose her concentration and resume her normal shape. Read:
 
+> [!read-aloud]
 > The far doors swing open with a crash, and Sougad Lawshredder enters the chamber. "You can't make the House move," Sougad mocks, sneering at the succubus, "but I can finish my ritual and join with it! When I offer the last lawlover to the House, I'll become a new power of murder and chaos!"
 
 Sougad either has Bereth (if she was awakened and allowed to wander after the encounter with Kaydi) or plans on using one of the lawful sods staked around the focrux as his thirteenth and final victim.
@@ -1788,6 +1868,7 @@ Having seen Trolan attempt to destroy the focrux, the PCs might try to do it the
 
 If the globe is destroyed, Harbinger House is no longer protected from scrying, and the Lady of Pain instantly becomes aware of the situation. Read:
 
+> [!read-aloud]
 > The large globe shatters in an explosion of sharp shards, bright colors, and cascading energy. A pillar of light fountains up from the spot and crashes through the roof, revealing the overcast sky of Sigil. A shadow moves across the opening, its corners sharp and cutting. It's the shadow of the Lady of Pain.
 
 Everyone in the chamber takes 4d10 points of damage from the explosion and the flying shards (save vs. breath weapon for half damage). The slashing gaze of the Lady of Pain kills Nari and Sougad — those who dared grasp at powerhood — but never falls upon the PCs, Trolan, Crimjak, or the manes.

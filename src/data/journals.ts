@@ -142,59 +142,134 @@ export function parseMarkdownToJournals(markdown: string): HarbingerJournal[] {
 	});
 }
 
+/** DM-facing paragraph prefixes that get auto-wrapped in .dm-note */
+const DM_NOTE_PREFIXES = [
+	'DM Note:',
+	'The Real Chant:',
+	'Sliding the Blinds:',
+	'Slipping the Blinds:',
+	'Discrimination:',
+];
+
+/**
+ * Process blockquote blocks, converting callout-tagged blocks to styled divs.
+ *
+ * Callout syntax (first line of a blockquote block):
+ *   > [!read-aloud]
+ *   > [!dm-note]
+ *   > [!planar-note]
+ *   > [!faction-callout believers]
+ *
+ * Untagged blockquotes are preserved as regular <blockquote> elements.
+ */
+function processBlockquotes(text: string): string {
+	const lines = text.split('\n');
+	const result: string[] = [];
+	let i = 0;
+
+	while (i < lines.length) {
+		if (/^>/.test(lines[i])) {
+			// Collect consecutive blockquote lines
+			const blockLines: string[] = [];
+			while (i < lines.length && /^>/.test(lines[i])) {
+				blockLines.push(lines[i].replace(/^>\s?/, ''));
+				i++;
+			}
+
+			// Check first line for callout tag [!type] or [!type modifier]
+			const calloutMatch = blockLines[0].match(/^\[!(\S+?)(?:\s+(\S+))?\]\s*$/);
+
+			if (calloutMatch) {
+				const type = calloutMatch[1];
+				const modifier = calloutMatch[2] || '';
+				const className = modifier ? `${type} ${modifier}` : type;
+				const content = blockLines.slice(1).join('\n');
+
+				result.push(`<div class="${className}">`);
+				const innerParagraphs = content.split(/\n{2,}/).filter((p) => p.trim());
+				for (const para of innerParagraphs) {
+					result.push(`<p>${para.replace(/\n/g, ' ').trim()}</p>`);
+				}
+				result.push('</div>');
+			} else {
+				// Regular blockquote — merge lines with <br>
+				const content = blockLines.map((l) => l || '').join('<br>');
+				const cleaned = content.replace(/(<br>){2,}/g, '<br>');
+				result.push(`<blockquote>${cleaned}</blockquote>`);
+			}
+		} else {
+			result.push(lines[i]);
+			i++;
+		}
+	}
+
+	return result.join('\n');
+}
+
 /**
  * Convert markdown to HTML for FoundryVTT display
  */
 function markdownToHTML(markdown: string): string {
 	let html = markdown;
 
-	// Convert headers (we start at h2 since pages already have titles)
+	// Phase 1: Process blockquote blocks (callouts + regular)
+	html = processBlockquotes(html);
+
+	// Phase 2: Convert headers
+	// Location headers: ### N. Room Name or ### NA. Room Name (numbered areas)
+	html = html.replace(/^### (\d+[A-Za-z]?\.\s+.*)$/gm, (_, title) => {
+		return `<div class="location-header">${title.trim()}</div>`;
+	});
+	// Regular headers (non-location)
 	html = html.replace(/^### (.*?)$/gm, '<h2>$1</h2>');
 	html = html.replace(/^#### (.*?)$/gm, '<h3>$1</h3>');
 	html = html.replace(/^##### (.*?)$/gm, '<h4>$1</h4>');
 
-	// Convert blockquotes (very important for Planescape flavor text!)
-	html = html.replace(/^> (.*?)$/gm, '<blockquote>$1</blockquote>');
-	// Merge consecutive blockquotes
-	html = html.replace(/<\/blockquote>\n<blockquote>/g, '<br>');
+	// Phase 3: Section dividers
+	html = html.replace(/^---$/gm, '<hr class="section-divider">');
 
-	// Convert bold
+	// Phase 4: Inline formatting
 	html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-	// Convert italic
 	html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
-	// Convert unordered lists
+	// Phase 5: Lists
 	html = html.replace(/^- (.*?)$/gm, '<li>$1</li>');
 	html = html.replace(/(<li>.*?<\/li>\n)+/g, (match) => `<ul>${match}</ul>`);
-
-	// Convert numbered lists
 	html = html.replace(/^\d+\. (.*?)$/gm, '<li>$1</li>');
 
-	// Convert paragraphs
+	// Phase 6: Paragraphs (with DM note auto-detection)
 	const lines = html.split('\n');
 	const paragraphs: string[] = [];
 	let currentParagraph: string[] = [];
 
+	const flushParagraph = () => {
+		if (currentParagraph.length > 0) {
+			const text = currentParagraph.join(' ');
+			// Auto-detect DM-facing note paragraphs by bold prefix
+			const isDmNote = DM_NOTE_PREFIXES.some((prefix) =>
+				text.startsWith(`<strong>${prefix}</strong>`),
+			);
+			if (isDmNote) {
+				paragraphs.push(`<div class="dm-note"><p>${text}</p></div>`);
+			} else {
+				paragraphs.push(`<p>${text}</p>`);
+			}
+			currentParagraph = [];
+		}
+	};
+
 	for (const line of lines) {
-		if (line.trim() === '' || line.match(/^<[hbu]/)) {
-			if (currentParagraph.length > 0) {
-				paragraphs.push(`<p>${currentParagraph.join(' ')}</p>`);
-				currentParagraph = [];
-			}
-			if (line.match(/^<[hbu]/)) {
-				paragraphs.push(line);
-			}
-		} else if (!line.match(/^<\/?(li|ul|blockquote)>/)) {
-			currentParagraph.push(line);
-		} else {
+		if (line.trim() === '') {
+			flushParagraph();
+		} else if (/^<\/?(div|h[1-6]|hr|blockquote|ul|ol|li|p)\b/.test(line)) {
+			// Block-level HTML element — flush paragraph buffer, then emit as-is
+			flushParagraph();
 			paragraphs.push(line);
+		} else {
+			currentParagraph.push(line);
 		}
 	}
-
-	if (currentParagraph.length > 0) {
-		paragraphs.push(`<p>${currentParagraph.join(' ')}</p>`);
-	}
+	flushParagraph();
 
 	html = paragraphs.join('\n');
 
