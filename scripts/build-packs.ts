@@ -41,7 +41,7 @@ const PACK_NAME = 'harbinger-house';
  * This tells PF2e's ClientDatabaseBackend that our data is already at the current
  * schema, preventing redundant in-memory migrations on every compendium fetch.
  *
- * Update this when bumping PF2e system compatibility.
+ * @NOTE Update this when bumping PF2e system compatibility
  */
 const PF2E_SCHEMA_VERSION = 0.955;
 
@@ -162,18 +162,19 @@ function getJournalFolderId(folder?: string): string {
  * that may be missing from the *ToDocumentData() output.
  */
 function augmentDocument(
-	doc: Record<string, unknown>,
+	doc: object,
 	docId: string,
 	folderId: string | null,
 	sortIndex: number,
 	compendiumSource?: string | null,
 ): Record<string, unknown> {
+	const baseDoc = doc as Record<string, unknown>;
 	return {
-		...doc,
+		...baseDoc,
 		_id: docId,
 		folder: folderId,
-		sort: (doc.sort as number) ?? sortIndex * 100,
-		ownership: (doc.ownership as Record<string, unknown>) ?? { default: 0 },
+		sort: (baseDoc.sort as number) ?? sortIndex * 100,
+		ownership: (baseDoc.ownership as Record<string, unknown>) ?? { default: 0 },
 		_stats: createStats(compendiumSource),
 	};
 }
