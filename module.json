@@ -43,7 +43,7 @@
 			"path": "packs/harbinger-house",
 			"type": "Adventure",
 			"system": "pf2e",
-			"banner": "modules/harbinger-house-pf2e/dist/assets/Harbinger_House_Exterior.jpg",
+			"banner": "modules/harbinger-house-pf2e/dist/assets/art/Harbinger_House_Exterior.jpg",
 			"flags": {}
 		}
 	],

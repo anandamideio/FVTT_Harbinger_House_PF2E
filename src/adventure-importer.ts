@@ -8,7 +8,7 @@ const STARTING_SCENE_ID = 'aca450c8288821de'; // scene-first-floor
 const GETTING_STARTED_JOURNAL_ID = '373d8b09682157da'; // journal-1
 
 /** Background image for login screen customization */
-const LOGIN_BACKGROUND = `modules/${MODULE_ID}/dist/assets/Harbinger_House_Exterior.jpg`;
+const LOGIN_BACKGROUND = `modules/${MODULE_ID}/dist/assets/art/Harbinger_House_Exterior.jpg`;
 
 type SystemItemReferenceData = {
 	type?: string;

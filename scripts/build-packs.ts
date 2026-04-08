@@ -407,7 +407,7 @@ async function writeAdventurePack(): Promise<void> {
 	const adventureDoc: Record<string, unknown> = {
 		_id: adventureId,
 		name: 'Harbinger House',
-		img: `modules/${MODULE_ID}/dist/assets/Harbinger_House_Exterior.jpg`,
+		img: `modules/${MODULE_ID}/dist/assets/art/Harbinger_House_Exterior.jpg`,
 		description:
 			"<p>A conversion of the classic Planescape adventure 'Harbinger House' for Pathfinder 2nd Edition. Includes NPCs, items, hazards, journals, scenes, and macros for the complete adventure.</p>",
 		caption: 'In the Cage, berks whisper of a house where the mad become gods...',
