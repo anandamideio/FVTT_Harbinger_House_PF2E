@@ -898,6 +898,143 @@ span.page-title {
 	color: #4a3f5c;
 }
 
+/* ---- Content Block: Statblock ---- */
+.journal-sheet.harbinger-journal .statblock {
+	position: relative;
+	background:
+		linear-gradient(180deg,
+			rgba(110, 0, 0, 0.08) 0%,
+			rgba(244, 232, 208, 0.25) 8%,
+			rgba(244, 232, 208, 0.25) 92%,
+			rgba(110, 0, 0, 0.08) 100%);
+	border-top: 3px solid var(--harbinger-primary);
+	border-bottom: 3px solid var(--harbinger-primary);
+	margin: 1.5rem 0.5rem;
+	padding: 0.75rem 1rem;
+}
+
+/* Inner accent line — classic 2e double-rule */
+.journal-sheet.harbinger-journal .statblock::before,
+.journal-sheet.harbinger-journal .statblock::after {
+	content: "";
+	position: absolute;
+	left: 0.5rem;
+	right: 0.5rem;
+	height: 1px;
+	background: linear-gradient(to right, transparent, var(--harbinger-primary), transparent);
+}
+
+.journal-sheet.harbinger-journal .statblock::before {
+	top: 4px;
+}
+
+.journal-sheet.harbinger-journal .statblock::after {
+	bottom: 4px;
+}
+
+/* NPC descriptor line (italic) */
+.journal-sheet.harbinger-journal .statblock > p:first-of-type {
+	font-family: "Rotis Serif Italic", "Rotis Serif", "Georgia", serif;
+	font-style: italic;
+	font-size: 13px;
+	color: var(--harbinger-secondary);
+	margin-bottom: 0.5rem;
+	padding-bottom: 0.35rem;
+	border-bottom: 1px solid rgba(110, 0, 0, 0.2);
+}
+
+.journal-sheet.harbinger-journal .statblock p {
+	text-indent: 0;
+	margin-bottom: 0.35rem;
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.journal-sheet.harbinger-journal .statblock p:first-of-type::first-letter {
+	font-size: 1em;
+	float: none;
+	margin: 0;
+	color: inherit;
+	font-weight: inherit;
+}
+
+.journal-sheet.harbinger-journal .statblock p:last-child {
+	margin-bottom: 0;
+}
+
+/* Section headers inside statblock (### → h2 in pipeline) */
+.journal-sheet.harbinger-journal .statblock h2 {
+	color: var(--harbinger-primary);
+	font-family: "Exocet Blizzard Light", "Exocet Blizzard", "Georgia", serif;
+	font-size: 0.85rem;
+	font-weight: 600;
+	margin: 0.6rem 0 0.2rem 0;
+	padding-bottom: 0.1rem;
+	border-bottom: 1px solid rgba(110, 0, 0, 0.25);
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.journal-sheet.harbinger-journal .statblock h3 {
+	color: var(--harbinger-secondary);
+	font-family: "Exocet Blizzard Light", "Georgia", serif;
+	font-size: 0.8rem;
+	font-weight: 600;
+	margin: 0.4rem 0 0.15rem 0;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+/* Tables inside statblock — compact stat tables */
+.journal-sheet.harbinger-journal .statblock table {
+	width: 100%;
+	margin: 0.35rem 0;
+	border: 1px solid rgba(110, 0, 0, 0.25);
+	border-collapse: collapse;
+	font-size: 12px;
+}
+
+.journal-sheet.harbinger-journal .statblock th {
+	background: rgba(110, 0, 0, 0.12);
+	color: var(--harbinger-primary);
+	font-family: "Exocet Blizzard Light", "Exocet Blizzard", "Georgia", serif;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	padding: 0.2rem 0.4rem;
+	border: 1px solid rgba(110, 0, 0, 0.2);
+}
+
+.journal-sheet.harbinger-journal .statblock td {
+	padding: 0.15rem 0.4rem;
+	border: 1px solid rgba(110, 0, 0, 0.12);
+	font-family: "Rotis Serif", "Georgia", serif;
+}
+
+.journal-sheet.harbinger-journal .statblock tr:nth-child(even) {
+	background: rgba(110, 0, 0, 0.04);
+}
+
+/* Lists inside statblock */
+.journal-sheet.harbinger-journal .statblock ul {
+	margin: 0.25rem 0 0.25rem 1.25rem;
+}
+
+.journal-sheet.harbinger-journal .statblock li {
+	margin-bottom: 0.15rem;
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+/* Sub-dividers inside statblock */
+.journal-sheet.harbinger-journal .statblock hr.section-divider {
+	height: 1px;
+	margin: 0.5rem 1rem;
+	background: linear-gradient(to right, transparent, rgba(110, 0, 0, 0.3), transparent);
+	opacity: 1;
+}
+
 /* ---- Content Block: Section Divider ---- */
 .journal-sheet.harbinger-journal .section-divider {
 	border: none;

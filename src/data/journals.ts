@@ -91,6 +91,11 @@ export function parseMarkdownToJournals(markdown: string): HarbingerJournal[] {
 
 		// Level 2 header - new page in current journal
 		if (line.match(/^## /)) {
+			const rawTitle = line.replace(/^## /, '').trim();
+
+			// Skip the Table of Contents — Foundry sidebar provides navigation
+			if (rawTitle === 'Table of Contents') continue;
+
 			if (!currentJournal) {
 				// Create a default journal if we don't have one
 				journalCounter++;
@@ -107,9 +112,8 @@ export function parseMarkdownToJournals(markdown: string): HarbingerJournal[] {
 				currentJournal.pages.push(currentPage);
 			}
 
-			const title = line.replace(/^## /, '').trim();
 			currentPage = {
-				name: title,
+				name: rawTitle,
 				type: 'text',
 				title: {
 					show: true,
@@ -159,8 +163,12 @@ const DM_NOTE_PREFIXES = [
  *   > [!dm-note]
  *   > [!planar-note]
  *   > [!faction-callout believers]
+ *   > [!statblock]
  *
  * Untagged blockquotes are preserved as regular <blockquote> elements.
+ *
+ * For [!statblock] callouts, inner content is emitted raw so that
+ * subsequent pipeline phases (headers, tables, lists, etc.) can process it.
  */
 function processBlockquotes(text: string): string {
 	const lines = text.split('\n');
@@ -185,12 +193,20 @@ function processBlockquotes(text: string): string {
 				const className = modifier ? `${type} ${modifier}` : type;
 				const content = blockLines.slice(1).join('\n');
 
-				result.push(`<div class="${className}">`);
-				const innerParagraphs = content.split(/\n{2,}/).filter((p) => p.trim());
-				for (const para of innerParagraphs) {
-					result.push(`<p>${para.replace(/\n/g, ' ').trim()}</p>`);
+				if (type === 'statblock') {
+					// Statblock: emit raw inner content so the rest of the
+					// markdown pipeline (headers, tables, lists) processes it.
+					result.push(`<div class="statblock">`);
+					result.push(content);
+					result.push('</div>');
+				} else {
+					result.push(`<div class="${className}">`);
+					const innerParagraphs = content.split(/\n{2,}/).filter((p) => p.trim());
+					for (const para of innerParagraphs) {
+						result.push(`<p>${para.replace(/\n/g, ' ').trim()}</p>`);
+					}
+					result.push('</div>');
 				}
-				result.push('</div>');
 			} else {
 				// Regular blockquote — merge lines with <br>
 				const content = blockLines.map((l) => l || '').join('<br>');
@@ -204,6 +220,94 @@ function processBlockquotes(text: string): string {
 	}
 
 	return result.join('\n');
+}
+
+/**
+ * Convert markdown tables to HTML <table> elements.
+ *
+ * Recognises the standard GFM table format:
+ *   | Header | Header |
+ *   |--------|--------|
+ *   | Cell   | Cell   |
+ *
+ * Supports column alignment via the separator row (:--:, ---:, :---, ---).
+ */
+function convertTables(html: string): string {
+	const lines = html.split('\n');
+	const result: string[] = [];
+	let i = 0;
+
+	while (i < lines.length) {
+		if (/^\|/.test(lines[i])) {
+			// Collect consecutive table-like lines
+			const tableLines: string[] = [];
+			while (i < lines.length && /^\|/.test(lines[i])) {
+				tableLines.push(lines[i]);
+				i++;
+			}
+
+			// Valid table: at least header + separator, separator matches ---
+			if (tableLines.length >= 2 && /^\|[\s\-:|]+\|$/.test(tableLines[1])) {
+				const headers = splitTableRow(tableLines[0]);
+				const alignments = parseAlignments(tableLines[1]);
+				const rows = tableLines.slice(2).map(splitTableRow);
+
+				let table = '<table><thead><tr>';
+				headers.forEach((h, idx) => {
+					const align = alignments[idx];
+					const style = align ? ` style="text-align:${align}"` : '';
+					table += `<th${style}>${h}</th>`;
+				});
+				table += '</tr></thead>';
+
+				if (rows.length) {
+					table += '<tbody>';
+					for (const row of rows) {
+						table += '<tr>';
+						row.forEach((cell, idx) => {
+							const align = alignments[idx];
+							const style = align ? ` style="text-align:${align}"` : '';
+							table += `<td${style}>${cell}</td>`;
+						});
+						table += '</tr>';
+					}
+					table += '</tbody>';
+				}
+
+				table += '</table>';
+				result.push(table);
+			} else {
+				// Not a valid table — output lines as-is
+				result.push(...tableLines);
+			}
+		} else {
+			result.push(lines[i]);
+			i++;
+		}
+	}
+
+	return result.join('\n');
+}
+
+function splitTableRow(line: string): string[] {
+	return line
+		.replace(/^\|/, '')
+		.replace(/\|$/, '')
+		.split('|')
+		.map((s) => s.trim());
+}
+
+function parseAlignments(separator: string): string[] {
+	return separator
+		.replace(/^\|/, '')
+		.replace(/\|$/, '')
+		.split('|')
+		.map((cell) => {
+			cell = cell.trim();
+			if (/^:-+:$/.test(cell)) return 'center';
+			if (/-+:$/.test(cell)) return 'right';
+			return '';
+		});
 }
 
 /**
@@ -231,13 +335,17 @@ function markdownToHTML(markdown: string): string {
 	// Phase 4: Inline formatting
 	html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 	html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+	html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
-	// Phase 5: Lists
+	// Phase 5: Tables (markdown → HTML)
+	html = convertTables(html);
+
+	// Phase 6: Lists
 	html = html.replace(/^- (.*?)$/gm, '<li>$1</li>');
 	html = html.replace(/(<li>.*?<\/li>\n)+/g, (match) => `<ul>${match}</ul>`);
 	html = html.replace(/^\d+\. (.*?)$/gm, '<li>$1</li>');
 
-	// Phase 6: Paragraphs (with DM note auto-detection)
+	// Phase 7: Paragraphs (with DM note auto-detection)
 	const lines = html.split('\n');
 	const paragraphs: string[] = [];
 	let currentParagraph: string[] = [];
@@ -261,7 +369,7 @@ function markdownToHTML(markdown: string): string {
 	for (const line of lines) {
 		if (line.trim() === '') {
 			flushParagraph();
-		} else if (/^<\/?(div|h[1-6]|hr|blockquote|ul|ol|li|p)\b/.test(line)) {
+		} else if (/^<\/?(div|h[1-6]|hr|blockquote|ul|ol|li|p|table)\b/.test(line)) {
 			// Block-level HTML element — flush paragraph buffer, then emit as-is
 			flushParagraph();
 			paragraphs.push(line);
