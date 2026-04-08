@@ -59,6 +59,13 @@
             "fiend": "Fiends & Monsters",
             "cultist": "Cultists & Common Folk"
         },
+        "macros": {
+            "setLandingPage": "Set Landing Page",
+            "toggleSceneLighting": "Toggle Scene Lighting",
+            "toggleAmbientSounds": "Toggle Ambient Sounds",
+            "tokenRingStyling": "Token Ring Styling",
+            "folderName": "Harbinger House Macros"
+        },
         "errors": {
             "notGM": "Only the GM can import Harbinger House content.",
             "pf2eRequired": "The PF2e game system is required for this module."

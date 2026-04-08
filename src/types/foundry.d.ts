@@ -16,6 +16,7 @@ declare global {
 	const Actor: typeof ActorClass;
 	const Item: typeof ItemClass;
 	const Folder: typeof FolderClass;
+	const Macro: typeof MacroClass;
 	const Actors: Collection<ActorClass>;
 	const Items: Collection<ItemClass>;
 	const JournalEntry: typeof JournalEntryClass;
@@ -36,6 +37,7 @@ declare global {
 		packs: Collection<CompendiumCollection>;
 		actors: Collection<ActorClass>;
 		items: Collection<ItemClass>;
+		macros: Collection<MacroClass>;
 		folders?: Collection<FolderClass>;
 		journal?: Collection<JournalEntryClass>;
 		scenes?: Collection<SceneClass>;
@@ -1120,6 +1122,36 @@ declare global {
 		navName?: string;
 	}
 
+	// Macro
+	class MacroClass implements FoundryDocument {
+		_id: string;
+		id: string;
+		name: string;
+		type: string;
+		img?: string;
+		command: string;
+		system: Record<string, unknown>;
+		flags: Record<string, Record<string, unknown>>;
+		folder?: { id: string } | null;
+
+		constructor(data: MacroData, context?: object);
+		static create(data: MacroData | MacroData[], context?: object): Promise<MacroClass | MacroClass[]>;
+		update(data: Partial<MacroData>): Promise<this>;
+		delete(): Promise<this>;
+		toObject(): MacroData;
+		get items(): undefined;
+	}
+
+	interface MacroData {
+		_id?: string;
+		name: string;
+		type: 'script' | 'chat';
+		command: string;
+		img?: string;
+		folder?: string | null;
+		flags?: Record<string, Record<string, unknown>>;
+	}
+
 	interface JournalEntryPageData {
 		_id?: string;
 		name: string;
@@ -1150,10 +1182,10 @@ declare global {
 	// ======================================================================
 
 	/** Union of all document class constructors used by importers */
-	type DocumentClass = typeof ActorClass | typeof ItemClass | typeof JournalEntryClass | typeof SceneClass;
+	type DocumentClass = typeof ActorClass | typeof ItemClass | typeof JournalEntryClass | typeof SceneClass | typeof MacroClass;
 
 	/** Document type string literals used by importers */
-	type DocumentTypeName = 'Actor' | 'Item' | 'JournalEntry' | 'Scene';
+	type DocumentTypeName = 'Actor' | 'Item' | 'JournalEntry' | 'Scene' | 'Macro';
 
 	/** Maps a document class constructor to its data type */
 	type DocumentDataFor<C extends DocumentClass> = C extends typeof ActorClass
@@ -1164,7 +1196,9 @@ declare global {
 				? JournalEntryData
 				: C extends typeof SceneClass
 					? SceneData
-					: never;
+					: C extends typeof MacroClass
+						? MacroData
+						: never;
 
 	/** Maps a document class constructor to its instance type */
 	type DocumentInstanceFor<C extends DocumentClass> = C extends typeof ActorClass
@@ -1175,7 +1209,9 @@ declare global {
 				? JournalEntryClass
 				: C extends typeof SceneClass
 					? SceneClass
-					: never;
+					: C extends typeof MacroClass
+						? MacroClass
+						: never;
 }
 
 // Re-export types for use in other modules
@@ -1187,6 +1223,7 @@ export type {
 	DocumentTypeName,
 	FolderData,
 	HarbingerNPC,
+	MacroData,
 	HazardFlanking,
 	HazardHP,
 	HazardStatistic,

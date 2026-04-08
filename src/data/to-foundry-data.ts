@@ -1,10 +1,11 @@
 import { MODULE_ID } from '../config';
-import type { ActorData, ItemData, JournalEntryData, SceneData } from '../types/foundry';
+import type { ActorData, ItemData, JournalEntryData, MacroData, SceneData } from '../types/foundry';
 import type { HarbingerNPC, NPCCategory, NPCEntry, NPCItemEntry } from './harbinger-residents';
 import { isSystemActorReference } from './harbinger-residents';
 import type { HarbingerHazard, HazardCategory } from './hazards';
 import type { HarbingerItem, ItemCategory } from './items';
 import type { HarbingerJournal } from './journals';
+import type { HarbingerMacro } from './macros';
 import type { HarbingerScene } from './scenes';
 import type { HarbingerSpell } from './spells';
 import type { SystemActorReference } from './system-items';
@@ -63,6 +64,25 @@ export function itemToDocumentData(item: HarbingerItem): ItemData {
 				imported: true,
 			},
 			...item.data.flags,
+		},
+	};
+}
+
+// ============================================================================
+// Macros
+// ============================================================================
+
+export function macroToDocumentData(macro: HarbingerMacro): MacroData {
+	return {
+		name: macro.name,
+		type: macro.type,
+		command: macro.command,
+		img: macro.img,
+		flags: {
+			[MODULE_ID]: {
+				sourceId: macro.id,
+				imported: true,
+			},
 		},
 	};
 }

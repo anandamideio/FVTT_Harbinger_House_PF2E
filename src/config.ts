@@ -11,6 +11,7 @@ export const PACKS = {
 	HAZARDS: `${MODULE_ID}.harbinger-house-hazards`,
 	JOURNALS: `${MODULE_ID}.harbinger-house-journals`,
 	SCENES: `${MODULE_ID}.harbinger-house-scenes`,
+	MACROS: `${MODULE_ID}.harbinger-house-macros`,
 } as const;
 
 // Settings keys
@@ -21,6 +22,7 @@ export const SETTINGS = {
 	IMPORTED_SPELLS: 'importedSpells',
 	IMPORTED_HAZARDS: 'importedHazards',
 	IMPORTED_JOURNALS: 'importedJournals',
+	IMPORTED_MACROS: 'importedMacros',
 	SCHEMA_VERSION: 'schemaVersion',
 	INSTALLED_MODULE_VERSION: 'installedModuleVersion',
 	DEBUG_MODE: 'debugMode',
@@ -107,6 +109,15 @@ export function registerSettings(): void {
 	game.settings.register(MODULE_ID, SETTINGS.IMPORTED_JOURNALS, {
 		name: 'Imported Journals',
 		hint: 'List of Journal IDs that have been imported',
+		scope: 'world',
+		config: false,
+		type: Object,
+		default: {},
+	});
+
+	// Track imported Macros
+	game.settings.register(MODULE_ID, SETTINGS.IMPORTED_MACROS, {
+		name: 'Imported Macros',
 		scope: 'world',
 		config: false,
 		type: Object,

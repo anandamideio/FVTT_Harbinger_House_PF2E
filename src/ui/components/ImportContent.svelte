@@ -1,6 +1,7 @@
 <script lang="ts">
 import { logError, MODULE_ID, PACKS, SETTINGS } from '../../config';
 import {
+	ALL_MACROS,
 	ALL_SCENES,
 	ALL_SPELLS,
 	getCategoryLabel,
@@ -19,6 +20,7 @@ import {
 	hazardImporter,
 	itemImporter,
 	journalImporter,
+	macroImporter,
 	npcImporter,
 	sceneImporter,
 	spellImporter,
@@ -63,6 +65,7 @@ let importSpells = $state(true);
 let importHazards = $state(true);
 let importJournals = $state(true);
 let importScenes = $state(true);
+let importMacros = $state(true);
 
 // Selected categories (all selected by default)
 let selectedNpcCategories = $state(npcCategories.map((c) => c.id));
@@ -253,6 +256,27 @@ async function handleImport() {
 			totalFailed += result.failed;
 		}
 
+		if (importMacros) {
+			progressText = 'Importing Macros...';
+			let result;
+			if (isPackAvailable(PACKS.MACROS)) {
+				result = await macroImporter.importFromCompendium(PACKS.MACROS, {
+					folderName: 'Harbinger House Macros',
+					onProgress: (_current: number, _total: number, name: string) => {
+						progressText = `Importing Macro: ${name}`;
+					},
+				});
+			} else {
+				result = await macroImporter.importAll({
+					onProgress: (_current: number, _total: number, name: string) => {
+						progressText = `Importing Macro: ${name}`;
+					},
+				});
+			}
+			totalImported += result.imported;
+			totalFailed += result.failed;
+		}
+
 		progressPercent = 100;
 		progressText = `Complete! Imported ${totalImported} items.`;
 
@@ -324,6 +348,13 @@ async function handleImport() {
       icon="fa-map"
       bind:enabled={importScenes}
       description={`${ALL_SCENES.length} battlemaps: First Floor, Common Area, Doors & Kaydi's Room, Final Chamber (2 versions), Hall of Mirrors, Mind Trap, Statues & Gardens, Vorina & Teela's Area`}
+    />
+
+    <CategorySection
+      title="Macros"
+      icon="fa-terminal"
+      bind:enabled={importMacros}
+      description={`${ALL_MACROS.length} utility macros: Set Landing Page, Toggle Scene Lighting, Toggle Ambient Sounds, Token Ring Styling`}
     />
 
     <ProgressBar active={progressActive} percent={progressPercent} text={progressText} />

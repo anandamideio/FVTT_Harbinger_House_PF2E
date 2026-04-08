@@ -9,6 +9,7 @@ import { ALL_ITEMS } from '../src/data/items.ts';
 import { ALL_SPELLS } from '../src/data/spells.ts';
 import { ALL_HAZARDS } from '../src/data/hazards.ts';
 import { ALL_JOURNALS } from '../src/data/journals.ts';
+import { ALL_MACROS } from '../src/data/macros.ts';
 import { ALL_SCENES } from '../src/data/scenes.ts';
 
 // Import pure transform functions
@@ -17,6 +18,7 @@ import {
 	spellToDocumentData,
 	hazardToDocumentData,
 	journalToDocumentData,
+	macroToDocumentData,
 	sceneToDocumentData,
 	npcEntryToDocumentData,
 } from '../src/data/to-foundry-data.ts';
@@ -68,7 +70,7 @@ function createStats(compendiumSource?: string) {
 }
 
 /** Foundry document types mapped to LevelDB sublevel keys and embedded doc keys. */
-type FoundryDocType = 'Actor' | 'Item' | 'JournalEntry' | 'Scene';
+type FoundryDocType = 'Actor' | 'Item' | 'JournalEntry' | 'Scene' | 'Macro';
 
 interface DBKeys {
 	dbKey: string;
@@ -85,6 +87,8 @@ function getDBKeys(docType: FoundryDocType): DBKeys {
 			return { dbKey: 'journal', embeddedKey: 'pages' };
 		case 'Scene':
 			return { dbKey: 'scenes', embeddedKey: null };
+		case 'Macro':
+			return { dbKey: 'macros', embeddedKey: null };
 	}
 }
 
@@ -232,6 +236,12 @@ async function main() {
 		data: sceneToDocumentData(scene),
 	}));
 
+	// Build Macro pack
+	const macroEntries = ALL_MACROS.map((macro) => ({
+		id: macro.id,
+		data: macroToDocumentData(macro),
+	}));
+
 	const packs: PackDefinition[] = [
 		{ name: 'harbinger-house-npcs', docType: 'Actor', entries: npcEntries },
 		{ name: 'harbinger-house-items', docType: 'Item', entries: itemEntries },
@@ -239,6 +249,7 @@ async function main() {
 		{ name: 'harbinger-house-hazards', docType: 'Actor', entries: hazardEntries },
 		{ name: 'harbinger-house-journals', docType: 'JournalEntry', entries: journalEntries },
 		{ name: 'harbinger-house-scenes', docType: 'Scene', entries: sceneEntries },
+		{ name: 'harbinger-house-macros', docType: 'Macro', entries: macroEntries },
 	];
 
 	for (const pack of packs) {

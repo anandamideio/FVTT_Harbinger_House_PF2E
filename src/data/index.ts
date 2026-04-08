@@ -14,6 +14,7 @@ import { HARBINGER_RESIDENTS } from './harbinger-residents';
 import { ALL_HAZARDS } from './hazards';
 import { ALL_ITEMS } from './items';
 import { ALL_JOURNALS } from './journals';
+import { ALL_MACROS } from './macros';
 import { ALL_SCENES } from './scenes';
 import { ALL_SPELLS } from './spells';
 
@@ -114,6 +115,17 @@ export {
 } from './journals';
 
 // ============================================================================
+// Macro Data
+// ============================================================================
+
+export type { HarbingerMacro } from './macros';
+
+export {
+	ALL_MACROS,
+	getMacroById,
+} from './macros';
+
+// ============================================================================
 // Summary Statistics
 // ============================================================================
 
@@ -125,13 +137,15 @@ export function getContentSummary() {
 		hazards: ALL_HAZARDS.length,
 		journals: ALL_JOURNALS.length,
 		scenes: ALL_SCENES.length,
+		macros: ALL_MACROS.length,
 		total:
 			ALL_NPCS.length +
 			ALL_ITEMS.length +
 			ALL_SPELLS.length +
 			ALL_HAZARDS.length +
 			ALL_JOURNALS.length +
-			ALL_SCENES.length,
+			ALL_SCENES.length +
+			ALL_MACROS.length,
 	};
 }
 

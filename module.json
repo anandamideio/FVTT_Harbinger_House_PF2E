@@ -108,6 +108,18 @@
 			},
 			"system": "pf2e",
 			"flags": {}
+		},
+		{
+			"name": "harbinger-house-macros",
+			"label": "Harbinger House Macros",
+			"path": "packs/harbinger-house-macros",
+			"type": "Macro",
+			"ownership": {
+				"PLAYER": "OBSERVER",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "pf2e",
+			"flags": {}
 		}
 	],
 	"flags": {

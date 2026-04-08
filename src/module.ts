@@ -6,6 +6,8 @@ import {
 	ALL_ITEMS,
 	// Journal data
 	ALL_JOURNALS,
+	// Macro data
+	ALL_MACROS,
 	// NPC data
 	ALL_NPCS,
 	// Scene data
@@ -16,6 +18,7 @@ import {
 	getContentSummary,
 	getHazardById,
 	getItemById,
+	getMacroById,
 	getNPCById,
 	getSpellById,
 	HAZARDS_BY_CATEGORY,
@@ -29,6 +32,7 @@ import {
 	importAllContent,
 	itemImporter,
 	journalImporter,
+	macroImporter,
 	npcImporter,
 	sceneImporter,
 	spellImporter,
@@ -48,6 +52,7 @@ interface HarbingerHouseAPI {
 	importJournals: typeof journalImporter.importAll;
 	importJournalsByFolder: typeof journalImporter.importFolder;
 	importScenes: typeof sceneImporter.importAll;
+	importMacros: typeof macroImporter.importAll;
 	importAll: typeof importAllContent;
 
 	// UI functions
@@ -60,6 +65,7 @@ interface HarbingerHouseAPI {
 	deleteAllHazards: () => Promise<number>;
 	deleteAllJournals: () => Promise<number>;
 	deleteAllScenes: () => Promise<number>;
+	deleteAllMacros: () => Promise<number>;
 	deleteAll: typeof deleteAllImportedContent;
 
 	// Data access
@@ -77,6 +83,8 @@ interface HarbingerHouseAPI {
 	getAllJournals: () => typeof ALL_JOURNALS;
 	getJournalsByFolder: () => typeof JOURNALS_BY_FOLDER;
 	getAllScenes: () => typeof ALL_SCENES;
+	getAllMacros: () => typeof ALL_MACROS;
+	getMacroById: typeof getMacroById;
 
 	// Summary
 	getContentSummary: typeof getContentSummary;
@@ -88,6 +96,7 @@ interface HarbingerHouseAPI {
 	hazardImporter: typeof hazardImporter;
 	journalImporter: typeof journalImporter;
 	sceneImporter: typeof sceneImporter;
+	macroImporter: typeof macroImporter;
 }
 
 // Store the API on the module
@@ -121,6 +130,7 @@ Hooks.once('init', async () => {
 		importJournals: journalImporter.importAll.bind(journalImporter),
 		importJournalsByFolder: journalImporter.importFolder.bind(journalImporter),
 		importScenes: sceneImporter.importAll.bind(sceneImporter),
+		importMacros: macroImporter.importAll.bind(macroImporter),
 		importAll: importAllContent,
 
 		// UI functions
@@ -157,6 +167,11 @@ Hooks.once('init', async () => {
 			log(`Deleted ${count} imported scenes`);
 			return count;
 		},
+		deleteAllMacros: async () => {
+			const count = await macroImporter.deleteAllImported();
+			log(`Deleted ${count} imported macros`);
+			return count;
+		},
 		deleteAll: deleteAllImportedContent,
 
 		// Data access
@@ -174,6 +189,8 @@ Hooks.once('init', async () => {
 		getAllJournals: () => ALL_JOURNALS,
 		getJournalsByFolder: () => JOURNALS_BY_FOLDER,
 		getAllScenes: () => ALL_SCENES,
+		getAllMacros: () => ALL_MACROS,
+		getMacroById,
 
 		// Summary
 		getContentSummary,
@@ -185,6 +202,7 @@ Hooks.once('init', async () => {
 		hazardImporter,
 		journalImporter,
 		sceneImporter,
+		macroImporter,
 	};
 
 	log('Harbinger House API registered on game.harbingerHouse');
@@ -209,7 +227,7 @@ Hooks.once('ready', async () => {
 	// Log content summary
 	const summary = getContentSummary();
 	log(
-		`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards, ${summary.journals} journals`,
+		`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards, ${summary.journals} journals, ${summary.macros} macros`,
 	);
 
 	// Only GMs get dialogs and migrations
@@ -238,6 +256,7 @@ Hooks.once('ready', async () => {
 		(game.journal as Collection<FoundryDocument> | undefined)?.some(
 			(j) => j.flags?.[MODULE_ID]?.imported === true,
 		) ||
+		game.macros?.some((m) => m.flags?.[MODULE_ID]?.imported === true) ||
 		false;
 
 	if (installedVersion !== '0.0.0' && installedVersion !== currentVersion && hasImportedContent) {
@@ -289,6 +308,7 @@ export {
 	importAllContent,
 	itemImporter,
 	journalImporter,
+	macroImporter,
 	MODULE_ID,
 	npcImporter,
 	spellImporter,

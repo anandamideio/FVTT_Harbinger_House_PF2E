@@ -173,6 +173,8 @@ export abstract class BaseImporter<T, C extends DocumentClass = DocumentClass> {
 				return (game.journal as unknown as Collection<FoundryDocument>) ?? null;
 			case 'Scene':
 				return (game.scenes as unknown as Collection<FoundryDocument>) ?? null;
+			case 'Macro':
+				return game.macros as unknown as Collection<FoundryDocument>;
 			default:
 				return null;
 		}

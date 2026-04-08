@@ -1,6 +1,7 @@
 import { hazardImporter } from './hazard-importer';
 import { itemImporter } from './item-importer';
 import { journalImporter } from './journal-importer';
+import { macroImporter } from './macro-importer';
 import { npcImporter } from './npc-importer';
 import { sceneImporter } from './scene-importer';
 import { spellImporter } from './spell-importer';
@@ -9,6 +10,7 @@ export { BaseImporter, type ImportOptions, type ImportResult, type RefreshResult
 export { HazardImporter, type HazardImportOptions, hazardImporter } from './hazard-importer';
 export { ItemImporter, type ItemImportOptions, itemImporter } from './item-importer';
 export { JournalImporter, type JournalImportOptions, journalImporter } from './journal-importer';
+export { MacroImporter, type MacroImportOptions, macroImporter } from './macro-importer';
 export { NPCImporter, type NPCImportOptions, npcImporter } from './npc-importer';
 export { SceneImporter, type SceneImportOptions, sceneImporter } from './scene-importer';
 export { SpellImporter, type SpellImportOptions, spellImporter } from './spell-importer';
@@ -20,6 +22,7 @@ export async function importAllContent(options?: {
 	hazards?: boolean;
 	journals?: boolean;
 	scenes?: boolean;
+	macros?: boolean;
 	onProgress?: (current: number, total: number, name: string) => void;
 }) {
 	const {
@@ -29,6 +32,7 @@ export async function importAllContent(options?: {
 		hazards = true,
 		journals = true,
 		scenes = true,
+		macros = true,
 		onProgress,
 	} = options || {};
 
@@ -39,6 +43,7 @@ export async function importAllContent(options?: {
 		hazards: { imported: 0, failed: 0 },
 		journals: { imported: 0, failed: 0 },
 		scenes: { imported: 0, failed: 0 },
+		macros: { imported: 0, failed: 0 },
 	};
 
 	// Import NPCs
@@ -83,6 +88,13 @@ export async function importAllContent(options?: {
 		results.scenes.failed = sceneResult.failed;
 	}
 
+	// Import Macros
+	if (macros) {
+		const macroResult = await macroImporter.importAll({ onProgress });
+		results.macros.imported = macroResult.imported;
+		results.macros.failed = macroResult.failed;
+	}
+
 	return results;
 }
 
@@ -97,6 +109,7 @@ export async function deleteAllImportedContent() {
 		hazards: 0,
 		journals: 0,
 		scenes: 0,
+		macros: 0,
 	};
 
 	results.npcs = await npcImporter.deleteAllImported();
@@ -105,6 +118,7 @@ export async function deleteAllImportedContent() {
 	results.hazards = await hazardImporter.deleteAllImported();
 	results.journals = await journalImporter.deleteAllImported();
 	results.scenes = await sceneImporter.deleteAllImported();
+	results.macros = await macroImporter.deleteAllImported();
 
 	return results;
 }
