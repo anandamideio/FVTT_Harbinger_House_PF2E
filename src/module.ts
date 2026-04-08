@@ -8,7 +8,6 @@ const ADVENTURE_ID = '42cb37a38191040e';
 /** Full compendium UUID for the Adventure document */
 const ADVENTURE_UUID = `Compendium.${ADVENTURE_PACK}.Adventure.${ADVENTURE_ID}`;
 
-// Store the API on the module
 declare global {
 	interface Game {
 		harbingerHouse?: HarbingerHouseAPI;
@@ -22,7 +21,7 @@ interface HarbingerHouseAPI {
 
 /**
  * Open the Adventure compendium importer.
- * Fetches the Adventure document and renders its sheet (our HarbingerHouseImporter).
+ * Fetches the Adventure document and renders its sheet (my precious HarbingerHouseImporter)
  */
 async function openImporter(): Promise<void> {
 	try {
@@ -40,7 +39,7 @@ async function openImporter(): Promise<void> {
 		});
 
 		for (const adventureDoc of adventures) {
-			// Construct our custom importer directly so we always get Harbinger House styling and hooks.
+			// Construct our custom importer directly so we always get Harbinger House styling and our (captain) hooks
 			const adventure = adventureDoc as unknown as AdventureClass;
 			const importer = new HarbingerHouseImporter({ document: adventure });
 			logDebug('[Importer] Rendering HarbingerHouseImporter instance', {
@@ -55,14 +54,9 @@ async function openImporter(): Promise<void> {
 	}
 }
 
-/**
- * Initialize the module.
- * Called on the 'init' hook - before game data is loaded.
- */
 Hooks.once('init', async () => {
 	log('Initializing Harbinger House module');
 
-	// Register module settings
 	registerSettings();
 
 	// Register custom Adventure importer sheet
