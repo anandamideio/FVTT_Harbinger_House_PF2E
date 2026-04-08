@@ -1469,9 +1469,38 @@ Baox plans to destroy Trolan no matter what. He attacks the tiefling with everyt
 
 **DM Note:** Baox won't betray Pastor Browen, no matter what methods the PCs use to question the Anarchist. However, Baox does parrot the reasoning Browen "helped" him arrive at — that Trolan's cult must be stopped before it spells doom for free-thinking bodies everywhere.
 
-> **Xero Baox** (Pl/♂ tiefling/F12/Revolutionary League/CE): THAC0 9; #AT 3/2; Dmg 1d8+2 (long sword +2); AC 3 (plate mail); hp 67; MV 12; SA arrow of slaying for bards; SZ M (6 feet tall); Int very (12); ML fearless (19); XP 3,000.
+> **Xero Baox** (Pl/♂ tiefling/F12/Revolutionary League/CE)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 9 |
+> | #AT | 3/2 |
+> | Dmg | 1d8+2 (long sword +2) |
+> | AC | 3 (plate mail) |
+> | hp | 67 |
+> | MV | 12 |
+> | SZ | M (6 feet tall) |
+> | Int | very (12) |
+> | ML | fearless (19) |
+> | XP | 3,000 |
+>
+> **Special Abilities**
+> - SA: arrow of slaying for bards
 
-> **Anarchists (4)** (Pl/var/var/F7/Revolutionary League/CN): THAC0 14; #AT 3/2; Dmg 1d6 (short sword); AC 6 (scale mail); hp 36 each; MV 12; SZ M (5 feet tall); Int average (10); ML fanatic (17); XP 420.
+> **Anarchists (4)** (Pl/var/var/F7/Revolutionary League/CN)
+>
+> | Stat | Value |
+> |---|---|
+> | THAC0 | 14 |
+> | #AT | 3/2 |
+> | Dmg | 1d6 (short sword) |
+> | AC | 6 (scale mail) |
+> | hp | 36 each |
+> | MV | 12 |
+> | SZ | M (5 feet tall) |
+> | Int | average (10) |
+> | ML | fanatic (17) |
+> | XP | 420 |
 
 ### If Trolan Dies
 
@@ -1517,11 +1546,38 @@ If the PCs don't have a key for a gate back to Sigil, or if they don't even know
 
 - Disguising themselves and pretending to be some other group of cutters when they try to leave — cutters who can prove they've got somewhere to go and a means of getting there. The DM must decide if the PCs' "proof" is enough to convince the Wall Watch to open the gate.
 
-**Sgt. Qarz** (Pl/♂ human/F10/Transcendent Order/CN):
-THAC0 11; #AT 3/2; Dmg 1d10+2 (halberd +2); AC 5 (chain mail); hp 54; MV 12; SA Strength bonus (+1 to attack and damage rolls); SZ M (6 feet tall); Int high (14); ML champion (16); XP 2,000.
+**Sgt. Qarz** (Pl/♂ human/F10/Transcendent Order/CN)
 
-**Wall Watch Bashers (14)** (Pl/var var/F4/var var):
-THAC0 17; #AT 1; Dmg 1d10 (halberd); AC 5 (chain mail); hp 23 each; MV 12; SZ M (6 feet tall); Int average (8); ML elite (13); XP 120.
+| Stat | Value |
+|---|---|
+| THAC0 | 11 |
+| #AT | 3/2 |
+| Dmg | 1d10+2 (halberd +2) |
+| AC | 5 (chain mail) |
+| hp | 54 |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | high (14) |
+| ML | champion (16) |
+| XP | 2,000 |
+
+**Special Abilities**
+- SA: Strength bonus (+1 to attack and damage rolls)
+
+**Wall Watch Bashers (14)** (Pl/var var/F4/var var)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 17 |
+| #AT | 1 |
+| Dmg | 1d10 (halberd) |
+| AC | 5 (chain mail) |
+| hp | 23 each |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | average (8) |
+| ML | elite (13) |
+| XP | 120 |
 
 ## Browen's Last Stand
 
@@ -1540,10 +1596,26 @@ If the PCs bind and question Browen, he reveals a good deal more about Nari, scr
 
 The **Godsmen** marked Browen as a power-in-the-making due to his innate abilities to exercise limited control over the local weather. Without using arcane words, magical gestures, or strange components, Browen can call forth a wall of fog, direct a gust of wind, or summon an ice storm (as per the spells of the same names). He uses these abilities as his own madness moves him, but always with great showmanship and a sermon of insanity.
 
-**Pastor Browen** (Pl/♂ human/P12/—/CE):
-THAC0 14; #AT 1; Dmg 2d4+3 (morning star +3); AC 2 (field plate); hp 53; MV 12; SA cleric spells (8 1st-level, 7 2nd-level, 6 3rd-level, 4 4th-level, 2 5th-level, 2 6th-level); MR 20%; SZ M (6 feet tall); ML fanatic (17); XP 9,000.
+**Pastor Browen** (Pl/♂ human/P12/—/CE)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 14 |
+| #AT | 1 |
+| Dmg | 2d4+3 (morning star +3) |
+| AC | 2 (field plate) |
+| hp | 53 |
+| MV | 12 |
+| MR | 20% |
+| SZ | M (6 feet tall) |
+| ML | fanatic (17) |
+| XP | 9,000 |
+
+**Special Abilities**
+- SA: cleric spells (8 1st-level, 7 2nd-level, 6 3rd-level, 4 4th-level, 2 5th-level, 2 6th-level)
 Str 12, Dex 8, Con 10, Int 12, Wis 18, Cha 8.
-Spell-like abilities (usable at will): gust of wind (three times per day), ice storm (two times per day), and wall of fog (three times per day).
+
+**Spell-like abilities** (usable at will): gust of wind (three times per day), ice storm (two times per day), and wall of fog (three times per day).
 
 ## Back to the Cage
 
@@ -1632,15 +1704,54 @@ the PCs not to get too close to the windows, as they probably don't have keys fo
 
 However, the House also contains various other beings, including Godsman caretakers who've been charmed or imprisoned by Nari, less powerful barmies, and dretches brought from the Abyss to guard Nari and her plans. If the PCs battle any of these other residents, the DM may use the following statistics or invent specific details for each, as desired:
 
-**Average Barmy** (Pl/var var/F2/—/var):
-THAC0 19; #AT 1; Dmg 1d3 (fists) or by weapon; AC 10; hp 9; MV 12; SZ M (5 feet tall); Int very (12); ML average (10); XP 35.
+**Average Barmy** (Pl/var var/F2/—/var)
 
-**Godsman** (Pl/var var/0/Believers of the Source/var):
-THAC0 20; #AT 1; Dmg 1d3 (fists) or by weapon; AC 10; hp 7; MV 12; SZ M (6 feet tall); Int high (14); ML steady (12); XP 35.
+| Stat | Value |
+|---|---|
+| THAC0 | 19 |
+| #AT | 1 |
+| Dmg | 1d3 (fists) or by weapon |
+| AC | 10 |
+| hp | 9 |
+| MV | 12 |
+| SZ | M (5 feet tall) |
+| Int | very (12) |
+| ML | average (10) |
+| XP | 35 |
 
-**Dretch:**
-THAC0 19; #AT 3; Dmg 1d4/1d4/1d4+1; AC 4; HD 2; hp 12; MV 3; SZ S (3 feet tall); Int low (6); AL CE; ML steady (12); XP 1,400.
-Spell-like abilities (usable at will, once per round, unless otherwise indicated): darkness 15' radius, infravision, scare, stinking cloud (once per day), telekinesis, and teleport without error.
+**Godsman** (Pl/var var/0/Believers of the Source/var)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 20 |
+| #AT | 1 |
+| Dmg | 1d3 (fists) or by weapon |
+| AC | 10 |
+| hp | 7 |
+| MV | 12 |
+| SZ | M (6 feet tall) |
+| Int | high (14) |
+| ML | steady (12) |
+| XP | 35 |
+
+**Dretch**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 19 |
+| #AT | 3 |
+| Dmg | 1d4/1d4/1d4+1 |
+| AC | 4 |
+| HD | 2 |
+| hp | 12 |
+| MV | 3 |
+| SZ | S (3 feet tall) |
+| Int | low (6) |
+| AL | CE |
+| ML | steady (12) |
+| XP | 1,400 |
+
+**Spell-like abilities** (usable at will, once per round, unless otherwise indicated): darkness 15' radius, infravision, scare, stinking cloud (once per day), telekinesis, and teleport without error.
 
 ## The Rooms of Harbinger House
 
@@ -1749,8 +1860,23 @@ When the PCs enter this room, Aztral picks the most powerful-looking one to abso
 
 During the encounter, Aztral keeps asking the PCs if any of them have a lawful outlook on life. "Are you lawful? You look like a lawful sod. You should head right up to the party. There's a place at Nari's table for lawful sods like you." He doesn't provide any further information about the party or Nari.
 
-**Aztral of the Many Faces** (Pl/♂ human/F4/—/CE):
-THAC0 17; #AT 1; Dmg 1d2 (wooden spoon); AC 6 (Dex bonus); hp 26; MV 12; SA innate ability (absorption); MR 25%; SZ M (6 feet tall); ML champion (15); XP 1,400.
+**Aztral of the Many Faces** (Pl/♂ human/F4/—/CE)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 17 |
+| #AT | 1 |
+| Dmg | 1d2 (wooden spoon) |
+| AC | 6 (Dex bonus) |
+| hp | 26 |
+| MV | 12 |
+| MR | 25% |
+| SZ | M (6 feet tall) |
+| ML | champion (15) |
+| XP | 1,400 |
+
+**Special Abilities**
+- SA: innate ability (absorption)
 Str 11, Dex 18, Con 13, Int 14, Wis 8, Cha 11.
 
 ### 8. Hall of Doors
@@ -1786,8 +1912,23 @@ If the PCs do calm Galkin down, he tells them what little he knows about Nari.
 
 **DM Note:** If the PCs open any of the windows in this room, they simply find themselves looking out of one of the House's towers, high above Sigil's streets.
 
-**Galkin Farseer** (Pl/♂ human/F10/Bleak Cabal/CN):
-THAC0 11; #AT 3/2; Dmg 1d6+2 (short sword of quickness +2); AC 8 (Dex bonus); hp 64; MV 12; SA Strength bonus (+1 to damage rolls), innate ability (becomes a lightning bolt at will on a successful Constitution check; causes 6d6 points of damage per attack and moves at the speed of light); MR 10%; SZ M (5 feet tall); ML fanatic (18); XP 5,000.
+**Galkin Farseer** (Pl/♂ human/F10/Bleak Cabal/CN)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 11 |
+| #AT | 3/2 |
+| Dmg | 1d6+2 (short sword of quickness +2) |
+| AC | 8 (Dex bonus) |
+| hp | 64 |
+| MV | 12 |
+| MR | 10% |
+| SZ | M (5 feet tall) |
+| ML | fanatic (18) |
+| XP | 5,000 |
+
+**Special Abilities**
+- SA: Strength bonus (+1 to damage rolls), innate ability (becomes a lightning bolt at will on a successful Constitution check; causes 6d6 points of damage per attack and moves at the speed of light)
 Str 16, Dex 16, Con 14, Int 15, Wis 10, Cha 12.
 
 ### 11-18. The Twins
@@ -1820,8 +1961,23 @@ Vorina has bright blond hair, blue eyes, and tanned, healthy skin. If the PCs ha
 > [!read-aloud]
 > "Many of the residents have disappeared," Vorina explains. "I don't want to join them."
 
-**Vorina** (Pl/♀ human/P9/Society of Sensation/CG):
-THAC0 16; #AT 1; Dmg 1d3 (fists); AC 8 (Dex bonus); hp 38; MV 12; SA cleric spells (4 1st-level, 4 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level), innate abilities (*create food and water* [three times per day], *heal* [two times per day], *plant growth* [three times per day], *purify food and drink* [three times per day]); MR 30%; SZ M (6 feet tall); ML steady (12); XP 3,000.
+**Vorina** (Pl/♀ human/P9/Society of Sensation/CG)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 16 |
+| #AT | 1 |
+| Dmg | 1d3 (fists) |
+| AC | 8 (Dex bonus) |
+| hp | 38 |
+| MV | 12 |
+| MR | 30% |
+| SZ | M (6 feet tall) |
+| ML | steady (12) |
+| XP | 3,000 |
+
+**Special Abilities**
+- SA: cleric spells (4 1st-level, 4 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level), innate abilities (*create food and water* [three times per day], *heal* [two times per day], *plant growth* [three times per day], *purify food and drink* [three times per day])
 Str 9, Dex 16, Con 18, Int 12, Wis 16, Cha 17.
 
 ### 14. Vorina's Bedchamber
@@ -1847,16 +2003,49 @@ Teela won't say much about Nari, except to remark that opposing her is fruitless
 > [!read-aloud]
 > "Every new power needs worshipers," Teela says. "Bow down before Nari or die."
 
-**Teela** (Pl/♀ human/W9/Dustmen/CE):
-THAC0 18; #AT 1; Dmg 1d4+1 (staff of withering); AC 6 (bracers of AC 6); hp 21; MV 12; SA wizard spells (4 1st-level, 3 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level); innate abilities (*cause light wounds* [three times per day], *energy drain* [two times per day], *harm* [reverse of heal, once per day], *vampiric touch* [three times per day]); MR 30%; SZ M (6 feet tall); ML champion (16); XP 9,000.
+**Teela** (Pl/♀ human/W9/Dustmen/CE)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 18 |
+| #AT | 1 |
+| Dmg | 1d4+1 (staff of withering) |
+| AC | 6 (bracers of AC 6) |
+| hp | 21 |
+| MV | 12 |
+| MR | 30% |
+| SZ | M (6 feet tall) |
+| ML | champion (16) |
+| XP | 9,000 |
+
+**Special Abilities**
+- SA: wizard spells (4 1st-level, 3 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level); innate abilities (*cause light wounds* [three times per day], *energy drain* [two times per day], *harm* [reverse of heal, once per day], *vampiric touch* [three times per day])
 Str 11, Dex 12, Con 8, Int 17, Wis 12, Cha 9.
 
 ### 17. Teela's Bath
 
 A sunken tub fills much of the tile-covered floor in this chamber. The entire place looks like a swamp, as molds and slimes grow across the tiles, over the walls and ceiling, and atop the foul, stagnant water. If the PCs poke around in here, they encounter Teela's pets — a gray ooze and a brown mold.
 
-**Gray Ooze (1):**
-THAC0 17; #AT 1; Dmg 2d8; AC 8; HD 3+3; hp 19; MV 1; SA corrodes metal (chain mail in one round, plate mail in two, magical armor in one round per each plus to AC); SD immune to spells (except lightning bolt) and fire- and cold-based attacks; SZ L (10 feet); Int animal (1); AL N; ML average (10); XP 270.
+**Gray Ooze (1)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 17 |
+| #AT | 1 |
+| Dmg | 2d8 |
+| AC | 8 |
+| HD | 3+3 |
+| hp | 19 |
+| MV | 1 |
+| SZ | L (10 feet) |
+| Int | animal (1) |
+| AL | N |
+| ML | average (10) |
+| XP | 270 |
+
+**Special Abilities**
+- SA: corrodes metal (chain mail in one round, plate mail in two, magical armor in one round per each plus to AC)
+- SD: immune to spells (except lightning bolt) and fire- and cold-based attacks
 
 **Brown Mold (1):**
 AC 9; MV 0; SA Freezing (drains heat equal to 4d8 points of damage per round from victims within 5 feet); SD absorbs heat (a torch makes it double in size, flaming oil makes it quadruple, fireball-like spells make it grow eightfold); SZ S (2-foot-wide patch); Int non (0); AL N; XP 15.
@@ -1879,8 +2068,23 @@ When the PCs arrive, Gorg approaches them in manic glee and tries to turn as man
 
 **DM Note:** Area 27 contains two *stone to flesh* scrolls, which can be used to restore any PCs who succumb to Gorg's gaze attack.
 
-**Gorg Redeyes** (Pl/♂ bariaur/I3/Free League/CN):
-THAC0 19; #AT 1; Dmg 1d4 (dagger); AC 6; hp 13; MV 15; SA wizard spells (2 1st-level), innate ability (gaze turns flesh creatures to stone [three times per day]); MR 35%; SZ L (7 feet tall); ML champion (15); XP 975.
+**Gorg Redeyes** (Pl/♂ bariaur/I3/Free League/CN)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 19 |
+| #AT | 1 |
+| Dmg | 1d4 (dagger) |
+| AC | 6 |
+| hp | 13 |
+| MV | 15 |
+| MR | 35% |
+| SZ | L (7 feet tall) |
+| ML | champion (15) |
+| XP | 975 |
+
+**Special Abilities**
+- SA: wizard spells (2 1st-level), innate ability (gaze turns flesh creatures to stone [three times per day])
 Str 14, Dex 12, Con 13, Int 13, Wis 10, Cha 16.
 
 ### 21. The Rock Garden
@@ -1898,18 +2102,85 @@ If Trolan is present, Tomin laughs hysterically.
 > [!read-aloud]
 > "The Lady can't see you here," he cackles. "She can't see any of us! That's why Nari's going to win! I love her!"
 
-**Tomin** (Pl/♂ human/F7/Believers of the Source/CE):
-THAC0 14; #AT 3/2; Dmg 2d4+1 (broad sword +1); AC 7 (magical cloak, Dex bonus); hp 49; MV 12; SA Strength bonus (+1 to attack and damage rolls), innate ability (create figments calls forth four small figments, two medium figments, or one large figment every round); SD immune to charm and illusion spells; MR 25%; SZ M (6 feet tall); ML fanatic (18); XP 3,000.
+**Tomin** (Pl/♂ human/F7/Believers of the Source/CE)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 14 |
+| #AT | 3/2 |
+| Dmg | 2d4+1 (broad sword +1) |
+| AC | 7 (magical cloak, Dex bonus) |
+| hp | 49 |
+| MV | 12 |
+| MR | 25% |
+| SZ | M (6 feet tall) |
+| ML | fanatic (18) |
+| XP | 3,000 |
+
+**Special Abilities**
+- SA: Strength bonus (+1 to attack and damage rolls), innate ability (create figments calls forth four small figments, two medium figments, or one large figment every round)
+- SD: immune to charm and illusion spells
 Str 17, Dex 15, Con 15, Int 13, Wis 14, Cha 12.
 
-**Figment, Small:**
-THAC0 19; #AT 1; Dmg 1d4+1; AC 8; HD 2+1; hp 9; MV 6; SD +1 weapons or better to hit; SZ S (3 feet tall); Int animal (1); AL N; ML champion (16); XP 120.
+**Figment, Small**
 
-**Figment, Medium:**
-THAC0 15; #AT 2; Dmg 1d6+2; AC 4; HD 5+2; hp 26; MV 9; SD +1 weapons or better to hit; SZ M (6 feet tall); Int semi (3); AL N; ML fanatic (17); XP 420.
+| Stat | Value |
+|---|---|
+| THAC0 | 19 |
+| #AT | 1 |
+| Dmg | 1d4+1 |
+| AC | 8 |
+| HD | 2+1 |
+| hp | 9 |
+| MV | 6 |
+| SZ | S (3 feet tall) |
+| Int | animal (1) |
+| AL | N |
+| ML | champion (16) |
+| XP | 120 |
 
-**Figment, Large:**
-THAC0 13; #AT 3; Dmg 1d8+3; AC 0; HD 8+3; hp 43; MV 12; SD +2 weapons or better to hit; SZ L (9 feet tall); Int low (5); AL N; ML fearless (19); XP 1,400.
+**Special Abilities**
+- SD: +1 weapons or better to hit
+
+**Figment, Medium**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 15 |
+| #AT | 2 |
+| Dmg | 1d6+2 |
+| AC | 4 |
+| HD | 5+2 |
+| hp | 26 |
+| MV | 9 |
+| SZ | M (6 feet tall) |
+| Int | semi (3) |
+| AL | N |
+| ML | fanatic (17) |
+| XP | 420 |
+
+**Special Abilities**
+- SD: +1 weapons or better to hit
+
+**Figment, Large**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 13 |
+| #AT | 3 |
+| Dmg | 1d8+3 |
+| AC | 0 |
+| HD | 8+3 |
+| hp | 43 |
+| MV | 12 |
+| SZ | L (9 feet tall) |
+| Int | low (5) |
+| AL | N |
+| ML | fearless (19) |
+| XP | 1,400 |
+
+**Special Abilities**
+- SD: +2 weapons or better to hit
 
 ### 22. Corridor of Doors
 
@@ -1951,8 +2222,23 @@ Kaydi becomes a demipower of sleep with the following spell-like abilities: *dee
 
 **The Real Chant:** If Kaydi does become a power, the focrux protects her from the Lady of Pain's notice. A property of Sigil itself, however, affects powers who somehow wind up in the city. They feel pain that starts as a dull ache but builds to intolerable levels within 1d4 hours, at which time they must leave the Cage to escape the pain.
 
-**Kaydi** (Pl/♀ human/0/—/NG):
-THAC0 20; #AT 1; Dmg by weapon; AC 10; hp 6; MV 12; SA innate ability (stupor field); MR 15%; SZ M (5 feet tall); ML average (9); XP 65.
+**Kaydi** (Pl/♀ human/0/—/NG)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 20 |
+| #AT | 1 |
+| Dmg | by weapon |
+| AC | 10 |
+| hp | 6 |
+| MV | 12 |
+| MR | 15% |
+| SZ | M (5 feet tall) |
+| ML | average (9) |
+| XP | 65 |
+
+**Special Abilities**
+- SA: innate ability (stupor field)
 Str 7, Dex 8, Con 8, Int 11, Wis 9, Cha 13.
 
 ### 24. Common Hall
@@ -2000,8 +2286,24 @@ Chance has a few innate powers that help him. First, he's extremely lucky. All g
 
 If the battle goes badly for Chance, he dives through the mirror to hide in his secret room. If the PCs follow, they find him rolling his dice over and over, trying to decide what to do.
 
-**Chance** (Pl/♂ human/T8/Fated/CE):
-THAC0 17; #AT 1; Dmg 1d6+1 (short sword +1); AC 3 (studded leather, Dex bonus); hp 32; MV 12; SA backstab damage x3, innate abilities (extreme luck, field of bad luck); SD tumbling (AC reduced to -1 when this is the only action Chance takes in a round); MR 45%; SZ M (5 feet tall); ML elite (13); XP 3,000.
+**Chance** (Pl/♂ human/T8/Fated/CE)
+
+| Stat | Value |
+|---|---|
+| THAC0 | 17 |
+| #AT | 1 |
+| Dmg | 1d6+1 (short sword +1) |
+| AC | 3 (studded leather, Dex bonus) |
+| hp | 32 |
+| MV | 12 |
+| MR | 45% |
+| SZ | M (5 feet tall) |
+| ML | elite (13) |
+| XP | 3,000 |
+
+**Special Abilities**
+- SA: backstab damage x3, innate abilities (extreme luck, field of bad luck)
+- SD: tumbling (AC reduced to -1 when this is the only action Chance takes in a round)
 Str 15, Dex 18, Con 11, Int 14, Wis 8, Cha 15.
 
 ### 29. Chance's Chamber
@@ -2087,9 +2389,28 @@ Sougad either has Bereth (if she was awakened and allowed to wander after the en
 
 **Slipping the Blinds:** If Trolan's absent from the battle, the DM should still have Nari polymorph into the Lady of Pain (so the planarity can record her transformation for later proof that the succubus tricked Trolan). One possible solution: The energy in the shapechanging planarity causes Nari to involuntarily change her own form; each round, she takes on a new appearance, one of which is the Lady of Pain.
 
-**Manes (3 per PC):**
-THAC0 20; #AT 3; Dmg 1d2/1d2/1d4 or by weapon; AC 8; HD 1; hp 6 each; MV 6; SA acidic vapor (when slain, manes becomes vapor that causes 1d6 points of damage to all those within 10 feet; save vs. poison to avoid); SD immune to mind-affecting spells, electricity, nonmagical fire, and poison; half damage from cold, magical fire, and gas; MR 10%; SZ S (3 feet tall); Int semi (2); AL CE; XP 975.
-Spell-like abilities (usable at will once per round): darkness 15' radius, infravision, and teleport without error.
+**Manes (3 per PC)**
+
+| Stat | Value |
+|---|---|
+| THAC0 | 20 |
+| #AT | 3 |
+| Dmg | 1d2/1d2/1d4 or by weapon |
+| AC | 8 |
+| HD | 1 |
+| hp | 6 each |
+| MV | 6 |
+| MR | 10% |
+| SZ | S (3 feet tall) |
+| Int | semi (2) |
+| AL | CE |
+| XP | 975 |
+
+**Special Abilities**
+- SA: acidic vapor (when slain, manes becomes vapor that causes 1d6 points of damage to all those within 10 feet; save vs. poison to avoid)
+- SD: immune to mind-affecting spells, electricity, nonmagical fire, and poison; half damage from cold, magical fire, and gas
+
+**Spell-like abilities** (usable at will once per round): darkness 15' radius, infravision, and teleport without error.
 
 The DM should finish up the third round and let everyone make a new initiative roll. The NPCs each take the following actions on their initiative numbers, depending on the actions of the PCs:
 
