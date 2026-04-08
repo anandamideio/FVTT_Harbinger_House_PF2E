@@ -250,6 +250,7 @@ export function journalToDocumentData(journal: HarbingerJournal): JournalEntryDa
 export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 	const tokenVision = scene.tokenVision ?? true;
 	const fogExploration = scene.fogExploration ?? true;
+	const fogReset = Date.now();
 
 	return {
 		name: scene.name,
@@ -278,10 +279,27 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 		},
 		tokenVision,
 		fogExploration,
-		fog: {
-			exploration: fogExploration,
+		environment: {
+			base: {},
+			cycle: false,
+			dark: {},
+			darknessLevel: 0,
+			darknessLevelLock: false,
+			globalLight: {
+				enabled: 0,
+				bright: false,
+			},
 		},
-		fogReset: Date.now(),
+		fog: {
+			colors: {
+				explored: null,
+				unexplored: null,
+			},
+			exploration: fogExploration,
+			overlay: null,
+			reset: fogReset,
+		},
+		fogReset,
 		globalLight: false,
 		globalLightThreshold: null,
 		darkness: 0,

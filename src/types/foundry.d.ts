@@ -1092,8 +1092,45 @@ declare global {
 			distance: number;
 			units: string;
 		};
-		fog?: {
-			exploration?: boolean;
+		fog: {
+			colors: {
+				explored: string | null;
+				unexplored: string | null;
+			};
+			exploration: boolean;
+			overlay: string | null;
+			reset: number | null | undefined;
+		};
+		environment: {
+			base: {
+				hue?: number;
+				intensity?: number;
+				luminosity?: number;
+				saturation?: number;
+				shadows?: number;
+			};
+			cycle: boolean;
+			dark: {
+				hue?: number;
+				intensity?: number;
+				luminosity?: number;
+				saturation?: number;
+				shadows?: number;
+			};
+			darknessLevel: number;
+			darknessLevelLock: boolean;
+			globalLight: {
+				alpha?: number;
+				color?: string | null;
+				coloration?: number;
+				contrast?: number;
+				luminosity?: number;
+				saturation?: number;
+				shadows?: number;
+				darkness?: number;
+				bright?: boolean;
+				enabled?: boolean | number;
+			};
 		};
 		tokenVision?: boolean;
 		fogExploration?: boolean;
