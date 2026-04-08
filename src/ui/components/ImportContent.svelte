@@ -1,5 +1,5 @@
 <script lang="ts">
-import { logError, MODULE_ID, PACKS } from '../../config';
+import { logError, MODULE_ID, PACKS, SETTINGS } from '../../config';
 import {
 	ALL_SCENES,
 	ALL_SPELLS,
@@ -255,6 +255,10 @@ async function handleImport() {
 
 		progressPercent = 100;
 		progressText = `Complete! Imported ${totalImported} items.`;
+
+		// Store the current module version so we can detect future updates
+		const currentVersion = game.modules.get(MODULE_ID)?.version ?? '0.0.0';
+		await game.settings.set(MODULE_ID, SETTINGS.INSTALLED_MODULE_VERSION, currentVersion);
 
 		// eslint-disable-next-line no-undef
 		ui.notifications?.info(
