@@ -234,24 +234,11 @@ async function handleResetAll(): Promise<void> {
 	if (!scene) return;
 
 	// Confirmation dialog
-	const confirmed = await new Promise<boolean>((resolve) => {
-		new Dialog({
-			title: 'Reset All Locations',
-			content: '<p>Reset all location markers to hidden? This cannot be undone.</p>',
-			buttons: {
-				yes: {
-					icon: '<i class="fas fa-check"></i>',
-					label: 'Reset All',
-					callback: () => resolve(true),
-				},
-				no: {
-					icon: '<i class="fas fa-times"></i>',
-					label: 'Cancel',
-					callback: () => resolve(false),
-				},
-			},
-			default: 'no',
-		}).render(true);
+	const confirmed = await foundry.applications.api.DialogV2.confirm({
+		window: { title: 'Reset All Locations' },
+		content: '<p>Reset all location markers to hidden? This cannot be undone.</p>',
+		rejectClose: false,
+		modal: true,
 	});
 
 	if (!confirmed) return;
@@ -274,7 +261,7 @@ async function handleBulkReveal(): Promise<void> {
 
 	// Build a checklist of all locations grouped by category
 	const categories = ['murder-site', 'faction-hq', 'landmark', 'shop', 'encounter', 'hideout'] as const;
-	let checklistHtml = '<form class="sigil-bulk-reveal">';
+	let checklistHtml = '<div class="sigil-bulk-reveal" style="max-height: 400px; overflow-y: auto;">';
 
 	for (const category of categories) {
 		const locations = ALL_SIGIL_LOCATIONS.filter((l) => l.category === category);
@@ -297,38 +284,39 @@ async function handleBulkReveal(): Promise<void> {
 		}
 	}
 
-	checklistHtml += '</form>';
+	checklistHtml += '</div>';
 
-	new Dialog({
-		title: 'Bulk Reveal Locations',
+	new foundry.applications.api.DialogV2({
+		window: {
+			title: 'Bulk Reveal Locations',
+			classes: ['harbinger-house', 'sigil-bulk-reveal-dialog'],
+		},
 		content: checklistHtml,
-		buttons: {
-			discover: {
-				icon: '<i class="fas fa-eye"></i>',
+		buttons: [
+			{
+				action: 'discover',
+				icon: 'fas fa-eye',
 				label: 'Reveal as Discovered',
-				callback: (html: HTMLElement | JQuery) => {
-					const el = html instanceof HTMLElement ? html : (html as unknown as HTMLElement[])[0];
-					bulkRevealSelected(el, scene, 'discovered');
+				callback: (_event: Event, _button: HTMLButtonElement, dialog: DialogV2Instance) => {
+					bulkRevealSelected(dialog.element as HTMLElement, scene, 'discovered');
 				},
 			},
-			investigate: {
-				icon: '<i class="fas fa-search"></i>',
+			{
+				action: 'investigate',
+				icon: 'fas fa-search',
 				label: 'Reveal as Investigated',
-				callback: (html: HTMLElement | JQuery) => {
-					const el = html instanceof HTMLElement ? html : (html as unknown as HTMLElement[])[0];
-					bulkRevealSelected(el, scene, 'investigated');
+				callback: (_event: Event, _button: HTMLButtonElement, dialog: DialogV2Instance) => {
+					bulkRevealSelected(dialog.element as HTMLElement, scene, 'investigated');
 				},
 			},
-			cancel: {
-				icon: '<i class="fas fa-times"></i>',
+			{
+				action: 'cancel',
+				icon: 'fas fa-times',
 				label: 'Cancel',
 			},
-		},
-		default: 'cancel',
-	}, {
-		classes: ['harbinger-house', 'sigil-bulk-reveal-dialog'],
-		width: 480,
-	}).render(true);
+		],
+		position: { width: 480 },
+	}).render({ force: true });
 }
 
 async function bulkRevealSelected(
@@ -448,3 +436,4 @@ interface ContextMenuItem {
 	icon: string;
 	callback: () => void;
 }
+

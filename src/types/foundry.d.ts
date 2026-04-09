@@ -1301,6 +1301,14 @@ declare global {
 					JournalEntrySheet: typeof JournalEntrySheetClass;
 				};
 			};
+			api: {
+				DialogV2: {
+					new (config: DialogV2Config): DialogV2Instance;
+					confirm(config: DialogV2ConfirmConfig): Promise<boolean>;
+					prompt(config: DialogV2Config): Promise<unknown>;
+					wait(config: DialogV2Config): Promise<unknown>;
+				};
+			};
 		};
 	}
 
@@ -1426,6 +1434,38 @@ declare global {
 					: C extends typeof MacroClass
 						? MacroClass
 						: never;
+
+	interface DialogV2Button {
+		action: string;
+		icon?: string;
+		label: string;
+		default?: boolean;
+		callback?: (event: Event, button: HTMLButtonElement, dialog: DialogV2Instance) => unknown;
+	}
+
+	interface DialogV2Config {
+		window?: { title?: string; classes?: string[] };
+		content: string;
+		buttons: DialogV2Button[];
+		position?: { width?: number; height?: number };
+		modal?: boolean;
+		rejectClose?: boolean;
+	}
+
+	interface DialogV2ConfirmConfig {
+		window?: { title?: string; classes?: string[] };
+		content: string;
+		modal?: boolean;
+		rejectClose?: boolean;
+		yes?: { label?: string; icon?: string; callback?: () => unknown };
+		no?: { label?: string; icon?: string; callback?: () => unknown };
+	}
+
+	interface DialogV2Instance {
+		element: HTMLElement;
+		render(options?: { force?: boolean }): void;
+		close(options?: Record<string, unknown>): Promise<void>;
+	}
 }
 
 // Re-export types for use in other modules
