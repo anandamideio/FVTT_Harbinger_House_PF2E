@@ -1,20 +1,20 @@
 import { log, logDebug, MODULE_ID, SETTINGS } from '../config';
 import type { SigilLocation } from '../data/sigil-locations';
-import { ALL_SIGIL_LOCATIONS } from '../data/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import { SOUNDS, SOUND_VOLUME } from './constants';
+import { InvestigationBoardApp } from './InvestigationBoardApp';
 import { LocationDetailApp } from './LocationDetailApp';
 import type { SigilMapLayer } from './SigilMapLayer';
 import { SigilMapMarker } from './SigilMapMarker';
 import {
 	advanceLocationState,
-	getAllLocationStates,
 	isSigilScene,
-	resetAllLocationStates,
 	resetLocationState,
-	setLocationRevealState,
 } from './sigil-map-state';
 import { broadcastLocationStateChange, requestStateRefresh } from './sigil-map-sockets';
+
+/** Last mouse position for context menu placement */
+let _lastContextMenuEvent: { clientX: number; clientY: number } | null = null;
 
 // ============================================================================
 // Registration
@@ -31,7 +31,16 @@ export function registerSigilMapHooks(): void {
 		onOpenLocationDetail(args[0] as SigilLocation, args[1] as LocationState);
 	});
 	Hooks.on('harbinger-house.markerContext', (...args: unknown[]) => {
+		// Capture mouse position for context menu placement
+		const event = args[1] as { data?: { originalEvent?: MouseEvent } } | undefined;
+		const mouseEvent = event?.data?.originalEvent;
+		if (mouseEvent) {
+			_lastContextMenuEvent = { clientX: mouseEvent.clientX, clientY: mouseEvent.clientY };
+		}
 		onMarkerContext(args[0] as SigilMapMarker);
+	});
+	Hooks.on('harbinger-house.playRevealSound', (...args: unknown[]) => {
+		playRevealSound(args[0] as string);
 	});
 
 	log('Sigil map hooks registered');
@@ -82,6 +91,9 @@ function onUpdateScene(...args: unknown[]): void {
 	if (layer) {
 		layer.refreshFromFlags();
 	}
+
+	// Also refresh the Investigation Board if open
+	InvestigationBoardApp.instance?.refreshFromFlags();
 }
 
 // ============================================================================
@@ -102,36 +114,15 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 	}
 
 	const sigilTools: Record<string, SceneControlTool> = {
-		'sigil-reveal-mode': {
-			name: 'sigil-reveal-mode',
-			title: 'Reveal Mode',
-			icon: 'fas fa-eye',
-			toggle: true,
-			active: false,
-			onChange: (active: boolean) => {
-				const layer = canvas.sigilMap as SigilMapLayer | undefined;
-				if (layer) {
-					layer.revealMode = active;
-					logDebug(`Reveal mode ${active ? 'enabled' : 'disabled'}`);
-				}
-			},
-		},
-		'sigil-reset-all': {
-			name: 'sigil-reset-all',
-			title: 'Reset All Locations',
-			icon: 'fas fa-undo',
+		'sigil-open-board': {
+			name: 'sigil-open-board',
+			title: 'Investigation Board',
+			icon: 'fas fa-map-marked-alt',
+			order: 0,
 			button: true,
-			onChange: () => {
-				handleResetAll();
-			},
-		},
-		'sigil-bulk-reveal': {
-			name: 'sigil-bulk-reveal',
-			title: 'Bulk Reveal Locations',
-			icon: 'fas fa-list-check',
-			button: true,
-			onChange: () => {
-				handleBulkReveal();
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			onChange: (event: Event, active: boolean) => {
+				InvestigationBoardApp.open();
 			},
 		},
 	};
@@ -140,7 +131,8 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 		name: 'sigil-investigation',
 		title: 'Sigil Investigation',
 		icon: 'fas fa-map-marked-alt',
-		layer: 'sigilMap',
+		order: 100,
+		activeTool: 'sigil-open-board',
 		tools: sigilTools,
 	};
 }
@@ -169,6 +161,7 @@ function onMarkerContext(marker: SigilMapMarker): void {
 					marker.setState(result.state, true);
 					broadcastLocationStateChange(marker.location.id, result.state);
 					playRevealSound(result.state.revealState);
+					InvestigationBoardApp.instance?.refreshFromFlags();
 				}
 			},
 		});
@@ -183,6 +176,15 @@ function onMarkerContext(marker: SigilMapMarker): void {
 		},
 	});
 
+	// Open Investigation Board
+	menuItems.push({
+		name: 'Open Investigation Board',
+		icon: '<i class="fas fa-map-marked-alt"></i>',
+		callback: () => {
+			InvestigationBoardApp.open();
+		},
+	});
+
 	// Hide location (reset)
 	if (marker.revealState !== 'hidden') {
 		menuItems.push({
@@ -192,6 +194,7 @@ function onMarkerContext(marker: SigilMapMarker): void {
 				const newState = await resetLocationState(scene, marker.location.id);
 				marker.setState(newState, false);
 				broadcastLocationStateChange(marker.location.id, newState);
+				InvestigationBoardApp.instance?.refreshFromFlags();
 			},
 		});
 	}
@@ -213,7 +216,6 @@ function onMarkerContext(marker: SigilMapMarker): void {
 	}
 
 	// Render the context menu at cursor position
-	// Use Foundry's native ContextMenu or a simple HTML approach
 	showContextMenu(menuItems);
 }
 
@@ -223,126 +225,6 @@ function onMarkerContext(marker: SigilMapMarker): void {
 
 function onOpenLocationDetail(location: SigilLocation, state: LocationState): void {
 	LocationDetailApp.open(location, state);
-}
-
-// ============================================================================
-// GM Tools
-// ============================================================================
-
-async function handleResetAll(): Promise<void> {
-	const scene = canvas.scene;
-	if (!scene) return;
-
-	// Confirmation dialog
-	const confirmed = await foundry.applications.api.DialogV2.confirm({
-		window: { title: 'Reset All Locations' },
-		content: '<p>Reset all location markers to hidden? This cannot be undone.</p>',
-		rejectClose: false,
-		modal: true,
-	});
-
-	if (!confirmed) return;
-
-	await resetAllLocationStates(scene);
-
-	const layer = canvas.sigilMap as SigilMapLayer | undefined;
-	if (layer) {
-		layer.refreshFromFlags();
-	}
-
-	log('All Sigil locations reset to hidden');
-}
-
-async function handleBulkReveal(): Promise<void> {
-	const scene = canvas.scene;
-	if (!scene) return;
-
-	const states = getAllLocationStates(scene);
-
-	// Build a checklist of all locations grouped by category
-	const categories = ['murder-site', 'faction-hq', 'landmark', 'shop', 'encounter', 'hideout'] as const;
-	let checklistHtml = '<div class="sigil-bulk-reveal" style="max-height: 400px; overflow-y: auto;">';
-
-	for (const category of categories) {
-		const locations = ALL_SIGIL_LOCATIONS.filter((l) => l.category === category);
-		if (locations.length === 0) continue;
-
-		const categoryLabel = category.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-		checklistHtml += `<h3>${categoryLabel}</h3>`;
-
-		for (const loc of locations) {
-			const currentState = states[loc.id]?.revealState ?? 'hidden';
-			const checked = currentState !== 'hidden' ? 'checked disabled' : '';
-			const stateLabel = currentState !== 'hidden' ? ` (${currentState})` : '';
-
-			checklistHtml += `
-				<label class="bulk-reveal-item">
-					<input type="checkbox" name="location" value="${loc.id}" ${checked} />
-					<span>${loc.name}${stateLabel}</span>
-				</label>
-			`;
-		}
-	}
-
-	checklistHtml += '</div>';
-
-	new foundry.applications.api.DialogV2({
-		window: {
-			title: 'Bulk Reveal Locations',
-			classes: ['harbinger-house', 'sigil-bulk-reveal-dialog'],
-		},
-		content: checklistHtml,
-		buttons: [
-			{
-				action: 'discover',
-				icon: 'fas fa-eye',
-				label: 'Reveal as Discovered',
-				callback: (_event: Event, _button: HTMLButtonElement, dialog: DialogV2Instance) => {
-					bulkRevealSelected(dialog.element as HTMLElement, scene, 'discovered');
-				},
-			},
-			{
-				action: 'investigate',
-				icon: 'fas fa-search',
-				label: 'Reveal as Investigated',
-				callback: (_event: Event, _button: HTMLButtonElement, dialog: DialogV2Instance) => {
-					bulkRevealSelected(dialog.element as HTMLElement, scene, 'investigated');
-				},
-			},
-			{
-				action: 'cancel',
-				icon: 'fas fa-times',
-				label: 'Cancel',
-			},
-		],
-		position: { width: 480 },
-	}).render({ force: true });
-}
-
-async function bulkRevealSelected(
-	html: HTMLElement,
-	scene: SceneClass,
-	targetState: 'discovered' | 'investigated',
-): Promise<void> {
-	const checkboxes = Array.from(html.querySelectorAll<HTMLInputElement>('input[name="location"]:checked:not(:disabled)'));
-	const layer = canvas.sigilMap as SigilMapLayer | undefined;
-
-	for (const checkbox of checkboxes) {
-		const locationId = checkbox.value;
-		// For 'investigated', we may need to go through 'discovered' first
-		if (targetState === 'investigated') {
-			await setLocationRevealState(scene, locationId, 'discovered');
-		}
-		const newState = await setLocationRevealState(scene, locationId, targetState);
-		if (newState) {
-			layer?.updateMarkerState(locationId, newState, false);
-			broadcastLocationStateChange(locationId, newState);
-		}
-	}
-
-	// Refresh all markers to ensure consistency
-	layer?.refreshFromFlags();
-	log(`Bulk revealed ${checkboxes.length} locations as ${targetState}`);
 }
 
 // ============================================================================
@@ -392,12 +274,10 @@ function showContextMenu(items: ContextMenuItem[]): void {
 
 	document.body.appendChild(menu);
 
-	// Position near cursor (approximate -- Foundry events don't always pass coordinates)
-	const lastEvent = window.event as MouseEvent | undefined;
-	if (lastEvent) {
-		menu.style.left = `${lastEvent.clientX}px`;
-		menu.style.top = `${lastEvent.clientY}px`;
-	}
+	// Position near cursor
+	const { clientX, clientY } = _lastContextMenuEvent ?? { clientX: 100, clientY: 100 };
+	menu.style.left = `${clientX}px`;
+	menu.style.top = `${clientY}px`;
 
 	// Remove on next click anywhere
 	const removeHandler = () => {
@@ -410,24 +290,26 @@ function showContextMenu(items: ContextMenuItem[]): void {
 }
 
 // ============================================================================
-// Type Helpers (Foundry scene controls)
+// Type Helpers (Foundry V13 scene controls)
 // ============================================================================
 
 interface SceneControlTool {
 	name: string;
 	title: string;
 	icon: string;
+	order: number;
 	toggle?: boolean;
 	button?: boolean;
 	active?: boolean;
-	onChange?: (active: boolean) => void;
+	onChange?: (event: Event, active: boolean) => void;
 }
 
 interface SceneControlGroup {
 	name: string;
 	title: string;
 	icon: string;
-	layer?: string;
+	order: number;
+	activeTool: string;
 	tools: Record<string, SceneControlTool>;
 }
 
@@ -436,4 +318,3 @@ interface ContextMenuItem {
 	icon: string;
 	callback: () => void;
 }
-

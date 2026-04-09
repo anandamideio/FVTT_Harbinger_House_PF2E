@@ -167,6 +167,19 @@ export async function toggleClueDiscovered(
 }
 
 /**
+ * Write multiple location states in a single flag update.
+ * Used by the Investigation Board for bulk operations.
+ */
+export async function setBulkLocationStates(
+	scene: SceneClass,
+	updates: Record<string, LocationState>,
+): Promise<void> {
+	const existing = getAllLocationStates(scene);
+	const merged = { ...existing, ...updates };
+	await scene.setFlag(MODULE_ID, 'locationStates', merged);
+}
+
+/**
  * Set GM notes for a location.
  */
 export async function setGMNotes(

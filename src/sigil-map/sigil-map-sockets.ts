@@ -1,5 +1,6 @@
 import { log, logDebug, MODULE_ID } from '../config';
 import type { LocationState } from '../types/module-flags';
+import { InvestigationBoardApp } from './InvestigationBoardApp';
 import { getAllLocationStates, getSigilScene } from './sigil-map-state';
 
 /**
@@ -101,6 +102,9 @@ function handleFullStateSync(message: FullStateSyncMessage): void {
 	for (const [locationId, state] of Object.entries(message.states)) {
 		layer.updateMarkerState(locationId, state, false);
 	}
+
+	// Also refresh the Investigation Board if open
+	InvestigationBoardApp.instance?.refreshFromFlags();
 }
 
 // ============================================================================

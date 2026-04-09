@@ -1,6 +1,7 @@
 export { SigilMapLayer } from './SigilMapLayer';
 export { SigilMapMarker } from './SigilMapMarker';
 export { LocationDetailApp } from './LocationDetailApp';
+export { InvestigationBoardApp } from './InvestigationBoardApp';
 export {
 	getAllLocationStates,
 	getLocationState,
@@ -8,6 +9,7 @@ export {
 	advanceLocationState,
 	resetLocationState,
 	resetAllLocationStates,
+	setBulkLocationStates,
 	toggleClueDiscovered,
 	isSigilScene,
 	getSigilScene,

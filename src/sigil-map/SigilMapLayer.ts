@@ -4,7 +4,6 @@ import type { SigilLocation } from '../data/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import { SigilMapMarker } from './SigilMapMarker';
 import {
-	advanceLocationState,
 	getAllLocationStates,
 	isSigilScene,
 } from './sigil-map-state';
@@ -15,9 +14,6 @@ export class SigilMapLayer extends PIXI.Container {
 
 	/** Whether the layer is currently active (on Sigil scene) */
 	private _active = false;
-
-	/** Whether GM "reveal mode" is active (click to advance state) */
-	revealMode = false;
 
 	/** Ticker callback reference for cleanup */
 	private _tickerFn: ((dt: number) => void) | null = null;
@@ -150,23 +146,7 @@ export class SigilMapLayer extends PIXI.Container {
 	// ========================================================================
 
 	private async _onMarkerClick(marker: SigilMapMarker): Promise<void> {
-		const isGM = game.user?.isGM ?? false;
-
-		// In reveal mode (GM only), advance the state
-		if (isGM && this.revealMode) {
-			const scene = canvas.scene;
-			if (!scene) return;
-
-			const result = await advanceLocationState(scene, marker.location.id);
-			if (result) {
-				marker.setState(result.state, true);
-				// Broadcast via socket for other clients
-				this._broadcastStateChange(marker.location.id, result.state);
-			}
-			return;
-		}
-
-		// Otherwise, open detail panel if the location is revealed
+		// Open detail panel if the location is revealed (for both GM and players)
 		if (marker.revealState !== 'hidden') {
 			this._openDetailPanel(marker);
 		}
