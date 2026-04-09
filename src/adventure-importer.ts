@@ -856,7 +856,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 				background: LOGIN_BACKGROUND,
 			};
 
-			const response = await fetchJsonWithTimeout(foundry.utils.getRoute('setup'), {
+			const response = await foundry.utils.fetchJsonWithTimeout(foundry.utils.getRoute('setup'), {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(worldData),

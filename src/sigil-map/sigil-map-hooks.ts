@@ -89,7 +89,7 @@ function onUpdateScene(...args: unknown[]): void {
 // ============================================================================
 
 function onGetSceneControlButtons(...args: unknown[]): void {
-	const [controls] = args as [SceneControlGroup[]];
+	const [controls] = args as [Record<string, SceneControlGroup>];
 
 	// Only show on the Sigil scene and for GMs
 	if (!game.user?.isGM) return;
@@ -101,8 +101,8 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 		return;
 	}
 
-	const sigilTools: SceneControlTool[] = [
-		{
+	const sigilTools: Record<string, SceneControlTool> = {
+		'sigil-reveal-mode': {
 			name: 'sigil-reveal-mode',
 			title: 'Reveal Mode',
 			icon: 'fas fa-eye',
@@ -116,7 +116,7 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 				}
 			},
 		},
-		{
+		'sigil-reset-all': {
 			name: 'sigil-reset-all',
 			title: 'Reset All Locations',
 			icon: 'fas fa-undo',
@@ -125,7 +125,7 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 				handleResetAll();
 			},
 		},
-		{
+		'sigil-bulk-reveal': {
 			name: 'sigil-bulk-reveal',
 			title: 'Bulk Reveal Locations',
 			icon: 'fas fa-list-check',
@@ -134,15 +134,15 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 				handleBulkReveal();
 			},
 		},
-	];
+	};
 
-	controls.push({
+	controls['sigil-investigation'] = {
 		name: 'sigil-investigation',
 		title: 'Sigil Investigation',
 		icon: 'fas fa-map-marked-alt',
 		layer: 'sigilMap',
 		tools: sigilTools,
-	});
+	};
 }
 
 // ============================================================================
@@ -440,7 +440,7 @@ interface SceneControlGroup {
 	title: string;
 	icon: string;
 	layer?: string;
-	tools: SceneControlTool[];
+	tools: Record<string, SceneControlTool>;
 }
 
 interface ContextMenuItem {
