@@ -1354,6 +1354,8 @@ declare global {
 				add(fn: (dt: number) => void): void;
 				remove(fn: (dt: number) => void): void;
 			};
+			/** The underlying <canvas> DOM element */
+			view: HTMLCanvasElement;
 		};
 		stage: PIXI.Container;
 		/** Named layers registered via CONFIG.Canvas.layers */

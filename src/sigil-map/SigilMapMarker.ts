@@ -27,21 +27,11 @@ export class SigilMapMarker extends PIXI.Container {
 	private _ambientTime = 0;
 	private _animating = false;
 
-	/** Callback when this marker is clicked */
-	onClick?: (marker: SigilMapMarker) => void;
-	/** Callback when this marker is right-clicked */
-	onContextMenu?: (marker: SigilMapMarker, event: unknown) => void;
-
 	constructor(location: SigilLocation, state: LocationState) {
 		super();
 		this.location = location;
 		this._state = state;
 		this.name = `marker-${location.id}`;
-
-		// Allow pointer events to propagate to children
-		const self = this as PIXI.Container & { eventMode?: string; interactiveChildren?: boolean };
-		self.eventMode = 'passive';
-		self.interactiveChildren = true;
 
 		// Position on the Sigil map
 		this.x = location.x;
@@ -62,9 +52,6 @@ export class SigilMapMarker extends PIXI.Container {
 
 		// Apply initial visual state (no animation)
 		this._applyState(false);
-
-		// Set up interaction
-		this._setupInteraction();
 	}
 
 	// ========================================================================
@@ -188,25 +175,19 @@ export class SigilMapMarker extends PIXI.Container {
 	}
 
 	private _createHitArea(): PIXI.Graphics {
+		// Visual-only hit area circle; actual pointer interaction is handled
+		// by DOM event listeners in SigilMapLayer (PIXI events don't reach
+		// CanvasLayer children in Foundry's InterfaceCanvasGroup).
 		const gfx = new PIXI.Graphics();
-		gfx.beginFill(0xffffff, 0.001); // Nearly invisible but interactive
+		gfx.beginFill(0xffffff, 0.001);
 		gfx.drawCircle(0, 0, MARKER_HIT_RADIUS);
 		gfx.endFill();
-		(gfx as PIXI.Graphics & { eventMode?: string }).eventMode = 'static';
-		gfx.cursor = 'pointer';
 		return gfx;
 	}
 
 	// ========================================================================
-	// Private: Interaction
+	// Private: Visuals
 	// ========================================================================
-
-	private _setupInteraction(): void {
-		this._hitCircle.on('pointerover', () => this.setHovered(true));
-		this._hitCircle.on('pointerout', () => this.setHovered(false));
-		this._hitCircle.on('pointertap', () => this.onClick?.(this));
-		this._hitCircle.on('rightclick', (event: unknown) => this.onContextMenu?.(this, event));
-	}
 
 	private _updateHoverVisuals(): void {
 		if (this._state.revealState === 'hidden') return;
@@ -242,13 +223,8 @@ export class SigilMapMarker extends PIXI.Container {
 			this._backgroundGlow.alpha = 0;
 			this._iconSprite.alpha = 0;
 			this._labelText.alpha = 0;
-			(this._hitCircle as PIXI.Graphics & { eventMode?: string }).eventMode = 'none';
-			this._hitCircle.cursor = 'default';
 			return;
 		}
-
-		(this._hitCircle as PIXI.Graphics & { eventMode?: string }).eventMode = 'static';
-		this._hitCircle.cursor = 'pointer';
 
 		if (animate) {
 			this._playRevealAnimation(state);

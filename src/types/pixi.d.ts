@@ -1,4 +1,22 @@
 declare namespace PIXI {
+	class Point {
+		constructor(x?: number, y?: number);
+		x: number;
+		y: number;
+		set(x: number, y?: number): void;
+	}
+
+	/** 2D affine transform matrix (a, b, c, d, tx, ty). */
+	class Matrix {
+		a: number;
+		b: number;
+		c: number;
+		d: number;
+		tx: number;
+		ty: number;
+		applyInverse(pos: Point, newPos?: Point): Point;
+	}
+
 	class DisplayObject {
 		x: number;
 		y: number;
@@ -10,6 +28,8 @@ declare namespace PIXI {
 		cursor: string;
 		hitArea: Circle | Rectangle | null;
 		parent: Container | null;
+		/** Accumulated world transform updated during render. */
+		worldTransform: Matrix;
 		destroy(options?: { children?: boolean }): void;
 
 		on(event: string, fn: (...args: unknown[]) => void, context?: unknown): this;
