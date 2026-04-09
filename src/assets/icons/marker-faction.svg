@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Shield shape -->
+  <path d="M24 4 L38 12 L38 26 Q38 38 24 44 Q10 38 10 26 L10 12 Z" fill="#4488ff" stroke="#2255aa" stroke-width="1.5" opacity="0.9"/>
+  <!-- Banner/chevron -->
+  <path d="M18 14 L24 20 L30 14 L30 32 L24 26 L18 32 Z" fill="#ffffff" opacity="0.3"/>
+  <!-- Star emblem -->
+  <polygon points="24,16 26,22 32,22 27,26 29,32 24,28 19,32 21,26 16,22 22,22" fill="#c9aa71" stroke="#8a6a31" stroke-width="0.5"/>
+</svg>

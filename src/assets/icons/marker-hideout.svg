@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Hood/cloak silhouette -->
+  <path d="M24 6 Q14 10 12 24 Q12 38 18 42 L24 40 L30 42 Q36 38 36 24 Q34 10 24 6 Z" fill="#888888" stroke="#555555" stroke-width="1"/>
+  <!-- Face shadow -->
+  <path d="M24 14 Q18 18 17 26 Q18 30 24 30 Q30 30 31 26 Q30 18 24 14 Z" fill="#333333" opacity="0.6"/>
+  <!-- Eyes -->
+  <ellipse cx="21" cy="22" rx="1.5" ry="1" fill="#cc0000" opacity="0.8"/>
+  <ellipse cx="27" cy="22" rx="1.5" ry="1" fill="#cc0000" opacity="0.8"/>
+</svg>

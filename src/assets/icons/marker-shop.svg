@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Coin circle -->
+  <circle cx="24" cy="24" r="16" fill="#ffaa22" stroke="#cc8811" stroke-width="1.5"/>
+  <!-- Inner ring -->
+  <circle cx="24" cy="24" r="12" fill="none" stroke="#cc8811" stroke-width="0.8" opacity="0.5"/>
+  <!-- Sigil symbol (simplified Lady of Pain blade) -->
+  <path d="M24 12 L26 20 L24 28 L22 20 Z" fill="#8a6a11" opacity="0.6"/>
+  <path d="M16 24 L22 22 L32 24 L22 26 Z" fill="#8a6a11" opacity="0.6"/>
+  <!-- Shine -->
+  <ellipse cx="20" cy="18" rx="3" ry="2" fill="#fff" opacity="0.25" transform="rotate(-20 20 18)"/>
+</svg>

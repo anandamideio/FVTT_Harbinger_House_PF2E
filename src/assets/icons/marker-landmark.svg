@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Spire/tower -->
+  <path d="M24 4 L22 8 L20 8 L18 36 L30 36 L28 8 L26 8 Z" fill="#aa88ff" stroke="#7755cc" stroke-width="1"/>
+  <!-- Base -->
+  <rect x="14" y="36" width="20" height="4" rx="1" fill="#8866cc" stroke="#6644aa" stroke-width="0.5"/>
+  <!-- Foundation -->
+  <rect x="12" y="40" width="24" height="4" rx="1" fill="#7755bb" stroke="#5533aa" stroke-width="0.5"/>
+  <!-- Window -->
+  <ellipse cx="24" cy="20" rx="2" ry="3" fill="#e0d0ff" opacity="0.7"/>
+  <!-- Top ornament -->
+  <circle cx="24" cy="6" r="2" fill="#c9aa71" stroke="#8a6a31" stroke-width="0.5"/>
+</svg>
