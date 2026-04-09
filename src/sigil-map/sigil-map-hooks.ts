@@ -108,7 +108,7 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 			icon: 'fas fa-eye',
 			toggle: true,
 			active: false,
-			onClick: (active: boolean) => {
+			onChange: (active: boolean) => {
 				const layer = canvas.sigilMap as SigilMapLayer | undefined;
 				if (layer) {
 					layer.revealMode = active;
@@ -121,7 +121,7 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 			title: 'Reset All Locations',
 			icon: 'fas fa-undo',
 			button: true,
-			onClick: () => {
+			onChange: () => {
 				handleResetAll();
 			},
 		},
@@ -130,7 +130,7 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 			title: 'Bulk Reveal Locations',
 			icon: 'fas fa-list-check',
 			button: true,
-			onClick: () => {
+			onChange: () => {
 				handleBulkReveal();
 			},
 		},
@@ -432,7 +432,7 @@ interface SceneControlTool {
 	toggle?: boolean;
 	button?: boolean;
 	active?: boolean;
-	onClick?: (active: boolean) => void;
+	onChange?: (active: boolean) => void;
 }
 
 interface SceneControlGroup {
