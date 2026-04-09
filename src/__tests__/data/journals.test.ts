@@ -167,4 +167,98 @@ Content`;
 		expect(result).toHaveLength(1);
 		expect(result[0].name).toBe('Journal With Page');
 	});
+
+	it('skips the Table of Contents section', () => {
+		const md = `# Harbinger House
+
+## Table of Contents
+
+1. [Intro](#intro)
+   - [Background](#background)
+2. [Chapter 1](#chapter-1)
+
+---
+
+# intro
+## Introduction
+The adventure begins.`;
+
+		const result = parseMarkdownToJournals(md);
+		// TOC should be skipped; only the Introduction journal should exist
+		expect(result).toHaveLength(1);
+		expect(result[0].name).toBe('Introduction');
+		expect(result[0].pages[0].name).toBe('Introduction');
+		// No page should be named "Table of Contents"
+		const allPages = result.flatMap((j) => j.pages);
+		expect(allPages.every((p) => p.name !== 'Table of Contents')).toBe(true);
+	});
+
+	it('converts markdown tables to HTML tables', () => {
+		const md = `# Test
+## Page
+| Stat | Value |
+|---|---|
+| hp | 42 |
+| AC | 5 |`;
+
+		const result = parseMarkdownToJournals(md);
+		const content = result[0].pages[0].text?.content || '';
+		expect(content).toContain('<table>');
+		expect(content).toContain('<th>Stat</th>');
+		expect(content).toContain('<th>Value</th>');
+		expect(content).toContain('<td>hp</td>');
+		expect(content).toContain('<td>42</td>');
+		expect(content).toContain('<td>AC</td>');
+		expect(content).toContain('</table>');
+	});
+
+	it('handles table column alignment', () => {
+		const md = `# Test
+## Page
+| Left | Right | Center |
+|---|---:|:---:|
+| a | b | c |`;
+
+		const result = parseMarkdownToJournals(md);
+		const content = result[0].pages[0].text?.content || '';
+		expect(content).toContain('<th>Left</th>');
+		expect(content).toContain('<th style="text-align:right">Right</th>');
+		expect(content).toContain('<th style="text-align:center">Center</th>');
+		expect(content).toContain('<td style="text-align:right">b</td>');
+		expect(content).toContain('<td style="text-align:center">c</td>');
+	});
+
+	it('converts [!statblock] callouts with inner markdown processing', () => {
+		const md = `# Test
+## Page
+> [!statblock]
+> **Trolan the Mad**
+>
+> ### Combat
+> | Stat | Value |
+> |---|---|
+> | hp | 41 |
+>
+> - SA: wizard spells`;
+
+		const result = parseMarkdownToJournals(md);
+		const content = result[0].pages[0].text?.content || '';
+		expect(content).toContain('<div class="statblock">');
+		expect(content).toContain('<strong>Trolan the Mad</strong>');
+		expect(content).toContain('<h2>Combat</h2>');
+		expect(content).toContain('<table>');
+		expect(content).toContain('<td>hp</td>');
+		expect(content).toContain('<li>SA: wizard spells</li>');
+		expect(content).toContain('</div>');
+	});
+
+	it('converts markdown links to HTML anchors', () => {
+		const md = `# Test
+## Page
+See [the guide](#guide) for details.`;
+
+		const result = parseMarkdownToJournals(md);
+		const content = result[0].pages[0].text?.content || '';
+		expect(content).toContain('<a href="#guide">the guide</a>');
+	});
 });
