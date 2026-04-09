@@ -1357,7 +1357,7 @@ declare global {
 		};
 		stage: PIXI.Container;
 		/** Named layers registered via CONFIG.Canvas.layers */
-		sigilMap?: CanvasLayerInstance;
+		sigilMap?: CanvasLayer;
 		ready: boolean;
 	}
 
@@ -1380,15 +1380,30 @@ declare global {
 		}): Promise<unknown>;
 	}
 
-	/** Base class for custom canvas layers */
-	class CanvasLayerInstance {
-		addChild(...children: PIXI.DisplayObject[]): void;
-		removeChild(...children: PIXI.DisplayObject[]): void;
-		removeChildren(): void;
-		children: PIXI.DisplayObject[];
-		visible: boolean;
-		destroy(options?: { children?: boolean }): void;
+	/**
+	 * Foundry VTT CanvasLayer — the runtime base class for all canvas layers.
+	 * Extends PIXI.Container with lifecycle methods (draw/tearDown) and
+	 * layer-option conventions expected by the Canvas group system.
+	 */
+	abstract class CanvasLayer extends PIXI.Container {
+		options: { name: string; baseClass: typeof CanvasLayer };
+		interactiveChildren: boolean;
+
+		static get layerOptions(): { name: string; baseClass: typeof CanvasLayer };
+
+		/** Public draw, calls _draw internally. */
+		draw(options?: Record<string, unknown>): Promise<this>;
+		/** Override this in subclasses. */
+		protected abstract _draw(options?: Record<string, unknown>): Promise<void>;
+
+		/** Public tearDown, calls _tearDown internally. */
+		tearDown(options?: Record<string, unknown>): Promise<this>;
+		/** Override this in subclasses. */
+		protected _tearDown(options?: Record<string, unknown>): Promise<void>;
 	}
+
+	/** @deprecated alias kept for backward compat in this file */
+	type CanvasLayerInstance = CanvasLayer;
 
 	interface Config {
 		debug: {

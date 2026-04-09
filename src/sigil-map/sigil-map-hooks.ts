@@ -120,9 +120,10 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 			icon: 'fas fa-map-marked-alt',
 			order: 0,
 			button: true,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			onChange: (event: Event, active: boolean) => {
-				InvestigationBoardApp.open();
+			onChange: (_event: Event, active: boolean) => {
+				if (active) {
+					InvestigationBoardApp.open();
+				}
 			},
 		},
 	};

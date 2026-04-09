@@ -1557,6 +1557,17 @@ span.page-title {
 	padding: 0;
 	background: transparent;
 	overflow: hidden;
+	/* Flex column so the mount div fills the available height */
+	display: flex;
+	flex-direction: column;
+}
+
+.sigil-investigation-board.app .window-content .investigation-board-mount {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	max-height: 680px;
 }
 
 .sigil-investigation-board.app .window-header {

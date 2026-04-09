@@ -675,8 +675,12 @@
 	   ================================================================ */
 	.location-list {
 		flex: 1;
+		min-height: 0;
 		overflow-y: auto;
 		padding: 0.5rem 0;
+		/* Firefox scrollbar */
+		scrollbar-width: thin;
+		scrollbar-color: #6b5a45 var(--ib-bg);
 	}
 
 	.empty-state {
@@ -1050,16 +1054,17 @@
 	   Scrollbar Styling
 	   ================================================================ */
 	.location-list::-webkit-scrollbar {
-		width: 6px;
+		width: 8px;
 	}
 	.location-list::-webkit-scrollbar-track {
 		background: var(--ib-bg);
 	}
 	.location-list::-webkit-scrollbar-thumb {
-		background: var(--ib-border);
-		border-radius: 3px;
+		background: #6b5a45;
+		border-radius: 4px;
+		border: 1px solid var(--ib-bg);
 	}
 	.location-list::-webkit-scrollbar-thumb:hover {
-		background: var(--ib-text-muted);
+		background: var(--ib-text-heading);
 	}
 </style>
