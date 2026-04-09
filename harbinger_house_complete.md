@@ -601,7 +601,7 @@ Rake took Sougad in as a young pup, recognizing the innate abilities that marked
 
 **Night, six days past**
 
-Body discovered in a hovel on Blood Bell, in the Lower Ward. Facts are as follows:
+Body discovered in a hovel on Blood Boil, in the Lower Ward. Facts are as follows:
 
 - Victim was a human male, about 80 years old, found in a set of sleeping robes decorated with the sunblade of Aoskar, the Believers of the Source.
 - Victim had a terrified expression locked on his face, his eyes wide, his mouth twisted in fear.
