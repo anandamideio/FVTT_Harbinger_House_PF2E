@@ -10,6 +10,9 @@ export const ADVENTURE_PACK = `${MODULE_ID}.harbinger-house`;
 export const SETTINGS = {
 	SHOW_IMPORT_DIALOG: 'showImportDialog',
 	DEBUG_MODE: 'debugMode',
+	SIGIL_MAP_ENABLED: 'sigilMapEnabled',
+	SIGIL_MAP_SOUNDS: 'sigilMapSounds',
+	SIGIL_MAP_ANIMATIONS: 'sigilMapAnimations',
 } as const;
 
 // Localization key prefix
@@ -70,6 +73,36 @@ export function registerSettings(): void {
 		config: true,
 		type: Boolean,
 		default: false,
+	});
+
+	// Sigil Investigation Map - master toggle
+	game.settings.register(MODULE_ID, SETTINGS.SIGIL_MAP_ENABLED, {
+		name: localize('settings.sigilMapEnabled.name'),
+		hint: localize('settings.sigilMapEnabled.hint'),
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: true,
+	});
+
+	// Sigil Map - sound effects (per client)
+	game.settings.register(MODULE_ID, SETTINGS.SIGIL_MAP_SOUNDS, {
+		name: localize('settings.sigilMapSounds.name'),
+		hint: localize('settings.sigilMapSounds.hint'),
+		scope: 'client',
+		config: true,
+		type: Boolean,
+		default: true,
+	});
+
+	// Sigil Map - animations (per client)
+	game.settings.register(MODULE_ID, SETTINGS.SIGIL_MAP_ANIMATIONS, {
+		name: localize('settings.sigilMapAnimations.name'),
+		hint: localize('settings.sigilMapAnimations.hint'),
+		scope: 'client',
+		config: true,
+		type: Boolean,
+		default: true,
 	});
 
 	log('Settings registered');

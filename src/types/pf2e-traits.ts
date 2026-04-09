@@ -1,9 +1,3 @@
-/**
- * PF2e System Traits
- * Auto-generated from the PF2e system configuration
- * These are the valid traits that can be used for actions, spells, weapons, etc.
- */
-
 // =============================================================================
 // ACTION TRAITS
 // =============================================================================

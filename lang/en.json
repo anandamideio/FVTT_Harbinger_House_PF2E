@@ -11,6 +11,18 @@
 			"debugMode": {
 				"name": "Debug Mode",
 				"hint": "Enable debug logging to the browser console."
+			},
+			"sigilMapEnabled": {
+				"name": "Sigil Investigation Map",
+				"hint": "Enable the interactive investigation map overlay on the Sigil scene."
+			},
+			"sigilMapSounds": {
+				"name": "Sigil Map Sound Effects",
+				"hint": "Play sound effects when locations are revealed on the Sigil map."
+			},
+			"sigilMapAnimations": {
+				"name": "Sigil Map Animations",
+				"hint": "Show animated effects when locations are revealed on the Sigil map."
 			}
 		},
 		"importOptions": {
@@ -26,6 +38,28 @@
 				"label": "Activate Starting Scene",
 				"hint": "Set the First Floor map as the active scene after import"
 			}
+		},
+		"sigilMap": {
+			"toolGroup": "Sigil Investigation",
+			"revealMode": "Reveal Mode",
+			"revealModeHint": "Click markers to advance their reveal state",
+			"resetAll": "Reset All Locations",
+			"resetAllConfirm": "Reset all location markers to hidden? This cannot be undone.",
+			"bulkReveal": "Bulk Reveal Locations",
+			"contextReveal": "Reveal to Players",
+			"contextDetail": "Open Detail Panel",
+			"contextHide": "Hide Location",
+			"contextJournal": "Open Linked Journal",
+			"cluesDiscovered": "Clues Discovered",
+			"optionalFindings": "Optional Findings",
+			"openJournal": "Open Journal",
+			"revealDiscovered": "Reveal to Discovered",
+			"revealInvestigated": "Reveal to Investigated",
+			"gmNotes": "GM Notes",
+			"noClues": "No clues available yet.",
+			"chapter": "Chapter {chapter}",
+			"victim": "Victim: {name}",
+			"murderNumber": "Murder #{number}"
 		},
 		"errors": {
 			"pf2eRequired": "This module requires the Pathfinder 2e system."

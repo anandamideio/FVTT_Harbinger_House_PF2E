@@ -44,11 +44,18 @@ declare global {
 		folders?: Collection<FolderClass>;
 		journal?: Collection<JournalEntryClass>;
 		scenes?: Collection<SceneClass>;
+		socket: SocketIO;
 		world: {
 			id: string;
 			updateSource(data: Record<string, unknown>): void;
 		};
 		ready: boolean;
+	}
+
+	interface SocketIO {
+		on(event: string, callback: (data: unknown) => void): void;
+		off(event: string, callback?: (data: unknown) => void): void;
+		emit(event: string, data: unknown): void;
 	}
 
 	interface User {
@@ -203,10 +210,12 @@ declare global {
 	}
 
 	interface DialogOptions {
+		id?: string;
 		width?: number;
 		height?: number | 'auto';
 		classes?: string[];
 		resizable?: boolean;
+		minimizable?: boolean;
 	}
 
 	interface ConfirmDialogConfig {
@@ -1040,6 +1049,7 @@ declare global {
 		toObject(): object;
 		get system(): Record<string, unknown>;
 		get items(): undefined;
+		sheet: { render(options?: { force?: boolean }): void };
 	}
 
 	interface JournalEntryData {
@@ -1063,6 +1073,7 @@ declare global {
 		flags: Record<string, Record<string, unknown>>;
 		folder?: { id: string } | null;
 		navigation?: boolean;
+		notes: Collection<NoteDocument>;
 
 		static create(data: SceneData | SceneData[], context?: object): Promise<SceneClass | SceneClass[]>;
 		update(data: Partial<SceneData>): Promise<this>;
@@ -1070,6 +1081,20 @@ declare global {
 		activate(): Promise<this>;
 		toObject(): SceneData;
 		get items(): undefined;
+
+		getFlag(scope: string, key: string): unknown;
+		setFlag(scope: string, key: string, value: unknown): Promise<this>;
+		unsetFlag(scope: string, key: string): Promise<this>;
+	}
+
+	/** A Note (map pin) document embedded in a Scene */
+	interface NoteDocument {
+		id: string;
+		x: number;
+		y: number;
+		text: string;
+		flags: Record<string, Record<string, unknown>>;
+		texture?: { src: string };
 	}
 
 	interface SceneData {
@@ -1303,6 +1328,66 @@ declare global {
 	class JournalEntrySheetClass {
 		constructor(doc: JournalEntryClass, options?: Record<string, unknown>);
 		options: { classes: string[] };
+	}
+
+	// ======================================================================
+	// Canvas & PIXI (minimal types for Sigil Map feature)
+	// ======================================================================
+
+	const canvas: FoundryCanvas;
+	const CONST: FoundryConstants;
+	const AudioHelper: AudioHelperClass;
+
+	interface FoundryCanvas {
+		scene: SceneClass | null;
+		app: {
+			ticker: {
+				add(fn: (dt: number) => void): void;
+				remove(fn: (dt: number) => void): void;
+			};
+		};
+		stage: PIXI.Container;
+		/** Named layers registered via CONFIG.Canvas.layers */
+		sigilMap?: CanvasLayerInstance;
+		ready: boolean;
+	}
+
+	interface FoundryConstants {
+		TEXT_ANCHOR_POINTS: {
+			CENTER: number;
+			TOP: number;
+			BOTTOM: number;
+			LEFT: number;
+			RIGHT: number;
+		};
+	}
+
+	interface AudioHelperClass {
+		play(options: {
+			src: string;
+			volume?: number;
+			autoplay?: boolean;
+			loop?: boolean;
+		}): Promise<unknown>;
+	}
+
+	/** Base class for custom canvas layers */
+	class CanvasLayerInstance {
+		addChild(...children: PIXI.DisplayObject[]): void;
+		removeChild(...children: PIXI.DisplayObject[]): void;
+		removeChildren(): void;
+		children: PIXI.DisplayObject[];
+		visible: boolean;
+		destroy(options?: { children?: boolean }): void;
+	}
+
+	interface Config {
+		debug: {
+			hooks: boolean;
+		};
+		Canvas?: {
+			layers?: Record<string, { layerClass: unknown; group: string }>;
+		};
 	}
 
 	// ======================================================================

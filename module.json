@@ -52,7 +52,7 @@
 			"importPromptShown": false
 		}
 	},
-	"socket": false,
+	"socket": true,
 	"manifest": "#{MANIFEST}#",
 	"download": "#{DOWNLOAD}#",
 	"url": "#{URL}#"

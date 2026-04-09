@@ -1,6 +1,7 @@
 import { HarbingerHouseImporter } from './adventure-importer';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
+import { SigilMapLayer, registerSigilMapHooks, registerSigilMapSockets } from './sigil-map';
 
 /** Pre-computed Adventure document ID (MD5 of 'harbinger-house-adventure', first 16 hex chars) */
 const ADVENTURE_ID = '42cb37a38191040e';
@@ -67,6 +68,18 @@ Hooks.once('init', async () => {
 		canBeDefault: false,
 	});
 
+	// Register custom canvas layer for the Sigil Investigation Map
+	if (CONFIG.Canvas?.layers) {
+		CONFIG.Canvas.layers.sigilMap = {
+			layerClass: SigilMapLayer,
+			group: 'interface',
+		};
+		log('Sigil Investigation Map canvas layer registered');
+	}
+
+	// Register Sigil map hooks (canvasReady, updateScene, scene controls, etc.)
+	registerSigilMapHooks();
+
 	// Register API on game object for external access
 	game.harbingerHouse = {
 		openImporter,
@@ -101,6 +114,9 @@ Hooks.once('ready', async () => {
 		ui.notifications?.error(localize('errors.pf2eRequired'));
 		return;
 	}
+
+	// Register Sigil map socket handlers for multiplayer sync
+	registerSigilMapSockets();
 
 	// Check if the adventure has already been imported (core tracks this)
 	const adventureImports = game.settings.get('core', 'adventureImports') as Record<string, boolean> | undefined;

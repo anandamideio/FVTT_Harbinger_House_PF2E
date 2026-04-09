@@ -1,7 +1,3 @@
-/**
- * Type exports for the Harbinger House module
- */
-
 // Re-export Foundry/PF2e types
 export type {
 	ActorData,
