@@ -390,8 +390,12 @@ async function writeAdventurePack(): Promise<void> {
 		const docData = macroToDocumentData(macro);
 		const doc = augmentDocument(docData, docId, getFolderId('folder-macros'), i);
 
-		// Add fields required by Adventure format
-		if (!doc.author) doc.author = '';
+		// Foundry V13 requires `author` (a ForeignDocumentField) on Macro documents.
+		// Adventure.import() remaps author IDs to the importing user, but the field
+		// must be present to pass validation. Use a deterministic placeholder ID.
+		if (!doc.author) {
+			doc.author = generateId('harbinger-house-macro-author');
+		}
 		if (!doc.scope) doc.scope = 'global';
 
 		macros.push(doc);
