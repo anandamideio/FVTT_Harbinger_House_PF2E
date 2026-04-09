@@ -71,6 +71,7 @@ declare global {
 		description: string;
 		flags: Record<string, unknown>;
 		packs: { name: string }[];
+		macros?: unknown;
 	}
 
 	interface UI {

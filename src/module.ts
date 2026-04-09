@@ -1,6 +1,7 @@
 import { HarbingerHouseImporter } from './adventure-importer';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
+import { MACROS, type HarbingerHouseMacroAPI } from './macros';
 import { SigilMapLayer, registerSigilMapHooks, registerSigilMapSockets } from './sigil-map';
 
 /** Pre-computed Adventure document ID (MD5 of 'harbinger-house-adventure', first 16 hex chars) */
@@ -18,6 +19,13 @@ declare global {
 interface HarbingerHouseAPI {
 	openImporter: () => Promise<void>;
 	getContentSummary: typeof getContentSummary;
+	macros: HarbingerHouseMacroAPI;
+	setLandingPage: HarbingerHouseMacroAPI['setLandingPage'];
+	toggleSceneLighting: HarbingerHouseMacroAPI['toggleSceneLighting'];
+	toggleAmbientSounds: HarbingerHouseMacroAPI['toggleAmbientSounds'];
+	openImportDialog: HarbingerHouseMacroAPI['openImportDialog'];
+	applyTokenRingStyling: HarbingerHouseMacroAPI['applyTokenRingStyling'];
+	calibrateSigilLocation: HarbingerHouseMacroAPI['calibrateSigilLocation'];
 }
 
 /**
@@ -80,10 +88,21 @@ Hooks.once('init', async () => {
 	// Register Sigil map hooks (canvasReady, updateScene, scene controls, etc.)
 	registerSigilMapHooks();
 
+	// Register runtime macro implementations on the module object.
+	const thisModule = game.modules.get(MODULE_ID) as (Module & { macros?: HarbingerHouseMacroAPI }) | undefined;
+	if (thisModule) {
+		thisModule.macros = MACROS;
+		log('Harbinger House macros registered on game.modules entry');
+	} else {
+		logError('Unable to register module macros: module entry not found');
+	}
+
 	// Register API on game object for external access
 	game.harbingerHouse = {
 		openImporter,
 		getContentSummary,
+		macros: MACROS,
+		...MACROS,
 	};
 
 	log('Harbinger House API registered on game.harbingerHouse');
