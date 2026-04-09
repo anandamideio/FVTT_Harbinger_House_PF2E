@@ -38,6 +38,11 @@ export class SigilMapMarker extends PIXI.Container {
 		this._state = state;
 		this.name = `marker-${location.id}`;
 
+		// Allow pointer events to propagate to children
+		const self = this as PIXI.Container & { eventMode?: string; interactiveChildren?: boolean };
+		self.eventMode = 'passive';
+		self.interactiveChildren = true;
+
 		// Position on the Sigil map
 		this.x = location.x;
 		this.y = location.y;
@@ -187,7 +192,7 @@ export class SigilMapMarker extends PIXI.Container {
 		gfx.beginFill(0xffffff, 0.001); // Nearly invisible but interactive
 		gfx.drawCircle(0, 0, MARKER_HIT_RADIUS);
 		gfx.endFill();
-		gfx.interactive = true;
+		(gfx as PIXI.Graphics & { eventMode?: string }).eventMode = 'static';
 		gfx.cursor = 'pointer';
 		return gfx;
 	}
@@ -237,12 +242,12 @@ export class SigilMapMarker extends PIXI.Container {
 			this._backgroundGlow.alpha = 0;
 			this._iconSprite.alpha = 0;
 			this._labelText.alpha = 0;
-			this._hitCircle.interactive = false;
+			(this._hitCircle as PIXI.Graphics & { eventMode?: string }).eventMode = 'none';
 			this._hitCircle.cursor = 'default';
 			return;
 		}
 
-		this._hitCircle.interactive = true;
+		(this._hitCircle as PIXI.Graphics & { eventMode?: string }).eventMode = 'static';
 		this._hitCircle.cursor = 'pointer';
 
 		if (animate) {

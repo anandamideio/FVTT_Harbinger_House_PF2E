@@ -8,7 +8,7 @@ import {
 	isSigilScene,
 } from './sigil-map-state';
 
-export class SigilMapLayer extends PIXI.Container {
+export class SigilMapLayer extends CanvasLayer {
 	/** Map of location ID -> marker instance */
 	private _markers: Map<string, SigilMapMarker> = new Map();
 
@@ -22,11 +22,22 @@ export class SigilMapLayer extends PIXI.Container {
 	private _detailApp: unknown = null;
 
 	// ========================================================================
+	// CanvasLayer options
+	// ========================================================================
+
+	static override get layerOptions(): { name: string; baseClass: typeof CanvasLayer } {
+		return {
+			...super.layerOptions,
+			name: 'sigilMap',
+		};
+	}
+
+	// ========================================================================
 	// Lifecycle
 	// ========================================================================
 
-	/** Called when the canvas layer should draw */
-	async draw(): Promise<void> {
+	/** Inner draw called by the CanvasLayer base class. */
+	protected override async _draw(): Promise<void> {
 		this.removeChildren();
 		this._markers.clear();
 		this._active = false;
@@ -51,6 +62,19 @@ export class SigilMapLayer extends PIXI.Container {
 		this._active = true;
 		this.visible = true;
 
+		// Enable pointer-event propagation to marker children.
+		// eventMode = 'passive' lets the PIXI event system traverse into children.
+		// hitArea must be set explicitly: without it, PIXI prunes this subtree via
+		// getBounds() which can return stale/incorrect bounds for CanvasLayer
+		// containers, causing markers to be non-interactive despite being visible.
+		(this as CanvasLayer & { eventMode?: string }).eventMode = 'passive';
+		this.interactiveChildren = true;
+
+		const dims = (canvas as unknown as { dimensions?: { sceneWidth: number; sceneHeight: number } }).dimensions;
+		if (dims) {
+			this.hitArea = new PIXI.Rectangle(0, 0, dims.sceneWidth, dims.sceneHeight);
+		}
+
 		log('Drawing Sigil Investigation Map layer');
 
 		// Read current state from scene flags
@@ -72,8 +96,8 @@ export class SigilMapLayer extends PIXI.Container {
 		logDebug(`Sigil map layer drawn with ${this._markers.size} markers`);
 	}
 
-	/** Called when leaving the scene */
-	async tearDown(): Promise<void> {
+	/** Inner tearDown called by the CanvasLayer base class. */
+	protected override async _tearDown(): Promise<void> {
 		this._stopTicker();
 		this._markers.clear();
 		this.removeChildren();
