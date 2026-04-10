@@ -67,6 +67,15 @@ function onCanvasReady(): void {
 		layer.draw();
 	}
 
+	// Hide any legacy Sigil scene Note placeables immediately so our custom
+	// markers remain the only hover/click target on this map.
+	hideLegacySigilNotePlaceables();
+
+	// Remove old module-generated Sigil notes from existing worlds.
+	if (game.user?.isGM) {
+		void removeLegacySigilSceneNotes(scene);
+	}
+
 	// Players joining mid-session should request a state refresh
 	if (!game.user?.isGM) {
 		requestStateRefresh();
@@ -252,6 +261,58 @@ function playRevealSound(state: string): void {
 // ============================================================================
 // Helpers
 // ============================================================================
+
+type NotePlaceableLike = {
+	document?: { flags?: Record<string, Record<string, unknown>> };
+	visible?: boolean;
+	renderable?: boolean;
+	interactive?: boolean;
+	eventMode?: string;
+};
+
+function isLegacySigilLocationNote(note: { flags?: Record<string, Record<string, unknown>> } | undefined): boolean {
+	const moduleFlags = note?.flags?.[MODULE_ID] as Record<string, unknown> | undefined;
+	return typeof moduleFlags?.sigilLocationId === 'string';
+}
+
+function hideLegacySigilNotePlaceables(): void {
+	const notesLayer = (canvas as unknown as { notes?: { placeables?: NotePlaceableLike[] } }).notes;
+	const placeables = notesLayer?.placeables ?? [];
+
+	for (const placeable of placeables) {
+		if (!isLegacySigilLocationNote(placeable.document)) continue;
+
+		placeable.visible = false;
+		placeable.renderable = false;
+		placeable.interactive = false;
+		placeable.eventMode = 'none';
+	}
+}
+
+async function removeLegacySigilSceneNotes(scene: SceneClass): Promise<void> {
+	const legacyNoteIds = scene.notes
+		.filter((note: NoteDocument) => isLegacySigilLocationNote(note))
+		.map((note: NoteDocument) => note.id)
+		.filter((id): id is string => typeof id === 'string' && id.length > 0);
+
+	if (legacyNoteIds.length === 0) return;
+
+	const sceneWithEmbeddedDelete = scene as SceneClass & {
+		deleteEmbeddedDocuments?: (type: 'Note', ids: string[]) => Promise<unknown>;
+	};
+
+	if (typeof sceneWithEmbeddedDelete.deleteEmbeddedDocuments !== 'function') {
+		logDebug('Scene.deleteEmbeddedDocuments unavailable; cannot remove legacy Sigil notes');
+		return;
+	}
+
+	try {
+		await sceneWithEmbeddedDelete.deleteEmbeddedDocuments('Note', legacyNoteIds);
+		log(`Removed ${legacyNoteIds.length} legacy Sigil journal note(s)`);
+	} catch (error) {
+		logDebug('Failed to remove legacy Sigil notes', error);
+	}
+}
 
 function showContextMenu(items: ContextMenuItem[]): void {
 	// Build a simple HTML context menu at the mouse position

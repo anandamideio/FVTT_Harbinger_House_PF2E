@@ -8,8 +8,6 @@ import type { HarbingerJournal } from './journals';
 import type { HarbingerMacro } from './macros';
 import type { HarbingerScene } from './scenes';
 import type { HarbingerSpell } from './spells';
-import { ALL_SIGIL_LOCATIONS } from './sigil-locations';
-import type { LocationCategory } from './sigil-locations';
 import type { SystemActorReference } from './system-items';
 import { isSystemItemReference } from './utils';
 
@@ -249,47 +247,11 @@ export function journalToDocumentData(journal: HarbingerJournal): JournalEntryDa
 // Scenes
 // ============================================================================
 
-/** Map location categories to tint colors for embedded notes */
-function getCategoryNoteColor(category: LocationCategory): string {
-	const colors: Record<LocationCategory, string> = {
-		'murder-site': '#ff2222',
-		'faction-hq': '#4488ff',
-		'shop': '#ffaa22',
-		'landmark': '#aa88ff',
-		'encounter': '#44dd44',
-		'hideout': '#888888',
-	};
-	return colors[category] ?? '#ffffff';
-}
-
-/** Generate Foundry NoteData for Sigil scene locations */
-function getSigilSceneNotes(): object[] {
-	return ALL_SIGIL_LOCATIONS.map((location) => ({
-		x: location.x,
-		y: location.y,
-		iconSize: 48,
-		iconTint: getCategoryNoteColor(location.category),
-		text: location.name,
-		fontFamily: 'Exocet Blizzard',
-		fontSize: 16,
-		textAnchor: 1, // CONST.TEXT_ANCHOR_POINTS.CENTER
-		textColor: '#c9aa71',
-		flags: {
-			[MODULE_ID]: {
-				sigilLocationId: location.id,
-				category: location.category,
-			},
-		},
-	}));
-}
-
 export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 	const tokenVision = scene.tokenVision ?? true;
 	const fogExploration = scene.fogExploration ?? true;
 	const fogReset = Date.now();
-
-	// Embed location notes on the Sigil scene unless explicit notes were provided.
-	const notes = scene.notes ?? (scene.id === 'scene-sigil' ? getSigilSceneNotes() : []);
+	const notes = scene.notes ?? [];
 
 	return {
 		name: scene.name,

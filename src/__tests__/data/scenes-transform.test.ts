@@ -56,6 +56,16 @@ describe('sceneToDocumentData', () => {
 		expect(doc.fog.exploration).toBe(false);
 	});
 
+	it('does not auto-generate Sigil scene notes', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			id: 'scene-sigil',
+			name: 'Sigil',
+		});
+
+		expect(doc.notes).toEqual([]);
+	});
+
 	it('passes through explicit embedded placeables', () => {
 		const walls = [{ c: [0, 0, 100, 0], move: 1, sense: 1, sound: 1, door: 0, ds: 0, dir: 0 }];
 		const lights = [{ x: 240, y: 320, config: { dim: 20, bright: 10, color: '#ffd680' } }];
