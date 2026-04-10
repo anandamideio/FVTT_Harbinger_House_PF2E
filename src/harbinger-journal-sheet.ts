@@ -48,7 +48,7 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 
 		if (this.document) {
 			HarbingerJournalSheet.decorateFactionCallouts(this.document, $root);
-			HarbingerJournalSheet.decorateStatblocks(this.document, $root);
+			await HarbingerJournalSheet.decorateStatblocks(this.document, $root);
 		}
 
 		logDebug('[JournalFaction] HarbingerJournalSheet _onRender complete', {
@@ -56,25 +56,83 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 		});
 	}
 
-	static decorateStatblocks(journal: JournalEntryClass, html: JQuery): void {
-		const $statblocks = html.find('.statblock').not('.pf2e-rendered');
-		if ($statblocks.length === 0) return;
+	static async decorateStatblocks(journal: JournalEntryClass, html: JQuery): Promise<void> {
+		logDebug('[JournalStatblock] decorateStatblocks invoked', {
+			journalId: journal.id,
+			journalName: journal.name,
+			knownNPCIdCount: KNOWN_NPC_IDS.size,
+		});
+
+		ensureStatblockObserver(journal, html);
+
+		const $allStatblocks = html.find('.statblock');
+		const $statblocks = $allStatblocks.not('.pf2e-rendered');
+		logDebug('[JournalStatblock] Statblock DOM query result', {
+			journalName: journal.name,
+			totalFound: $allStatblocks.length,
+			pendingDecoration: $statblocks.length,
+			alreadyDecorated: $allStatblocks.length - $statblocks.length,
+		});
+
+		if ($statblocks.length === 0) {
+			logDebug('[JournalStatblock] No undecorated statblocks present; exiting early');
+			return;
+		}
 
 		const view = (journal.getFlag(MODULE_ID, STATBLOCK_VIEW_FLAG) as StatblockView | undefined) ?? DEFAULT_STATBLOCK_VIEW;
+		logDebug('[JournalStatblock] Resolved initial view from flag', { view });
 
 		let decoratedCount = 0;
+		let skippedNoId = 0;
+		let skippedUnknownNPC = 0;
+		const perElement: Array<Record<string, unknown>> = [];
+
 		for (const element of $statblocks.toArray()) {
 			const $classic = $(element);
+			const classAttr = $classic.attr('class') ?? '';
 			const npcId = resolveNPCIdFromStatblock($classic);
-			if (!npcId) continue;
+
+			if (!npcId) {
+				skippedNoId++;
+				perElement.push({ classAttr, outcome: 'skip:no-matching-id' });
+				logDebug('[JournalStatblock] Skipping statblock: no known NPC id in class list', {
+					classAttr,
+					innerHtmlPreview: ($classic.html() ?? '').slice(0, 200),
+				});
+				continue;
+			}
 
 			const npc = getNPCById(npcId);
-			if (!npc || isSystemActorReference(npc)) continue;
+			if (!npc || isSystemActorReference(npc)) {
+				skippedUnknownNPC++;
+				perElement.push({ classAttr, npcId, outcome: 'skip:npc-lookup-failed' });
+				continue;
+			}
 
 			$classic.addClass('pf2e-rendered classic-view');
 
-			const pf2eHtml = formatPF2eStatblock(npc as HarbingerNPC);
-			const $pf2e = $(`<div class="statblock pf2e-view ${escapeClass(npcId)}"></div>`).html(pf2eHtml);
+			let pf2eHtml = '';
+			try {
+				pf2eHtml = formatPF2eStatblock(npc as HarbingerNPC);
+			} catch (err) {
+				logDebug('[JournalStatblock] formatPF2eStatblock threw', {
+					npcId,
+					error: String(err),
+				});
+				perElement.push({ classAttr, npcId, outcome: 'skip:formatter-error', error: String(err) });
+				continue;
+			}
+
+			try {
+				pf2eHtml = await enrichStatblockHtml(pf2eHtml);
+			} catch (err) {
+				logDebug('[JournalStatblock] enrichHTML threw; falling back to raw HTML', {
+					npcId,
+					error: String(err),
+				});
+			}
+
+			const $pf2e = $(`<div class="statblock pf2e-view pf2e-rendered ${escapeClass(npcId)}"></div>`).html(pf2eHtml);
 
 			const $container = $(`<div class="statblock-container" data-npc-id="${escapeClass(npcId)}" data-view="${view}"></div>`);
 			const $header = $(
@@ -89,9 +147,21 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 			$classic.before($container);
 			$container.append($header).append($classic).append($pf2e);
 			decoratedCount++;
+			perElement.push({ classAttr, npcId, outcome: 'decorated' });
 		}
 
-		if (decoratedCount === 0) return;
+		logDebug('[JournalStatblock] Decoration loop complete', {
+			journalName: journal.name,
+			decoratedCount,
+			skippedNoId,
+			skippedUnknownNPC,
+			perElement,
+		});
+
+		if (decoratedCount === 0) {
+			logDebug('[JournalStatblock] No statblocks decorated; skipping click handler binding');
+			return;
+		}
 
 		html.off('click.harbinger-statblock').on('click.harbinger-statblock', '.statblock-toggle', async (event) => {
 			event.preventDefault();
@@ -99,6 +169,12 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 			const $container = $button.closest('.statblock-container');
 			const current = ($container.attr('data-view') as StatblockView | undefined) ?? DEFAULT_STATBLOCK_VIEW;
 			const next: StatblockView = current === 'pf2e' ? 'classic' : 'pf2e';
+
+			logDebug('[JournalStatblock] Toggle clicked', {
+				journalName: journal.name,
+				from: current,
+				to: next,
+			});
 
 			html.find('.statblock-container').each((_, el) => {
 				const $c = $(el);
@@ -110,12 +186,13 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 
 			try {
 				await journal.setFlag(MODULE_ID, STATBLOCK_VIEW_FLAG, next);
+				logDebug('[JournalStatblock] Persisted statblock view flag', { next });
 			} catch (err) {
 				logDebug('[JournalStatblock] Failed to persist statblock view preference', { error: String(err) });
 			}
 		});
 
-		logDebug('[JournalStatblock] Decorated statblocks', {
+		logDebug('[JournalStatblock] Decoration pass complete', {
 			journalName: journal.name,
 			decoratedCount,
 			view,
@@ -324,7 +401,8 @@ function ensureFactionCalloutObserver(journal: JournalEntryClass, html: JQuery):
 }
 
 function mutationTouchesFactionCallouts(mutation: MutationRecord): boolean {
-	for (const node of [...mutation.addedNodes, ...mutation.removedNodes]) {
+	const nodes = [...Array.from(mutation.addedNodes), ...Array.from(mutation.removedNodes)];
+	for (const node of nodes) {
 		if (!(node instanceof Element)) continue;
 		if (node.classList.contains('faction-callout')) return true;
 		if (node.querySelector('.faction-callout')) return true;
@@ -382,4 +460,67 @@ function resolveNPCIdFromStatblock($statblock: JQuery): string | null {
 
 function escapeClass(value: string): string {
 	return value.replace(/[^a-zA-Z0-9_-]/g, '');
+}
+
+async function enrichStatblockHtml(html: string): Promise<string> {
+	const g = globalThis as any;
+	const enricher =
+		g.game?.pf2e?.TextEditor ??
+		g.foundry?.applications?.ux?.TextEditor?.implementation ??
+		g.TextEditor;
+	if (!enricher?.enrichHTML) return html;
+	return enricher.enrichHTML(html, { async: true });
+}
+
+interface HarbingerStatblockRoot extends HTMLElement {
+	__harbingerStatblockObserver?: MutationObserver;
+	__harbingerStatblockApplyQueued?: boolean;
+}
+
+function ensureStatblockObserver(journal: JournalEntryClass, html: JQuery): void {
+	const root = html.get(0) as HarbingerStatblockRoot | undefined;
+	if (!root) {
+		logDebug('[JournalStatblock] Observer setup skipped: no root HTML element');
+		return;
+	}
+
+	if (root.__harbingerStatblockObserver) {
+		logDebug('[JournalStatblock] Observer already attached; skipping setup');
+		return;
+	}
+
+	const scheduleApply = () => {
+		if (root.__harbingerStatblockApplyQueued) return;
+		root.__harbingerStatblockApplyQueued = true;
+
+		queueMicrotask(() => {
+			root.__harbingerStatblockApplyQueued = false;
+			HarbingerJournalSheet.decorateStatblocks(journal, html);
+		});
+	};
+
+	const observer = new MutationObserver((mutations) => {
+		if (!mutations.some((mutation) => mutationTouchesStatblocks(mutation))) return;
+		logDebug('[JournalStatblock] Detected statblock DOM mutation; scheduling decoration');
+		scheduleApply();
+	});
+
+	observer.observe(root, { childList: true, subtree: true });
+	root.__harbingerStatblockObserver = observer;
+
+	logDebug('[JournalStatblock] Attached statblock observer', {
+		journalId: journal.id,
+		journalName: journal.name,
+	});
+}
+
+function mutationTouchesStatblocks(mutation: MutationRecord): boolean {
+	const nodes = [...Array.from(mutation.addedNodes), ...Array.from(mutation.removedNodes)];
+	for (const node of nodes) {
+		if (!(node instanceof Element)) continue;
+		if (node.classList.contains('statblock') && !node.classList.contains('pf2e-rendered')) return true;
+		const fresh = node.querySelector('.statblock:not(.pf2e-rendered)');
+		if (fresh) return true;
+	}
+	return false;
 }

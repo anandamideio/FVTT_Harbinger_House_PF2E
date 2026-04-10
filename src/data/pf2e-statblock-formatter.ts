@@ -54,7 +54,14 @@ function renderDescriptor(npc: HarbingerNPC, system: Record<string, any>): strin
 function renderTraitStrip(system: Record<string, any>): string {
 	const rarity: string = system.traits?.rarity ?? 'common';
 	const traits: string[] = system.traits?.value ?? [];
-	const chips = [rarity, ...traits].filter((t) => t && t !== 'common');
+	const seen = new Set<string>();
+	const chips: string[] = [];
+	for (const t of [rarity, ...traits]) {
+		if (!t || t === 'common') continue;
+		if (seen.has(t)) continue;
+		seen.add(t);
+		chips.push(t);
+	}
 	if (chips.length === 0) return '';
 	return `<p class="pf2e-traits">${chips.map((t) => `<span class="pf2e-trait pf2e-trait-${esc(t)}">${esc(t)}</span>`).join('')}</p>`;
 }
@@ -181,11 +188,10 @@ function renderAbilitiesSection(npc: HarbingerNPC): string {
 		else if (kind === 'reaction') costStr = ' [reaction]';
 		else if (kind === 'free') costStr = ' [free action]';
 		const traits = (action.system?.traits?.value ?? []).join(', ');
-		const desc = stripHtml(action.system?.description?.value ?? '');
-		let line = `<strong>${esc(action.name)}</strong>${costStr}`;
-		if (traits) line += ` (${esc(traits)})`;
-		if (desc) line += ` ${esc(desc)}`;
-		out.push(`<p>${line}</p>`);
+		const rawDesc = (action.system?.description?.value ?? '').trim();
+		let header = `<strong>${esc(action.name)}</strong>${costStr}`;
+		if (traits) header += ` (${esc(traits)})`;
+		out.push(`<div class="pf2e-ability"><p>${header}</p>${rawDesc}</div>`);
 	}
 	for (const ref of systemActions) {
 		out.push(`<p><strong>${esc(nameFromUuid(ref.uuid, SYSTEM_ACTIONS))}</strong> <em>(system action)</em></p>`);
@@ -303,9 +309,3 @@ function esc(s: string): string {
 		.replace(/"/g, '&quot;');
 }
 
-function stripHtml(html: string): string {
-	return html
-		.replace(/<[^>]+>/g, ' ')
-		.replace(/\s+/g, ' ')
-		.trim();
-}

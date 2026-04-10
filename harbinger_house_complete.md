@@ -259,7 +259,7 @@ Factions always play some part in a Planescape adventure, as most PCs belong to 
 # Chapter 1: The Streets of Sigil
 
 ## Trolan the Mad
-> [!statblock]
+> [!statblock trolan-the-mad]
 > *Male tiefling planar, 10th-level bard*
 >
 > ### Ability Scores
@@ -312,7 +312,7 @@ To gain Trolan's help, **Nari**—who's taken command of the House—appeared to
 
 ## Crimjak the Marquis Cambion
 
-> [!statblock]
+> [!statblock crimjak-marquis-cambion]
 > ### Ability Scores
 > | Str | Dex | Con | Int | Wis | Cha |
 > |---:|---:|---:|---:|---:|---:|
@@ -352,7 +352,7 @@ After learning of Harbinger House, Nari contacted an old friend back in the **Ab
 
 ## Narcovi
 
-> [!statblock]
+> [!statblock narcovi]
 > *Female dwarf planar, 9th-level fighter, Harmonium*
 >
 > ### Ability Scores
@@ -405,7 +405,7 @@ If the PCs are foolish enough to attack the dabus, they do get a response: The d
 
 **DM Note:** After this initial scene, the PCs should be introduced to news of the murders. One of the follow-up scenes described later in this chapter (or even "Quick Start II" or "Quick Start III") can be used to draw the PCs deeper into the story. If the DM uses a different opening for the adventure, the dabus' strange paint job can still be played out later, as the PCs explore the Cage.
 
-> [!statblock]
+> [!statblock dabus]
 > **Dabus (4 or var)**
 >
 > | Stat | Value |
@@ -735,7 +735,7 @@ The dabus have cleaned up everything pertaining to the murder, including the sma
 
 **DM Note:** If the PCs are leatherheaded enough to attack the dabus, use the following statistics for the four in the library. However, be aware that enough dabus can be summoned to easily kill or incapacitate the PCs if things start getting out of hand.
 
-> [!statblock]
+> [!statblock dabus]
 > **Dabus (4 or var)**
 >
 > | Stat | Value |
@@ -808,7 +808,7 @@ Unless the PCs are connected to one of the three factions mentioned above, Narco
 
 If the PCs answer all of Narcovi's questions honestly and with some modicum of respect, she'll let them go with a simple warning. "I don't know where you come from, but in Sigil it's the Harmonium that makes the arrests. Stay out of this and you'll stay healthier—and free."
 
-> [!statblock]
+> [!statblock harmonium-agent]
 > **Harmonium Agents (8) (Pl/var/var/F5/Harmonium/LG)**
 >
 > | Stat | Value |
@@ -862,7 +862,7 @@ Three warehouses in the area deal in talc, the substance the PCs may find on Har
 
 Inside the warehouse, a pack of cranium rats has made a nest in the paper stores. There are 40 rats in the pack, which has a collective Intelligence of 8 and two wizard spells (*color spray* and *hypnotism*). The pack has nothing to do with the murders but reacts badly to anything that threatens the nest. If the PCs enter the warehouse and start looking around, the rats stalk them and wait for opportunities to strike. If **Penbrum** is informed about the rat infestation, he offers the PCs a reward of 500 gold pieces for clearing out his warehouse.
 
-> [!statblock]
+> [!statblock cranium-rat-swarm]
 > **Cranium Rats (40)**
 >
 > | Stat | Value |
@@ -991,7 +991,7 @@ Finally, there are many possible examples of the dabus cleaning areas that alrea
 
 **DM Note:** If the PCs attack the dabus, use the following statistics, keeping in mind that enough dabus can be summoned to easily put the PCs down.
 
-> [!statblock]
+> [!statblock dabus]
 > **Dabus (var)**
 >
 > | Stat | Value |
@@ -1078,7 +1078,7 @@ The devotees of the Lady who go begging and preaching spread words of love about
 > [!read-aloud]
 > "The Lady loves you, and you should show her your love in return," the preacher proclaims. "As Trolan the Beloved has said, the Lady is love, and her presence shines for all to see. Come to Bloodgem Park and join us, for to win the Lady's love is better than anything else the multiverse has to offer."
 
-> [!statblock]
+> [!statblock ladys-cultist]
 > **Cultist**
 >
 > | Stat | Value |
@@ -1484,7 +1484,7 @@ Baox plans to destroy Trolan no matter what. He attacks the tiefling with everyt
 
 **DM Note:** Baox won't betray Pastor Browen, no matter what methods the PCs use to question the Anarchist. However, Baox does parrot the reasoning Browen "helped" him arrive at — that Trolan's cult must be stopped before it spells doom for free-thinking bodies everywhere.
 
-> [!statblock]
+> [!statblock xero-baox]
 > **Xero Baox** (Pl/♂ tiefling/F12/Revolutionary League/CE)
 >
 > | Stat | Value |
@@ -1503,7 +1503,7 @@ Baox plans to destroy Trolan no matter what. He attacks the tiefling with everyt
 > **Special Abilities**
 > - SA: arrow of slaying for bards
 
-> [!statblock]
+> [!statblock anarchist]
 > **Anarchists (4)** (Pl/var/var/F7/Revolutionary League/CN)
 >
 > | Stat | Value |
@@ -1615,7 +1615,7 @@ If the PCs bind and question Browen, he reveals a good deal more about Nari, scr
 
 The **Godsmen** marked Browen as a power-in-the-making due to his innate abilities to exercise limited control over the local weather. Without using arcane words, magical gestures, or strange components, Browen can call forth a wall of fog, direct a gust of wind, or summon an ice storm (as per the spells of the same names). He uses these abilities as his own madness moves him, but always with great showmanship and a sermon of insanity.
 
-> [!statblock]
+> [!statblock pastor-browen]
 > **Pastor Browen** (Pl/♂ human/P12/—/CE)
 >
 > | Stat | Value |
@@ -1724,7 +1724,7 @@ the PCs not to get too close to the windows, as they probably don't have keys fo
 
 However, the House also contains various other beings, including Godsman caretakers who've been charmed or imprisoned by Nari, less powerful barmies, and dretches brought from the Abyss to guard Nari and her plans. If the PCs battle any of these other residents, the DM may use the following statistics or invent specific details for each, as desired:
 
-> [!statblock]
+> [!statblock barmy]
 > **Average Barmy** (Pl/var var/F2/—/var)
 >
 > | Stat | Value |
@@ -1740,7 +1740,7 @@ However, the House also contains various other beings, including Godsman caretak
 > | ML | average (10) |
 > | XP | 35 |
 
-> [!statblock]
+> [!statblock godsman-caretaker]
 > **Godsman** (Pl/var var/0/Believers of the Source/var)
 >
 > | Stat | Value |
@@ -2053,7 +2053,7 @@ Teela won't say much about Nari, except to remark that opposing her is fruitless
 
 A sunken tub fills much of the tile-covered floor in this chamber. The entire place looks like a swamp, as molds and slimes grow across the tiles, over the walls and ceiling, and atop the foul, stagnant water. If the PCs poke around in here, they encounter Teela's pets — a gray ooze and a brown mold.
 
-> [!statblock]
+> [!statblock gray-ooze]
 > **Gray Ooze (1)**
 >
 > | Stat | Value |
@@ -2424,7 +2424,7 @@ Sougad either has Bereth (if she was awakened and allowed to wander after the en
 
 **Slipping the Blinds:** If Trolan's absent from the battle, the DM should still have Nari polymorph into the Lady of Pain (so the planarity can record her transformation for later proof that the succubus tricked Trolan). One possible solution: The energy in the shapechanging planarity causes Nari to involuntarily change her own form; each round, she takes on a new appearance, one of which is the Lady of Pain.
 
-> [!statblock]
+> [!statblock manes]
 > **Manes (3 per PC)**
 >
 > | Stat | Value |
