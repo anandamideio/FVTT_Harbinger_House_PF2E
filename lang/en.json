@@ -61,6 +61,11 @@
 			"victim": "Victim: {name}",
 			"murderNumber": "Murder #{number}"
 		},
+		"faction": {
+			"label": "Sigil Faction",
+			"none": "— Unaffiliated —",
+			"pickerTitle": "Choose a Faction"
+		},
 		"errors": {
 			"pf2eRequired": "This module requires the Pathfinder 2e system."
 		}

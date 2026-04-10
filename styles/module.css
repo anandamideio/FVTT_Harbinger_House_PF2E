@@ -1608,3 +1608,95 @@ span.page-title {
 	color: #c9aa71;
 	letter-spacing: 1px;
 }
+
+/* ============================================================================
+   Sigil Faction Selector — PF2E Character Sheet Injection
+   ============================================================================ */
+
+/* Mirror the PF2e deity h3 layout: value fills the row, picker icon floats right */
+.abcd .detail.sigil-faction h3 {
+	align-items: center;
+	background-color: rgba(28, 28, 28, 0.1);
+	border: none;
+	color: var(--text-dark);
+	display: flex;
+	font: 700 var(--font-size-14) / 1em var(--body-serif);
+	margin: 0;
+	padding: 0.5em 0.25em;
+	position: relative;
+	width: calc(100% - 0.5em);
+}
+
+.abcd .detail.sigil-faction h3 .value {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.abcd .detail.sigil-faction h3 .harbinger-faction-picker-btn {
+	color: var(--color-text-light-6, #888);
+	cursor: pointer;
+	flex-shrink: 0;
+	font-size: var(--font-size-12);
+	line-height: 1;
+	margin-left: 0.25em;
+	opacity: 0.7;
+	transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.abcd .detail.sigil-faction h3 .harbinger-faction-picker-btn:hover,
+.abcd .detail.sigil-faction h3 .harbinger-faction-picker-btn:focus-visible {
+	color: var(--text-dark);
+	opacity: 1;
+	outline: none;
+}
+
+/* ============================================================================
+   Sigil Faction Picker Dialog
+   ============================================================================ */
+
+.dialog.sigil-faction-picker {
+	background: #120e09;
+	border: 1px solid rgba(200, 150, 70, 0.25);
+	box-shadow: 0 8px 40px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(200, 150, 70, 0.1);
+}
+
+.dialog.sigil-faction-picker .window-header {
+	background: linear-gradient(180deg, #1e1712 0%, #140f0a 100%);
+	border-bottom: 1px solid rgba(200, 150, 70, 0.2);
+	color: #d4b87a;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.dialog.sigil-faction-picker .window-header .window-title {
+	font-family: var(--body-serif, serif);
+	font-size: 13px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: #c8a85a;
+}
+
+.dialog.sigil-faction-picker .window-header a.header-button {
+	color: rgba(200, 150, 70, 0.5);
+	transition: color 0.15s ease;
+}
+
+.dialog.sigil-faction-picker .window-header a.header-button:hover {
+	color: #c8a85a;
+}
+
+.dialog.sigil-faction-picker .window-content {
+	padding: 0;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	background: #120e09;
+}
+
+.dialog.sigil-faction-picker .harbinger-faction-picker-mount {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
