@@ -122,25 +122,27 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 		return;
 	}
 
-	const sigilTools: Record<string, SceneControlTool> = {
-		'sigil-open-board': {
-			name: 'sigil-open-board',
-			title: 'Investigation Board',
-			icon: 'fas fa-map-marked-alt',
-			order: 0,
-			button: true,
-			onChange: () => {
-				InvestigationBoardApp.open();
-			},
-		},
-	};
-
 	controls['sigil-investigation'] = {
 		name: 'sigil-investigation',
 		title: 'Sigil Investigation',
 		icon: 'fas fa-map-marked-alt',
 		order: 100,
-		tools: sigilTools,
+		activeTool: 'sigil-open-board',
+		tools: {
+			'sigil-open-board': {
+				name: 'sigil-open-board',
+				title: 'Investigation Board',
+				icon: 'fas fa-map-marked-alt',
+				order: 0,
+				button: true,
+				onChange: (event: Event, active: boolean) => {
+					if (!active) return;
+
+					InvestigationBoardApp.open();
+					void activateTokenControls(event);
+				},
+			},
+		},
 	};
 }
 
@@ -253,6 +255,29 @@ function playRevealSound(state: string): void {
 		autoplay: true,
 		loop: false,
 	});
+}
+
+async function activateTokenControls(event?: Event): Promise<void> {
+	const controlsUi = (ui as unknown as { controls?: SceneControlsUI }).controls;
+	if (!controlsUi?.activate) return;
+
+	const activationOptions: SceneControlsActivationOptions[] = [
+		{ control: 'tokens', tool: 'select', event },
+		{ control: 'tokens', event },
+		{ control: 'token', tool: 'select', event },
+		{ control: 'token', event },
+	];
+
+	for (const options of activationOptions) {
+		try {
+			await controlsUi.activate(options);
+			return;
+		} catch {
+			// Try fallback option names between Foundry versions.
+		}
+	}
+
+	logDebug('Unable to switch back to token controls after opening the Sigil board');
 }
 
 // ============================================================================
@@ -368,8 +393,22 @@ interface SceneControlGroup {
 	title: string;
 	icon: string;
 	order: number;
-	activeTool?: string;
+	activeTool: string;
+	onChange?: (event: Event, active: boolean) => void;
+	onToolChange?: (event: Event, tool: SceneControlTool) => void;
 	tools: Record<string, SceneControlTool>;
+	visible?: boolean;
+}
+
+interface SceneControlsActivationOptions {
+	event?: Event;
+	control?: string;
+	tool?: string;
+	toggles?: Record<string, boolean>;
+}
+
+interface SceneControlsUI {
+	activate: (options?: SceneControlsActivationOptions) => Promise<void> | void;
 }
 
 interface ContextMenuItem {
