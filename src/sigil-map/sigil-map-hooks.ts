@@ -167,8 +167,19 @@ function onMarkerContext(marker: SigilMapMarker): void {
 			callback: async () => {
 				const result = await advanceLocationState(scene, marker.location.id);
 				if (result) {
+					const isFirstDiscovery =
+						result.previousRevealState === 'hidden'
+						&& result.state.revealState === 'discovered';
+
+					if (isFirstDiscovery) {
+						const layer = canvas.sigilMap as SigilMapLayer | undefined;
+						void layer?.focusOnLocation(marker.location.id);
+					}
+
 					marker.setState(result.state, true);
-					broadcastLocationStateChange(marker.location.id, result.state);
+					broadcastLocationStateChange(marker.location.id, result.state, {
+						focusCamera: isFirstDiscovery,
+					});
 					playRevealSound(result.state.revealState);
 					InvestigationBoardApp.instance?.refreshFromFlags();
 				}

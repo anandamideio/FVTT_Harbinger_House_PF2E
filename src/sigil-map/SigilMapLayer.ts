@@ -2,6 +2,7 @@ import { log, logDebug, MODULE_ID, SETTINGS } from '../config';
 import { ALL_SIGIL_LOCATIONS } from '../data/sigil-locations';
 import type { SigilLocation } from '../data/sigil-locations';
 import type { LocationState } from '../types/module-flags';
+import { CAMERA_FOCUS } from './constants';
 import { SigilMapMarker } from './SigilMapMarker';
 import {
 	getAllLocationStates,
@@ -134,6 +135,34 @@ export class SigilMapLayer extends CanvasLayerBase {
 	/** Get all markers */
 	getAllMarkers(): SigilMapMarker[] {
 		return Array.from(this._markers.values());
+	}
+
+	/**
+	 * Pan+zoom the canvas camera to a specific location marker.
+	 * The zoom never forces a zoom-out if the user is already closer.
+	 */
+	async focusOnLocation(locationId: string): Promise<void> {
+		if (!this._active) return;
+
+		const marker = this._markers.get(locationId);
+		if (!marker) return;
+
+		if (typeof canvas.animatePan !== 'function') return;
+		if (!canvas.scene) return;
+
+		const currentScaleRaw = canvas.stage?.scale?.x;
+		const currentScale = Number.isFinite(currentScaleRaw) && currentScaleRaw > 0
+			? currentScaleRaw
+			: 1;
+
+		const targetScale = Math.max(currentScale, CAMERA_FOCUS.DISCOVERY_SCALE);
+
+		await canvas.animatePan({
+			x: marker.location.x,
+			y: marker.location.y,
+			scale: targetScale,
+			duration: CAMERA_FOCUS.DISCOVERY_DURATION,
+		});
 	}
 
 	// ========================================================================

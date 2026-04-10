@@ -1372,9 +1372,18 @@ declare global {
 			view: HTMLCanvasElement;
 		};
 		stage: PIXI.Container;
+		animatePan(options: CanvasPanOptions): Promise<void>;
 		/** Named layers registered via CONFIG.Canvas.layers */
 		sigilMap?: CanvasLayer;
 		ready: boolean;
+	}
+
+	interface CanvasPanOptions {
+		x?: number;
+		y?: number;
+		scale?: number;
+		duration?: number;
+		speed?: number;
 	}
 
 	interface FoundryConstants {

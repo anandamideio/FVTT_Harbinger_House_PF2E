@@ -154,16 +154,26 @@ export class LocationDetailApp {
 		const scene = canvas.scene;
 		if (!scene || !game.user?.isGM) return;
 
+		const previousRevealState = this._state.revealState;
+
 		const newState = await setLocationRevealState(scene, this._location.id, target);
 		if (newState) {
 			this._state = newState;
+			const isFirstDiscovery =
+				previousRevealState === 'hidden'
+				&& newState.revealState === 'discovered';
 
 			// Update the canvas marker
 			const layer = canvas.sigilMap as SigilMapLayer | undefined;
+			if (isFirstDiscovery) {
+				void layer?.focusOnLocation(this._location.id);
+			}
 			layer?.updateMarkerState(this._location.id, newState, true);
 
 			// Broadcast to other clients
-			broadcastLocationStateChange(this._location.id, newState);
+			broadcastLocationStateChange(this._location.id, newState, {
+				focusCamera: isFirstDiscovery,
+			});
 
 			// Refresh our panel
 			this.updateState(newState);

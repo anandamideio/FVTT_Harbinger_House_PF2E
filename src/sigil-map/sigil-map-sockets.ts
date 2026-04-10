@@ -17,6 +17,8 @@ interface UpdateLocationMessage {
 	type: 'updateLocationState';
 	locationId: string;
 	newState: LocationState;
+	focusCamera?: boolean;
+	focusInitiatorId?: string;
 }
 
 interface RequestRefreshMessage {
@@ -32,6 +34,10 @@ interface FullStateSyncMessage {
 
 type SocketMessage = UpdateLocationMessage | RequestRefreshMessage | FullStateSyncMessage;
 
+interface BroadcastLocationOptions {
+	focusCamera?: boolean;
+}
+
 const SOCKET_NAME = `module.${MODULE_ID}`;
 
 // ============================================================================
@@ -45,7 +51,11 @@ export function registerSigilMapSockets(): void {
 
 	// Listen for internal broadcast events from the layer
 	Hooks.on('harbinger-house.broadcastLocationState', (...args: unknown[]) => {
-		broadcastLocationStateChange(args[0] as string, args[1] as LocationState);
+		broadcastLocationStateChange(
+			args[0] as string,
+			args[1] as LocationState,
+			args[2] as BroadcastLocationOptions | undefined,
+		);
 	});
 }
 
@@ -73,6 +83,15 @@ function handleUpdateLocation(message: UpdateLocationMessage): void {
 	// Update the local canvas layer with animation
 	const layer = canvas.sigilMap as import('./SigilMapLayer').SigilMapLayer | undefined;
 	if (layer) {
+		const shouldFocusCamera =
+			message.focusCamera === true
+			&& message.newState.revealState === 'discovered'
+			&& message.focusInitiatorId !== game.user?.id;
+
+		if (shouldFocusCamera) {
+			void layer.focusOnLocation(message.locationId);
+		}
+
 		layer.updateMarkerState(message.locationId, message.newState, true);
 	}
 }
@@ -116,11 +135,20 @@ function emitSocket(message: SocketMessage): void {
 }
 
 /** Broadcast a location state change to all other clients (GM action) */
-export function broadcastLocationStateChange(locationId: string, newState: LocationState): void {
+export function broadcastLocationStateChange(
+	locationId: string,
+	newState: LocationState,
+	options?: BroadcastLocationOptions,
+): void {
+	const focusCamera = options?.focusCamera === true;
+	const focusInitiatorId = focusCamera ? game.user?.id : undefined;
+
 	emitSocket({
 		type: 'updateLocationState',
 		locationId,
 		newState,
+		focusCamera,
+		focusInitiatorId,
 	});
 }
 

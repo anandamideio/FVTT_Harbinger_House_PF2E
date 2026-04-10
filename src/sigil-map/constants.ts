@@ -64,13 +64,13 @@ export const MARKER_ZOOM_SCALE_MAX = 3.5;
 
 export const ANIM = {
 	/** hidden -> discovered: light burst duration */
-	DISCOVER_BURST_DURATION: 400,
+	DISCOVER_BURST_DURATION: 560,
 	/** hidden -> discovered: icon fade-in start */
-	DISCOVER_ICON_START: 200,
+	DISCOVER_ICON_START: 280,
 	/** hidden -> discovered: icon fade-in end */
-	DISCOVER_ICON_END: 600,
+	DISCOVER_ICON_END: 980,
 	/** hidden -> discovered: total animation time */
-	DISCOVER_TOTAL: 800,
+	DISCOVER_TOTAL: 1100,
 
 	/** discovered -> investigated: glow intensify duration */
 	INVESTIGATE_GLOW_DURATION: 200,
@@ -163,6 +163,17 @@ export const SOUNDS = {
 } as const;
 
 export const SOUND_VOLUME = 0.5;
+
+// ============================================================================
+// Camera Focus Timing
+// ============================================================================
+
+export const CAMERA_FOCUS = {
+	/** Target canvas zoom when a location is newly discovered. */
+	DISCOVERY_SCALE: 1.8,
+	/** Keep the pan+zoom aligned with the reveal animation envelope. */
+	DISCOVERY_DURATION: ANIM.DISCOVER_TOTAL,
+} as const;
 
 // ============================================================================
 // Scene Identification

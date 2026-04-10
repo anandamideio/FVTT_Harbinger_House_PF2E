@@ -206,9 +206,18 @@ export class InvestigationBoardApp {
 
 		const result = await advanceLocationState(scene, locationId);
 		if (result) {
+			const isFirstDiscovery =
+				result.previousRevealState === 'hidden'
+				&& result.state.revealState === 'discovered';
+
 			boardState.states[locationId] = result.state;
+			if (isFirstDiscovery) {
+				void this._getLayer()?.focusOnLocation(locationId);
+			}
 			this._getLayer()?.updateMarkerState(locationId, result.state, true);
-			broadcastLocationStateChange(locationId, result.state);
+			broadcastLocationStateChange(locationId, result.state, {
+				focusCamera: isFirstDiscovery,
+			});
 			this._playRevealSound(result.state.revealState);
 		}
 	}
@@ -220,6 +229,7 @@ export class InvestigationBoardApp {
 		// For direct state setting (e.g. hidden→investigated), write the state directly
 		const current = boardState.states[locationId] ?? createDefaultState();
 		if (current.revealState === targetState) return;
+		const isFirstDiscovery = current.revealState === 'hidden' && targetState === 'discovered';
 
 		const newState: LocationState = {
 			...current,
@@ -229,8 +239,13 @@ export class InvestigationBoardApp {
 
 		await scene.setFlag(MODULE_ID, `locationStates.${locationId}`, newState);
 		boardState.states[locationId] = newState;
+		if (isFirstDiscovery) {
+			void this._getLayer()?.focusOnLocation(locationId);
+		}
 		this._getLayer()?.updateMarkerState(locationId, newState, true);
-		broadcastLocationStateChange(locationId, newState);
+		broadcastLocationStateChange(locationId, newState, {
+			focusCamera: isFirstDiscovery,
+		});
 		this._playRevealSound(targetState);
 	}
 
