@@ -1956,7 +1956,7 @@ If the PCs do calm Galkin down, he tells them what little he knows about Nari.
 > - SA: Strength bonus (+1 to damage rolls), innate ability (becomes a lightning bolt at will on a successful Constitution check; causes 6d6 points of damage per attack and moves at the speed of light)
 > Str 16, Dex 16, Con 14, Int 15, Wis 10, Cha 12.
 
-### 11-18. The Twins
+### 11A. The Twins
 
 The twins **Vorina** and **Teela** reside in this wing of the House. These barmies see all things as they truly are, but in significantly different ways. Vorina sees everything as vital and alive, observing the growth of new flesh as it replaces old, the flowering of hair as it grows longer, and the energy of life that radiates from all living things. Consequently, she's happy and upbeat. Teela, on the other hand, sees everything as dying and decaying. She can see the life force ebbing with each heartbeat, the body wearing out with each passing moment. This makes Teela very moody and dark.
 
