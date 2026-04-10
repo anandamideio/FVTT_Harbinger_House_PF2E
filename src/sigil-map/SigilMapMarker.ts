@@ -249,9 +249,10 @@ export class SigilMapMarker extends PIXI.Container {
 			parts.unshift(`Victim: ${this.location.victim}`);
 		}
 		const text = new PIXI.Text(parts.join('\n'), {
-			fontFamily: 'Rotis Serif, Georgia, serif',
+			fontFamily: '"Rotis Serif", "Rotis Serif Std Regular", Georgia, serif',
 			fontSize: 24,
-			fontWeight: '500',
+			fontWeight: '450',
+			fontStyle: 'normal',
 			fill: '#e0d6c2',
 			stroke: '#1a1108',
 			strokeThickness: 2,
