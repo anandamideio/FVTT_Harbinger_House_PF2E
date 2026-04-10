@@ -32,6 +32,8 @@ export class SigilMapMarker extends PIXI.Container {
 	private _ambientTime = 0;
 	private _animating = false;
 	private _zoomCompensationScale = 1;
+	private _hoverGlowStrength = 0;
+	private _hoverGlowTarget = 0;
 
 	constructor(location: SigilLocation, state: LocationState) {
 		super();
@@ -115,6 +117,12 @@ export class SigilMapMarker extends PIXI.Container {
 	tick(deltaMs: number): void {
 		if (this._state.revealState === 'hidden' || this._animating) return;
 
+		const fadeAmount = Math.min(deltaMs / ANIM.HOVER_GLOW_FADE_DURATION, 1);
+		this._hoverGlowStrength += (this._hoverGlowTarget - this._hoverGlowStrength) * fadeAmount;
+		if (Math.abs(this._hoverGlowStrength - this._hoverGlowTarget) < 0.001) {
+			this._hoverGlowStrength = this._hoverGlowTarget;
+		}
+
 		this._ambientTime += deltaMs;
 		const cycle = this._ambientTime % ANIM.AMBIENT_PULSE_PERIOD;
 		const t = cycle / ANIM.AMBIENT_PULSE_PERIOD;
@@ -124,7 +132,8 @@ export class SigilMapMarker extends PIXI.Container {
 		const range = ANIM.AMBIENT_PULSE_MAX - ANIM.AMBIENT_PULSE_MIN;
 		const glowAlpha = ANIM.AMBIENT_PULSE_MIN + (pulse + 1) * 0.5 * range;
 
-		this._backgroundGlow.alpha = glowAlpha * GLOW_ALPHA[this._state.revealState];
+		this._backgroundGlow.alpha =
+			glowAlpha * GLOW_ALPHA[this._state.revealState] * this._hoverGlowStrength;
 	}
 
 	// ========================================================================
@@ -306,6 +315,11 @@ export class SigilMapMarker extends PIXI.Container {
 		if (this._state.revealState === 'hidden') return;
 
 		if (this._isHovered) {
+			this._hoverGlowTarget = 1;
+			if (this._hoverGlowStrength < 0.4) {
+				this._hoverGlowStrength = 0.4;
+			}
+
 			// Draw/refresh the background plaque sized to fit the label
 			this._refreshHoverPanel();
 			this._hoverPanel.visible = true;
@@ -314,14 +328,13 @@ export class SigilMapMarker extends PIXI.Container {
 			this._hoverLabel.visible = true;
 			this._hoverLabel.alpha = 1;
 
-			// Brighten glow
-			this._backgroundGlow.alpha = Math.min(1, this._backgroundGlow.alpha * 1.5);
-
 			// Slight scale up
 			if (!this._animating) {
 				this._applyIconInteractionScale();
 			}
 		} else {
+			this._hoverGlowTarget = 0;
+
 			this._hoverPanel.visible = false;
 			this._hoverPanel.alpha = 0;
 
@@ -343,6 +356,8 @@ export class SigilMapMarker extends PIXI.Container {
 
 		if (state === 'hidden') {
 			this._isHovered = false;
+			this._hoverGlowStrength = 0;
+			this._hoverGlowTarget = 0;
 			this.alpha = MARKER_ALPHA.hidden;
 			this._backgroundGlow.alpha = 0;
 			this._backgroundGlow.scale.set(1);
@@ -361,7 +376,7 @@ export class SigilMapMarker extends PIXI.Container {
 		} else {
 			// Snap to final state
 			this.alpha = MARKER_ALPHA[state];
-			this._backgroundGlow.alpha = GLOW_ALPHA[state];
+			this._backgroundGlow.alpha = 0;
 			this._backgroundGlow.scale.set(1);
 			this._iconSprite.alpha = 1;
 			this._applyIconInteractionScale();

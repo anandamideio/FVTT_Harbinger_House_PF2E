@@ -34,7 +34,7 @@ export const MARKER_ICON_SIZE = 48;
 export const MARKER_HIT_RADIUS = 32;
 
 /** Background glow radius */
-export const MARKER_GLOW_RADIUS = 40;
+export const MARKER_GLOW_RADIUS = 14;
 
 /** Pulse ring max radius */
 export const MARKER_PULSE_MAX_RADIUS = 64;
@@ -97,6 +97,8 @@ export const ANIM = {
 	AMBIENT_PULSE_MIN: 0.3,
 	/** Ambient glow pulse intensity range (max alpha) */
 	AMBIENT_PULSE_MAX: 0.7,
+	/** Hover glow fade-out duration (ms) */
+	HOVER_GLOW_FADE_DURATION: 220,
 } as const;
 
 // ============================================================================
