@@ -6,6 +6,7 @@ import {
 	CATEGORY_ICONS,
 	FALLBACK_ICON,
 	GLOW_ALPHA,
+	LOCATION_ICONS,
 	LABEL_STYLE,
 	MARKER_ALPHA,
 	MARKER_GLOW_RADIUS,
@@ -115,7 +116,7 @@ export class SigilMapMarker extends PIXI.Container {
 	}
 
 	private _createIcon(): PIXI.Sprite {
-		const iconPath = CATEGORY_ICONS[this.location.category] ?? FALLBACK_ICON;
+		const iconPath = LOCATION_ICONS[this.location.id] ?? CATEGORY_ICONS[this.location.category] ?? FALLBACK_ICON;
 		let sprite: PIXI.Sprite;
 		try {
 			sprite = PIXI.Sprite.from(iconPath);
@@ -125,7 +126,6 @@ export class SigilMapMarker extends PIXI.Container {
 		sprite.anchor.set(0.5);
 		sprite.width = MARKER_ICON_SIZE;
 		sprite.height = MARKER_ICON_SIZE;
-		sprite.tint = this.categoryColor;
 		sprite.alpha = 0;
 		return sprite;
 	}
@@ -313,13 +313,6 @@ export class SigilMapMarker extends PIXI.Container {
 
 			// Name always shown for both discovered and investigated
 			this._labelText.alpha = 1;
-
-			// Dim icon for discovered, full for investigated
-			if (state === 'discovered') {
-				this._iconSprite.tint = this._dimColor(this.categoryColor, 0.6);
-			} else {
-				this._iconSprite.tint = this.categoryColor;
-			}
 		}
 	}
 
@@ -374,7 +367,6 @@ export class SigilMapMarker extends PIXI.Container {
 			// Bounce: overshoot to 1.2x then settle
 			const bounce = 1 + Math.sin(iconProgress * Math.PI) * 0.2;
 			this._iconSprite.scale.set(bounce);
-			this._iconSprite.tint = this._dimColor(this.categoryColor, 0.6);
 		}
 
 		// Label: always visible for discovered
@@ -399,13 +391,6 @@ export class SigilMapMarker extends PIXI.Container {
 			this._backgroundGlow.alpha = GLOW_ALPHA.investigated;
 		}
 
-		// Icon color shift from dim to full
-		if (progress >= iconStart && progress <= iconEnd) {
-			const iconProgress = (progress - iconStart) / (iconEnd - iconStart);
-			const dimFactor = 0.6 + iconProgress * 0.4;
-			this._iconSprite.tint = this._dimColor(this.categoryColor, dimFactor);
-		}
-
 		// Flash effect
 		if (progress >= flashStart && progress <= flashEnd) {
 			const flashProgress = (progress - flashStart) / (flashEnd - flashStart);
@@ -416,13 +401,5 @@ export class SigilMapMarker extends PIXI.Container {
 		// Label is already visible from discovered state
 		this._labelText.alpha = 1;
 		this._iconSprite.alpha = 1;
-	}
-
-	/** Dim a hex color by a factor (0-1) */
-	private _dimColor(color: number, factor: number): number {
-		const r = Math.floor(((color >> 16) & 0xff) * factor);
-		const g = Math.floor(((color >> 8) & 0xff) * factor);
-		const b = Math.floor((color & 0xff) * factor);
-		return (r << 16) | (g << 8) | b;
 	}
 }

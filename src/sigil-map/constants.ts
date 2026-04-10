@@ -125,11 +125,17 @@ const ASSET_BASE = `modules/${MODULE_ID}/dist/assets`;
 export const CATEGORY_ICONS = {
 	'murder-site': `${ASSET_BASE}/icons/sword-brandish.svg`,
 	'faction-hq': `${ASSET_BASE}/icons/marker-faction.svg`,
-	'shop': `${ASSET_BASE}/icons/marker-shop.svg`,
+	'shop': `${ASSET_BASE}/icons/hanging-sign.svg`,
 	'landmark': `${ASSET_BASE}/icons/marker-landmark.svg`,
 	'encounter': `${ASSET_BASE}/icons/marker-encounter.svg`,
 	'hideout': `${ASSET_BASE}/icons/marker-hideout.svg`,
 } as const;
+
+/** Per-location icon overrides for notable points of interest. */
+export const LOCATION_ICONS: Record<string, string> = {
+	'city-barracks': `${ASSET_BASE}/icons/medieval-barracks.svg`,
+	'the-prison': `${ASSET_BASE}/icons/cage.svg`,
+};
 
 /** Fallback icon when SVG is missing */
 export const FALLBACK_ICON = 'icons/svg/book.svg';
