@@ -1235,7 +1235,7 @@ span.page-title {
    ========================================================================== */
 
 .sigil-location-detail {
-	--sigil-murder: #ff2222;
+	--sigil-murder: #881919;
 	--sigil-faction: #4488ff;
 	--sigil-shop: #ffaa22;
 	--sigil-landmark: #aa88ff;
@@ -1270,8 +1270,13 @@ span.page-title {
 	width: 36px;
 	height: 36px;
 	border-radius: 50%;
-	background: var(--category-color, #6e0000);
-	opacity: 0.8;
+	background-color: var(--category-color, #6e0000);
+	background-image: var(--location-icon, none);
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 1px 3px rgba(0, 0, 0, 0.22);
+	opacity: 0.92;
 	flex-shrink: 0;
 }
 
@@ -1576,7 +1581,6 @@ span.page-title {
 
 .sigil-location-detail.app .window-content {
 	background: #f4e8d0;
-	background-image: url('modules/harbinger-house-pf2e/dist/assets/style/old-paper.jpg');
 	background-size: cover;
 	background-blend-mode: multiply;
 	padding: 0;
@@ -1600,7 +1604,7 @@ span.page-title {
 	position: fixed;
 	z-index: 10000;
 	background: #f4e8d0;
-	background-image: url('modules/harbinger-house-pf2e/dist/assets/style/old-paper.jpg');
+	background-image: url('/modules/harbinger-house-pf2e/dist/assets/style/old-paper.jpg');
 	background-size: cover;
 	border: 1px solid #8a7a5a;
 	border-radius: 4px;

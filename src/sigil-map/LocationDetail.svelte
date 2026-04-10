@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { SigilLocation, LocationClue } from '../data/sigil-locations';
 	import type { LocationState } from '../types/module-flags';
+	import { CATEGORY_ICONS, FALLBACK_ICON, LOCATION_ICONS } from './constants';
 
 	interface Props {
 		location: SigilLocation;
@@ -35,6 +36,25 @@
 	let optionalClues = $derived(location.clues.filter((c: LocationClue) => c.optional));
 	let gmNotesValue = $derived(locationState.gmNotes ?? '');
 
+	function toAbsoluteAssetPath(path: string): string {
+		if (
+			path.startsWith('/') ||
+			path.startsWith('http://') ||
+			path.startsWith('https://') ||
+			path.startsWith('data:') ||
+			path.startsWith('blob:')
+		) {
+			return path;
+		}
+		return `/${path}`;
+	}
+
+	let locationIconPath = $derived(
+		toAbsoluteAssetPath(
+			LOCATION_ICONS[location.id] ?? CATEGORY_ICONS[location.category] ?? FALLBACK_ICON
+		)
+	);
+
 	function handleClueToggle(clueId: string) {
 		onToggleClue?.(clueId);
 	}
@@ -55,7 +75,7 @@
 <div class="sigil-location-detail" data-category={location.category}>
 	<!-- Header -->
 	<header class="location-header">
-		<div class="location-icon {location.category}"></div>
+		<div class="location-icon {location.category}" style="--location-icon: url('{locationIconPath}')"></div>
 		<div class="location-title">
 			<h2>{location.name}</h2>
 			<span class="location-category">{categoryLabels[location.category] ?? location.category}</span>
