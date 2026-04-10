@@ -41,15 +41,12 @@
 			Choose the alignment of <strong>{actorName}</strong>
 		</p>
 		<p class="ap-flavor">
-			In Sigil, every cutter's moral compass matters — the blades of the Lady cut
-			deeper when one's nature is known.
+			In Sigil, every cutter's moral compass matters - the blades of the Lady cut deeper when one's nature is known.
 		</p>
 		<div class="ap-sigil-rule"></div>
 	</header>
 
-	<!-- ── Alignment Grid ── -->
 	<div class="ap-grid-wrapper">
-		<!-- Column headers (law axis) -->
 		<div class="ap-col-headers">
 			{#each LAW_AXIS as label (label)}
 				<span class="ap-axis-label">{label}</span>
@@ -113,7 +110,7 @@
 
 <style>
 	/* ═══════════════════════════════════════════════════════════
-	   ALIGNMENT PICKER — Planescape Portal Theme
+											Alignment Picker Theme
 	   ═══════════════════════════════════════════════════════════ */
 
 	.alignment-picker {

@@ -6,8 +6,10 @@ export interface HarbingerScene {
 	/** Background image configuration */
 	background: {
 		src: string;
+		offsetX?: number;
+		offsetY?: number;
 	};
-	/** Grid configuration - PF2E uses 5ft squares, typically 70px */
+	/** Grid configuration - PF2E uses 5ft squares */
 	grid: {
 		type: number; // 1 = Square
 		size: number; // Pixels per grid square
@@ -58,7 +60,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -85,7 +87,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1, // Square grid
-			size: 70, // Standard for PF2E
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -110,7 +112,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -135,7 +137,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -160,7 +162,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -185,7 +187,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -210,7 +212,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -235,7 +237,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -260,7 +262,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},
@@ -285,7 +287,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		},
 		grid: {
 			type: 1,
-			size: 70,
+			size: 102,
 			distance: 5,
 			units: 'ft',
 		},

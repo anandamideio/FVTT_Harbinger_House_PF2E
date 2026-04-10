@@ -261,6 +261,8 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 		img: scene.img,
 		background: {
 			src: scene.background.src,
+			offsetX: scene.background.offsetX ?? 6,
+			offsetY: scene.background.offsetY ?? 2,
 		},
 		foreground: null,
 		thumb: scene.img,

@@ -1104,7 +1104,11 @@ declare global {
 		_id?: string;
 		name: string;
 		img?: string;
-		background?: { src: string };
+		background?: {
+			src: string;
+			offsetX?: number;
+			offsetY?: number;
+		};
 		foreground?: string | null;
 		thumb?: string;
 		width?: number;

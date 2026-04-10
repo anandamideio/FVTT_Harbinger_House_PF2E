@@ -28,7 +28,7 @@ export const ALIGNMENTS: Alignment[] = [
 		name: 'Lawful Good',
 		abbreviation: 'LG',
 		description:
-			'A paragon of order and virtue. Crusaders, paladins, and those who uphold justice through righteous law walk this path.',
+			'A paragon of order and virtue. Those who uphold justice through righteous law walk this path.',
 		hue: 45,
 		sat: '70%',
 		icon: '⚜️',
@@ -39,7 +39,7 @@ export const ALIGNMENTS: Alignment[] = [
 		name: 'Neutral Good',
 		abbreviation: 'NG',
 		description:
-			'Guided by conscience alone, doing good without regard for law or chaos. Healers and benevolent wanderers favor this path.',
+			'Guided by conscience alone, doing good without regard for law or chaos.',
 		hue: 120,
 		sat: '45%',
 		icon: '🌿',
@@ -116,7 +116,7 @@ export const ALIGNMENTS: Alignment[] = [
 		name: 'Chaotic Evil',
 		abbreviation: 'CE',
 		description:
-			'Destruction without purpose, cruelty without restraint. Demons, Sougad the Lawshredder, and those who revel in suffering and entropy.',
+			'Destruction without purpose, cruelty without restraint. Demons, and those who revel in suffering and entropy.',
 		hue: 10,
 		sat: '65%',
 		icon: '🔥',

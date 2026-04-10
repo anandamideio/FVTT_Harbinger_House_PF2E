@@ -67,6 +67,27 @@ describe('sceneToDocumentData', () => {
 		expect(doc.notes).toEqual([]);
 	});
 
+	it('applies default background offsets', () => {
+		const doc = sceneToDocumentData(BASE_SCENE);
+
+		expect(doc.background?.offsetX).toBe(6);
+		expect(doc.background?.offsetY).toBe(2);
+	});
+
+	it('respects explicit background offset overrides', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			background: {
+				...BASE_SCENE.background,
+				offsetX: 14,
+				offsetY: 9,
+			},
+		});
+
+		expect(doc.background?.offsetX).toBe(14);
+		expect(doc.background?.offsetY).toBe(9);
+	});
+
 	it('passes through explicit embedded placeables', () => {
 		const walls = [{ c: [0, 0, 100, 0], move: 1, sense: 1, sound: 1, door: 0, ds: 0, dir: 0 }];
 		const lights = [{ x: 240, y: 320, config: { dim: 20, bright: 10, color: '#ffd680' } }];
