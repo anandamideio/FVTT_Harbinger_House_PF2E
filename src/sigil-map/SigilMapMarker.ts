@@ -14,6 +14,9 @@ import {
 	MARKER_ICON_SIZE,
 	MARKER_LABEL_FONT_SIZE,
 	MARKER_LABEL_OFFSET_Y,
+	MARKER_ZOOM_COMPENSATION_STRENGTH,
+	MARKER_ZOOM_SCALE_MAX,
+	MARKER_ZOOM_SCALE_MIN,
 } from './constants';
 
 export class SigilMapMarker extends PIXI.Container {
@@ -28,6 +31,7 @@ export class SigilMapMarker extends PIXI.Container {
 	private _isHovered = false;
 	private _ambientTime = 0;
 	private _animating = false;
+	private _zoomCompensationScale = 1;
 
 	constructor(location: SigilLocation, state: LocationState) {
 		super();
@@ -74,6 +78,10 @@ export class SigilMapMarker extends PIXI.Container {
 		return CATEGORY_COLORS[this.location.category] ?? 0xffffff;
 	}
 
+	get hitRadius(): number {
+		return MARKER_HIT_RADIUS * this._zoomCompensationScale;
+	}
+
 	/** Update the marker's state, optionally playing an animation */
 	setState(state: LocationState, animate: boolean): void {
 		this._state = state;
@@ -84,6 +92,18 @@ export class SigilMapMarker extends PIXI.Container {
 	setHovered(hovered: boolean): void {
 		this._isHovered = hovered;
 		this._updateHoverVisuals();
+	}
+
+	/** Update marker scale compensation using the current scene zoom value. */
+	setZoomCompensation(sceneZoom: number): void {
+		const safeZoom = Number.isFinite(sceneZoom) && sceneZoom > 0 ? sceneZoom : 1;
+		const inverse = 1 / safeZoom;
+		const compensated = 1 + (inverse - 1) * MARKER_ZOOM_COMPENSATION_STRENGTH;
+		const nextScale = Math.min(MARKER_ZOOM_SCALE_MAX, Math.max(MARKER_ZOOM_SCALE_MIN, compensated));
+		if (Math.abs(nextScale - this._zoomCompensationScale) < 0.001) return;
+
+		this._zoomCompensationScale = nextScale;
+		this.scale.set(nextScale);
 	}
 
 	/** Called each frame for ambient animations */

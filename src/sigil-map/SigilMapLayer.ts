@@ -3,7 +3,6 @@ import { ALL_SIGIL_LOCATIONS } from '../data/sigil-locations';
 import type { SigilLocation } from '../data/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import { SigilMapMarker } from './SigilMapMarker';
-import { MARKER_HIT_RADIUS } from './constants';
 import {
 	getAllLocationStates,
 	isSigilScene,
@@ -29,6 +28,9 @@ export class SigilMapLayer extends CanvasLayerBase {
 
 	/** Registered DOM event handlers for cleanup */
 	private _domHandlers: { event: string; fn: EventListener }[] = [];
+
+	/** Last stage zoom used to scale markers. */
+	private _lastStageZoom: number | null = null;
 
 	// ========================================================================
 	// CanvasLayer options
@@ -87,6 +89,9 @@ export class SigilMapLayer extends CanvasLayerBase {
 			this._createMarker(location, state);
 		}
 
+		// Sync initial marker scale to current canvas zoom.
+		this._syncMarkerZoomScaling(true);
+
 		// Wire DOM-level pointer events on the canvas element.
 		// We bypass PIXI's event propagation entirely because CanvasLayer
 		// sits inside Foundry's InterfaceCanvasGroup where the active
@@ -107,6 +112,7 @@ export class SigilMapLayer extends CanvasLayerBase {
 		this._markers.clear();
 		this.removeChildren();
 		this._active = false;
+		this._lastStageZoom = null;
 	}
 
 	// ========================================================================
@@ -230,14 +236,14 @@ export class SigilMapLayer extends CanvasLayerBase {
 	/** Find the closest revealed marker within hit radius of a local point. */
 	private _findMarkerAt(lx: number, ly: number): SigilMapMarker | undefined {
 		let closest: SigilMapMarker | undefined;
-		let closestDist = MARKER_HIT_RADIUS;
+		let closestDist = Number.POSITIVE_INFINITY;
 
 		for (const marker of this._markers.values()) {
 			if (marker.revealState === 'hidden') continue;
 			const dx = lx - marker.location.x;
 			const dy = ly - marker.location.y;
 			const dist = Math.sqrt(dx * dx + dy * dy);
-			if (dist < closestDist) {
+			if (dist <= marker.hitRadius && dist < closestDist) {
 				closestDist = dist;
 				closest = marker;
 			}
@@ -321,6 +327,8 @@ export class SigilMapLayer extends CanvasLayerBase {
 		let lastTime = performance.now();
 
 		this._tickerFn = () => {
+			this._syncMarkerZoomScaling();
+
 			const now = performance.now();
 			const deltaMs = now - lastTime;
 			lastTime = now;
@@ -331,6 +339,20 @@ export class SigilMapLayer extends CanvasLayerBase {
 		};
 
 		canvas.app.ticker.add(this._tickerFn);
+	}
+
+	private _syncMarkerZoomScaling(force = false): void {
+		const rawZoom = canvas.stage?.scale?.x;
+		const zoom = Number.isFinite(rawZoom) && rawZoom > 0 ? rawZoom : 1;
+
+		if (!force && this._lastStageZoom !== null && Math.abs(zoom - this._lastStageZoom) < 0.001) {
+			return;
+		}
+
+		this._lastStageZoom = zoom;
+		for (const marker of this._markers.values()) {
+			marker.setZoomCompensation(zoom);
+		}
 	}
 
 	private _stopTicker(): void {
