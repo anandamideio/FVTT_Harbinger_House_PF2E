@@ -245,23 +245,22 @@ export class SigilMapMarker extends PIXI.Container {
 		}
 		const text = new PIXI.Text(parts.join('\n'), {
 			fontFamily: 'Rotis Serif, Georgia, serif',
-			fontSize: 11,
+			fontSize: 20,
+			fontWeight: '500',
 			fill: '#e0d6c2',
 			stroke: '#1a1108',
-			strokeThickness: 3,
-			dropShadow: true,
-			dropShadowColor: '#000000',
-			dropShadowDistance: 1,
-			dropShadowBlur: 3,
+			strokeThickness: 2,
+			dropShadow: false,
 			align: 'center',
+			lineHeight: 20,
 			wordWrap: true,
-			wordWrapWidth: 220,
+			wordWrapWidth: 320,
 		} as Partial<PIXI.ITextStyle>);
 		text.anchor.set(0.5, 1);
 		text.y = -(MARKER_ICON_SIZE / 2 + 8);
 		text.alpha = 0;
 		text.visible = false;
-		text.resolution = 2;
+		text.resolution = 4;
 		return text;
 	}
 
@@ -398,8 +397,6 @@ export class SigilMapMarker extends PIXI.Container {
 
 	private _animateInvestigate(progress: number): void {
 		const glowEnd = ANIM.INVESTIGATE_GLOW_DURATION / ANIM.INVESTIGATE_TOTAL;
-		const iconStart = ANIM.INVESTIGATE_ICON_START / ANIM.INVESTIGATE_TOTAL;
-		const iconEnd = ANIM.INVESTIGATE_ICON_END / ANIM.INVESTIGATE_TOTAL;
 		const flashStart = ANIM.INVESTIGATE_FLASH_START / ANIM.INVESTIGATE_TOTAL;
 		const flashEnd = ANIM.INVESTIGATE_FLASH_END / ANIM.INVESTIGATE_TOTAL;
 
