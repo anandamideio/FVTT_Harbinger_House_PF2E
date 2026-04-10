@@ -2,6 +2,7 @@ import consola from 'consola';
 
 export const MODULE_ID = 'harbinger-house-pf2e';
 export const MODULE_NAME = 'Harbinger House PF2e';
+export const HARBINGER_JOURNAL_SHEET_CLASS = `${MODULE_ID}.HarbingerJournalSheet`;
 
 // Adventure compendium pack reference
 export const ADVENTURE_PACK = `${MODULE_ID}.harbinger-house`;

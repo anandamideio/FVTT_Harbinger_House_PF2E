@@ -3,6 +3,7 @@ import { registerAlignmentSockets } from './character-sheet/alignment-sockets';
 import { registerCharacterSheetHooks } from './character-sheet/sigil-faction';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
+import { HarbingerJournalSheet } from './harbinger-journal-sheet';
 import { MACROS, type HarbingerHouseMacroAPI } from './macros';
 import { SigilMapLayer, registerSigilMapHooks, registerSigilMapSockets } from './sigil-map';
 
@@ -77,6 +78,15 @@ Hooks.once('init', async () => {
 		label: 'HARBINGER-HOUSE.adventure.importer',
 		makeDefault: false,
 		canConfigure: false,
+		canBeDefault: false,
+	});
+
+	// Register custom Journal sheet so imported journals receive themed styling without relying on render hooks.
+	DocumentSheetConfig.registerSheet(JournalEntry, MODULE_ID, HarbingerJournalSheet, {
+		types: ['base'],
+		label: 'Harbinger House',
+		makeDefault: false,
+		canConfigure: true,
 		canBeDefault: false,
 	});
 

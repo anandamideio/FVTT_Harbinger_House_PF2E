@@ -1,4 +1,4 @@
-import { MODULE_ID } from '../config';
+import { HARBINGER_JOURNAL_SHEET_CLASS, MODULE_ID } from '../config';
 import type { ActorData, ItemData, JournalEntryData, MacroData, SceneData } from '../types/foundry';
 import type { HarbingerNPC, NPCCategory, NPCEntry, NPCItemEntry } from './harbinger-residents';
 import { isSystemActorReference } from './harbinger-residents';
@@ -233,6 +233,9 @@ export function journalToDocumentData(journal: HarbingerJournal): JournalEntryDa
 		},
 		sort: journal.sort || 0,
 		flags: {
+			core: {
+				sheetClass: HARBINGER_JOURNAL_SHEET_CLASS,
+			},
 			[MODULE_ID]: {
 				imported: true,
 				sourceId: journal.id,

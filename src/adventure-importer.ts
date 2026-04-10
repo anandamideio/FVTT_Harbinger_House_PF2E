@@ -1,4 +1,4 @@
-import { log, logDebug, logError, logWarn, MODULE_ID } from './config';
+import { HARBINGER_JOURNAL_SHEET_CLASS, log, logDebug, logError, logWarn, MODULE_ID } from './config';
 
 /**
  * Pre-computed deterministic IDs matching build-packs.ts output.
@@ -630,15 +630,30 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		for (const journal of journals) {
 			const folderHint = journal.flags?.[MODULE_ID]?.folder;
 			const target = folderHint === 'Reference' ? reference : chapters;
-			if (journal.folder?.id !== target.id) {
-				this.#debug('Reassigning journal folder', {
-					journal: journal.name,
-					from: journal.folder?.id ?? null,
-					to: target.id,
-					folderHint: typeof folderHint === 'string' ? folderHint : 'Chapters',
-				});
-				await journal.update({ folder: target.id });
+			const currentSheetClass = journal.flags?.core?.sheetClass;
+			const needsFolderUpdate = journal.folder?.id !== target.id;
+			const needsSheetUpdate = currentSheetClass !== HARBINGER_JOURNAL_SHEET_CLASS;
+
+			if (!needsFolderUpdate && !needsSheetUpdate) continue;
+
+			const updateData: Record<string, unknown> = {};
+			if (needsFolderUpdate) {
+				updateData.folder = target.id;
 			}
+			if (needsSheetUpdate) {
+				updateData['flags.core.sheetClass'] = HARBINGER_JOURNAL_SHEET_CLASS;
+			}
+
+			this.#debug('Updating imported journal configuration', {
+				journal: journal.name,
+				fromFolder: journal.folder?.id ?? null,
+				toFolder: needsFolderUpdate ? target.id : journal.folder?.id ?? null,
+				currentSheetClass: typeof currentSheetClass === 'string' ? currentSheetClass : null,
+				targetSheetClass: HARBINGER_JOURNAL_SHEET_CLASS,
+				folderHint: typeof folderHint === 'string' ? folderHint : 'Chapters',
+			});
+
+			await journal.update(updateData as Partial<JournalEntryData>);
 		}
 
 		this.#debug('Ensured Harbinger House journal folder hierarchy', {
