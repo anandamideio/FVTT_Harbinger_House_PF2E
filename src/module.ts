@@ -1,7 +1,7 @@
 import { HarbingerHouseImporter } from './adventure-importer';
 import { registerAlignmentSockets } from './character-sheet/alignment-sockets';
 import { registerCharacterSheetHooks } from './character-sheet/sigil-faction';
-import { ADVENTURE_PACK, localize, log, logDebug, logError, MODULE_ID, registerSettings } from './config';
+import { ADVENTURE_PACK, localize, log, logDebug, logError, logWarn, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
 import { HarbingerJournalSheet } from './harbinger-journal-sheet';
 import { MACROS, type HarbingerHouseMacroAPI } from './macros';
@@ -12,6 +12,17 @@ const ADVENTURE_ID = '42cb37a38191040e';
 
 /** Full compendium UUID for the Adventure document */
 const ADVENTURE_UUID = `Compendium.${ADVENTURE_PACK}.Adventure.${ADVENTURE_ID}`;
+const PF2E_BESTIARY_MODULE_ID = 'pf2e-tokens-bestiaries';
+
+function warnIfBestiaryModuleInactive(): void {
+	const bestiaryModule = game.modules.get(PF2E_BESTIARY_MODULE_ID);
+	if (!bestiaryModule || bestiaryModule.active) return;
+
+	ui.notifications?.warn(localize('warnings.activateBestiaryBeforeImport'));
+	logWarn('PF2E Bestiary token module is installed but inactive', {
+		moduleId: PF2E_BESTIARY_MODULE_ID,
+	});
+}
 
 declare global {
 	interface Game {
@@ -40,6 +51,7 @@ interface HarbingerHouseAPI {
 async function openImporter(): Promise<void> {
 	try {
 		logDebug('[Importer] openImporter invoked', { packId: ADVENTURE_PACK });
+		warnIfBestiaryModuleInactive();
 
 		const pack = game.packs.get(ADVENTURE_PACK);
 		if (!pack) {

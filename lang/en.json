@@ -71,6 +71,9 @@
 			"none": "— Unaligned —",
 			"pickerTitle": "Declare Your Alignment"
 		},
+		"warnings": {
+			"activateBestiaryBeforeImport": "Pathfinder Token Pack: Bestiaries is installed but inactive. Activate it before running the Harbinger House importer."
+		},
 		"errors": {
 			"pf2eRequired": "This module requires the Pathfinder 2e system."
 		}
