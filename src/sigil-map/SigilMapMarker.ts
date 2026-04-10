@@ -177,6 +177,11 @@ export class SigilMapMarker extends PIXI.Container {
 		return gfx;
 	}
 
+	/** Y position where hover text/plaque are anchored (slightly above marker top edge). */
+	private _getHoverAnchorY(): number {
+		return -(MARKER_GLOW_RADIUS + 35);
+	}
+
 	/** Redraw the hover plaque behind the label, sized to fit the current text. */
 	private _refreshHoverPanel(): void {
 		const gfx = this._hoverPanel;
@@ -186,8 +191,8 @@ export class SigilMapMarker extends PIXI.Container {
 		const tw = label.width;
 		const th = label.height;
 
-		// Anchor is (0.5, 1) at y = -(MARKER_ICON_SIZE/2 + 8)
-		const anchorY = -(MARKER_ICON_SIZE / 2 + 8);
+		// Anchor is (0.5, 1) slightly above the circular marker top edge.
+		const anchorY = this._getHoverAnchorY();
 		const padX = 14;
 		const padY = 10;
 		const cornerSize = 5;
@@ -245,19 +250,19 @@ export class SigilMapMarker extends PIXI.Container {
 		}
 		const text = new PIXI.Text(parts.join('\n'), {
 			fontFamily: 'Rotis Serif, Georgia, serif',
-			fontSize: 20,
+			fontSize: 24,
 			fontWeight: '500',
 			fill: '#e0d6c2',
 			stroke: '#1a1108',
 			strokeThickness: 2,
 			dropShadow: false,
 			align: 'center',
-			lineHeight: 20,
+			lineHeight: 28,
 			wordWrap: true,
 			wordWrapWidth: 320,
 		} as Partial<PIXI.ITextStyle>);
 		text.anchor.set(0.5, 1);
-		text.y = -(MARKER_ICON_SIZE / 2 + 8);
+		text.y = this._getHoverAnchorY();
 		text.alpha = 0;
 		text.visible = false;
 		text.resolution = 4;
