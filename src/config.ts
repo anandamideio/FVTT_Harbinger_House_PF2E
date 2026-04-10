@@ -55,6 +55,16 @@ export function logDebug(...args: unknown[]): void {
 	consola.info(`${MODULE_NAME} [debug] |`, ...args);
 }
 
+function isDevelopmentBuild(): boolean {
+	try {
+		// Local build artifacts are versioned as x.y.z-dev.TIMESTAMP in vite.config.ts.
+		const moduleVersion = game.modules.get(MODULE_ID)?.version;
+		return typeof moduleVersion === 'string' && moduleVersion.includes('-dev.');
+	} catch {
+		return false;
+	}
+}
+
 export function registerSettings(): void {
 	// Show welcome/import dialog on load
 	game.settings.register(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG, {
@@ -73,7 +83,7 @@ export function registerSettings(): void {
 		scope: 'client',
 		config: true,
 		type: Boolean,
-		default: false,
+		default: isDevelopmentBuild(),
 	});
 
 	// Sigil Investigation Map - master toggle

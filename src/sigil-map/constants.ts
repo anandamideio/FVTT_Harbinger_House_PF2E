@@ -148,7 +148,15 @@ export const CATEGORY_ICONS = {
 
 /** Per-location icon overrides for notable points of interest. */
 export const LOCATION_ICONS: Record<string, string> = {
+	'bloodgem-park': `${ASSET_BASE}/icons/spiked-fence.svg`,
 	'city-barracks': `${ASSET_BASE}/icons/medieval-barracks.svg`,
+	'city-court': `${ASSET_BASE}/icons/gavel.svg`,
+	'great-foundry': `${ASSET_BASE}/icons/foundry-bucket.svg`,
+	'grossifs-paints': `${ASSET_BASE}/icons/warehouse.svg`,
+	'logus-bath-powder': `${ASSET_BASE}/icons/warehouse.svg`,
+	'penbrums-parchments': `${ASSET_BASE}/icons/warehouse.svg`,
+	'shattered-temple': `${ASSET_BASE}/icons/ancient-ruins.svg`,
+	'sod-dirks-forge': `${ASSET_BASE}/icons/anvil-impact.svg`,
 	'the-prison': `${ASSET_BASE}/icons/cage.svg`,
 };
 
