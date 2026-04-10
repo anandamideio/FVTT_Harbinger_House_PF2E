@@ -1,4 +1,5 @@
 import { HarbingerHouseImporter } from './adventure-importer';
+import { registerCharacterSheetHooks } from './character-sheet/sigil-faction';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
 import { MACROS, type HarbingerHouseMacroAPI } from './macros';
@@ -88,6 +89,9 @@ Hooks.once('init', async () => {
 
 	// Register Sigil map hooks (canvasReady, updateScene, scene controls, etc.)
 	registerSigilMapHooks();
+
+	// Inject Sigil Faction selector into PF2E character sheets
+	registerCharacterSheetHooks();
 
 	// Register runtime macro implementations on the module object.
 	const thisModule = game.modules.get(MODULE_ID) as (Module & { macros?: HarbingerHouseMacroAPI }) | undefined;
