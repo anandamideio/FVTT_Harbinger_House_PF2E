@@ -1053,6 +1053,9 @@ declare global {
 		get system(): Record<string, unknown>;
 		get items(): undefined;
 		sheet: { render(options?: { force?: boolean }): void };
+		getFlag(scope: string, key: string): unknown;
+		setFlag(scope: string, key: string, value: unknown): Promise<this>;
+		unsetFlag(scope: string, key: string): Promise<this>;
 	}
 
 	interface JournalEntryData {

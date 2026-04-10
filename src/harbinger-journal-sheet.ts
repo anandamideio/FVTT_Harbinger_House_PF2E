@@ -1,5 +1,16 @@
 import { logDebug, MODULE_ID } from './config';
 import { FACTION_FLAG, SIGIL_FACTIONS } from './character-sheet/factions';
+import { ALL_NPCS, getNPCById } from './data';
+import { isSystemActorReference, type HarbingerNPC } from './data/harbinger-residents';
+import { formatPF2eStatblock } from './data/pf2e-statblock-formatter';
+
+const STATBLOCK_VIEW_FLAG = 'statblockView';
+type StatblockView = 'pf2e' | 'classic';
+const DEFAULT_STATBLOCK_VIEW: StatblockView = 'pf2e';
+
+const KNOWN_NPC_IDS = new Set(
+	ALL_NPCS.filter((npc) => !isSystemActorReference(npc)).map((npc) => (npc as HarbingerNPC).id),
+);
 
 /**
  * Custom journal sheet used by Harbinger House journal entries.
@@ -37,10 +48,77 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 
 		if (this.document) {
 			HarbingerJournalSheet.decorateFactionCallouts(this.document, $root);
+			HarbingerJournalSheet.decorateStatblocks(this.document, $root);
 		}
 
 		logDebug('[JournalFaction] HarbingerJournalSheet _onRender complete', {
 			journalName: this.document?.name,
+		});
+	}
+
+	static decorateStatblocks(journal: JournalEntryClass, html: JQuery): void {
+		const $statblocks = html.find('.statblock').not('.pf2e-rendered');
+		if ($statblocks.length === 0) return;
+
+		const view = (journal.getFlag(MODULE_ID, STATBLOCK_VIEW_FLAG) as StatblockView | undefined) ?? DEFAULT_STATBLOCK_VIEW;
+
+		let decoratedCount = 0;
+		for (const element of $statblocks.toArray()) {
+			const $classic = $(element);
+			const npcId = resolveNPCIdFromStatblock($classic);
+			if (!npcId) continue;
+
+			const npc = getNPCById(npcId);
+			if (!npc || isSystemActorReference(npc)) continue;
+
+			$classic.addClass('pf2e-rendered classic-view');
+
+			const pf2eHtml = formatPF2eStatblock(npc as HarbingerNPC);
+			const $pf2e = $(`<div class="statblock pf2e-view ${escapeClass(npcId)}"></div>`).html(pf2eHtml);
+
+			const $container = $(`<div class="statblock-container" data-npc-id="${escapeClass(npcId)}" data-view="${view}"></div>`);
+			const $header = $(
+				`<div class="statblock-header">
+					<button type="button" class="statblock-toggle" aria-pressed="${view === 'pf2e'}">
+						<span class="statblock-toggle-label">${view === 'pf2e' ? 'Pathfinder 2e' : 'AD&amp;D 2e (Classic)'}</span>
+						<span class="statblock-toggle-hint">click to switch</span>
+					</button>
+				</div>`,
+			);
+
+			$classic.before($container);
+			$container.append($header).append($classic).append($pf2e);
+			decoratedCount++;
+		}
+
+		if (decoratedCount === 0) return;
+
+		html.off('click.harbinger-statblock').on('click.harbinger-statblock', '.statblock-toggle', async (event) => {
+			event.preventDefault();
+			const $button = $(event.currentTarget as HTMLElement);
+			const $container = $button.closest('.statblock-container');
+			const current = ($container.attr('data-view') as StatblockView | undefined) ?? DEFAULT_STATBLOCK_VIEW;
+			const next: StatblockView = current === 'pf2e' ? 'classic' : 'pf2e';
+
+			html.find('.statblock-container').each((_, el) => {
+				const $c = $(el);
+				$c.attr('data-view', next);
+				const $btn = $c.find('.statblock-toggle');
+				$btn.attr('aria-pressed', String(next === 'pf2e'));
+				$btn.find('.statblock-toggle-label').text(next === 'pf2e' ? 'Pathfinder 2e' : 'AD\u0026D 2e (Classic)');
+			});
+
+			try {
+				await journal.setFlag(MODULE_ID, STATBLOCK_VIEW_FLAG, next);
+			} catch (err) {
+				logDebug('[JournalStatblock] Failed to persist statblock view preference', { error: String(err) });
+			}
+		});
+
+		logDebug('[JournalStatblock] Decorated statblocks', {
+			journalName: journal.name,
+			decoratedCount,
+			view,
 		});
 	}
 
@@ -292,4 +370,16 @@ function normalizeFactionHeading(value: string): string {
 		.replace(/[^a-z0-9]+/g, ' ')
 		.trim()
 		.replace(/^the\s+/, '');
+}
+
+function resolveNPCIdFromStatblock($statblock: JQuery): string | null {
+	const classList = ($statblock.attr('class') ?? '').split(/\s+/).filter(Boolean);
+	for (const className of classList) {
+		if (KNOWN_NPC_IDS.has(className)) return className;
+	}
+	return null;
+}
+
+function escapeClass(value: string): string {
+	return value.replace(/[^a-zA-Z0-9_-]/g, '');
 }

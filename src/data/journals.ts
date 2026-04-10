@@ -196,7 +196,9 @@ function processBlockquotes(text: string): string {
 				if (type === 'statblock') {
 					// Statblock: emit raw inner content so the rest of the
 					// markdown pipeline (headers, tables, lists) processes it.
-					result.push(`<div class="statblock">`);
+					// Modifier (if present) is an NPC id used to link the
+					// classic block to its PF2e actor data for the toggle.
+					result.push(`<div class="${className}">`);
 					result.push(content);
 					result.push('</div>');
 				} else {

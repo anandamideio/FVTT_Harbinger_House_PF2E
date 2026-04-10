@@ -1089,6 +1089,131 @@ span.page-title {
 	opacity: 1;
 }
 
+/* ---- Statblock toggle (PF2e ↔ Classic) ---- */
+.journal-sheet.harbinger-journal .statblock-container {
+	margin: 1.5rem 0.5rem;
+	position: relative;
+}
+
+.journal-sheet.harbinger-journal .statblock-container > .statblock {
+	margin: 0;
+}
+
+.journal-sheet.harbinger-journal .statblock-header {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 0.25rem;
+}
+
+.journal-sheet.harbinger-journal .statblock-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: linear-gradient(180deg, var(--harbinger-secondary) 0%, #1a1a1a 100%);
+	color: var(--harbinger-accent);
+	border: 1px solid var(--harbinger-primary);
+	border-radius: 2px;
+	padding: 0.3rem 0.75rem;
+	font-family: "Exocet Blizzard Light", "Exocet Blizzard", "Georgia", serif;
+	font-size: 11px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.journal-sheet.harbinger-journal .statblock-toggle:hover {
+	background: linear-gradient(180deg, var(--harbinger-primary) 0%, var(--harbinger-secondary) 100%);
+	color: #f4e8d0;
+	box-shadow: 0 0 6px rgba(212, 160, 23, 0.4);
+}
+
+.journal-sheet.harbinger-journal .statblock-toggle-label {
+	font-weight: 600;
+}
+
+.journal-sheet.harbinger-journal .statblock-toggle-hint {
+	font-size: 9px;
+	opacity: 0.7;
+	font-style: italic;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+/* View switching — CSS controls visibility based on container data-view */
+.journal-sheet.harbinger-journal .statblock-container[data-view="pf2e"] > .classic-view,
+.journal-sheet.harbinger-journal .statblock-container[data-view="classic"] > .pf2e-view {
+	display: none;
+}
+
+/* PF2e-specific statblock styling */
+.journal-sheet.harbinger-journal .statblock.pf2e-view {
+	background:
+		linear-gradient(180deg,
+			rgba(74, 63, 92, 0.12) 0%,
+			rgba(244, 232, 208, 0.28) 8%,
+			rgba(244, 232, 208, 0.28) 92%,
+			rgba(74, 63, 92, 0.12) 100%);
+	border-top-color: var(--harbinger-accent);
+	border-bottom-color: var(--harbinger-accent);
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view::before,
+.journal-sheet.harbinger-journal .statblock.pf2e-view::after {
+	background: linear-gradient(to right, transparent, var(--harbinger-accent), transparent);
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view h2 {
+	color: var(--harbinger-accent);
+	border-bottom-color: rgba(212, 160, 23, 0.35);
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view .pf2e-traits {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	margin: 0.35rem 0 0.5rem 0;
+	padding: 0;
+	text-indent: 0;
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view .pf2e-trait {
+	display: inline-block;
+	background: var(--harbinger-primary);
+	color: #f4e8d0;
+	font-family: "Exocet Blizzard Light", "Georgia", serif;
+	font-size: 10px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	padding: 0.1rem 0.4rem;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 1px;
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view .pf2e-trait-unique {
+	background: #4a3f5c;
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view .pf2e-trait-rare {
+	background: #1e4d8f;
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view .pf2e-notes {
+	margin-top: 0.75rem;
+	padding-top: 0.5rem;
+	border-top: 1px solid rgba(110, 0, 0, 0.2);
+	font-size: 12px;
+	font-style: italic;
+	color: var(--harbinger-secondary);
+}
+
+.journal-sheet.harbinger-journal .statblock.pf2e-view .pf2e-notes p {
+	font-size: 12px;
+	margin-bottom: 0.3rem;
+}
+
 /* ---- Content Block: Section Divider ---- */
 .journal-sheet.harbinger-journal .section-divider {
 	border: none;
