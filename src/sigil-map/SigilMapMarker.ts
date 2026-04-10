@@ -46,6 +46,11 @@ export class SigilMapMarker extends PIXI.Container {
 		// Build child display objects
 		this._backgroundGlow = this._createGlow();
 		this._iconSprite = this._createIcon();
+		this._iconSprite.on('textureUpdate', () => {
+			if (!this._animating) {
+				this._applyIconInteractionScale();
+			}
+		});
 		this._labelText = this._createLabel();
 		this._hoverPanel = this._createHoverPanel();
 		this._hoverLabel = this._createHoverLabel();
@@ -281,6 +286,18 @@ export class SigilMapMarker extends PIXI.Container {
 		return gfx;
 	}
 
+	/** Set icon display size relative to the configured base size. */
+	private _setIconDisplaySize(multiplier: number): void {
+		const size = MARKER_ICON_SIZE * multiplier;
+		this._iconSprite.width = size;
+		this._iconSprite.height = size;
+	}
+
+	/** Apply icon scale for the current hover state (outside reveal animations). */
+	private _applyIconInteractionScale(): void {
+		this._setIconDisplaySize(this._isHovered ? 1.15 : 1);
+	}
+
 	// ========================================================================
 	// Private: Visuals
 	// ========================================================================
@@ -301,7 +318,9 @@ export class SigilMapMarker extends PIXI.Container {
 			this._backgroundGlow.alpha = Math.min(1, this._backgroundGlow.alpha * 1.5);
 
 			// Slight scale up
-			this._iconSprite.scale.set(1.15);
+			if (!this._animating) {
+				this._applyIconInteractionScale();
+			}
 		} else {
 			this._hoverPanel.visible = false;
 			this._hoverPanel.alpha = 0;
@@ -309,7 +328,9 @@ export class SigilMapMarker extends PIXI.Container {
 			this._hoverLabel.visible = false;
 			this._hoverLabel.alpha = 0;
 
-			this._iconSprite.scale.set(1);
+			if (!this._animating) {
+				this._applyIconInteractionScale();
+			}
 		}
 	}
 
@@ -321,10 +342,17 @@ export class SigilMapMarker extends PIXI.Container {
 		const state = this._state.revealState;
 
 		if (state === 'hidden') {
+			this._isHovered = false;
 			this.alpha = MARKER_ALPHA.hidden;
 			this._backgroundGlow.alpha = 0;
+			this._backgroundGlow.scale.set(1);
 			this._iconSprite.alpha = 0;
+			this._applyIconInteractionScale();
 			this._labelText.alpha = 0;
+			this._hoverPanel.visible = false;
+			this._hoverPanel.alpha = 0;
+			this._hoverLabel.visible = false;
+			this._hoverLabel.alpha = 0;
 			return;
 		}
 
@@ -334,7 +362,9 @@ export class SigilMapMarker extends PIXI.Container {
 			// Snap to final state
 			this.alpha = MARKER_ALPHA[state];
 			this._backgroundGlow.alpha = GLOW_ALPHA[state];
+			this._backgroundGlow.scale.set(1);
 			this._iconSprite.alpha = 1;
+			this._applyIconInteractionScale();
 
 			// Name always shown for both discovered and investigated
 			this._labelText.alpha = 1;
@@ -391,7 +421,7 @@ export class SigilMapMarker extends PIXI.Container {
 			this._iconSprite.alpha = iconProgress;
 			// Bounce: overshoot to 1.2x then settle
 			const bounce = 1 + Math.sin(iconProgress * Math.PI) * 0.2;
-			this._iconSprite.scale.set(bounce);
+			this._setIconDisplaySize(bounce);
 		}
 
 		// Label: always visible for discovered

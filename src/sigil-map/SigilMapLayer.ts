@@ -260,7 +260,11 @@ export class SigilMapLayer extends CanvasLayerBase {
 
 		if (marker !== this._hoveredMarker) {
 			this._hoveredMarker?.setHovered(false);
-			marker?.setHovered(true);
+			if (marker) {
+				// Keep the hovered marker's hover plaque/text above neighboring markers.
+				this.addChild(marker);
+				marker.setHovered(true);
+			}
 			this._hoveredMarker = marker ?? null;
 
 			// Update cursor on the canvas element

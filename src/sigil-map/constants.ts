@@ -47,15 +47,16 @@ export const MARKER_LABEL_OFFSET_Y = 36;
 
 /**
  * How strongly markers resist shrinking when zooming out.
- * 0 = no compensation, 1 = full inverse zoom compensation.
+ * 0 = no compensation, 1 = full inverse zoom compensation,
+ * values above 1 overshoot for extra readability when heavily zoomed out.
  */
-export const MARKER_ZOOM_COMPENSATION_STRENGTH = 0.4;
+export const MARKER_ZOOM_COMPENSATION_STRENGTH = 1.12;
 
 /** Minimum marker scale multiplier from zoom compensation. */
 export const MARKER_ZOOM_SCALE_MIN = 0.85;
 
 /** Maximum marker scale multiplier from zoom compensation. */
-export const MARKER_ZOOM_SCALE_MAX = 1.65;
+export const MARKER_ZOOM_SCALE_MAX = 3.5;
 
 // ============================================================================
 // Animation Timing (milliseconds)
