@@ -9,7 +9,7 @@ const STARTING_SCENE_SOURCE_ID = 'scene-sigil';
 const GETTING_STARTED_JOURNAL_ID = '373d8b09682157da'; // journal-1
 
 /** Background image for login screen customization */
-const LOGIN_BACKGROUND = `modules/${MODULE_ID}/dist/assets/art/Harbinger_House_Exterior.jpg`;
+const LOGIN_BACKGROUND = `modules/${MODULE_ID}/dist/assets/art/LadyOfPain.jpg`;
 const MAP_FOLDER_ROOT = 'Harbinger House Maps';
 const MAP_ROOT_HINT_ALIASES = new Set(['Maps', MAP_FOLDER_ROOT]);
 const MAP_CHAPTER_FOLDERS = ['Chapter 1', 'Chapter 2', 'Chapter 3'] as const;
