@@ -30,6 +30,15 @@ export interface HarbingerScene {
 	tokenVision?: boolean;
 	/** If false, scene fog exploration progress is not recorded */
 	fogExploration?: boolean;
+	/** Optional embedded scene placeables exported from Foundry */
+	drawings?: object[];
+	tokens?: object[];
+	lights?: object[];
+	notes?: object[];
+	sounds?: object[];
+	templates?: object[];
+	tiles?: object[];
+	walls?: object[];
 	/** Folder for organization */
 	folder?: string;
 	sort?: number;

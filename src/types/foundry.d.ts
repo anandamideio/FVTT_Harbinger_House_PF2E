@@ -1284,6 +1284,11 @@ declare global {
 			): T;
 			getRoute(path: string): string;
 		};
+		canvas: {
+			layers: {
+				CanvasLayer: typeof CanvasLayer;
+			};
+		};
 		data: {
 			fields: {
 				SchemaField: new (fields: Record<string, unknown>) => unknown;

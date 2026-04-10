@@ -25,6 +25,7 @@ interface HarbingerHouseAPI {
 	toggleAmbientSounds: HarbingerHouseMacroAPI['toggleAmbientSounds'];
 	openImportDialog: HarbingerHouseMacroAPI['openImportDialog'];
 	applyTokenRingStyling: HarbingerHouseMacroAPI['applyTokenRingStyling'];
+	exportSceneData: HarbingerHouseMacroAPI['exportSceneData'];
 	calibrateSigilLocation: HarbingerHouseMacroAPI['calibrateSigilLocation'];
 }
 

@@ -1,4 +1,5 @@
 import { MODULE_ID, log, logWarn } from './config';
+import type { HarbingerScene } from './data/scenes';
 import { ALL_SIGIL_LOCATIONS, getLocationById, type SigilLocation } from './data/sigil-locations';
 import { isSigilScene } from './sigil-map/sigil-map-state';
 
@@ -57,6 +58,7 @@ export interface HarbingerHouseMacroAPI {
 	toggleAmbientSounds: () => Promise<void>;
 	openImportDialog: () => Promise<void>;
 	applyTokenRingStyling: () => Promise<void>;
+	exportSceneData: () => Promise<void>;
 	calibrateSigilLocation: () => Promise<void>;
 }
 
@@ -146,6 +148,226 @@ async function applyTokenRingStyling(): Promise<void> {
 	}
 
 	ui.notifications.info(`Applied token ring styling to ${tokens.length} token(s).`);
+}
+
+const PLACEABLE_FIELDS = [
+	'drawings',
+	'tokens',
+	'lights',
+	'notes',
+	'sounds',
+	'templates',
+	'tiles',
+	'walls',
+] as const;
+
+function escapeHtml(value: string): string {
+	return value
+		.replaceAll('&', '&amp;')
+		.replaceAll('<', '&lt;')
+		.replaceAll('>', '&gt;')
+		.replaceAll('"', '&quot;');
+}
+
+function escapeTsString(value: string): string {
+	return value.replaceAll('\\', '\\\\').replaceAll("'", "\\'");
+}
+
+function isIdentifierKey(key: string): boolean {
+	return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key);
+}
+
+function formatTypeScriptLiteral(value: unknown, indent = 0): string {
+	if (value === null) return 'null';
+
+	const type = typeof value;
+	if (type === 'string') return `'${escapeTsString(value as string)}'`;
+	if (type === 'number' || type === 'boolean') return String(value);
+
+	if (Array.isArray(value)) {
+		if (value.length === 0) return '[]';
+		const padding = '\t'.repeat(indent);
+		const childPadding = '\t'.repeat(indent + 1);
+		const lines = value.map((entry) => `${childPadding}${formatTypeScriptLiteral(entry, indent + 1)},`);
+		return `[\n${lines.join('\n')}\n${padding}]`;
+	}
+
+	if (type === 'object') {
+		const entries = Object.entries(value as Record<string, unknown>).filter(([, entry]) => entry !== undefined);
+		if (entries.length === 0) return '{}';
+
+		const padding = '\t'.repeat(indent);
+		const childPadding = '\t'.repeat(indent + 1);
+		const lines = entries.map(([key, entry]) => {
+			const keyLabel = isIdentifierKey(key) ? key : `'${escapeTsString(key)}'`;
+			return `${childPadding}${keyLabel}: ${formatTypeScriptLiteral(entry, indent + 1)},`;
+		});
+
+		return `{\n${lines.join('\n')}\n${padding}}`;
+	}
+
+	return 'null';
+}
+
+function slugifySceneId(name: string): string {
+	const slug = name
+		.toLowerCase()
+		.replaceAll(/[^a-z0-9]+/g, '-')
+		.replaceAll(/^-+|-+$/g, '')
+		.replaceAll(/-{2,}/g, '-');
+
+	return slug ? `scene-${slug}` : 'scene-export';
+}
+
+function sanitizePlaceables(placeables: unknown): object[] | undefined {
+	if (!Array.isArray(placeables) || placeables.length === 0) {
+		return undefined;
+	}
+
+	return placeables.map((entry) => {
+		if (!entry || typeof entry !== 'object') {
+			return entry as object;
+		}
+
+		const cloned = JSON.parse(JSON.stringify(entry)) as Record<string, unknown>;
+		delete cloned._id;
+		delete cloned._stats;
+		delete cloned.folder;
+		delete cloned.ownership;
+		delete cloned.sort;
+		return cloned;
+	});
+}
+
+function getSceneModuleFlagValue(scene: SceneClass, key: 'sourceId' | 'folder'): string | undefined {
+	const moduleFlags = scene.flags?.[MODULE_ID];
+	if (!moduleFlags || typeof moduleFlags !== 'object') {
+		return undefined;
+	}
+
+	const value = (moduleFlags as Record<string, unknown>)[key];
+	return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
+
+function getSceneFolderName(scene: SceneClass): string | undefined {
+	const fromFlag = getSceneModuleFlagValue(scene, 'folder');
+	if (fromFlag) return fromFlag;
+
+	const folderName = (scene as unknown as { folder?: { name?: string | null } | null }).folder?.name;
+	return typeof folderName === 'string' && folderName.length > 0 ? folderName : undefined;
+}
+
+function buildHarbingerSceneExport(scene: SceneClass): HarbingerScene {
+	const sceneData = scene.toObject();
+	const backgroundSrc = sceneData.background?.src ?? sceneData.img ?? '';
+	const fogExploration = sceneData.fog?.exploration ?? sceneData.fogExploration;
+
+	const exportData: HarbingerScene = {
+		id: getSceneModuleFlagValue(scene, 'sourceId') ?? slugifySceneId(sceneData.name),
+		name: sceneData.name,
+		img: backgroundSrc,
+		background: {
+			src: backgroundSrc,
+		},
+		grid: {
+			type: sceneData.grid?.type ?? 1,
+			size: sceneData.grid?.size ?? 70,
+			distance: sceneData.grid?.distance ?? 5,
+			units: sceneData.grid?.units ?? 'ft',
+		},
+		initial: {
+			x: sceneData.initial?.x ?? null,
+			y: sceneData.initial?.y ?? null,
+			scale: sceneData.initial?.scale ?? 1,
+		},
+		width: sceneData.width ?? 0,
+		height: sceneData.height ?? 0,
+		navigation: sceneData.navigation ?? true,
+		navOrder: sceneData.navOrder ?? 0,
+	};
+
+	if (sceneData.tokenVision === false) {
+		exportData.tokenVision = false;
+	}
+
+	if (fogExploration === false) {
+		exportData.fogExploration = false;
+	}
+
+	const folder = getSceneFolderName(scene);
+	if (folder) {
+		exportData.folder = folder;
+	}
+
+	if (typeof sceneData.sort === 'number') {
+		exportData.sort = sceneData.sort;
+	}
+
+	for (const field of PLACEABLE_FIELDS) {
+		const collection = sanitizePlaceables(sceneData[field]);
+		if (collection) {
+			exportData[field] = collection;
+		}
+	}
+
+	return exportData;
+}
+
+async function copyToClipboard(text: string): Promise<boolean> {
+	if (!navigator.clipboard?.writeText) {
+		return false;
+	}
+
+	try {
+		await navigator.clipboard.writeText(text);
+		return true;
+	} catch (err) {
+		logWarn('Unable to copy scene export to clipboard.', err);
+		return false;
+	}
+}
+
+async function exportSceneData(): Promise<void> {
+	if (!game.user?.isGM) {
+		ui.notifications.warn('Only a GM can export scene data.');
+		return;
+	}
+
+	const scene = canvas.scene;
+	if (!scene) {
+		ui.notifications.warn('No active scene to export.');
+		return;
+	}
+
+	const exportData = buildHarbingerSceneExport(scene);
+	const snippet = `${formatTypeScriptLiteral(exportData)},`;
+	const copied = await copyToClipboard(snippet);
+
+	log(`[Scene Export] ${exportData.id} (${exportData.name})`, exportData);
+
+	new Dialog(
+		{
+			title: `Scene Export: ${exportData.name}`,
+			content: `
+				<p>Paste this object into <code>src/data/scenes.ts</code> under <code>ALL_SCENES</code>.</p>
+				<p>${copied ? 'Copied to clipboard.' : 'Clipboard copy failed. Copy from the box below.'}</p>
+				<textarea style="width: 100%; min-height: 360px; font-family: monospace;">${escapeHtml(snippet)}</textarea>
+			`,
+			buttons: {
+				ok: {
+					icon: '<i class="fas fa-check"></i>',
+					label: 'Done',
+				},
+			},
+			default: 'ok',
+		},
+		{
+			width: 780,
+			classes: ['harbinger-house'],
+		},
+	).render(true);
+
+	ui.notifications.info(`Exported scene data for ${exportData.name}.`);
 }
 
 function chooseCalibrationLocation(): Promise<string | null> {
@@ -335,5 +557,6 @@ export const MACROS: HarbingerHouseMacroAPI = {
 	toggleAmbientSounds,
 	openImportDialog,
 	applyTokenRingStyling,
+	exportSceneData,
 	calibrateSigilLocation,
 };

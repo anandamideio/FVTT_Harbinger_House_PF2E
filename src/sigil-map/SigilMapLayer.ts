@@ -9,7 +9,9 @@ import {
 	isSigilScene,
 } from './sigil-map-state';
 
-export class SigilMapLayer extends CanvasLayer {
+const CanvasLayerBase = foundry.canvas.layers.CanvasLayer;
+
+export class SigilMapLayer extends CanvasLayerBase {
 	/** Map of location ID -> marker instance */
 	private _markers: Map<string, SigilMapMarker> = new Map();
 
@@ -32,7 +34,7 @@ export class SigilMapLayer extends CanvasLayer {
 	// CanvasLayer options
 	// ========================================================================
 
-	static override get layerOptions(): { name: string; baseClass: typeof CanvasLayer } {
+	static override get layerOptions(): { name: string; baseClass: typeof CanvasLayerBase } {
 		return {
 			...super.layerOptions,
 			name: 'sigilMap',

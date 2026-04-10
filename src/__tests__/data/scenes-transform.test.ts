@@ -55,4 +55,36 @@ describe('sceneToDocumentData', () => {
 		expect(doc.fogExploration).toBe(false);
 		expect(doc.fog.exploration).toBe(false);
 	});
+
+	it('passes through explicit embedded placeables', () => {
+		const walls = [{ c: [0, 0, 100, 0], move: 1, sense: 1, sound: 1, door: 0, ds: 0, dir: 0 }];
+		const lights = [{ x: 240, y: 320, config: { dim: 20, bright: 10, color: '#ffd680' } }];
+		const sounds = [{ x: 120, y: 80, path: 'modules/harbinger-house-pf2e/dist/assets/sounds/wind.ogg' }];
+		const tokens = [{ x: 140, y: 220, name: 'Test Token' }];
+		const drawings = [{ shape: { type: 'r', width: 120, height: 80 }, x: 30, y: 40 }];
+		const templates = [{ x: 300, y: 180, t: 'circle', distance: 15 }];
+		const tiles = [{ x: 0, y: 0, width: 256, height: 256, img: 'modules/test/tile.webp' }];
+		const notes = [{ x: 400, y: 200, text: 'Clue marker' }];
+
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			walls,
+			lights,
+			sounds,
+			tokens,
+			drawings,
+			templates,
+			tiles,
+			notes,
+		});
+
+		expect(doc.walls).toEqual(walls);
+		expect(doc.lights).toEqual(lights);
+		expect(doc.sounds).toEqual(sounds);
+		expect(doc.tokens).toEqual(tokens);
+		expect(doc.drawings).toEqual(drawings);
+		expect(doc.templates).toEqual(templates);
+		expect(doc.tiles).toEqual(tiles);
+		expect(doc.notes).toEqual(notes);
+	});
 });

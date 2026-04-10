@@ -288,8 +288,8 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 	const fogExploration = scene.fogExploration ?? true;
 	const fogReset = Date.now();
 
-	// Embed location notes on the Sigil scene
-	const notes = scene.id === 'scene-sigil' ? getSigilSceneNotes() : [];
+	// Embed location notes on the Sigil scene unless explicit notes were provided.
+	const notes = scene.notes ?? (scene.id === 'scene-sigil' ? getSigilSceneNotes() : []);
 
 	return {
 		name: scene.name,
@@ -342,14 +342,14 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 		globalLight: false,
 		globalLightThreshold: null,
 		darkness: 0,
-		drawings: [],
-		tokens: [],
-		lights: [],
+		drawings: scene.drawings ?? [],
+		tokens: scene.tokens ?? [],
+		lights: scene.lights ?? [],
 		notes,
-		sounds: [],
-		templates: [],
-		tiles: [],
-		walls: [],
+		sounds: scene.sounds ?? [],
+		templates: scene.templates ?? [],
+		tiles: scene.tiles ?? [],
+		walls: scene.walls ?? [],
 		playlist: null,
 		playlistSound: null,
 		journal: null,

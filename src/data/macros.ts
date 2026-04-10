@@ -50,6 +50,13 @@ export const ALL_MACROS: HarbingerMacro[] = [
 		img: 'icons/svg/target.svg',
 	},
 	{
+		id: 'export-scene-data',
+		name: 'Export Scene Data',
+		type: 'script',
+		command: createMacroCommand('exportSceneData'),
+		img: 'icons/svg/dice-target.svg',
+	},
+	{
 		id: 'calibrate-sigil-location',
 		name: 'Calibrate Sigil Location',
 		type: 'script',
