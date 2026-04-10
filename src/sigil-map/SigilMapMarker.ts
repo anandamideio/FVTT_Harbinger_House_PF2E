@@ -21,6 +21,7 @@ export class SigilMapMarker extends PIXI.Container {
 	private _backgroundGlow: PIXI.Graphics;
 	private _iconSprite: PIXI.Sprite;
 	private _labelText: PIXI.Text;
+	private _hoverPanel: PIXI.Graphics;
 	private _hoverLabel: PIXI.Text;
 	private _hitCircle: PIXI.Graphics;
 	private _isHovered = false;
@@ -41,12 +42,14 @@ export class SigilMapMarker extends PIXI.Container {
 		this._backgroundGlow = this._createGlow();
 		this._iconSprite = this._createIcon();
 		this._labelText = this._createLabel();
+		this._hoverPanel = this._createHoverPanel();
 		this._hoverLabel = this._createHoverLabel();
 		this._hitCircle = this._createHitArea();
 
 		this.addChild(this._backgroundGlow);
 		this.addChild(this._iconSprite);
 		this.addChild(this._labelText);
+		this.addChild(this._hoverPanel);
 		this.addChild(this._hoverLabel);
 		this.addChild(this._hitCircle);
 
@@ -147,6 +150,74 @@ export class SigilMapMarker extends PIXI.Container {
 		return text;
 	}
 
+	private _createHoverPanel(): PIXI.Graphics {
+		const gfx = new PIXI.Graphics();
+		gfx.alpha = 0;
+		gfx.visible = false;
+		return gfx;
+	}
+
+	/** Redraw the hover plaque behind the label, sized to fit the current text. */
+	private _refreshHoverPanel(): void {
+		const gfx = this._hoverPanel;
+		const label = this._hoverLabel;
+
+		// Force PIXI to lay out the text so .width/.height are accurate
+		const tw = label.width;
+		const th = label.height;
+
+		// Anchor is (0.5, 1) at y = -(MARKER_ICON_SIZE/2 + 8)
+		const anchorY = -(MARKER_ICON_SIZE / 2 + 8);
+		const padX = 14;
+		const padY = 10;
+		const cornerSize = 5;
+		const left = -tw / 2 - padX;
+		const top = anchorY - th - padY;
+		const width = tw + padX * 2;
+		const height = th + padY * 2;
+
+		const accent = this.categoryColor;
+
+		gfx.clear();
+
+		// Outer border (category color, low opacity)
+		gfx.lineStyle(1.5, accent, 0.55);
+		gfx.beginFill(0x08060a, 0.93);
+		gfx.drawRoundedRect(left, top, width, height, 3);
+		gfx.endFill();
+
+		// Top accent bar
+		gfx.lineStyle(0);
+		gfx.beginFill(accent, 0.45);
+		gfx.drawRect(left + cornerSize, top, width - cornerSize * 2, 2);
+		gfx.endFill();
+
+		// Bottom accent bar
+		gfx.beginFill(accent, 0.25);
+		gfx.drawRect(left + cornerSize, top + height - 2, width - cornerSize * 2, 2);
+		gfx.endFill();
+
+		// Corner diamonds (4-pointed, drawn as rotated squares)
+		const corners = [
+			[left, top],
+			[left + width, top],
+			[left, top + height],
+			[left + width, top + height],
+		] as const;
+		gfx.beginFill(accent, 0.9);
+		for (const [cx, cy] of corners) {
+			const d = cornerSize * 0.65;
+			gfx.drawPolygon([cx, cy - d, cx + d, cy, cx, cy + d, cx - d, cy]);
+		}
+		gfx.endFill();
+
+		// Thin inner highlight line just below the top bar
+		gfx.lineStyle(1, 0xffffff, 0.06);
+		gfx.moveTo(left + cornerSize + 1, top + 3);
+		gfx.lineTo(left + width - cornerSize - 1, top + 3);
+		gfx.lineStyle(0);
+	}
+
 	private _createHoverLabel(): PIXI.Text {
 		const parts = [this.location.description];
 		if (this.location.victim) {
@@ -193,8 +264,11 @@ export class SigilMapMarker extends PIXI.Container {
 		if (this._state.revealState === 'hidden') return;
 
 		if (this._isHovered) {
-			// Show hover label for discovered markers (name is already shown)
-			// Show description plaque
+			// Draw/refresh the background plaque sized to fit the label
+			this._refreshHoverPanel();
+			this._hoverPanel.visible = true;
+			this._hoverPanel.alpha = 1;
+
 			this._hoverLabel.visible = true;
 			this._hoverLabel.alpha = 1;
 
@@ -204,6 +278,9 @@ export class SigilMapMarker extends PIXI.Container {
 			// Slight scale up
 			this._iconSprite.scale.set(1.15);
 		} else {
+			this._hoverPanel.visible = false;
+			this._hoverPanel.alpha = 0;
+
 			this._hoverLabel.visible = false;
 			this._hoverLabel.alpha = 0;
 

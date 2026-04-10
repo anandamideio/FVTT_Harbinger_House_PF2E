@@ -241,7 +241,7 @@ function playRevealSound(state: string): void {
 
 	const src = state === 'discovered' ? SOUNDS.DISCOVER : SOUNDS.INVESTIGATE;
 
-	AudioHelper.play({
+	foundry.audio.AudioHelper.play({
 		src,
 		volume: SOUND_VOLUME,
 		autoplay: true,

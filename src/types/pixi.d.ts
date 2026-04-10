@@ -55,7 +55,10 @@ declare namespace PIXI {
 		endFill(): this;
 		drawCircle(x: number, y: number, radius: number): this;
 		drawRect(x: number, y: number, width: number, height: number): this;
-		lineStyle(width: number, color: number, alpha?: number): this;
+		drawRoundedRect(x: number, y: number, width: number, height: number, radius: number): this;
+		drawPolygon(path: number[]): this;
+		lineStyle(width: number, color?: number, alpha?: number): this;
+		lineStyle(width: 0): this;
 		moveTo(x: number, y: number): this;
 		lineTo(x: number, y: number): this;
 		tint: number;
@@ -66,6 +69,8 @@ declare namespace PIXI {
 		text: string;
 		style: ITextStyle;
 		anchor: { set(x: number, y?: number): void; x: number; y: number };
+		width: number;
+		height: number;
 		resolution: number;
 	}
 

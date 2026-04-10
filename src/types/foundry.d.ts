@@ -1289,6 +1289,9 @@ declare global {
 				CanvasLayer: typeof CanvasLayer;
 			};
 		};
+		audio: {
+			AudioHelper: AudioHelperClass;
+		};
 		data: {
 			fields: {
 				SchemaField: new (fields: Record<string, unknown>) => unknown;
