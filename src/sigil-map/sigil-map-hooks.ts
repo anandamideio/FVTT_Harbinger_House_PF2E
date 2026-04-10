@@ -129,10 +129,8 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 			icon: 'fas fa-map-marked-alt',
 			order: 0,
 			button: true,
-			onChange: (_event: Event, active: boolean) => {
-				if (active) {
-					InvestigationBoardApp.open();
-				}
+			onChange: () => {
+				InvestigationBoardApp.open();
 			},
 		},
 	};
@@ -142,7 +140,6 @@ function onGetSceneControlButtons(...args: unknown[]): void {
 		title: 'Sigil Investigation',
 		icon: 'fas fa-map-marked-alt',
 		order: 100,
-		activeTool: 'sigil-open-board',
 		tools: sigilTools,
 	};
 }
@@ -371,7 +368,7 @@ interface SceneControlGroup {
 	title: string;
 	icon: string;
 	order: number;
-	activeTool: string;
+	activeTool?: string;
 	tools: Record<string, SceneControlTool>;
 }
 
