@@ -34,6 +34,7 @@ declare global {
 			version: string;
 		};
 		user: User | null;
+		users?: Collection<User>;
 		modules: Map<string, Module>;
 		settings: ClientSettings;
 		i18n: Localization;
@@ -62,6 +63,8 @@ declare global {
 		isGM: boolean;
 		id: string;
 		name: string;
+		active?: boolean;
+		character?: { id: string; name: string } | null;
 	}
 
 	interface Module {

@@ -1,4 +1,5 @@
 import { HarbingerHouseImporter } from './adventure-importer';
+import { registerAlignmentSockets } from './character-sheet/alignment-sockets';
 import { registerCharacterSheetHooks } from './character-sheet/sigil-faction';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
@@ -28,6 +29,7 @@ interface HarbingerHouseAPI {
 	applyTokenRingStyling: HarbingerHouseMacroAPI['applyTokenRingStyling'];
 	exportSceneData: HarbingerHouseMacroAPI['exportSceneData'];
 	calibrateSigilLocation: HarbingerHouseMacroAPI['calibrateSigilLocation'];
+	assignPlayerAlignments: HarbingerHouseMacroAPI['assignPlayerAlignments'];
 }
 
 /**
@@ -127,12 +129,6 @@ Hooks.once('ready', async () => {
 		`Available content: ${summary.npcs} NPCs, ${summary.items} items, ${summary.spells} spells, ${summary.hazards} hazards, ${summary.journals} journals, ${summary.macros} macros`,
 	);
 
-	// Only GMs get the import dialog
-	if (!game.user?.isGM) {
-		log('Not a GM, skipping import dialog');
-		return;
-	}
-
 	if (game.system.id !== 'pf2e') {
 		logError('This module requires the Pathfinder 2e system');
 		ui.notifications?.error(localize('errors.pf2eRequired'));
@@ -141,6 +137,17 @@ Hooks.once('ready', async () => {
 
 	// Register Sigil map socket handlers for multiplayer sync
 	registerSigilMapSockets();
+
+	// Register alignment picker socket handlers (GM ↔ player dialog coordination).
+	// Both GMs and players need this — players receive the pick request, GMs
+	// receive the result notification.
+	registerAlignmentSockets();
+
+	// Only GMs get the import dialog
+	if (!game.user?.isGM) {
+		log('Not a GM, skipping import dialog');
+		return;
+	}
 
 	// Check if the adventure has already been imported (core tracks this)
 	const adventureImports = game.settings.get('core', 'adventureImports') as Record<string, boolean> | undefined;

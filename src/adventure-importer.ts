@@ -10,6 +10,9 @@ const GETTING_STARTED_JOURNAL_ID = '373d8b09682157da'; // journal-1
 
 /** Background image for login screen customization */
 const LOGIN_BACKGROUND = `modules/${MODULE_ID}/dist/assets/art/Harbinger_House_Exterior.jpg`;
+const MAP_FOLDER_ROOT = 'Harbinger House Maps';
+const MAP_ROOT_HINT_ALIASES = new Set(['Maps', MAP_FOLDER_ROOT]);
+const MAP_CHAPTER_FOLDERS = ['Chapter 1', 'Chapter 2', 'Chapter 3'] as const;
 
 type SystemItemReferenceData = {
 	type?: string;
@@ -295,6 +298,14 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			this.#debug('_onImport step success: ensureItemFolderHierarchy');
 		} catch (err) {
 			logError('[Importer] _onImport step failed: ensureItemFolderHierarchy', err);
+		}
+
+		try {
+			this.#debug('_onImport step start: ensureSceneFolderHierarchy');
+			await this.#ensureSceneFolderHierarchy();
+			this.#debug('_onImport step success: ensureSceneFolderHierarchy');
+		} catch (err) {
+			logError('[Importer] _onImport step failed: ensureSceneFolderHierarchy', err);
 		}
 
 		if (customizeLogin) {
@@ -839,6 +850,61 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			reassigned,
 		});
 	}
+
+		/**
+		 * Ensure scenes are grouped under Harbinger House Maps with chapter subfolders.
+		 */
+		async #ensureSceneFolderHierarchy() {
+			if (!game.scenes || !game.folders) return;
+
+			const scenes = game.scenes.filter(
+				(s: SceneClass) => s.flags?.[MODULE_ID]?.sourceId !== undefined,
+			);
+			if (scenes.length === 0) return;
+
+			const mapsRoot = await this.#ensureFolder('Scene', MAP_FOLDER_ROOT, null, '#2f4f6f');
+			const chapterFolders = new Map<string, FolderClass>();
+
+			for (const chapterName of MAP_CHAPTER_FOLDERS) {
+				chapterFolders.set(chapterName, await this.#ensureFolder('Scene', chapterName, mapsRoot.id));
+			}
+
+			let reassigned = 0;
+
+			for (const scene of scenes) {
+				const rawFolderHint = scene.flags?.[MODULE_ID]?.folder;
+				const folderHint = typeof rawFolderHint === 'string' ? rawFolderHint.trim() : '';
+
+				let target = mapsRoot;
+				if (folderHint.length > 0 && !MAP_ROOT_HINT_ALIASES.has(folderHint)) {
+					let chapterFolder = chapterFolders.get(folderHint);
+					if (!chapterFolder) {
+						chapterFolder = await this.#ensureFolder('Scene', folderHint, mapsRoot.id);
+						chapterFolders.set(folderHint, chapterFolder);
+					}
+					target = chapterFolder;
+				}
+
+				if (scene.folder?.id !== target.id) {
+					await (scene as unknown as { update: (data: Record<string, unknown>) => Promise<unknown> }).update({
+						folder: target.id,
+					});
+					reassigned += 1;
+					this.#debug('Reassigned scene folder', {
+						scene: scene.name,
+						folderHint: folderHint || MAP_FOLDER_ROOT,
+						from: scene.folder?.id ?? null,
+						to: target.id,
+					});
+				}
+			}
+
+			this.#debug('Ensured scene folder hierarchy', {
+				sceneCount: scenes.length,
+				reassigned,
+				chapterFolders: Array.from(chapterFolders.keys()),
+			});
+		}
 
 	/**
 	 * Customize the world login screen with Harbinger House artwork.

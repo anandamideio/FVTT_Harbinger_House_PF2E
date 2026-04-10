@@ -46,7 +46,7 @@ export interface HarbingerScene {
 
 /**
  * All Harbinger House scenes
- * Organized by floor/area
+ * Organized by chapter
  */
 export const ALL_SCENES: HarbingerScene[] = [
 	{
@@ -73,7 +73,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		navOrder: -1,
 		tokenVision: false,
 		fogExploration: false,
-		folder: 'Harbinger House',
+		folder: 'Chapter 1',
 		sort: 0,
 	},
 	{
@@ -98,7 +98,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 927,
 		navigation: true,
 		navOrder: 1,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 100,
 	},
 	{
@@ -123,7 +123,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 1434,
 		navigation: true,
 		navOrder: 2,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 200,
 	},
 	{
@@ -148,7 +148,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 2356,
 		navigation: true,
 		navOrder: 3,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 300,
 	},
 	{
@@ -173,7 +173,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 3553,
 		navigation: true,
 		navOrder: 4,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 400,
 	},
 	{
@@ -198,7 +198,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 3553,
 		navigation: true,
 		navOrder: 5,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 500,
 	},
 	{
@@ -223,7 +223,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 1689,
 		navigation: true,
 		navOrder: 6,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 600,
 	},
 	{
@@ -248,7 +248,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 2420,
 		navigation: true,
 		navOrder: 7,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 700,
 	},
 	{
@@ -273,7 +273,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 1945,
 		navigation: true,
 		navOrder: 8,
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 800,
 	},
 	{
@@ -298,7 +298,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		height: 1843,
 		navigation: true,
 		navOrder: 0, // First in navigation
-		folder: 'Harbinger House',
+		folder: 'Chapter 3',
 		sort: 50,
 	},
 ];

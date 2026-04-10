@@ -1,3 +1,4 @@
+import { requestAlignmentFromPlayers } from './character-sheet/alignment-sockets';
 import { MODULE_ID, log, logWarn } from './config';
 import type { HarbingerScene } from './data/scenes';
 import { ALL_SIGIL_LOCATIONS, getLocationById, type SigilLocation } from './data/sigil-locations';
@@ -60,6 +61,7 @@ export interface HarbingerHouseMacroAPI {
 	applyTokenRingStyling: () => Promise<void>;
 	exportSceneData: () => Promise<void>;
 	calibrateSigilLocation: () => Promise<void>;
+	assignPlayerAlignments: () => Promise<void>;
 }
 
 export type HarbingerHouseMacroName = keyof HarbingerHouseMacroAPI;
@@ -551,6 +553,10 @@ async function calibrateSigilLocation(): Promise<void> {
 	await showCalibrationResult(location, x, y);
 }
 
+async function assignPlayerAlignments(): Promise<void> {
+	await requestAlignmentFromPlayers();
+}
+
 export const MACROS: HarbingerHouseMacroAPI = {
 	setLandingPage,
 	toggleSceneLighting,
@@ -559,4 +565,5 @@ export const MACROS: HarbingerHouseMacroAPI = {
 	applyTokenRingStyling,
 	exportSceneData,
 	calibrateSigilLocation,
+	assignPlayerAlignments,
 };

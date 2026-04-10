@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { MODULE_ID } from '../../config';
 import type { HarbingerScene } from '../../data/scenes';
 import { sceneToDocumentData } from '../../data/to-foundry-data';
 
@@ -96,5 +97,22 @@ describe('sceneToDocumentData', () => {
 		expect(doc.templates).toEqual(templates);
 		expect(doc.tiles).toEqual(tiles);
 		expect(doc.notes).toEqual(notes);
+	});
+
+	it('emits default map folder hint when no chapter is set', () => {
+		const doc = sceneToDocumentData(BASE_SCENE);
+		const moduleFlags = (doc.flags?.[MODULE_ID] ?? {}) as { folder?: string };
+
+		expect(moduleFlags.folder).toBe('Maps');
+	});
+
+	it('emits chapter folder hint when provided by scene data', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			folder: 'Chapter 3',
+		});
+		const moduleFlags = (doc.flags?.[MODULE_ID] ?? {}) as { folder?: string };
+
+		expect(moduleFlags.folder).toBe('Chapter 3');
 	});
 });

@@ -66,6 +66,11 @@
 			"none": "— Unaffiliated —",
 			"pickerTitle": "Choose a Faction"
 		},
+		"alignment": {
+			"label": "Alignment",
+			"none": "— Unaligned —",
+			"pickerTitle": "Declare Your Alignment"
+		},
 		"errors": {
 			"pf2eRequired": "This module requires the Pathfinder 2e system."
 		}

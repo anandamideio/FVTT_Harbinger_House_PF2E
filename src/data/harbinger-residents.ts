@@ -446,7 +446,7 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 					diceNumber: 2,
 					dieSize: 'd6',
 					damageType: 'spirit',
-					predicate: ['target:trait:lawful'],
+					predicate: [{ or: ['target:trait:lawful', 'target:harbinger:lawful'] }],
 					label: 'Extra Spirit Damage vs Lawful',
 				},
 			],

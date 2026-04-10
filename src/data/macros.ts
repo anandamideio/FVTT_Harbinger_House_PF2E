@@ -63,6 +63,13 @@ export const ALL_MACROS: HarbingerMacro[] = [
 		command: createMacroCommand('calibrateSigilLocation'),
 		img: 'icons/svg/target.svg',
 	},
+	{
+		id: 'assign-player-alignments',
+		name: 'Assign Player Alignments',
+		type: 'script',
+		command: createMacroCommand('assignPlayerAlignments'),
+		img: 'icons/svg/compass.svg',
+	},
 ];
 
 export function getMacroById(id: string): HarbingerMacro | undefined {

@@ -1,5 +1,6 @@
 import { localize, log, logDebug, MODULE_ID } from '../config';
 import { openFactionPicker } from './FactionPickerApp';
+import { injectAlignmentSelector } from './alignment';
 
 // ============================================================================
 // Faction Definitions
@@ -112,6 +113,7 @@ export function registerCharacterSheetHooks(): void {
 	Hooks.on('renderCharacterSheetPF2e', (...args: any[]) => {
 		const [app, html] = args;
 		injectFactionSelector(app, html);
+		injectAlignmentSelector(app, html);
 	});
 
 	log('Character sheet hooks registered');
