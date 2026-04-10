@@ -26,7 +26,6 @@ declare global {
 	const DocumentSheetConfig: DocumentSheetConfigClass;
 
 	function fromUuid(uuid: string): Promise<FoundryDocument | null>;
-	function fetchJsonWithTimeout(url: string, options?: RequestInit): Promise<Response>;
 
 	interface Game {
 		system: {
@@ -1286,6 +1285,7 @@ declare global {
 				options?: { insertKeys?: boolean; insertValues?: boolean; overwrite?: boolean },
 			): T;
 			getRoute(path: string): string;
+			fetchJsonWithTimeout(url: string, options?: RequestInit): Promise<Response>;
 		};
 		canvas: {
 			layers: {

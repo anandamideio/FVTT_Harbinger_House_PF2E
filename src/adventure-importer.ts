@@ -110,7 +110,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 * - Injects flavor text into the adventure overview
 	 * - Converts hints to label tooltips for cleaner UI (AV pattern)
 	 */
-	async _onRender(context: unknown, options: unknown) {
+	public async _onRender(context: unknown, options: unknown) {
 		this.#debug('_onRender start', {
 			contextType: typeof context,
 			optionsType: typeof options,
@@ -121,12 +121,6 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		// Inject flavor text before the overview section
 		const overview = this.element.querySelector('.adventure-overview');
 		let hintCount = 0;
-		if (overview) {
-			const flavor = document.createElement('blockquote');
-			flavor.className = 'harbinger-flavor';
-			flavor.innerHTML = '<em>"In the Cage, berks whisper of a house where the mad become gods..."</em>';
-			overview.prepend(flavor);
-		}
 
 		// Swap hints for label tooltips
 		for (const fg of Array.from(this.element.querySelectorAll('.import-options .form-group'))) {
