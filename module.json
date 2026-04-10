@@ -1,7 +1,7 @@
 {
 	"id": "harbinger-house-pf2e",
 	"title": "Pathfinder 2e: Harbinger House",
-	"description": "A conversion of the classic Planescape adventure 'Harbinger House' for Pathfinder 2nd Edition. Includes NPCs, items, and adventure content.",
+	"description": "In Sigil six souls have been silenced. A Guvner slain among his books. A Harmonium officer cut down in the street. An Athar stabbed in a bookshop near the Shattered Temple. One by one, the lawful are falling, and the murders pulse with a red, hungry light.\n\nThe Harmonium has a name: Sougad Lawshredder. But names are cheap in the Cage. What they don't have, and what no one yet understands, is the ritual. Thirteen victims. Thirteen transfers of planar energy. At the end of the tally, a mortal man ascends.\n\nHe means to become a god.\n\nSomeone has to stop him. That someone might be you.\n\nHarbinger House is a full Pathfinder 2nd Edition conversion of the classic Planescape adventure. Navigate the wards of Sigil, interrogate witnesses before their memories are silenced, trace bloodstained footprints to warehouses and faction halls, and unravel a conspiracy that reaches from the gutters of the Hive to a mysterious building on a dead-end street, where the boundaries between mortal and divine grow dangerously thin.",
 	"version": "#{VERSION}#",
 	"compatibility": {
 		"minimum": "12",

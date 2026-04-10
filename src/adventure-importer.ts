@@ -118,8 +118,6 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 
 		await super._onRender(context, options);
 
-		// Inject flavor text before the overview section
-		const overview = this.element.querySelector('.adventure-overview');
 		let hintCount = 0;
 
 		// Swap hints for label tooltips
@@ -136,7 +134,6 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		}
 
 		this.#debug('_onRender complete', {
-			overviewFound: Boolean(overview),
 			hintsConverted: hintCount,
 			rootClasses: this.options.classes,
 		});
@@ -924,12 +921,23 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			const module = game.modules.get(MODULE_ID);
 			if (!module) return;
 
+			const adventureDescription =
+				typeof this.document?.description === 'string' && this.document.description.trim().length > 0
+					? this.document.description
+					: null;
+			const loginDescription = adventureDescription ?? module.description;
+
 			const worldData = {
 				action: 'editWorld',
 				id: game.world.id,
-				description: module.description,
+				description: loginDescription,
 				background: LOGIN_BACKGROUND,
 			};
+
+			this.#debug('customizeLoginScreen description source', {
+				source: adventureDescription ? 'adventure-document' : 'module-manifest',
+				descriptionLength: loginDescription.length,
+			});
 
 			const response = await foundry.utils.fetchJsonWithTimeout(foundry.utils.getRoute('setup'), {
 				method: 'POST',
