@@ -123,7 +123,7 @@ export const LABEL_STYLE = {
 const ASSET_BASE = `modules/${MODULE_ID}/dist/assets`;
 
 export const CATEGORY_ICONS = {
-	'murder-site': `${ASSET_BASE}/icons/marker-murder.svg`,
+	'murder-site': `${ASSET_BASE}/icons/sword-brandish.svg`,
 	'faction-hq': `${ASSET_BASE}/icons/marker-faction.svg`,
 	'shop': `${ASSET_BASE}/icons/marker-shop.svg`,
 	'landmark': `${ASSET_BASE}/icons/marker-landmark.svg`,
