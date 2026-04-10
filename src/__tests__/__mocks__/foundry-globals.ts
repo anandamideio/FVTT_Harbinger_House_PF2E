@@ -9,6 +9,26 @@ globalThis.JournalEntry = class JournalEntry {};
 // @ts-expect-error - This exist
 globalThis.Scene = class Scene {};
 // @ts-expect-error - This exist
+globalThis.foundry = {
+	applications: {
+		sheets: {
+			journal: {
+				JournalEntrySheet: class JournalEntrySheet {
+					options = { classes: [] };
+					document: { id?: string; name?: string } = {};
+					element: HTMLElement = document.createElement('div');
+					constructor(_doc?: unknown, _options?: unknown) {
+						// No-op test shim
+					}
+					async _onRender(_context?: unknown, _options?: unknown): Promise<void> {
+						// No-op test shim
+					}
+				},
+			},
+		},
+	},
+};
+// @ts-expect-error - This exist
 globalThis.game = {
 	actors: { find: () => null },
 	items: { find: () => null },

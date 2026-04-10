@@ -1347,7 +1347,10 @@ declare global {
 
 	class JournalEntrySheetClass {
 		constructor(doc: JournalEntryClass, options?: Record<string, unknown>);
+		document: JournalEntryClass;
+		element: HTMLElement;
 		options: { classes: string[] };
+		_onRender(context: unknown, options: unknown): Promise<void>;
 	}
 
 	// ======================================================================

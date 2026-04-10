@@ -825,6 +825,52 @@ span.page-title {
 	margin-bottom: 0.25rem;
 }
 
+.journal-sheet.harbinger-journal .faction-callout .harbinger-faction-callout-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+
+.journal-sheet.harbinger-journal .faction-callout .harbinger-faction-player-strip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.35rem;
+	flex-wrap: wrap;
+	margin-left: auto;
+}
+
+.journal-sheet.harbinger-journal .faction-callout .harbinger-faction-player-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.12rem 0.4rem 0.12rem 0.12rem;
+	border: 1px solid rgba(42, 42, 42, 0.2);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.5);
+	line-height: 1;
+}
+
+.journal-sheet.harbinger-journal .faction-callout .harbinger-faction-player-token {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	border: 1px solid rgba(42, 42, 42, 0.35);
+	object-fit: cover;
+	display: block;
+	margin: 0;
+}
+
+.journal-sheet.harbinger-journal .faction-callout .harbinger-faction-player-name {
+	font-family: "Rotis Serif", "Georgia", serif;
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--harbinger-secondary);
+	white-space: nowrap;
+}
+
 .journal-sheet.harbinger-journal .faction-callout p {
 	text-indent: 0;
 	margin-bottom: 0.4rem;

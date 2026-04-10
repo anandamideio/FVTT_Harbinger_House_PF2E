@@ -182,12 +182,27 @@ Hooks.once('ready', async () => {
 Hooks.on('renderJournalSheet', (...args: any[]) => {
 	const [app, html] = args;
 
-	const journal = app.object;
+	const journal = app.object as JournalEntryClass | undefined;
 	const isHarbingerJournal = journal?.flags?.[MODULE_ID]?.managed || journal?.flags?.[MODULE_ID]?.imported;
+
+	logDebug('[JournalFaction] renderJournalSheet hook fired', {
+		journalId: journal?.id ?? 'unknown',
+		journalName: journal?.name ?? 'unknown',
+		isHarbingerJournal: Boolean(isHarbingerJournal),
+		moduleFlags: journal?.flags?.[MODULE_ID] ?? null,
+	});
 
 	if (isHarbingerJournal) {
 		html.closest('.journal-sheet').addClass('harbinger-journal');
+		if (journal) {
+			logDebug('[JournalFaction] Calling faction callout decorator from renderJournalSheet hook', {
+				journalName: journal.name,
+			});
+			HarbingerJournalSheet.decorateFactionCallouts(journal, html as JQuery);
+		}
 		log(`Applied themed styling to journal: ${journal.name || 'Unknown'}`);
+	} else {
+		logDebug('[JournalFaction] Skipping decoration: journal is not marked as Harbinger managed/imported');
 	}
 });
 
