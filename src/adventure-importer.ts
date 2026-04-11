@@ -49,6 +49,22 @@ function summarizeDocumentCounts(record: unknown): Record<string, number> {
 }
 
 /**
+ * Declarative post-import option definition.
+ *
+ * Mirrors the `pf2e-abomination-vaults` pattern: each option is a single entry
+ * carrying its i18n keys, default state, and the handler invoked from `_onImport`
+ * when the option is enabled.
+ */
+type ImportOptionKey = 'customizeLogin' | 'displayJournal' | 'activateScene';
+
+interface ImportOptionDef {
+	labelKey: string;
+	hintKey: string;
+	default: boolean;
+	handler: () => Promise<void>;
+}
+
+/**
  * Custom AdventureImporter for Harbinger House.
  *
  * Extends Foundry's native AdventureImporter to add:
@@ -79,6 +95,36 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	}
 
 	/**
+	 * Declarative post-import option definitions.
+	 *
+	 * Single source of truth consumed by `_prepareImportOptionsSchema`,
+	 * `_processSubmitData`, and `_onImport`. Adding a new option means
+	 * adding one entry here — no copy/paste branches elsewhere.
+	 */
+	private get importOptions(): Record<ImportOptionKey, ImportOptionDef> {
+		return {
+			customizeLogin: {
+				labelKey: 'HARBINGER-HOUSE.importOptions.customizeLogin.label',
+				hintKey: 'HARBINGER-HOUSE.importOptions.customizeLogin.hint',
+				default: false,
+				handler: () => this.#customizeLoginScreen(),
+			},
+			displayJournal: {
+				labelKey: 'HARBINGER-HOUSE.importOptions.displayJournal.label',
+				hintKey: 'HARBINGER-HOUSE.importOptions.displayJournal.hint',
+				default: true,
+				handler: () => this.#displayGettingStartedJournal(),
+			},
+			activateScene: {
+				labelKey: 'HARBINGER-HOUSE.importOptions.activateScene.label',
+				hintKey: 'HARBINGER-HOUSE.importOptions.activateScene.hint',
+				default: true,
+				handler: () => this.#activateStartingScene(),
+			},
+		};
+	}
+
+	/**
 	 * Define import options as BooleanFields.
 	 * These render as checkboxes in the import dialog.
 	 */
@@ -86,23 +132,30 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		this.#debug('_prepareImportOptionsSchema invoked');
 
 		const fields = foundry.data.fields;
-		return new fields.SchemaField({
-			customizeLogin: new fields.BooleanField({
-				label: game.i18n.localize('HARBINGER-HOUSE.importOptions.customizeLogin.label'),
-				hint: game.i18n.localize('HARBINGER-HOUSE.importOptions.customizeLogin.hint'),
-				initial: false,
-			}),
-			displayJournal: new fields.BooleanField({
-				label: game.i18n.localize('HARBINGER-HOUSE.importOptions.displayJournal.label'),
-				hint: game.i18n.localize('HARBINGER-HOUSE.importOptions.displayJournal.hint'),
-				initial: true,
-			}),
-			activateScene: new fields.BooleanField({
-				label: game.i18n.localize('HARBINGER-HOUSE.importOptions.activateScene.label'),
-				hint: game.i18n.localize('HARBINGER-HOUSE.importOptions.activateScene.hint'),
-				initial: true,
-			}),
-		});
+		const schemaShape = Object.fromEntries(
+			Object.entries(this.importOptions).map(([key, def]) => [
+				key,
+				new fields.BooleanField({
+					label: game.i18n.localize(def.labelKey),
+					hint: game.i18n.localize(def.hintKey),
+					initial: def.default,
+				}),
+			]),
+		);
+		return new fields.SchemaField(schemaShape);
+	}
+
+	/**
+	 * Wrap a post-import step with uniform debug logging and error capture.
+	 */
+	async #safeStep(name: string, step: () => Promise<void>): Promise<void> {
+		try {
+			this.#debug(`_onImport step start: ${name}`);
+			await step();
+			this.#debug(`_onImport step success: ${name}`);
+		} catch (err) {
+			logError(`[Importer] _onImport step failed: ${name}`, err);
+		}
 	}
 
 	/**
@@ -169,7 +222,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			form.querySelector<HTMLInputElement>(`input[name="${name}"]`) ??
 			form.querySelector<HTMLInputElement>(`input[name$=".${name}"]`);
 
-		const resolveOption = (key: 'customizeLogin' | 'displayJournal' | 'activateScene', fallback: boolean): boolean => {
+		const resolveOption = (key: string, fallback: boolean): boolean => {
 			const fromProcessed = coerceBoolean(processed[key]);
 			if (fromProcessed !== undefined) return fromProcessed;
 
@@ -179,15 +232,15 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			return fallback;
 		};
 
-		const customizeLogin = resolveOption('customizeLogin', false);
-		const displayJournal = resolveOption('displayJournal', true);
-		const activateScene = resolveOption('activateScene', true);
+		const optionDefs = this.importOptions;
+		const resolvedOptions: Record<string, boolean> = {};
+		for (const [key, def] of Object.entries(optionDefs)) {
+			resolvedOptions[key] = resolveOption(key, def.default);
+		}
 
 		const importOptions: Record<string, unknown> = {
 			...processed,
-			customizeLogin,
-			displayJournal,
-			activateScene,
+			...resolvedOptions,
 			dialog: false,
 			preImport: [this._preImport.bind(this)],
 			postImport: [this._onImport.bind(this)],
@@ -196,11 +249,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		this.#debug('_processSubmitData invoking Adventure.import with explicit callbacks', {
 			processedKeys: Object.keys(processed),
 			importKeys: Object.keys(importOptions),
-			resolvedOptions: {
-				customizeLogin,
-				displayJournal,
-				activateScene,
-			},
+			resolvedOptions,
 			formInputs: Array.from(form.querySelectorAll('input[name]')).map((input) =>
 				(input as HTMLInputElement).name,
 			),
@@ -247,90 +296,39 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	}
 
 	/**
-	 * Post-import: execute enabled option handlers.
+	 * Post-import: reconcile folder hierarchy, then execute enabled option handlers.
+	 *
+	 * Option handlers come from the `importOptions` dict — adding a new option
+	 * only requires adding an entry there, not editing this method.
 	 */
 	async _onImport(importResult: Record<string, unknown>, importOptions: Record<string, boolean>) {
-		const options = importOptions as Partial<Record<'customizeLogin' | 'displayJournal' | 'activateScene', boolean>>;
-		const customizeLogin = options.customizeLogin ?? false;
-		const displayJournal = options.displayJournal ?? true;
-		const activateScene = options.activateScene ?? true;
+		const optionDefs = this.importOptions;
+		const optionKeys = Object.keys(optionDefs) as ImportOptionKey[];
+		const resolvedOptions = Object.fromEntries(
+			optionKeys.map((key) => [key, importOptions[key] ?? optionDefs[key].default]),
+		) as Record<ImportOptionKey, boolean>;
 
-		this.#debug('_onImport hook called');
-		this.#debug('_onImport payload', {
+		this.#debug('_onImport hook called', {
 			importOptions,
-			resolvedOptions: {
-				customizeLogin,
-				displayJournal,
-				activateScene,
-			},
+			resolvedOptions,
 			created: summarizeDocumentCounts((importResult as { created?: unknown }).created),
 			updated: summarizeDocumentCounts((importResult as { updated?: unknown }).updated),
 		});
 
-		try {
-			this.#debug('_onImport step start: ensureJournalFolderHierarchy');
-			await this.#ensureJournalFolderHierarchy();
-			this.#debug('_onImport step success: ensureJournalFolderHierarchy');
-		} catch (err) {
-			logError('[Importer] _onImport step failed: ensureJournalFolderHierarchy', err);
-		}
+		// Folder hierarchy reconciliation — removed in Stage S3 once the packed
+		// adventure carries the folder documents natively.
+		await this.#safeStep('ensureJournalFolderHierarchy', () => this.#ensureJournalFolderHierarchy());
+		await this.#safeStep('ensureActorFolderHierarchy', () => this.#ensureActorFolderHierarchy());
+		await this.#safeStep('ensureItemFolderHierarchy', () => this.#ensureItemFolderHierarchy());
+		await this.#safeStep('ensureSceneFolderHierarchy', () => this.#ensureSceneFolderHierarchy());
 
-		try {
-			this.#debug('_onImport step start: ensureActorFolderHierarchy');
-			await this.#ensureActorFolderHierarchy();
-			this.#debug('_onImport step success: ensureActorFolderHierarchy');
-		} catch (err) {
-			logError('[Importer] _onImport step failed: ensureActorFolderHierarchy', err);
-		}
-
-		try {
-			this.#debug('_onImport step start: ensureItemFolderHierarchy');
-			await this.#ensureItemFolderHierarchy();
-			this.#debug('_onImport step success: ensureItemFolderHierarchy');
-		} catch (err) {
-			logError('[Importer] _onImport step failed: ensureItemFolderHierarchy', err);
-		}
-
-		try {
-			this.#debug('_onImport step start: ensureSceneFolderHierarchy');
-			await this.#ensureSceneFolderHierarchy();
-			this.#debug('_onImport step success: ensureSceneFolderHierarchy');
-		} catch (err) {
-			logError('[Importer] _onImport step failed: ensureSceneFolderHierarchy', err);
-		}
-
-		if (customizeLogin) {
-			try {
-				this.#debug('_onImport step start: customizeLoginScreen');
-				await this.#customizeLoginScreen();
-				this.#debug('_onImport step success: customizeLoginScreen');
-			} catch (err) {
-				logError('[Importer] _onImport step failed: customizeLoginScreen', err);
+		// Execute enabled post-import options declaratively.
+		for (const key of optionKeys) {
+			if (!resolvedOptions[key]) {
+				this.#debug('_onImport option disabled', { key });
+				continue;
 			}
-		} else {
-			this.#debug('_onImport option disabled: customizeLogin');
-		}
-		if (displayJournal) {
-			try {
-				this.#debug('_onImport step start: displayGettingStartedJournal');
-				await this.#displayGettingStartedJournal();
-				this.#debug('_onImport step success: displayGettingStartedJournal');
-			} catch (err) {
-				logError('[Importer] _onImport step failed: displayGettingStartedJournal', err);
-			}
-		} else {
-			this.#debug('_onImport option disabled: displayJournal');
-		}
-		if (activateScene) {
-			try {
-				this.#debug('_onImport step start: activateStartingScene');
-				await this.#activateStartingScene();
-				this.#debug('_onImport step success: activateStartingScene');
-			} catch (err) {
-				logError('[Importer] _onImport step failed: activateStartingScene', err);
-			}
-		} else {
-			this.#debug('_onImport option disabled: activateScene');
+			await this.#safeStep(key, optionDefs[key].handler);
 		}
 
 		this.#debug('_onImport complete');
@@ -1046,7 +1044,6 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 
 			if (scene) {
 				await (scene as SceneClass).activate();
-				await Promise.resolve((scene as unknown as { view: () => unknown }).view());
 				this.#debug('activateStartingScene found scene', {
 					lookupStrategy,
 					sceneId: scene.id,

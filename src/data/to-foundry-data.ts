@@ -391,23 +391,28 @@ function getNPCTokenData(npc: HarbingerNPC): Partial<TokenData> {
 	const sys = npc.data.system as Partial<PF2eActorSystem> | undefined;
 	const size = sys?.traits?.size?.value || 'med';
 	const tokenSize = getTokenSize(size);
+	const override = (npc.data.prototypeToken ?? {}) as Partial<TokenData> & {
+		texture?: { src?: string };
+	};
+	const overrideTextureSrc = override.texture?.src;
 
 	return {
-		name: npc.data.name,
-		displayName: 20,
-		displayBars: 20,
-		bar1: { attribute: 'attributes.hp' },
-		disposition: getNPCDisposition(npc),
-		width: tokenSize,
-		height: tokenSize,
+		name: override.name ?? npc.data.name,
+		displayName: override.displayName ?? 20,
+		displayBars: override.displayBars ?? 20,
+		bar1: override.bar1 ?? { attribute: 'attributes.hp' },
+		disposition: override.disposition ?? getNPCDisposition(npc),
+		width: override.width ?? tokenSize,
+		height: override.height ?? tokenSize,
 		texture: {
-			src: npc.data.img || getNPCDefaultImage(npc),
+			...(override.texture ?? {}),
+			src: overrideTextureSrc || npc.data.img || getNPCDefaultImage(npc),
 		},
-		sight: {
+		sight: override.sight ?? {
 			enabled: true,
 			range: sys?.traits?.senses?.some((s: { type: string }) => s.type === 'darkvision') ? 60 : 0,
 		},
-		actorLink: npc.category === 'major-npc',
+		actorLink: override.actorLink ?? npc.category === 'major-npc',
 	};
 }
 
