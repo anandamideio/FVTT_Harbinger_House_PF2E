@@ -43,6 +43,40 @@ describe('sceneToDocumentData', () => {
 		expect(doc.environment.cycle).toBe(false);
 		expect(doc.environment.globalLight.enabled).toBe(0);
 		expect(doc.environment.globalLight.bright).toBe(false);
+		expect(doc.globalLight).toBe(false);
+		expect(doc.globalLightThreshold).toBeNull();
+		expect(doc.darkness).toBe(0);
+	});
+
+	it('applies scene darkness to environment and legacy fields', () => {
+		const doc = sceneToDocumentData({ ...BASE_SCENE, darkness: 0.75 });
+
+		expect(doc.environment.darknessLevel).toBe(0.75);
+		expect(doc.darkness).toBe(0.75);
+	});
+
+	it('enables global light with threshold when configured', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			darkness: 0.6,
+			globalLight: true,
+			globalLightThreshold: 0.749,
+		});
+
+		expect(doc.globalLight).toBe(true);
+		expect(doc.globalLightThreshold).toBe(0.749);
+		expect(doc.environment.globalLight.enabled).toBe(1);
+		expect(doc.environment.globalLight.darkness).toEqual({ min: 0, max: 0.749 });
+	});
+
+	it('clamps out-of-range darkness values', () => {
+		const dark = sceneToDocumentData({ ...BASE_SCENE, darkness: 5 });
+		const light = sceneToDocumentData({ ...BASE_SCENE, darkness: -1 });
+
+		expect(dark.darkness).toBe(1);
+		expect(dark.environment.darknessLevel).toBe(1);
+		expect(light.darkness).toBe(0);
+		expect(light.environment.darknessLevel).toBe(0);
 	});
 
 	it('respects per-scene vision and fog exploration overrides', () => {

@@ -13,11 +13,12 @@ I started by setting up an OCR pipeline to extract the text from my PDF, and the
 - Adventure written by: Bill Slavicsek
 - Original adventure published by: TSR, Inc. in 1996
 - Artwork by: Various artists, sourced from my pdf of the original adventure and PF2e system compendiums
-- Factol Ambars Art / Harmonium Gaurds Art By Tony DiTerlizzi
+- Barmy / Factol Ambar's Art / Harmonium Gaurd's Art By Tony DiTerlizzi
 - Lady Of Pain Artwork by: [The Dark Power](https://thedarkpower.com/portfolio-2/the-lady-of-pain/)
 - Sigil Faction Icons by [etherlad](https://www.deviantart.com/etherlad/gallery)
 - Sougad Lawshredder Art by [Kobold Press](https://koboldpress.com/subclass-warfare-the-anathema-paladin-consort-with-ultimate-evil-for-the-greater-good/)
 - Trolan the Mad's Art was the art for Sectol Jalar from [Mimir.net](https://mimir.net/culture/sects/society-of-pain/)
+- Nari's Art comes from [Archives of Nethys](https://2e.aonprd.com/Monsters.aspx?ID=2897&Redirected=1)
 - Open RPG Icons by [Game-icons.net](https://game-icons.net/)
 - Maps by: [Reddit user u/Willerman](https://www.reddit.com/r/planescapesetting/comments/1p84ekn/maps_for_harbinger_house/)
 - Rooftop Map By [Tych Maps](https://www.patreon.com/cw/tychmaps)

@@ -34,6 +34,33 @@ export interface HarbingerScene {
 	fogExploration?: boolean;
 	/** Scene darkness level 0..1 (0 = full daylight, 1 = pitch black). Drives both `environment.darknessLevel` and the legacy `darkness` field. */
 	darkness?: number;
+	/** Whether the scene's global ambient illumination is enabled (lets the base map stay visible under darkness). */
+	globalLight?: boolean;
+	/** Darkness threshold above which the global light turns off. Pair with `darkness` for night scenes (e.g. darkness 0.6, threshold 0.749). */
+	globalLightThreshold?: number | null;
+	/**
+	 * Partial override for Foundry v13's `environment` block.
+	 * Anything provided here is merged over the computed defaults, so you can set
+	 * a night cycle tint (`cycle: true`, `dark: { hue, luminosity }`) without
+	 * having to restate the rest of the environment object.
+	 */
+	environment?: {
+		cycle?: boolean;
+		base?: {
+			hue?: number;
+			intensity?: number;
+			luminosity?: number;
+			saturation?: number;
+			shadows?: number;
+		};
+		dark?: {
+			hue?: number;
+			intensity?: number;
+			luminosity?: number;
+			saturation?: number;
+			shadows?: number;
+		};
+	};
 	/** Optional embedded scene placeables exported from Foundry */
 	drawings?: object[];
 	tokens?: object[];

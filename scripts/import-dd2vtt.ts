@@ -84,6 +84,33 @@ interface ImportSpec {
 	sort?: number;
 	/** Scene darkness level (0 = day, 1 = pitch black). */
 	darkness?: number;
+	/** Whether to enable the scene's global ambient illumination. Defaults to `true` so the base map stays visible. */
+	globalLight?: boolean;
+	/** Darkness threshold above which global light cuts out. Defaults to `0.749` (matches DD-Import night scenes). */
+	globalLightThreshold?: number | null;
+	/**
+	 * Partial override for the Foundry v13 environment block. The dd2vtt format
+	 * doesn't carry hue/luminosity data (only a flat `ambient_light` color), so
+	 * nighttime tint has to be configured here explicitly. Matches
+	 * `HarbingerScene.environment`.
+	 */
+	environment?: {
+		cycle?: boolean;
+		base?: {
+			hue?: number;
+			intensity?: number;
+			luminosity?: number;
+			saturation?: number;
+			shadows?: number;
+		};
+		dark?: {
+			hue?: number;
+			intensity?: number;
+			luminosity?: number;
+			saturation?: number;
+			shadows?: number;
+		};
+	};
 }
 
 // ---------------------------------------------------------------------------
@@ -176,23 +203,28 @@ function makeWall(
 
 function convertLight(light: DDLight, ppg: number, gridDistance: number) {
 	const dimFeet = light.range * gridDistance;
+	// DD-Import maps dd2vtt `intensity` to the Foundry light's `alpha` via
+	// `0.05 * intensity` (not to `luminosity`). `luminosity` stays at its 0.5
+	// default so the light remains additive rather than emissive-only.
+	const alpha = clamp01(0.05 * (light.intensity ?? 1));
 	return {
 		x: Math.round(light.position.x * ppg),
 		y: Math.round(light.position.y * ppg),
 		rotation: 0,
 		walls: true,
 		vision: false,
+		elevation: 0,
 		config: {
 			negative: false,
 			priority: 0,
-			alpha: 0.5,
+			alpha,
 			angle: 360,
 			bright: Math.round((dimFeet / 2) * 100) / 100,
 			color: argbToHex(light.color),
 			coloration: 1,
 			dim: Math.round(dimFeet * 100) / 100,
 			attenuation: 0.5,
-			luminosity: clamp01(light.intensity ?? 0.5),
+			luminosity: 0.5,
 			saturation: 0,
 			contrast: 0,
 			shadows: light.shadows ? 1 : 0,
@@ -221,12 +253,19 @@ interface GeneratedScene {
 	walls: WallData[];
 	lights: ReturnType<typeof convertLight>[];
 	darkness: number;
+	globalLight: boolean;
+	globalLightThreshold: number | null;
 }
 
-function importScene(spec: ImportSpec): GeneratedScene {
+function importScene(spec: ImportSpec): GeneratedScene | null {
 	const inputPath = path.isAbsolute(spec.input)
 		? spec.input
 		: path.resolve(REPO_ROOT, spec.input);
+
+	if (!fs.existsSync(inputPath)) {
+		console.warn(`  SKIP ${path.basename(inputPath)} (source file missing)`);
+		return null;
+	}
 
 	console.log(`  Reading ${path.basename(inputPath)}`);
 	const raw = fs.readFileSync(inputPath, 'utf8');
@@ -296,6 +335,8 @@ function importScene(spec: ImportSpec): GeneratedScene {
 		walls,
 		lights,
 		darkness: spec.darkness ?? 0,
+		globalLight: spec.globalLight ?? true,
+		globalLightThreshold: spec.globalLightThreshold ?? 0.749,
 	};
 }
 
@@ -304,7 +345,7 @@ function importScene(spec: ImportSpec): GeneratedScene {
 // ---------------------------------------------------------------------------
 
 function renderScene(gen: GeneratedScene): string {
-	const { spec, width, height, gridSize, walls, lights, darkness } = gen;
+	const { spec, width, height, gridSize, walls, lights, darkness, globalLight, globalLightThreshold } = gen;
 	const imgRef = `${MODULE_PREFIX}/${spec.imageName}`;
 	const body: string[] = [];
 	body.push('\t{');
@@ -332,6 +373,13 @@ function renderScene(gen: GeneratedScene): string {
 	body.push(`\t\tfolder: ${JSON.stringify(spec.folder ?? 'Chapter 1')},`);
 	body.push(`\t\tsort: ${spec.sort ?? 0},`);
 	if (darkness > 0) body.push(`\t\tdarkness: ${darkness},`);
+	body.push(`\t\tglobalLight: ${globalLight},`);
+	if (globalLightThreshold != null)
+		body.push(`\t\tglobalLightThreshold: ${globalLightThreshold},`);
+	if (spec.environment) {
+		const env = JSON.stringify(spec.environment, null, '\t').replace(/\n/g, '\n\t\t');
+		body.push(`\t\tenvironment: ${env},`);
+	}
 	body.push(`\t\twalls: ${JSON.stringify(walls, null, '\t').replace(/\n/g, '\n\t\t')},`);
 	body.push(`\t\tlights: ${JSON.stringify(lights, null, '\t').replace(/\n/g, '\n\t\t')},`);
 	body.push('\t},');
@@ -386,7 +434,19 @@ const IMPORTS: ImportSpec[] = [
 		navOrder: 11,
 		folder: 'Chapter 1',
 		sort: 310,
-		darkness: 0.75,
+		darkness: 0.6,
+		globalLight: true,
+		globalLightThreshold: 0.749,
+		// Night-tint preset: cold indigo cast during the dark half of the cycle.
+		// The dd2vtt format only gives us a flat ambient color, so these values
+		// are a hand-tuned preset rather than something we can read from the file.
+		environment: {
+			cycle: true,
+			dark: {
+				hue: 0.7138888888888889,
+				luminosity: -0.25,
+			},
+		},
 	},
 ];
 
@@ -398,7 +458,11 @@ const OUTPUT_FILE = path.resolve(REPO_ROOT, 'src/data/scenes-imported.ts');
 
 function main() {
 	console.log('Importing .dd2vtt files:');
-	const generated = IMPORTS.map(importScene);
+	const generated = IMPORTS.map(importScene).filter((g): g is GeneratedScene => g !== null);
+	if (generated.length === 0) {
+		console.warn('No .dd2vtt files were imported — leaving existing output untouched.');
+		return;
+	}
 	writeGeneratedModule(OUTPUT_FILE, generated);
 	console.log('Done.');
 	console.log('');

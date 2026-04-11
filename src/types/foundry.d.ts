@@ -1162,7 +1162,8 @@ declare global {
 				luminosity?: number;
 				saturation?: number;
 				shadows?: number;
-				darkness?: number;
+				/** Darkness activation range. In v13 this is an object, not a scalar. */
+				darkness?: { min: number; max: number };
 				bright?: boolean;
 				enabled?: boolean | number;
 			};
