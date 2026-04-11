@@ -388,7 +388,7 @@ export const XERO_BAOX: HarbingerNPC = {
 	data: {
 		name: 'Xero Baox',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/xero-baox.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Xero.jpg',
 		system: {
 			abilities: {
 				str: { mod: 5 },
