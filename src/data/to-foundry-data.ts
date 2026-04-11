@@ -255,6 +255,7 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 	const fogExploration = scene.fogExploration ?? true;
 	const fogReset = Date.now();
 	const notes = scene.notes ?? [];
+	const darkness = Math.max(0, Math.min(1, scene.darkness ?? 0));
 
 	return {
 		name: scene.name,
@@ -289,10 +290,10 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 			base: {},
 			cycle: false,
 			dark: {},
-			darknessLevel: 0,
+			darknessLevel: darkness,
 			darknessLevelLock: false,
 			globalLight: {
-				enabled: 0,
+				enabled: darkness > 0 ? 0 : 1,
 				bright: false,
 			},
 		},
@@ -308,7 +309,7 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 		fogReset,
 		globalLight: false,
 		globalLightThreshold: null,
-		darkness: 0,
+		darkness,
 		drawings: scene.drawings ?? [],
 		tokens: scene.tokens ?? [],
 		lights: scene.lights ?? [],

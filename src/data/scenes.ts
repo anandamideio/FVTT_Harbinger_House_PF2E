@@ -32,6 +32,8 @@ export interface HarbingerScene {
 	tokenVision?: boolean;
 	/** If false, scene fog exploration progress is not recorded */
 	fogExploration?: boolean;
+	/** Scene darkness level 0..1 (0 = full daylight, 1 = pitch black). Drives both `environment.darknessLevel` and the legacy `darkness` field. */
+	darkness?: number;
 	/** Optional embedded scene placeables exported from Foundry */
 	drawings?: object[];
 	tokens?: object[];
@@ -46,11 +48,14 @@ export interface HarbingerScene {
 	sort?: number;
 }
 
+import { IMPORTED_DD2VTT_SCENES } from './scenes-imported';
+
 /**
  * All Harbinger House scenes
  * Organized by chapter
  */
 export const ALL_SCENES: HarbingerScene[] = [
+	...IMPORTED_DD2VTT_SCENES,
 	{
 		id: 'scene-sigil',
 		name: 'Sigil',
