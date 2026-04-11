@@ -27,3 +27,4 @@ I started by setting up an OCR pipeline to extract the text from my PDF, and the
 - Exocet font: [WFonts](https://www.wfonts.com/font/exocet)
 - Rotis Serif font: [Fonts Geek](https://fontsgeek.com/rotis-serif-std-font)
 - Discovery Sound Effect are chopped up from [IENBA's excellent sound effect](https://freesound.org/people/IENBA/sounds/752275/)
+- Music From [Michael Ghelfi](https://www.michaelghelfistudios.com/), [Ivan Duch](https://ivanduch.com/), and [Tabletop RPG Music](https://www.patreon.com/cw/tabletoprpgmusic)
