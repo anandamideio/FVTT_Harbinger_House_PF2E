@@ -22,32 +22,11 @@ export const ALL_MACROS: HarbingerMacro[] = [
 		img: 'icons/svg/book.svg',
 	},
 	{
-		id: 'toggle-scene-lighting',
-		name: 'Toggle Scene Lighting',
-		type: 'script',
-		command: createMacroCommand('toggleSceneLighting'),
-		img: 'icons/svg/light.svg',
-	},
-	{
-		id: 'toggle-ambient-sounds',
-		name: 'Toggle Ambient Sounds',
-		type: 'script',
-		command: createMacroCommand('toggleAmbientSounds'),
-		img: 'icons/svg/sound.svg',
-	},
-	{
 		id: 'open-import-dialog',
 		name: 'Open Adventure Importer',
 		type: 'script',
 		command: createMacroCommand('openImportDialog'),
-		img: 'icons/svg/download.svg',
-	},
-	{
-		id: 'token-ring-styling',
-		name: 'Token Ring Styling',
-		type: 'script',
-		command: createMacroCommand('applyTokenRingStyling'),
-		img: 'icons/svg/target.svg',
+		img: 'icons/svg/direction.svg',
 	},
 	{
 		id: 'export-scene-data',
@@ -75,7 +54,7 @@ export const ALL_MACROS: HarbingerMacro[] = [
 		name: 'Assign Player Alignments',
 		type: 'script',
 		command: createMacroCommand('assignPlayerAlignments'),
-		img: 'icons/svg/compass.svg',
+		img: 'icons/svg/sun.svg',
 	},
 ];
 

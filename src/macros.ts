@@ -10,40 +10,6 @@ type JournalWithShareSheet = JournalEntryClass & {
 	};
 };
 
-interface SceneWithLighting extends SceneClass {
-	globalLight?: boolean;
-}
-
-interface AmbientSoundLike {
-	id: string;
-	hidden?: boolean;
-}
-
-interface SceneWithAmbientSounds extends SceneClass {
-	sounds?: {
-		contents: AmbientSoundLike[];
-	};
-	updateEmbeddedDocuments?: (
-		type: string,
-		updates: Array<Record<string, unknown>>,
-	) => Promise<unknown>;
-}
-
-interface TokenDocumentLike {
-	texture?: {
-		src?: string;
-	};
-	update(data: Record<string, unknown>): Promise<unknown>;
-}
-
-interface ControlledTokenLike {
-	document: TokenDocumentLike;
-}
-
-interface TokenLayerLike {
-	controlled: ControlledTokenLike[];
-}
-
 interface PointerLikeEvent {
 	global?: {
 		x: number;
@@ -55,10 +21,7 @@ interface PointerLikeEvent {
 
 export interface HarbingerHouseMacroAPI {
 	setLandingPage: () => Promise<void>;
-	toggleSceneLighting: () => Promise<void>;
-	toggleAmbientSounds: () => Promise<void>;
 	openImportDialog: () => Promise<void>;
-	applyTokenRingStyling: () => Promise<void>;
 	exportSceneData: () => Promise<void>;
 	exportSceneAmbienceData: () => Promise<void>;
 	calibrateSigilLocation: () => Promise<void>;
@@ -82,45 +45,6 @@ async function setLandingPage(): Promise<void> {
 	ui.notifications.info('Displaying Harbinger House journal to all players.');
 }
 
-async function toggleSceneLighting(): Promise<void> {
-	const scene = canvas.scene as SceneWithLighting | null;
-	if (!scene) {
-		ui.notifications.warn('No active scene.');
-		return;
-	}
-
-	const newState = !scene.globalLight;
-	await scene.update({ globalLight: newState });
-	ui.notifications.info(`Global illumination ${newState ? 'enabled' : 'disabled'}.`);
-}
-
-async function toggleAmbientSounds(): Promise<void> {
-	const scene = canvas.scene as SceneWithAmbientSounds | null;
-	if (!scene) {
-		ui.notifications.warn('No active scene.');
-		return;
-	}
-
-	const sounds = scene.sounds?.contents ?? [];
-	if (sounds.length === 0) {
-		ui.notifications.warn('No ambient sounds on this scene.');
-		return;
-	}
-
-	if (!scene.updateEmbeddedDocuments) {
-		ui.notifications.warn('Ambient sound updates are not available on this Foundry version.');
-		return;
-	}
-
-	const updates = sounds.map((sound) => ({
-		_id: sound.id,
-		hidden: !sound.hidden,
-	}));
-
-	await scene.updateEmbeddedDocuments('AmbientSound', updates);
-	ui.notifications.info(`Toggled ${sounds.length} ambient sound(s).`);
-}
-
 async function openImportDialog(): Promise<void> {
 	if (!game.user?.isGM) {
 		ui.notifications.warn('Only a GM can import content.');
@@ -133,24 +57,6 @@ async function openImportDialog(): Promise<void> {
 	}
 
 	await game.harbingerHouse.openImporter();
-}
-
-async function applyTokenRingStyling(): Promise<void> {
-	const tokens = (canvas as unknown as { tokens?: TokenLayerLike }).tokens?.controlled ?? [];
-	if (tokens.length === 0) {
-		ui.notifications.warn('No tokens selected. Please select one or more tokens first.');
-		return;
-	}
-
-	for (const token of tokens) {
-		const textureSrc = token.document.texture?.src;
-		await token.document.update({
-			'ring.enabled': true,
-			...(textureSrc ? { 'ring.subject.texture': textureSrc } : {}),
-		});
-	}
-
-	ui.notifications.info(`Applied token ring styling to ${tokens.length} token(s).`);
 }
 
 const PLACEABLE_FIELDS = [
@@ -806,10 +712,7 @@ async function assignPlayerAlignments(): Promise<void> {
 
 export const MACROS: HarbingerHouseMacroAPI = {
 	setLandingPage,
-	toggleSceneLighting,
-	toggleAmbientSounds,
 	openImportDialog,
-	applyTokenRingStyling,
 	exportSceneData,
 	exportSceneAmbienceData,
 	calibrateSigilLocation,

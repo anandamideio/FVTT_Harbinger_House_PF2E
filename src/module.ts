@@ -35,10 +35,7 @@ interface HarbingerHouseAPI {
 	getContentSummary: typeof getContentSummary;
 	macros: HarbingerHouseMacroAPI;
 	setLandingPage: HarbingerHouseMacroAPI['setLandingPage'];
-	toggleSceneLighting: HarbingerHouseMacroAPI['toggleSceneLighting'];
-	toggleAmbientSounds: HarbingerHouseMacroAPI['toggleAmbientSounds'];
 	openImportDialog: HarbingerHouseMacroAPI['openImportDialog'];
-	applyTokenRingStyling: HarbingerHouseMacroAPI['applyTokenRingStyling'];
 	exportSceneData: HarbingerHouseMacroAPI['exportSceneData'];
 	exportSceneAmbienceData: HarbingerHouseMacroAPI['exportSceneAmbienceData'];
 	calibrateSigilLocation: HarbingerHouseMacroAPI['calibrateSigilLocation'];
