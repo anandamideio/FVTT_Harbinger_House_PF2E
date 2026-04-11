@@ -496,7 +496,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 	data: {
 		name: 'Pastor Browen',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/paster_bowen.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/paster_bowen.png',
 		system: {
 			abilities: {
 				str: { mod: 3 },

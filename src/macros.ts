@@ -60,6 +60,7 @@ export interface HarbingerHouseMacroAPI {
 	openImportDialog: () => Promise<void>;
 	applyTokenRingStyling: () => Promise<void>;
 	exportSceneData: () => Promise<void>;
+	exportSceneAmbienceData: () => Promise<void>;
 	calibrateSigilLocation: () => Promise<void>;
 	assignPlayerAlignments: () => Promise<void>;
 }
@@ -163,6 +164,41 @@ const PLACEABLE_FIELDS = [
 	'walls',
 ] as const;
 
+interface PlaylistDocumentLike {
+	name?: string;
+	flags?: Record<string, Record<string, unknown>>;
+	sounds?: {
+		get: (id: string) => { name?: string } | undefined;
+	};
+}
+
+interface ScenePlaylistResolution {
+	playlistId?: string;
+	playlistName?: string;
+	playlistSoundId?: string;
+	playlistSoundName?: string;
+	playlistSourceId?: string;
+}
+
+type SceneAmbienceExport = Pick<
+	HarbingerScene,
+	'darkness' | 'globalLight' | 'globalLightThreshold' | 'environment' | 'playlistSourceId'
+>;
+
+interface SceneAmbienceExportContext {
+	exportData: SceneAmbienceExport;
+	playlistId?: string;
+	playlistName?: string;
+	playlistSoundId?: string;
+	playlistSoundName?: string;
+	hasUnmappedPlaylist: boolean;
+}
+
+type SceneEnvironmentOverride = NonNullable<HarbingerScene['environment']>;
+type SceneEnvironmentLightOverride = NonNullable<SceneEnvironmentOverride['base']>;
+
+const ENVIRONMENT_LIGHT_KEYS = ['hue', 'intensity', 'luminosity', 'saturation', 'shadows'] as const;
+
 function escapeHtml(value: string): string {
 	return value
 		.replaceAll('&', '&amp;')
@@ -241,7 +277,7 @@ function sanitizePlaceables(placeables: unknown): object[] | undefined {
 	});
 }
 
-function getSceneModuleFlagValue(scene: SceneClass, key: 'sourceId' | 'folder'): string | undefined {
+function getSceneModuleFlagValue(scene: SceneClass, key: 'sourceId' | 'folder' | 'playlistSourceId'): string | undefined {
 	const moduleFlags = scene.flags?.[MODULE_ID];
 	if (!moduleFlags || typeof moduleFlags !== 'object') {
 		return undefined;
@@ -257,6 +293,146 @@ function getSceneFolderName(scene: SceneClass): string | undefined {
 
 	const folderName = (scene as unknown as { folder?: { name?: string | null } | null }).folder?.name;
 	return typeof folderName === 'string' && folderName.length > 0 ? folderName : undefined;
+}
+
+function getSceneEnvironmentLightOverride(
+	lighting: SceneData['environment']['base'] | SceneData['environment']['dark'] | undefined,
+): SceneEnvironmentLightOverride | undefined {
+	const override: SceneEnvironmentLightOverride = {};
+
+	for (const key of ENVIRONMENT_LIGHT_KEYS) {
+		const value = lighting?.[key];
+		if (typeof value === 'number' && value !== 0) {
+			override[key] = value;
+		}
+	}
+
+	return Object.keys(override).length > 0 ? override : undefined;
+}
+
+function getSceneEnvironmentOverride(sceneData: SceneData): SceneEnvironmentOverride | undefined {
+	const cycle = sceneData.environment?.cycle === true;
+	const base = getSceneEnvironmentLightOverride(sceneData.environment?.base);
+	const dark = getSceneEnvironmentLightOverride(sceneData.environment?.dark);
+
+	if (!cycle && !base && !dark) {
+		return undefined;
+	}
+
+	return {
+		...(cycle ? { cycle: true } : {}),
+		...(base ? { base } : {}),
+		...(dark ? { dark } : {}),
+	};
+}
+
+function getSceneDarkness(sceneData: SceneData): number | undefined {
+	if (typeof sceneData.darkness === 'number') {
+		return sceneData.darkness;
+	}
+
+	const environmentDarkness = sceneData.environment?.darknessLevel;
+	return typeof environmentDarkness === 'number' ? environmentDarkness : undefined;
+}
+
+function getSceneGlobalLightEnabled(sceneData: SceneData): boolean | undefined {
+	if (typeof sceneData.globalLight === 'boolean') {
+		return sceneData.globalLight;
+	}
+
+	const environmentEnabled = sceneData.environment?.globalLight?.enabled;
+	if (typeof environmentEnabled === 'boolean') {
+		return environmentEnabled;
+	}
+
+	if (typeof environmentEnabled === 'number') {
+		return environmentEnabled > 0;
+	}
+
+	return undefined;
+}
+
+function getSceneGlobalLightThreshold(sceneData: SceneData): number | undefined {
+	if (typeof sceneData.globalLightThreshold === 'number') {
+		return sceneData.globalLightThreshold;
+	}
+
+	const darknessMax = sceneData.environment?.globalLight?.darkness?.max;
+	return typeof darknessMax === 'number' ? darknessMax : undefined;
+}
+
+function resolveScenePlaylist(sceneData: SceneData): ScenePlaylistResolution {
+	const playlistId = typeof sceneData.playlist === 'string' && sceneData.playlist.length > 0 ? sceneData.playlist : undefined;
+	const playlistSoundId =
+		typeof sceneData.playlistSound === 'string' && sceneData.playlistSound.length > 0 ? sceneData.playlistSound : undefined;
+
+	if (!playlistId) {
+		return {
+			...(playlistSoundId ? { playlistSoundId } : {}),
+		};
+	}
+
+	const playlists = (game as unknown as { playlists?: { get: (id: string) => PlaylistDocumentLike | undefined } }).playlists;
+	const playlist = playlists?.get(playlistId);
+	const sourceId = playlist?.flags?.[MODULE_ID]?.sourceId;
+	const playlistSourceId = typeof sourceId === 'string' && sourceId.length > 0 ? sourceId : undefined;
+	const soundName = playlistSoundId ? playlist?.sounds?.get(playlistSoundId)?.name : undefined;
+
+	return {
+		playlistId,
+		...(typeof playlist?.name === 'string' ? { playlistName: playlist.name } : {}),
+		...(playlistSoundId ? { playlistSoundId } : {}),
+		...(typeof soundName === 'string' ? { playlistSoundName: soundName } : {}),
+		...(playlistSourceId ? { playlistSourceId } : {}),
+	};
+}
+
+function formatSceneFieldSnippet(data: Record<string, unknown>): string {
+	return Object.entries(data)
+		.map(([key, value]) => `${key}: ${formatTypeScriptLiteral(value, 1)},`)
+		.join('\n');
+}
+
+function buildHarbingerSceneAmbienceExport(scene: SceneClass): SceneAmbienceExportContext {
+	const sceneData = scene.toObject();
+	const exportData: SceneAmbienceExport = {};
+
+	const darkness = getSceneDarkness(sceneData);
+	if (typeof darkness === 'number' && darkness !== 0) {
+		exportData.darkness = darkness;
+	}
+
+	const globalLight = getSceneGlobalLightEnabled(sceneData);
+	if (globalLight === true) {
+		exportData.globalLight = true;
+	}
+
+	const globalLightThreshold = getSceneGlobalLightThreshold(sceneData);
+	if (typeof globalLightThreshold === 'number') {
+		exportData.globalLightThreshold = globalLightThreshold;
+	}
+
+	const environment = getSceneEnvironmentOverride(sceneData);
+	if (environment) {
+		exportData.environment = environment;
+	}
+
+	const sceneFlagPlaylistSourceId = getSceneModuleFlagValue(scene, 'playlistSourceId');
+	const playlist = resolveScenePlaylist(sceneData);
+	const playlistSourceId = sceneFlagPlaylistSourceId ?? playlist.playlistSourceId;
+
+	if (playlistSourceId) {
+		exportData.playlistSourceId = playlistSourceId;
+	}
+
+	return {
+		exportData,
+		...(playlist.playlistId ? { playlistId: playlist.playlistId } : {}),
+		...(playlist.playlistName ? { playlistName: playlist.playlistName } : {}),
+		...(playlist.playlistSoundId ? { playlistSoundId: playlist.playlistSoundId } : {}),
+		...(playlist.playlistSoundName ? { playlistSoundName: playlist.playlistSoundName } : {}),
+		hasUnmappedPlaylist: Boolean(playlist.playlistId && !playlistSourceId),
+	};
 }
 
 function buildHarbingerSceneExport(scene: SceneClass): HarbingerScene {
@@ -370,6 +546,86 @@ async function exportSceneData(): Promise<void> {
 	).render(true);
 
 	ui.notifications.info(`Exported scene data for ${exportData.name}.`);
+}
+
+async function exportSceneAmbienceData(): Promise<void> {
+	if (!game.user?.isGM) {
+		ui.notifications.warn('Only a GM can export scene ambience data.');
+		return;
+	}
+
+	const scene = canvas.scene;
+	if (!scene) {
+		ui.notifications.warn('No active scene to export ambience from.');
+		return;
+	}
+
+	const ambience = buildHarbingerSceneAmbienceExport(scene);
+	const snippet = formatSceneFieldSnippet(ambience.exportData as Record<string, unknown>);
+	const output = snippet || '// No ambience overrides detected on this scene.';
+	const copied = await copyToClipboard(output);
+
+	log(`[Scene Ambience Export] ${scene.name}`, {
+		export: ambience.exportData,
+		playlistId: ambience.playlistId ?? null,
+		playlistSourceId: ambience.exportData.playlistSourceId ?? null,
+	});
+
+	const playlistDetails = [
+		...(ambience.playlistId
+			? [
+				`<li><strong>Playlist:</strong> ${escapeHtml(ambience.playlistName ?? ambience.playlistId)}${
+					ambience.playlistName ? ` <code>(${escapeHtml(ambience.playlistId)})</code>` : ''
+				}</li>`,
+			]
+			: []),
+		...(ambience.playlistSoundId
+			? [
+				`<li><strong>Sound:</strong> ${escapeHtml(ambience.playlistSoundName ?? ambience.playlistSoundId)}${
+					ambience.playlistSoundName ? ` <code>(${escapeHtml(ambience.playlistSoundId)})</code>` : ''
+				}</li>`,
+			]
+			: []),
+		...(ambience.exportData.playlistSourceId
+			? [
+				`<li><strong>Scene data field:</strong> <code>playlistSourceId: '${escapeHtml(ambience.exportData.playlistSourceId)}'</code></li>`,
+			]
+			: []),
+	];
+
+	new Dialog(
+		{
+			title: `Scene Ambience Export: ${scene.name}`,
+			content: `
+				<p>Paste this field snippet into the scene object in <code>src/data/scenes.ts</code>.</p>
+				${
+					playlistDetails.length > 0
+						? `<ul>${playlistDetails.join('')}</ul>`
+						: '<p>No playlist selected in Scene Ambience.</p>'
+				}
+				${
+					ambience.hasUnmappedPlaylist
+						? '<p><strong>Playlist mapping note:</strong> The selected playlist is missing this module\'s <code>sourceId</code> flag, so <code>playlistSourceId</code> could not be generated automatically.</p>'
+						: ''
+				}
+				<p>${copied ? 'Copied to clipboard.' : 'Clipboard copy failed. Copy from the box below.'}</p>
+				<textarea style="width: 100%; min-height: 220px; font-family: monospace;">${escapeHtml(output)}</textarea>
+			`,
+			buttons: {
+				ok: {
+					icon: '<i class="fas fa-check"></i>',
+					label: 'Done',
+				},
+			},
+			default: 'ok',
+		},
+		{
+			width: 760,
+			classes: ['harbinger-house'],
+		},
+	).render(true);
+
+	ui.notifications.info(`Exported ambience data for ${scene.name}.`);
 }
 
 function chooseCalibrationLocation(): Promise<string | null> {
@@ -564,6 +820,7 @@ export const MACROS: HarbingerHouseMacroAPI = {
 	openImportDialog,
 	applyTokenRingStyling,
 	exportSceneData,
+	exportSceneAmbienceData,
 	calibrateSigilLocation,
 	assignPlayerAlignments,
 };

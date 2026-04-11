@@ -381,6 +381,7 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 				sourceId: scene.id,
 				folder: scene.folder || 'Maps',
 				imported: true,
+				...(scene.playlistSourceId ? { playlistSourceId: scene.playlistSourceId } : {}),
 			},
 		},
 		navigation: scene.navigation,

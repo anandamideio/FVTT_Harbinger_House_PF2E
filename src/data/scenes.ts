@@ -73,6 +73,11 @@ export interface HarbingerScene {
 	/** Folder for organization */
 	folder?: string;
 	sort?: number;
+	/**
+	 * Source ID of a HarbingerPlaylist that should auto-play when this scene is viewed.
+	 * Resolved to the deterministic compendium _id at build time.
+	 */
+	playlistSourceId?: string;
 }
 
 import { IMPORTED_DD2VTT_SCENES } from './scenes-imported';
@@ -109,6 +114,7 @@ export const ALL_SCENES: HarbingerScene[] = [
 		fogExploration: false,
 		folder: 'Chapter 1',
 		sort: 0,
+		playlistSourceId: 'playlist-sigil-ambiance',
 	},
 	{
 		id: 'scene-first-floor',

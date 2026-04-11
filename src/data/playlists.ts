@@ -128,7 +128,7 @@ export const ALL_PLAYLISTS: HarbingerPlaylist[] = [
 		id: 'playlist-sfx',
 		name: 'Harbinger House SFX',
 		description: 'One-shot sound effects and stingers.',
-		mode: 3,
+		mode: 0,
 		channel: 'interface',
 		sounds: [
 			{
@@ -136,6 +136,32 @@ export const ALL_PLAYLISTS: HarbingerPlaylist[] = [
 				name: 'Magic Reveal',
 				path: `${SOUND_ROOT}/752275__ienba__magic-reveal.wav`,
 				repeat: false,
+			},
+		],
+	},
+	{
+		id: 'playlist-sigil-ambiance',
+		name: 'Sigil - Streets of the Cage',
+		description: "Ambient layer for the Sigil overview map: Trouble's Theme over a Village Marketplace bed.",
+		mode: 2,
+		channel: 'environment',
+		fade: 3000,
+		sounds: [
+			{
+				id: 'sigil-troubles-theme',
+				name: "Trouble's Theme",
+				path: `${SOUND_ROOT}/ivan-duch/troubles-theme-loop.ogg`,
+				repeat: true,
+				volume: 0.32,
+				channel: 'music',
+			},
+			{
+				id: 'sigil-village-marketplace',
+				name: 'Village Marketplace',
+				path: `${SOUND_ROOT}/michael-ghelfi/VillageMarketplace.ogg`,
+				repeat: true,
+				volume: 0.5,
+				channel: 'environment',
 			},
 		],
 	},

@@ -360,6 +360,13 @@ async function writeAdventurePack(): Promise<void> {
 	console.log('  Building scenes...');
 	const scenes: Record<string, unknown>[] = [];
 
+	// Build a sourceId → deterministic _id map for playlists so scenes can
+	// reference them by the stable sourceId defined in HarbingerScene.
+	const playlistIdBySourceId = new Map<string, string>();
+	for (const p of ALL_PLAYLISTS) {
+		playlistIdBySourceId.set(p.id, generateId(p.id));
+	}
+
 	for (let i = 0; i < ALL_SCENES.length; i++) {
 		const scene = ALL_SCENES[i];
 		const docId = generateId(scene.id);
@@ -372,6 +379,21 @@ async function writeAdventurePack(): Promise<void> {
 		if (!doc.environment) doc.environment = {};
 		if (!doc.regions) doc.regions = [];
 		if (doc.foregroundElevation === undefined) doc.foregroundElevation = null;
+
+		// Resolve the playlist sourceId (stashed on module flags) to the
+		// deterministic _id of the embedded playlist so scene activation
+		// auto-plays the linked track.
+		const sceneFlags = (doc.flags as Record<string, Record<string, unknown>> | undefined)?.[MODULE_ID];
+		const playlistSourceId = sceneFlags?.playlistSourceId as string | undefined;
+		if (playlistSourceId) {
+			const resolvedPlaylistId = playlistIdBySourceId.get(playlistSourceId);
+			if (resolvedPlaylistId) {
+				doc.playlist = resolvedPlaylistId;
+			} else {
+				console.warn(`    ! Scene "${scene.name}" references unknown playlist sourceId "${playlistSourceId}"`);
+			}
+			delete sceneFlags.playlistSourceId;
+		}
 
 		// Remove deprecated fields that Foundry V13 no longer uses
 		delete doc.darkness;

@@ -40,6 +40,7 @@ interface HarbingerHouseAPI {
 	openImportDialog: HarbingerHouseMacroAPI['openImportDialog'];
 	applyTokenRingStyling: HarbingerHouseMacroAPI['applyTokenRingStyling'];
 	exportSceneData: HarbingerHouseMacroAPI['exportSceneData'];
+	exportSceneAmbienceData: HarbingerHouseMacroAPI['exportSceneAmbienceData'];
 	calibrateSigilLocation: HarbingerHouseMacroAPI['calibrateSigilLocation'];
 	assignPlayerAlignments: HarbingerHouseMacroAPI['assignPlayerAlignments'];
 }
