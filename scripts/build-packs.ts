@@ -10,6 +10,7 @@ import { ALL_SPELLS } from '../src/data/spells.ts';
 import { ALL_HAZARDS } from '../src/data/hazards.ts';
 import { ALL_JOURNALS } from '../src/data/journals.ts';
 import { ALL_MACROS } from '../src/data/macros.ts';
+import { ALL_PLAYLISTS } from '../src/data/playlists.ts';
 import { ALL_SCENES } from '../src/data/scenes.ts';
 
 // Import pure transform functions
@@ -19,6 +20,7 @@ import {
 	hazardToDocumentData,
 	journalToDocumentData,
 	macroToDocumentData,
+	playlistToDocumentData,
 	sceneToDocumentData,
 	npcEntryToDocumentData,
 } from '../src/data/to-foundry-data.ts';
@@ -104,6 +106,9 @@ const FOLDER_DEFS: FolderDef[] = [
 
 	// Macro folders
 	{ sourceId: 'folder-macros', name: 'Harbinger House Macros', type: 'Macro', color: '#6e0000', sort: 100, parent: null },
+
+	// Playlist folders
+	{ sourceId: 'folder-playlists', name: 'Harbinger House Sounds', type: 'Playlist', color: '#3a1f5c', sort: 100, parent: null },
 ];
 
 /**
@@ -402,6 +407,32 @@ async function writeAdventurePack(): Promise<void> {
 	}
 	console.log(`    ${macros.length} macros`);
 
+	// -- Build Playlists --
+	console.log('  Building playlists...');
+	const playlists: Record<string, unknown>[] = [];
+
+	for (let i = 0; i < ALL_PLAYLISTS.length; i++) {
+		const playlist = ALL_PLAYLISTS[i];
+		const docId = generateId(playlist.id);
+		const docData = playlistToDocumentData(playlist);
+		const doc = augmentDocument(docData, docId, getFolderId('folder-playlists'), i);
+
+		if (Array.isArray(doc.sounds)) {
+			for (let idx = 0; idx < (doc.sounds as Record<string, unknown>[]).length; idx++) {
+				const sound = (doc.sounds as Record<string, unknown>[])[idx];
+				if (!sound._id) {
+					sound._id = generateId(`${playlist.id}-sound-${(sound as { name?: string }).name || idx}`);
+				}
+				if (!sound._stats) sound._stats = createStats();
+				if (!sound.flags) sound.flags = {};
+				if (sound.sort === undefined) sound.sort = idx * 100;
+			}
+		}
+
+		playlists.push(doc);
+	}
+	console.log(`    ${playlists.length} playlists`);
+
 	// -- Build Folders --
 	console.log('  Building folders...');
 	const folders = buildFolders();
@@ -423,7 +454,7 @@ async function writeAdventurePack(): Promise<void> {
 		tables: [],
 		macros,
 		cards: [],
-		playlists: [],
+		playlists,
 		folders,
 		sort: 0,
 		flags: {
@@ -446,7 +477,7 @@ async function writeAdventurePack(): Promise<void> {
 
 	try {
 		await adventureDb.put(adventureId, adventureDoc);
-		const totalDocs = actors.length + items.length + journal.length + scenes.length + macros.length + folders.length;
+		const totalDocs = actors.length + items.length + journal.length + scenes.length + macros.length + playlists.length + folders.length;
 		console.log(`\n  Adventure pack written: 1 Adventure document containing ${totalDocs} embedded documents`);
 	} finally {
 		await db.close();

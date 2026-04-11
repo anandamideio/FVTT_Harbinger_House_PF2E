@@ -15,6 +15,7 @@ import { ALL_HAZARDS } from './hazards';
 import { ALL_ITEMS } from './items';
 import { ALL_JOURNALS } from './journals';
 import { ALL_MACROS } from './macros';
+import { ALL_PLAYLISTS } from './playlists';
 import { ALL_SCENES } from './scenes';
 import { ALL_SPELLS } from './spells';
 
@@ -126,6 +127,17 @@ export {
 } from './macros';
 
 // ============================================================================
+// Playlist Data
+// ============================================================================
+
+export type { HarbingerPlaylist, HarbingerPlaylistSound } from './playlists';
+
+export {
+	ALL_PLAYLISTS,
+	getPlaylistById,
+} from './playlists';
+
+// ============================================================================
 // Summary Statistics
 // ============================================================================
 
@@ -138,6 +150,7 @@ export function getContentSummary() {
 		journals: ALL_JOURNALS.length,
 		scenes: ALL_SCENES.length,
 		macros: ALL_MACROS.length,
+		playlists: ALL_PLAYLISTS.length,
 		total:
 			ALL_NPCS.length +
 			ALL_ITEMS.length +
@@ -145,7 +158,8 @@ export function getContentSummary() {
 			ALL_HAZARDS.length +
 			ALL_JOURNALS.length +
 			ALL_SCENES.length +
-			ALL_MACROS.length,
+			ALL_MACROS.length +
+			ALL_PLAYLISTS.length,
 	};
 }
 

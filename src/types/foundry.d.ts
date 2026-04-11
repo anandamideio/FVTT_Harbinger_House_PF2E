@@ -1226,6 +1226,36 @@ declare global {
 		flags?: Record<string, Record<string, unknown>>;
 	}
 
+	interface PlaylistSoundData {
+		_id?: string;
+		name: string;
+		description?: string;
+		path: string;
+		channel?: 'music' | 'environment' | 'interface';
+		playing?: boolean;
+		pausedTime?: number | null;
+		repeat?: boolean;
+		volume?: number;
+		fade?: number | null;
+		sort?: number;
+		flags?: Record<string, Record<string, unknown>>;
+	}
+
+	interface PlaylistData {
+		_id?: string;
+		name: string;
+		description?: string;
+		mode?: -1 | 0 | 1 | 2 | 3;
+		playing?: boolean;
+		fade?: number | null;
+		channel?: 'music' | 'environment' | 'interface';
+		sort?: number;
+		seed?: number | null;
+		sounds: PlaylistSoundData[];
+		folder?: string | null;
+		flags?: Record<string, Record<string, unknown>>;
+	}
+
 	interface JournalEntryPageData {
 		_id?: string;
 		name: string;
@@ -1526,6 +1556,8 @@ export type {
 	FolderData,
 	HarbingerNPC,
 	MacroData,
+	PlaylistData,
+	PlaylistSoundData,
 	HazardFlanking,
 	HazardHP,
 	HazardStatistic,

@@ -1,11 +1,12 @@
 import { HARBINGER_JOURNAL_SHEET_CLASS, MODULE_ID } from '../config';
-import type { ActorData, ItemData, JournalEntryData, MacroData, SceneData } from '../types/foundry';
+import type { ActorData, ItemData, JournalEntryData, MacroData, PlaylistData, PlaylistSoundData, SceneData } from '../types/foundry';
 import type { HarbingerNPC, NPCCategory, NPCEntry, NPCItemEntry } from './harbinger-residents';
 import { isSystemActorReference } from './harbinger-residents';
 import type { HarbingerHazard, HazardCategory } from './hazards';
 import type { HarbingerItem, ItemCategory } from './items';
 import type { HarbingerJournal } from './journals';
 import type { HarbingerMacro } from './macros';
+import type { HarbingerPlaylist } from './playlists';
 import type { HarbingerScene } from './scenes';
 import type { HarbingerSpell } from './spells';
 import type { SystemActorReference } from './system-items';
@@ -80,6 +81,47 @@ export function macroToDocumentData(macro: HarbingerMacro): MacroData {
 		flags: {
 			[MODULE_ID]: {
 				sourceId: macro.id,
+				imported: true,
+			},
+		},
+	};
+}
+
+// ============================================================================
+// Playlists
+// ============================================================================
+
+export function playlistToDocumentData(playlist: HarbingerPlaylist): PlaylistData {
+	const sounds: PlaylistSoundData[] = playlist.sounds.map((sound, idx) => ({
+		name: sound.name,
+		description: sound.description ?? '',
+		path: sound.path,
+		channel: sound.channel ?? playlist.channel ?? 'music',
+		playing: false,
+		pausedTime: null,
+		repeat: sound.repeat ?? true,
+		volume: sound.volume ?? 0.5,
+		fade: null,
+		sort: idx * 100,
+		flags: {
+			[MODULE_ID]: {
+				sourceId: sound.id,
+				imported: true,
+			},
+		},
+	}));
+
+	return {
+		name: playlist.name,
+		description: playlist.description ?? '',
+		mode: playlist.mode ?? 0,
+		playing: false,
+		fade: playlist.fade ?? null,
+		channel: playlist.channel ?? 'music',
+		sounds,
+		flags: {
+			[MODULE_ID]: {
+				sourceId: playlist.id,
 				imported: true,
 			},
 		},
