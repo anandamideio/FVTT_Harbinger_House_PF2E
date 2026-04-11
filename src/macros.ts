@@ -180,10 +180,13 @@ interface ScenePlaylistResolution {
 	playlistSourceId?: string;
 }
 
-type SceneAmbienceExport = Pick<
-	HarbingerScene,
-	'darkness' | 'globalLight' | 'globalLightThreshold' | 'environment' | 'playlistSourceId'
->;
+interface SceneAmbienceExport {
+	darkness?: number;
+	globalLight?: boolean;
+	globalLightThreshold?: number | null;
+	environment?: HarbingerScene['environment'];
+	playlistSourceId?: string;
+}
 
 interface SceneAmbienceExportContext {
 	exportData: SceneAmbienceExport;
@@ -327,19 +330,11 @@ function getSceneEnvironmentOverride(sceneData: SceneData): SceneEnvironmentOver
 }
 
 function getSceneDarkness(sceneData: SceneData): number | undefined {
-	if (typeof sceneData.darkness === 'number') {
-		return sceneData.darkness;
-	}
-
 	const environmentDarkness = sceneData.environment?.darknessLevel;
 	return typeof environmentDarkness === 'number' ? environmentDarkness : undefined;
 }
 
 function getSceneGlobalLightEnabled(sceneData: SceneData): boolean | undefined {
-	if (typeof sceneData.globalLight === 'boolean') {
-		return sceneData.globalLight;
-	}
-
 	const environmentEnabled = sceneData.environment?.globalLight?.enabled;
 	if (typeof environmentEnabled === 'boolean') {
 		return environmentEnabled;
@@ -353,10 +348,6 @@ function getSceneGlobalLightEnabled(sceneData: SceneData): boolean | undefined {
 }
 
 function getSceneGlobalLightThreshold(sceneData: SceneData): number | undefined {
-	if (typeof sceneData.globalLightThreshold === 'number') {
-		return sceneData.globalLightThreshold;
-	}
-
 	const darknessMax = sceneData.environment?.globalLight?.darkness?.max;
 	return typeof darknessMax === 'number' ? darknessMax : undefined;
 }
