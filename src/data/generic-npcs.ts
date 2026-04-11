@@ -15,77 +15,8 @@ import {
 // Dretch → Pusk (remaster rename). Use the system compendium entry directly.
 export const DRETCH = systemActor('dretch', 'fiend', 'pusk', 'Pusk (Dretch)');
 
-export const MANES: HarbingerNPC = {
-	id: 'manes',
-	category: 'fiend',
-	data: {
-		name: 'Manes',
-		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/manes.webp',
-		system: {
-			abilities: {
-				str: { mod: 1 },
-				dex: { mod: 1 },
-				con: { mod: 2 },
-				int: { mod: -4 },
-				wis: { mod: 0 },
-				cha: { mod: -3 },
-			},
-			attributes: {
-				hp: { value: 15, max: 15, temp: 0, details: '' },
-				ac: { value: 14, details: '' },
-				speed: { value: 20, otherSpeeds: [] },
-				immunities: [{ type: 'electricity' }, { type: 'poison' }],
-				weaknesses: [
-					{ type: 'cold-iron', value: 2 },
-					{ type: 'good', value: 2 },
-				],
-				resistances: [
-					{ type: 'cold', value: 2 },
-					{ type: 'fire', value: 2 },
-				],
-			},
-			perception: { mod: 4, details: '' },
-			details: {
-				level: { value: 0 },
-				alignment: { value: 'CE' },
-				creatureType: 'Fiend',
-				source: { value: 'Harbinger House' },
-				blurb: 'Mindless demon fodder',
-				publicNotes: `<p>Manes are the lowliest of demons—the misshapen, mindless souls of evil mortals consigned to the Abyss.</p>
-<p><strong>Death Burst:</strong> When a manes dies, it explodes in a burst of acidic vapor, dealing @Damage[1d6[acid]] damage to creatures within 10 feet (@Check[type:reflex|dc:14] basic save).</p>`,
-			},
-			saves: {
-				fortitude: { value: 8, saveDetail: '' },
-				reflex: { value: 5, saveDetail: '' },
-				will: { value: 2, saveDetail: '' },
-			},
-			traits: {
-				value: ['demon', 'fiend'],
-				rarity: 'common',
-				size: { value: 'sm' },
-				languages: { value: ['abyssal'], details: "can't speak" },
-				senses: [{ type: 'darkvision' }],
-			},
-		},
-		flags: {
-			'harbinger-house-pf2e': {
-				sourceId: 'manes',
-				category: 'fiend',
-			},
-		},
-	},
-	items: [
-		createStrike('Claw', 7, { dice: 1, die: '4', type: 'slashing', modifier: 1 }, ['agile']),
-		createStrike('Bite', 7, { dice: 1, die: '6', type: 'piercing', modifier: 1 }, []),
-		createAction(
-			'Death Burst',
-			'passive',
-			['acid', 'divine'],
-			`<p>When the manes dies, it explodes in a burst of acidic vapor. Each creature within 10 feet takes @Damage[1d6[acid]] damage (@Check[type:reflex|dc:14] basic save).</p>`,
-		),
-	],
-};
+// Manes → Quasit replacement. Keep sourceId "manes" for backward compatibility.
+export const MANES = systemActor('manes', 'fiend', 'quasit', 'Quasit (Manes)');
 
 export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 	id: 'cranium-rat-swarm',
@@ -176,85 +107,8 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 	],
 };
 
-export const GRAY_OOZE: HarbingerNPC = {
-	id: 'gray-ooze',
-	category: 'fiend',
-	data: {
-		name: 'Gray Ooze',
-		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/gray-ooze.webp',
-		system: {
-			abilities: {
-				str: { mod: 4 },
-				dex: { mod: -3 },
-				con: { mod: 5 },
-				int: { mod: -5 },
-				wis: { mod: 0 },
-				cha: { mod: -5 },
-			},
-			attributes: {
-				hp: { value: 60, max: 60, temp: 0, details: '' },
-				ac: { value: 14, details: '' },
-				speed: { value: 10, otherSpeeds: [{ type: 'climb', value: 10 }] },
-				immunities: [
-					{ type: 'acid' },
-					{ type: 'critical-hits' },
-					{ type: 'electricity' },
-					{ type: 'mental' },
-					{ type: 'precision' },
-					{ type: 'unconscious' },
-					{ type: 'visual' },
-				],
-			},
-			perception: { mod: 8, details: 'motion sense 60 feet, no vision' },
-			details: {
-				level: { value: 4 },
-				alignment: { value: 'N' },
-				creatureType: 'Ooze',
-				source: { value: 'Harbinger House' },
-				blurb: 'Acidic ooze that corrodes metal',
-				publicNotes: `<p>Gray oozes are found in Teela's bathroom in Harbinger House. They corrode metal on contact.</p>
-<p><strong>Metal Corrosion:</strong> A creature struck by the gray ooze's pseudopod must succeed at a @Check[type:reflex|dc:21] or their metal armor or weapon takes @Damage[1d6[acid]] damage (ignoring Hardness). On a critical failure, the item takes double damage.</p>`,
-			},
-			saves: {
-				fortitude: { value: 13, saveDetail: '' },
-				reflex: { value: 5, saveDetail: '' },
-				will: { value: 6, saveDetail: '' },
-			},
-			skills: {
-				athletics: { base: 11, value: 11, label: 'Athletics', visible: true },
-				stealth: { base: 6, value: 6, label: 'Stealth', visible: true },
-			},
-			traits: {
-				value: ['mindless', 'ooze'],
-				rarity: 'common',
-				size: { value: 'med' },
-			},
-		},
-		flags: {
-			'harbinger-house-pf2e': {
-				sourceId: 'gray-ooze',
-				category: 'fiend',
-			},
-		},
-	},
-	items: [
-		createStrike(
-			'Pseudopod',
-			12,
-			{ dice: 1, die: '6', type: 'bludgeoning', modifier: 5 },
-			[],
-			'Plus 1d6 acid and Grab',
-		),
-		createAction('Constrict', 1, [], `<p>1d6+3 bludgeoning plus 1d6 acid, DC 21</p>`),
-		createAction(
-			'Metal Corrosion',
-			'passive',
-			[],
-			`<p>A creature struck by the gray ooze's pseudopod must succeed at a @Check[type:reflex|dc:21] or their metal armor or weapon takes @Damage[1d6[acid]] damage (ignoring Hardness). On a critical failure, the item takes double damage.</p>`,
-		),
-	],
-};
+// Use the PF2e Gray Ooze directly from system compendium.
+export const GRAY_OOZE = systemActor('gray-ooze', 'fiend', 'grayOoze');
 
 // =============================================================================
 // GENERIC NPCs
@@ -685,7 +539,7 @@ export const BARMY: HarbingerNPC = {
 	data: {
 		name: 'Barmy',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/barmy.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Barmy.png',
 		system: {
 			abilities: {
 				str: { mod: 2 },
@@ -731,6 +585,13 @@ export const BARMY: HarbingerNPC = {
 				category: 'cultist',
 			},
 		},
+		prototypeToken: {
+			name: 'Barmy',
+			displayName: 20,
+			actorLink: false,
+			disposition: 0,
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Barmy.png' },
+		},
 	},
 	items: [
 		createStrike('Fist', 8, { dice: 1, die: '4', type: 'bludgeoning', modifier: 4 }, ['agile', 'nonlethal']),
@@ -771,7 +632,7 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
 	data: {
 		name: 'Godsman Caretaker',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/godsman.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Caretaker.png',
 		system: {
 			abilities: {
 				str: { mod: 1 },
@@ -818,6 +679,13 @@ export const GODSMAN_CARETAKER: HarbingerNPC = {
 				sourceId: 'godsman-caretaker',
 				category: 'cultist',
 			},
+		},
+		prototypeToken: {
+			name: 'Godsman Caretaker',
+			displayName: 20,
+			actorLink: false,
+			disposition: 0,
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/Caretaker.png' },
 		},
 	},
 	items: [

@@ -203,6 +203,7 @@ export function hazardToDocumentData(hazard: HarbingerHazard): ActorData {
 				sourceId: hazard.id,
 				category: hazard.category,
 				location: hazard.location,
+				...(hazard.systemActorRef ? { systemActorRef: hazard.systemActorRef } : {}),
 				imported: true,
 			},
 		},

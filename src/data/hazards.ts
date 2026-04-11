@@ -7,6 +7,8 @@ export interface HarbingerHazard {
 	id: string;
 	category: HazardCategory;
 	location: string;
+	/** Optional PF2e compendium actor UUID used to merge canonical system data at import time. */
+	systemActorRef?: string;
 	data: HazardData;
 }
 
@@ -60,15 +62,25 @@ const KAYDIS_MIND_TRAP: HarbingerHazard = {
 			},
 			details: {
 				level: { value: 8 },
-				disable:
-					'DC 26 Medicine to gently wake Kaydi (3 actions), or DC 30 Occultism to shield your mind from the effect (1 action, affects only you)',
+				disable: '@Check[type:medicine|dc:26] to gently wake Kaydi (3 actions), or @Check[type:occultism|dc:30] to shield your mind from the effect (1 action, affects only you)',
 				reset:
 					'The trap resets 2 rounds after Kaydi falls back asleep (she remains awake for only 2 rounds when awakened).',
+				routine:
+					'On initiative count, the field surges. Each creature in the room attempts a @Check[type:will|dc:26] against Stupor Field.',
 				isComplex: true,
 			},
 			attributes: {
+				ac: { value: 26 },
+				hp: { value: 64, max: 64 },
+				hardness: { value: 16 },
 				stealth: { value: 18, dc: 28, details: '(expert)' },
 			},
+			saves: {
+				fortitude: { value: 17 },
+				reflex: { value: 15 },
+				will: { value: 20 },
+			},
+			immunities: { value: ['critical-hits', 'object-immunities', 'precision'] },
 		},
 	},
 };
@@ -132,7 +144,7 @@ const MIRROR_OF_MORTALITY_TRAP: HarbingerHazard = {
 	data: {
 		name: 'Mirror of Mortality',
 		type: 'hazard',
-		img: 'icons/sundries/misc/mirror-cracked.webp',
+		img: 'icons/commodities/treasure/gem-framed-spiral-purple.webp',
 		system: {
 			description: {
 				value: `<p>An ornate dark mirror that shows viewers images of their own decay and death.</p>
@@ -156,14 +168,24 @@ const MIRROR_OF_MORTALITY_TRAP: HarbingerHazard = {
 			},
 			details: {
 				level: { value: 7 },
-				disable:
-					'DC 27 Thievery to cover or turn the mirror, or DC 25 Religion to bless the mirror (suppresses it for 1 hour)',
-				reset: 'The trap resets automatically at the start of each round.',
-				isComplex: false,
+				disable: '@Check[type:thievery|dc:27] to cover or turn the mirror, or @Check[type:religion|dc:25] to bless it (suppresses it for 1 hour)',
+				reset: 'If not disabled, the mirror regains full effect at the start of each round.',
+				routine:
+					'On initiative count, the mirror targets one creature that can see its reflection. That creature attempts the Deadly Reflection @Check[type:will|dc:25].',
+				isComplex: true,
 			},
 			attributes: {
-				stealth: { value: 15, dc: 25, details: '(expert)' },
+				ac: { value: 24 },
+				hp: { value: 56, max: 56 },
+				hardness: { value: 14 },
+				stealth: { value: 15, dc: 25, details: '(expert) initiative +15' },
 			},
+			saves: {
+				fortitude: { value: 13 },
+				reflex: { value: 11 },
+				will: { value: 17 },
+			},
+			immunities: { value: ['critical-hits', 'object-immunities', 'precision'] },
 		},
 	},
 };
@@ -179,7 +201,7 @@ const THE_ENDLESS_STAIRS: HarbingerHazard = {
 	data: {
 		name: 'The Endless Stairs',
 		type: 'hazard',
-		img: 'icons/environment/settlement/stairs-spiral.webp',
+		img: 'icons/environment/settlement/stone-stairs.webp',
 		system: {
 			description: {
 				value: `<p>A spiral staircase that descends and ascends infinitely in both directions. The entrance door becomes a hidden secret door.</p>
@@ -204,14 +226,24 @@ const THE_ENDLESS_STAIRS: HarbingerHazard = {
 			},
 			details: {
 				level: { value: 5 },
-				disable:
-					'DC 25 Perception to find the hidden door (takes 10 minutes of searching per 10-foot section), or DC 27 Arcana/Occultism to identify the nature of the loop (allows targeted searching, reducing time to 1 minute per section)',
+				disable: '@Check[type:perception|dc:25] to find the hidden door (10 minutes per 10-foot section), @Check[type:arcana|dc:27] or @Check[type:occultism|dc:27] to understand the loop and reduce search time to 1 minute per section, or @Check[type:survival|dc:28] to orient to the paradox and reveal the exit',
 				reset: 'The hazard is always active. The door becomes secret again 1 minute after it closes.',
-				isComplex: false,
+				routine:
+					'On initiative count, each trapped creature must attempt a @Check[type:will|dc:22]. On a failure, it cannot attempt another check to locate the exit until the end of its next turn.',
+				isComplex: true,
 			},
 			attributes: {
-				stealth: { value: 13, dc: 23, details: '(trained) to notice the stairs loop impossibly' },
+				ac: { value: 22 },
+				hp: { value: 48, max: 48 },
+				hardness: { value: 12 },
+				stealth: { value: 13, dc: 23, details: '(trained) to notice the stairs loop impossibly; initiative +13' },
 			},
+			saves: {
+				fortitude: { value: 12 },
+				reflex: { value: 10 },
+				will: { value: 14 },
+			},
+			immunities: { value: ['critical-hits', 'object-immunities', 'precision'] },
 		},
 	},
 };
@@ -220,10 +252,10 @@ const BROWN_MOLD: HarbingerHazard = {
 	id: 'brown-mold',
 	category: 'environmental',
 	location: "Area 17 (Teela's Bath)",
+	systemActorRef: 'Compendium.pf2e.hazards.Actor.Q8bXKgDm8eguqThB',
 	data: {
 		name: 'Brown Mold',
 		type: 'hazard',
-		img: 'icons/magic/nature/root-vine-entangled-brown.webp',
 		system: {
 			description: {
 				value: `<p>A 5-foot-wide patch of fuzzy brown fungus that absorbs heat from its surroundings. The brown mold in Teela's bath is particularly vigorous due to the stagnant, warm conditions.</p>
@@ -245,7 +277,7 @@ const BROWN_MOLD: HarbingerHazard = {
 			},
 			details: {
 				level: { value: 4 },
-				disable: 'Deal any cold damage to instantly destroy the mold',
+				disable: 'Deal any cold damage to instantly destroy the mold.',
 				isComplex: false,
 			},
 			attributes: {
@@ -299,8 +331,17 @@ const FOCRUX_EXPLOSION: HarbingerHazard = {
 				isComplex: false,
 			},
 			attributes: {
+				ac: { value: 35 },
+				hp: { value: 140, max: 140 },
+				hardness: { value: 20 },
 				stealth: { value: 0, dc: 0, details: '— (the focrux is clearly visible)' },
 			},
+			saves: {
+				fortitude: { value: 26 },
+				reflex: { value: 18 },
+				will: { value: 22 },
+			},
+			immunities: { value: ['critical-hits', 'object-immunities', 'precision'] },
 		},
 	},
 };

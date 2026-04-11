@@ -228,6 +228,8 @@ export type SystemActionKey = keyof typeof SYSTEM_ACTIONS;
 export const SYSTEM_ACTORS = {
 	// Demons - Remaster names in parentheses where name changed
 	pusk: 'Compendium.pf2e.pathfinder-monster-core.Actor.OoUrk7aHE5wq9nLs', // formerly Dretch
+	quasit: 'Compendium.pf2e.pathfinder-bestiary.Actor.9jF564DF6ylEovna', // used as Manes replacement
+	grayOoze: 'Compendium.pf2e.pathfinder-bestiary-2.Actor.V6OBYa51VcehPj22',
 } as const;
 
 export type SystemActorKey = keyof typeof SYSTEM_ACTORS;
