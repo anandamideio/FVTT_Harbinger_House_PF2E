@@ -125,7 +125,7 @@ export class ScenePlaceableConverter {
 						direction: this.wallDefaults.doorDirection,
 						duration: this.wallDefaults.doorDuration,
 						strength: this.wallDefaults.doorStrength,
-				  }
+				}
 				: null,
 			flags: {},
 		};

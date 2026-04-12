@@ -89,7 +89,7 @@ export class DD2VTTImportConfigLoader {
 							: assertNumber(
 									config.defaults.scene.defaultGlobalLightThreshold,
 									'defaults.scene.defaultGlobalLightThreshold',
-							  ),
+							),
 				},
 				wall: {
 					light: assertNumber(config.defaults.wall.light, 'defaults.wall.light'),

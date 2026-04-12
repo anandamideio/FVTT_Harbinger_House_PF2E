@@ -6,7 +6,7 @@
  * hand-editing this file.
  */
 
-import type { HarbingerScene } from './scenes';
+import type { HarbingerScene } from './types';
 
 export const IMPORTED_DD2VTT_SCENES: HarbingerScene[] = [
 	{
