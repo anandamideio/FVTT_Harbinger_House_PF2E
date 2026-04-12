@@ -392,7 +392,7 @@ async function writeAdventurePack(): Promise<void> {
 			} else {
 				console.warn(`    ! Scene "${scene.name}" references unknown playlist sourceId "${playlistSourceId}"`);
 			}
-			delete sceneFlags.playlistSourceId;
+			delete sceneFlags?.playlistSourceId;
 		}
 
 		// Remove deprecated fields that Foundry V13 no longer uses
