@@ -721,6 +721,7 @@ export const CHANCE_THE_BARMY: HarbingerNPC = {
 	data: {
 		name: 'Chance',
 		type: 'npc',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/Chance.png',
 		system: {
 			abilities: {
 				str: { mod: 2 },
@@ -780,6 +781,7 @@ export const CHANCE_THE_BARMY: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: -1,
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/chance.png' },
 		},
 	},
 	items: [
