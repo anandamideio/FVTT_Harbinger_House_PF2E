@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { SvelteSet } from 'svelte/reactivity';
 	import type { SigilLocation, LocationCategory, RevealState } from '../data/sigil-locations';
 	import type { LocationState } from '../types/module-flags';
 	import { CATEGORY_COLORS_CSS } from './constants';
@@ -156,7 +157,7 @@
 	}
 
 	function toggleSelect(id: string) {
-		const next = new Set(selectedIds);
+		const next = new SvelteSet<string>(selectedIds);
 		if (next.has(id)) {
 			next.delete(id);
 		} else {
@@ -248,7 +249,7 @@
 		</div>
 		<select class="filter-select" bind:value={filterCategory}>
 			<option value="all">All Categories</option>
-			{#each CATEGORY_ORDER as cat}
+			{#each CATEGORY_ORDER as cat (cat)}
 				<option value={cat}>{CATEGORY_LABELS[cat]}</option>
 			{/each}
 		</select>
