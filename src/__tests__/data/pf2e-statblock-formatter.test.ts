@@ -171,6 +171,24 @@ describe('formatPF2eStatblock', () => {
 		expect(html).not.toContain('pf2e-notes');
 	});
 
+	it('returns an inner fragment and keeps the descriptor as the first paragraph', () => {
+		const html = formatPF2eStatblock(
+			makeNpc({
+				details: {
+					level: { value: 1 },
+					creatureType: 'Humanoid',
+					alignment: { value: 'N' },
+				},
+				attributes: { speed: { value: 20 } },
+			}),
+		);
+
+		expect(html.startsWith('<p><em>Creature 1 — Medium Humanoid — N')).toBe(true);
+		expect(html).not.toMatch(/^<div[^>]*>/i);
+		expect(html).not.toContain('class="statblock-container"');
+		expect(html).not.toContain('class="statblock pf2e"');
+	});
+
 	it('escapes user-facing scalar fields but keeps trusted rich text blocks raw', () => {
 		const npc = makeNpc(
 			{
