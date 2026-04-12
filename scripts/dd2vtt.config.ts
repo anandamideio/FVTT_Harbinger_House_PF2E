@@ -1,6 +1,5 @@
 import path from 'node:path';
-
-import { defineDD2VTTImporterConfig } from './dd2vtt-importer/types.ts';
+import { defineDD2VTTImporterConfig } from './dd2vtt-importer/types';
 
 const REPO_ROOT = path.resolve(import.meta.dirname, '..');
 

@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { DD2VTTParser } from './dd2vtt-parser.ts';
-import { SceneAssetWriter } from './scene-asset-writer.ts';
-import { ScenePlaceableConverter } from './scene-placeable-converter.ts';
-import { ScenesModuleEmitter } from './scenes-module-emitter.ts';
+import { DD2VTTParser } from './dd2vtt-parser';
+import { SceneAssetWriter } from './scene-asset-writer';
+import { ScenePlaceableConverter } from './scene-placeable-converter';
+import { ScenesModuleEmitter } from './scenes-module-emitter';
 import type {
 	DD2VTTImportPipelineOptions,
 	DD2VTTImportReport,
