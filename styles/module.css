@@ -1232,10 +1232,11 @@ span.page-title {
 }
 
 .journal-sheet.harbinger-journal .window-title {
-	color: var(--harbinger-accent);
+	color: #c9aa71;
 	font-family: "Exocet Blizzard", "Georgia", serif;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 	letter-spacing: 1px;
+	font-size: 20px;
 }
 
 /* ================================
