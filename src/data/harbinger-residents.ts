@@ -715,6 +715,170 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 	],
 };
 
+export const CHANCE_THE_BARMY: HarbingerNPC = {
+	id: 'chance-the-barmy',
+	category: 'major-npc',
+	data: {
+		name: 'Chance',
+		type: 'npc',
+		system: {
+			abilities: {
+				str: { mod: 2 },
+				dex: { mod: 5 },
+				con: { mod: 0 },
+				int: { mod: 2 },
+				wis: { mod: -1 },
+				cha: { mod: 2 },
+			},
+			attributes: {
+				hp: { value: 120, max: 120, temp: 0, details: '' },
+				ac: { value: 26, details: '' },
+				speed: { value: 25, otherSpeeds: [] },
+			},
+			perception: { mod: 15, details: '' },
+			details: {
+				level: { value: 8 },
+				alignment: { value: 'CE' },
+				creatureType: 'Humanoid',
+				source: { value: 'Harbinger House' },
+				blurb: 'Paranoid barmy rogue who lives and dies by the roll of his d4s',
+				publicNotes: `<p><strong>Chance</strong> is a chaotic fellow by nature — paranoid, neurotic, and plagued by indecision and fear. He cannot make any decisions without consulting the pair of four-sided dice he always carries.</p>
+<p>For decisions that affect only himself, he tosses his dice privately: an odd roll makes him act to his own benefit, an even roll makes him act against his better interests. For decisions that affect others, he asks the target to call "odds or evens" before he rolls.</p>
+<p><strong>Field of Bad Luck:</strong> Chance projects an aura of misfortune that warps probability itself around him. Allies and enemies alike stumble, fumble, and misstep in his presence — though he himself rides a wave of impossible luck.</p>
+<p><strong>Tactics:</strong> If a fight goes badly for him, Chance dives through the mirror in his chamber to hide in his secret room. If the PCs follow, they find him rolling his dice over and over, trying to decide what to do next.</p>`,
+			},
+			saves: {
+				fortitude: { value: 13, saveDetail: "+4 item bonus vs. effects targeting only Chance (Extreme Luck)" },
+				reflex: { value: 19, saveDetail: "+4 item bonus vs. effects targeting only Chance (Extreme Luck)" },
+				will: { value: 14, saveDetail: "+4 item bonus vs. effects targeting only Chance (Extreme Luck)" },
+			},
+			skills: {
+				acrobatics: { base: 19, value: 19, label: 'Acrobatics', visible: true },
+				deception: { base: 16, value: 16, label: 'Deception', visible: true },
+				stealth: { base: 19, value: 19, label: 'Stealth', visible: true },
+				thievery: { base: 19, value: 19, label: 'Thievery', visible: true },
+				gamblingLore: { base: 18, value: 18, label: 'Gambling Lore', visible: true, lore: true },
+			},
+			traits: {
+				value: ['unique', 'human', 'humanoid'],
+				rarity: 'unique',
+				size: { value: 'med' },
+				languages: {
+					value: ['common'],
+					details: 'Planar Trade',
+				},
+			},
+		},
+		flags: {
+			'harbinger-house-pf2e': {
+				sourceId: 'chance-the-barmy',
+				category: 'major-npc',
+			},
+		},
+		prototypeToken: {
+			name: 'Chance',
+			displayName: 20,
+			actorLink: true,
+			disposition: -1,
+		},
+	},
+	items: [
+		systemWeapon('shortsword', { potency: 1, striking: 'striking' }),
+		createAction(
+			'Field of Bad Luck',
+			'passive',
+			['aura', 'mental', 'misfortune'],
+			`<p><strong>Aura</strong> 15 feet</p>
+<p>Chance's warped relationship with probability drags others down into misfortune. Any creature other than Chance that starts its turn within the aura, or that enters the aura, must attempt a @Check[type:will|dc:26] before taking any actions that round.</p>
+<p><strong>Critical Success</strong> The creature is unaffected this round and gains a +1 status bonus to saves against the aura for 1 minute.</p>
+<p><strong>Success</strong> The creature takes a -1 status penalty to all checks and DCs this round.</p>
+<p><strong>Failure</strong> Something goes wrong with the creature's first action of the round. If it is a Strike, the weapon slips or the blow goes wide. If it is a spell, the wrong components are grabbed and the spell is lost. If it is movement, the creature trips and falls prone at the end of its movement. The triggering action is wasted.</p>
+<p><strong>Critical Failure</strong> As failure, and the creature additionally drops one held item of the GM's choice and is <strong>clumsy 1</strong> until the end of its next turn.</p>
+<hr/>
+<p><em>This aura moves with Chance and cannot be separated from him. It is suppressed while Chance is unconscious, dead, or otherwise incapacitated.</em></p>`,
+			[
+				{
+					key: 'Aura',
+					slug: 'field-of-bad-luck',
+					radius: 15,
+					traits: ['mental', 'misfortune'],
+				},
+			],
+		),
+		createAction(
+			'Extreme Luck',
+			'passive',
+			['fortune'],
+			`<p>Probability bends around Chance to his benefit. He gains a <strong>+4 item bonus</strong> to all checks and DCs (including his AC and saves), and any effect that targets only Chance takes a <strong>-4 circumstance penalty</strong> to its check or DC against him.</p>
+<p>This bonus is already included in Chance's statistics.</p>`,
+			[
+				{
+					key: 'FlatModifier',
+					selector: 'all',
+					value: 4,
+					type: 'item',
+					label: 'Extreme Luck',
+					predicate: ['chance:extreme-luck'],
+				},
+			],
+		),
+		createAction(
+			'Odds or Evens',
+			'free',
+			['concentrate', 'mental'],
+			`<p><strong>Frequency</strong> once per round</p>
+<p><strong>Trigger</strong> Chance is about to attempt a Strike or action that targets a single creature he can see.</p>
+<hr/>
+<p>Chance draws his pair of four-sided dice and asks the target to call "odds or evens." He then rolls the dice. If the result is in the <em>target's</em> favor (they called correctly), Chance immediately abandons the action, gains no benefit from this ability, and moves on to a different target as his next action. If the result is in <em>Chance's</em> favor, the triggering action gains a <strong>+2 circumstance bonus</strong> to its attack roll or DC, and on a successful Strike deals an additional <strong>@Damage[2d6[precision]]</strong> damage.</p>`,
+		),
+		createAction(
+			'Sneak Attack',
+			'passive',
+			[],
+			`<p>When Chance Strikes a creature that is off-guard with an agile or finesse melee weapon or an agile or finesse unarmed attack, he deals an additional <strong>2d6 precision damage</strong>.</p>`,
+			[
+				{
+					key: 'DamageDice',
+					selector: 'strike-damage',
+					diceNumber: 2,
+					dieSize: 'd6',
+					damageType: 'precision',
+					predicate: [
+						'target:condition:off-guard',
+						{ or: ['item:trait:agile', 'item:trait:finesse'] },
+					],
+					label: 'Sneak Attack',
+				},
+			],
+		),
+		createAction(
+			'Tumble Behind',
+			1,
+			[],
+			`<p><strong>Requirements</strong> Chance is not <strong>encumbered</strong>.</p>
+<hr/>
+<p>Chance Strides up to his Speed. During this movement, he can move through the space of any creature (as if Tumbling Through, but automatic — no Acrobatics check is required). If he ends his movement in a space adjacent to a creature whose space he passed through, that creature is <strong>off-guard</strong> against Chance until the start of his next turn.</p>`,
+		),
+		createAction(
+			'Dive Through the Mirror',
+			2,
+			['arcane', 'teleportation'],
+			`<p><strong>Frequency</strong> once per day</p>
+<p><strong>Requirements</strong> Chance is within 15 feet of the enchanted mirror in his chamber.</p>
+<hr/>
+<p>Chance leaps into the mirror and vanishes, reappearing in his hidden secret room beyond. The mirror flickers briefly as he passes through; a creature with a free reaction can attempt to grab him with an @Check[type:athletics|dc:28] check to prevent the dive. On a failed attempt, the action is lost.</p>`,
+		),
+		createAction(
+			"Gambler's Consolation",
+			'reaction',
+			['concentrate'],
+			`<p><strong>Trigger</strong> Chance is targeted by an attack or effect that would reduce him to 0 Hit Points.</p>
+<hr/>
+<p>Chance rolls his dice one desperate time. He attempts a flat check (DC 11). On a success, the triggering damage is halved and he immediately drinks a <strong>potion of moderate healing</strong> (regaining @Damage[3d8+10[healing]] Hit Points) as a free action. Chance carries two potions of moderate healing and can use this reaction only while he has at least one remaining.</p>`,
+		),
+	],
+};
+
 // Export all major NPCs as a group
 export const HARBINGER_RESIDENTS: HarbingerNPC[] = [
 	TROLAN_THE_MAD,
@@ -723,4 +887,5 @@ export const HARBINGER_RESIDENTS: HarbingerNPC[] = [
 	SOUGAD_LAWSHREDDER,
 	PASTOR_BROWEN,
 	NARI_THE_SCHEMER,
+	CHANCE_THE_BARMY,
 ];
