@@ -771,10 +771,14 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		const cultists = await this.#ensureFolder('Actor', 'Cultist & Common NPCs', npcRoot.id);
 		const generic = await this.#ensureFolder('Actor', "Generic NPC's", npcRoot.id);
 		const residents = await this.#ensureFolder('Actor', 'Harbinger House Residents', npcRoot.id);
+		const treasure = await this.#ensureFolder('Actor', 'Treasure', npcRoot.id);
 
 		const environmentalHazards = await this.#ensureFolder('Actor', 'Environmental Hazards', hazardRoot.id);
 		const magicalTraps = await this.#ensureFolder('Actor', 'Magical Traps', hazardRoot.id);
-		const npcAuras = await this.#ensureFolder('Actor', 'NPC Auras', hazardRoot.id);
+		const hasAuraActors = actors.some((actor) => actor.flags?.[MODULE_ID]?.category === 'aura');
+		const npcAuras = hasAuraActors
+			? await this.#ensureFolder('Actor', 'NPC Auras', hazardRoot.id)
+			: undefined;
 
 		let reassigned = 0;
 
@@ -794,7 +798,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 				target =
 					category === 'environmental'
 						? environmentalHazards
-						: category === 'aura'
+						: category === 'aura' && npcAuras
 							? npcAuras
 							: magicalTraps;
 			} else {
@@ -805,15 +809,17 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 							? cultists
 							: category === 'generic-npc' || category === 'generic-npcs'
 								? generic
-								: category === 'major-npc' || category === 'harbinger-resident'
+								: category === 'major-npc' || category === 'harbinger-resident' || category === 'figment'
 									? residents
+									: category === 'loot' || actorType === 'loot'
+										? treasure
 									: npcRoot;
 			}
 
 			if (actor.folder?.id !== target.id) {
-							await (actor as unknown as { update: (data: Record<string, unknown>) => Promise<unknown> }).update({
-								folder: target.id,
-							});
+				await (actor as unknown as { update: (data: Record<string, unknown>) => Promise<unknown> }).update({
+					folder: target.id,
+				});
 				reassigned += 1;
 				this.#debug('Reassigned actor folder', {
 					actor: actor.name,
@@ -821,6 +827,27 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 					from: actor.folder?.id ?? null,
 					to: target.id,
 				});
+			}
+		}
+
+		if (!hasAuraActors) {
+			const existingNpcAuras = game.folders.find(
+				(f: FoundryDocument) =>
+					f.type === 'Actor' &&
+					f.name === 'NPC Auras' &&
+					f.folder?.id === hazardRoot.id,
+			) as FolderClass | undefined;
+
+			if (existingNpcAuras) {
+				const assignedActorCount = actors.filter((actor) => actor.folder?.id === existingNpcAuras.id).length;
+				if (assignedActorCount === 0) {
+					await existingNpcAuras.delete();
+					this.#debug('Removed empty deprecated hazard subfolder', {
+						folder: 'NPC Auras',
+						parent: hazardRoot.id,
+						id: existingNpcAuras.id,
+					});
+				}
 			}
 		}
 
