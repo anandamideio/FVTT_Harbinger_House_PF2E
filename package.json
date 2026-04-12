@@ -7,6 +7,7 @@
 		"build": "tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts && vite build",
 		"build:local": "tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts && BUILD=local vite build",
 		"build:packs": "tsx --import ./scripts/markdown-loader.mjs scripts/build-packs.ts",
+		"import:dd2maps": "tsx scripts/import-dd2vtt.ts --config ./scripts/dd2vtt.config.ts",
 		"watch": "BUILD=local vite build --watch",
 		"clean": "rm -rf dist/*.js dist/*.js.map build/ packs/",
 		"typecheck": "tsc --noEmit",
