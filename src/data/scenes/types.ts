@@ -8,6 +8,8 @@ export interface HarbingerScene {
 		src: string;
 		offsetX?: number;
 		offsetY?: number;
+		scaleX?: number;
+		scaleY?: number;
 	};
 	/** Grid configuration - PF2E uses 5ft squares */
 	grid: {

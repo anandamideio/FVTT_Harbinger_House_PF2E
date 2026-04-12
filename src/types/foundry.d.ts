@@ -1111,6 +1111,8 @@ declare global {
 			src: string;
 			offsetX?: number;
 			offsetY?: number;
+			scaleX?: number;
+			scaleY?: number;
 		};
 		foreground?: string | null;
 		thumb?: string;

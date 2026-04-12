@@ -128,6 +128,8 @@ describe('sceneToDocumentData', () => {
 
 		expect(doc.background?.offsetX).toBe(6);
 		expect(doc.background?.offsetY).toBe(2);
+		expect(doc.background?.scaleX).toBe(1);
+		expect(doc.background?.scaleY).toBe(1);
 	});
 
 	it('respects explicit background offset overrides', () => {
@@ -142,6 +144,20 @@ describe('sceneToDocumentData', () => {
 
 		expect(doc.background?.offsetX).toBe(14);
 		expect(doc.background?.offsetY).toBe(9);
+	});
+
+	it('respects explicit background scale overrides', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			background: {
+				...BASE_SCENE.background,
+				scaleX: 2,
+				scaleY: 2,
+			},
+		});
+
+		expect(doc.background?.scaleX).toBe(2);
+		expect(doc.background?.scaleY).toBe(2);
 	});
 
 	it('passes through explicit embedded placeables', () => {

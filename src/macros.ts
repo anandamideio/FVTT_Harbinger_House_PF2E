@@ -126,6 +126,12 @@ interface LegacySceneGridData {
 	gridThickness?: number;
 }
 
+interface LegacySceneBackgroundData {
+	backgroundScale?: number | string;
+	backgroundScaleX?: number | string;
+	backgroundScaleY?: number | string;
+}
+
 function escapeHtml(value: string): string {
 	return value
 		.replaceAll('&', '&amp;')
@@ -274,6 +280,97 @@ function getSceneGlobalLightEnabled(sceneData: SceneData): boolean | undefined {
 function getSceneGlobalLightThreshold(sceneData: SceneData): number | undefined {
 	const darknessMax = sceneData.environment?.globalLight?.darkness?.max;
 	return typeof darknessMax === 'number' ? darknessMax : undefined;
+}
+
+function toFiniteNumber(value: unknown): number | undefined {
+	if (typeof value === 'number' && Number.isFinite(value)) {
+		return value;
+	}
+
+	if (typeof value === 'string') {
+		const parsed = Number(value.trim());
+		if (Number.isFinite(parsed)) {
+			return parsed;
+		}
+	}
+
+	return undefined;
+}
+
+function isNonDefaultScale(value: number | undefined): value is number {
+	return typeof value === 'number' && Number.isFinite(value) && Math.abs(value - 1) > 1e-6;
+}
+
+function inferBackgroundScaleFromCanvas(
+	scene: SceneClass,
+	sceneData: SceneData,
+): { scaleX?: number; scaleY?: number } {
+	if (!canvas.scene || canvas.scene.id !== scene.id) {
+		return {};
+	}
+
+	const backgroundTexture = (
+		canvas as unknown as {
+			primary?: {
+				background?: {
+					texture?: {
+						width?: number;
+						height?: number;
+					};
+				};
+			};
+		}
+	).primary?.background?.texture;
+
+	const textureWidth = toFiniteNumber(backgroundTexture?.width);
+	const textureHeight = toFiniteNumber(backgroundTexture?.height);
+	const sceneWidth = toFiniteNumber(sceneData.width);
+	const sceneHeight = toFiniteNumber(sceneData.height);
+
+	const computeScale = (dimension: number | undefined, textureDimension: number | undefined): number | undefined => {
+		if (!dimension || !textureDimension || textureDimension === 0) {
+			return undefined;
+		}
+
+		return Number((dimension / textureDimension).toFixed(4));
+	};
+
+	return {
+		scaleX: computeScale(sceneWidth, textureWidth),
+		scaleY: computeScale(sceneHeight, textureHeight),
+	};
+}
+
+function getSceneBackgroundScaleOverride(
+	scene: SceneClass,
+	sceneData: SceneData,
+): Pick<HarbingerScene['background'], 'scaleX' | 'scaleY'> {
+	const background = sceneData.background as Record<string, unknown> | undefined;
+	const legacySceneData = sceneData as SceneData & LegacySceneBackgroundData;
+
+	let scaleX =
+		toFiniteNumber(background?.scaleX) ??
+		toFiniteNumber(legacySceneData.backgroundScaleX) ??
+		toFiniteNumber(legacySceneData.backgroundScale);
+	let scaleY =
+		toFiniteNumber(background?.scaleY) ??
+		toFiniteNumber(legacySceneData.backgroundScaleY) ??
+		toFiniteNumber(legacySceneData.backgroundScale);
+
+	if (!isNonDefaultScale(scaleX) || !isNonDefaultScale(scaleY)) {
+		const inferred = inferBackgroundScaleFromCanvas(scene, sceneData);
+		if (!isNonDefaultScale(scaleX) && isNonDefaultScale(inferred.scaleX)) {
+			scaleX = inferred.scaleX;
+		}
+		if (!isNonDefaultScale(scaleY) && isNonDefaultScale(inferred.scaleY)) {
+			scaleY = inferred.scaleY;
+		}
+	}
+
+	return {
+		...(isNonDefaultScale(scaleX) ? { scaleX } : {}),
+		...(isNonDefaultScale(scaleY) ? { scaleY } : {}),
+	};
 }
 
 function getSceneGridOverride(sceneData: SceneData): HarbingerScene['grid'] {
@@ -436,6 +533,7 @@ function buildHarbingerSceneExport(
 	const fogExploration = sceneData.fog?.exploration ?? sceneData.fogExploration;
 	const backgroundOffsetX = sceneData.background?.offsetX;
 	const backgroundOffsetY = sceneData.background?.offsetY;
+	const backgroundScale = getSceneBackgroundScaleOverride(scene, sceneData);
 
 	const exportData: HarbingerScene = {
 		id: getSceneModuleFlagValue(scene, 'sourceId') ?? slugifySceneId(sceneData.name),
@@ -445,6 +543,7 @@ function buildHarbingerSceneExport(
 			src: backgroundSrc,
 			...(typeof backgroundOffsetX === 'number' ? { offsetX: backgroundOffsetX } : {}),
 			...(typeof backgroundOffsetY === 'number' ? { offsetY: backgroundOffsetY } : {}),
+			...backgroundScale,
 		},
 		grid: getSceneGridOverride(sceneData),
 		initial: {
