@@ -1876,6 +1876,10 @@ span.page-title {
 	background: #120e09;
 }
 
+#sigil-faction-picker > section.window-content {
+	padding: 0;
+}
+
 .dialog.sigil-faction-picker .harbinger-faction-picker-mount {
 	display: flex;
 	flex-direction: column;
@@ -2005,7 +2009,15 @@ span.page-title {
 	background: transparent;
 }
 
-.dialog.harbinger-alignment-picker .harbinger-alignment-picker-mount {
+#harbinger-alignment-picker > section.window-content {
+	padding: 0;
+}
+
+body.game #harbinger-alignment-picker.app.window-app .dialog-buttons {
+	display: none;
+}
+
+#harbinger-alignment-picker > section > div.dialog-content > div.harbinger-alignment-picker-mount {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
