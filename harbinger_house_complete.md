@@ -2335,7 +2335,7 @@ If the battle goes badly for Chance, he dives through the mirror to hide in his 
 > - SD: tumbling (AC reduced to -1 when this is the only action Chance takes in a round)
 > Str 15, Dex 18, Con 11, Int 14, Wis 8, Cha 15.
 
-### Chance's Chamber
+## Chance's Chamber
 
 Chance lives among all kinds of games of chance and decision-aiding devices. Card decks, dice, a gambling wheel, coins, divination sticks, rune stones, and similar objects fill table tops and shelves in this bedchamber. There are books on probability that appear more dense than the most convoluted theory of magic, parchment sheets with odds calculated to the last decimal, and all kinds of luck-inducing items from various cultures. Two of these items are actually magical (a lizard's claw and a bright blue feather) and work the same way as a *stone of good luck*. A jar on one table contains live Abyssal leeches, which Chance keeps on hand for Sougad Lawshredder. Alert PCs might notice it's half empty. There are also four potions of healing and two potions of extra healing hidden in a case beneath the bed.
 
