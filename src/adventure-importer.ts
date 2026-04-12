@@ -99,14 +99,24 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	#lockImportSubmit(root?: ParentNode | null): void {
 		if (!root) return;
 
+		const importingLabel =
+			game.i18n.localize('HARBINGER-HOUSE.adventure.importing') === 'HARBINGER-HOUSE.adventure.importing'
+				? 'Importing...'
+				: game.i18n.localize('HARBINGER-HOUSE.adventure.importing');
+
 		const submitControls = root.querySelectorAll<HTMLButtonElement | HTMLInputElement>(
 			'button[type="submit"], button[data-action="import"], input[type="submit"]',
 		);
 
 		for (const control of submitControls) {
 			control.disabled = true;
+			if (control instanceof HTMLInputElement && control.type === 'submit') {
+				control.value = importingLabel;
+			}
 			if (control instanceof HTMLButtonElement) {
+				control.textContent = importingLabel;
 				control.setAttribute('aria-disabled', 'true');
+				control.setAttribute('aria-label', importingLabel);
 			}
 		}
 	}

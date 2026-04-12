@@ -1,7 +1,8 @@
 {
 	"HARBINGER-HOUSE": {
 		"adventure": {
-			"importer": "Harbinger House Adventure Importer"
+			"importer": "Harbinger House Adventure Importer",
+			"importing": "Importing..."
 		},
 		"settings": {
 			"showImportDialog": {
