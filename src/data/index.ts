@@ -6,7 +6,7 @@
 export type { HarbingerNPC, NPCCategory, NPCEntry } from './harbinger-residents';
 export { isSystemActorReference } from './harbinger-residents';
 
-import { FIENDS, GENERIC_NPCS } from './generic-npcs';
+import { FIENDS, FIGMENTS, GENERIC_NPCS, LOOT_NPCS } from './generic-npcs';
 import type { NPCEntry } from './harbinger-residents';
 // Import all NPC groups (assuming these files exist in your project)
 // If they don't exist, you'll need to create them or import from a single file
@@ -26,17 +26,26 @@ export * from './harbinger-residents';
 // Re-export scenes
 export * from './scenes';
 // Combined NPC exports
-export { ALL_SCENES, FIENDS, GENERIC_NPCS, HARBINGER_RESIDENTS };
+export { ALL_SCENES, FIENDS, FIGMENTS, GENERIC_NPCS, HARBINGER_RESIDENTS, LOOT_NPCS };
 
 // All NPCs combined
-export const ALL_NPCS: NPCEntry[] = [...HARBINGER_RESIDENTS, ...FIENDS, ...GENERIC_NPCS];
+export const ALL_NPCS: NPCEntry[] = [
+	...HARBINGER_RESIDENTS,
+	...FIENDS,
+	...GENERIC_NPCS,
+	...FIGMENTS,
+	...LOOT_NPCS,
+];
 
 // NPCs grouped by category for UI display
 export const NPCS_BY_CATEGORY = {
-	'major-npc': HARBINGER_RESIDENTS,
+	'major-npc': HARBINGER_RESIDENTS.filter((npc) => npc.category === 'major-npc'),
+	'harbinger-resident': HARBINGER_RESIDENTS.filter((npc) => npc.category === 'harbinger-resident'),
 	fiend: FIENDS,
 	'generic-npc': GENERIC_NPCS.filter((npc) => npc.category === 'generic-npc'),
 	cultist: GENERIC_NPCS.filter((npc) => npc.category === 'cultist'),
+	figment: FIGMENTS,
+	loot: LOOT_NPCS,
 };
 
 // Get human-readable NPC category names
@@ -47,6 +56,8 @@ export function getCategoryLabel(category: string): string {
 		fiend: 'Fiends & Monsters',
 		'generic-npc': 'Generic NPCs',
 		cultist: 'Cultist & Common NPCs',
+		figment: "Tomin's Figments",
+		loot: 'Loot Caches',
 	};
 	return labels[category] || category;
 }

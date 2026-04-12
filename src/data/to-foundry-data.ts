@@ -401,6 +401,8 @@ function getNPCDefaultImage(npc: HarbingerNPC): string {
 		'generic-npc': 'icons/svg/mystery-man.svg',
 		fiend: 'icons/svg/skull.svg',
 		cultist: 'icons/svg/cowled.svg',
+		figment: 'icons/svg/aura.svg',
+		loot: 'icons/svg/chest.svg',
 	};
 	return defaults[npc.category] || 'icons/svg/mystery-man.svg';
 }

@@ -9,7 +9,14 @@ import type {
 import { createAction, createSpellcastingEntryWithSpells, createStrike, systemAction, systemEquipment, systemWeapon } from './utils';
 
 // NPC Categories for organization
-export type NPCCategory = 'major-npc' | 'harbinger-resident' | 'generic-npc' | 'fiend' | 'cultist';
+export type NPCCategory =
+	| 'major-npc'
+	| 'harbinger-resident'
+	| 'generic-npc'
+	| 'fiend'
+	| 'cultist'
+	| 'figment'
+	| 'loot';
 
 /** Union type for any item that can be on an NPC */
 export type NPCItemEntry = ItemData | SystemWeaponReference | SystemSpellReference | SystemActionReference | SystemEquipmentReference;
@@ -954,7 +961,7 @@ export const KAYDI: HarbingerNPC = {
 		createAction(
 			'Stupor Field',
 			'passive',
-			['aura', 'enchantment', 'mental', 'sleep'],
+			['aura', 'incapacitation', 'mental', 'sleep'],
 			`<p><strong>Aura</strong> 15 feet</p>
 <p>Kaydi's blank, dreaming mind pushes outward, dragging everything within into the same empty stupor. At the start of each of its turns, a creature in the aura must attempt a @Check[type:will|dc:26] save. The effect on a failure depends on the creature's distance from Kaydi.</p>
 <p><strong>Critical Success</strong> The creature is unaffected this round and gains a +2 circumstance bonus to saves against the Stupor Field until the start of its next turn.</p>
