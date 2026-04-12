@@ -7,6 +7,10 @@ export const CHAPTER_3_SCENES: HarbingerScene[] = [
     img: 'modules/harbinger-house-pf2e/dist/assets/maps/Harbinger House 01 - First Floor.png',
     background: {
       src: 'modules/harbinger-house-pf2e/dist/assets/maps/Harbinger House 01 - First Floor.png',
+      offsetX: 24,
+      offsetY: 24,
+      scaleX: 2,
+      scaleY: 2,
     },
     grid: {
       type: 1,
