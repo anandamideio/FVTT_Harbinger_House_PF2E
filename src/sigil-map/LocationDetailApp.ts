@@ -13,7 +13,7 @@ import {
 import { broadcastLocationStateChange } from './sigil-map-sockets';
 import type { SigilMapLayer } from './SigilMapLayer';
 
-/** Singleton map of open detail apps by location ID */
+/** open detail apps by location ID */
 const openApps = new Map<string, LocationDetailApp>();
 
 export class LocationDetailApp {
