@@ -581,19 +581,14 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'encounter',
 		x: 1785,
 		y: 2172,
-		description: 'A bakery across from the Prison. Site of the 7th murder attempt targeting Kolz the Mercykiller.',
+		description: 'A bakery across from the Prison.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'geldabs-ambush',
 				text: 'This is where Sougad attempts the 7th ritual murder -- targeting Kolz, a Mercykiller patrol officer.',
-				optional: false,
-			},
-			{
-				id: 'geldabs-intervention',
-				text: 'The PCs may intervene to prevent this murder, potentially confronting Sougad directly.',
 				optional: true,
-				gmNote: 'This is a key dramatic moment. If the PCs are present, they can save Kolz and chase Sougad.',
+				gmNote: 'If the PCs follow the clue in time, they can potentially prevent the murder.',
 			},
 		],
 	},

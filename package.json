@@ -14,7 +14,8 @@
 		"lint": "pnpm eslint ./src --fix",
 		"lint:ci": "pnpm eslint ./src",
 		"test": "vitest run",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"test:refresh:statblock-fixtures": "tsx scripts/refresh-statblock-fixtures.ts"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
@@ -23,11 +24,14 @@
 		"@pixi/compressed-textures": "github:foundry-vtt-types/pixi-compressed-textures#main",
 		"@pixi/core": "github:foundry-vtt-types/pixi-core#main",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@types/jquery": "^4.0.0",
 		"@types/node": "^25.5.2",
 		"classic-level": "^3.0.0",
 		"eslint": "^10.2.0",
 		"eslint-plugin-svelte": "^3.17.0",
 		"globals": "^17.4.0",
+		"jquery": "^4.0.0",
+		"jsdom": "^29.0.2",
 		"svelte": "^5.55.2",
 		"tslib": "^2.6.2",
 		"tsx": "^4.21.0",
