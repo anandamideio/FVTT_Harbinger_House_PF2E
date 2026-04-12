@@ -7,7 +7,7 @@ import type { HarbingerItem, ItemCategory } from './items';
 import type { HarbingerJournal } from './journals';
 import type { HarbingerMacro } from './macros';
 import type { HarbingerPlaylist } from './playlists';
-import type { HarbingerScene } from './scenes';
+import type { HarbingerScene } from './scenes/types';
 import type { HarbingerSpell } from './spells';
 import type { SystemActorReference } from './system-items';
 import { isSystemItemReference } from './utils';
@@ -51,12 +51,62 @@ function getItemDefaultImage(item: HarbingerItem): string {
 	return categoryDefaults[item.category] || 'icons/svg/item-bag.svg';
 }
 
+const PHYSICAL_ITEM_TYPES = new Set(['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'shield']);
+
+function normalizeLegacyBulkValue(value: unknown): number {
+	if (typeof value === 'number' && Number.isFinite(value)) {
+		return value;
+	}
+
+	if (typeof value === 'string') {
+		const normalized = value.trim();
+		if (normalized === '-') return 0;
+		if (normalized.toUpperCase() === 'L') return 0.1;
+
+		const parsed = Number(normalized);
+		if (Number.isFinite(parsed)) {
+			return parsed;
+		}
+	}
+
+	return 0;
+}
+
+function normalizePhysicalItemSystem(itemType: string, inputSystem: Record<string, unknown>): Record<string, unknown> {
+	if (!PHYSICAL_ITEM_TYPES.has(itemType)) {
+		return inputSystem;
+	}
+
+	const system = { ...inputSystem };
+
+	if (typeof system.quantity !== 'number' || !Number.isFinite(system.quantity) || system.quantity <= 0) {
+		system.quantity = 1;
+	}
+
+	const rawBulk = system.bulk;
+	if (rawBulk && typeof rawBulk === 'object') {
+		const bulk = { ...(rawBulk as Record<string, unknown>) };
+		bulk.value = normalizeLegacyBulkValue((rawBulk as Record<string, unknown>).value);
+		system.bulk = bulk;
+	} else {
+		system.bulk = { value: 0 };
+	}
+
+	return system;
+}
+
 export function itemToDocumentData(item: HarbingerItem): ItemData {
+	const sourceSystem =
+		item.data.system && typeof item.data.system === 'object'
+			? structuredClone(item.data.system as Record<string, unknown>)
+			: {};
+	const system = normalizePhysicalItemSystem(item.data.type, sourceSystem);
+
 	return {
 		name: item.data.name,
 		type: item.data.type,
 		img: item.data.img || getItemDefaultImage(item),
-		system: { ...item.data.system },
+		system,
 		flags: {
 			[MODULE_ID]: {
 				sourceId: item.id,
@@ -324,8 +374,10 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 		grid: {
 			type: scene.grid.type,
 			size: scene.grid.size,
-			color: '#000000',
-			alpha: 0.2,
+			style: scene.grid.style ?? 'solidLines',
+			thickness: scene.grid.thickness ?? 1,
+			color: scene.grid.color ?? '#000000',
+			alpha: scene.grid.alpha ?? 0.2,
 			distance: scene.grid.distance,
 			units: scene.grid.units,
 		},
@@ -487,12 +539,18 @@ export function extractInlineItems(items: NPCItemEntry[]): { inline: ItemData[];
 			unresolved.push(item);
 		} else {
 			const itemData = item;
+			const sourceSystem =
+				itemData.system && typeof itemData.system === 'object'
+					? structuredClone(itemData.system as Record<string, unknown>)
+					: {};
+			const system = normalizePhysicalItemSystem(itemData.type, sourceSystem);
+
 			inline.push({
 				...(itemData._id ? { _id: itemData._id } : {}),
 				name: itemData.name,
 				type: itemData.type,
 				img: itemData.img || getInlineItemDefaultImage(itemData.type),
-				system: itemData.system,
+				system,
 				flags: itemData.flags || {},
 			});
 		}

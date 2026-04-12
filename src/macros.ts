@@ -1,6 +1,6 @@
 import { requestAlignmentFromPlayers } from './character-sheet/alignment-sockets';
 import { MODULE_ID, log, logWarn } from './config';
-import type { HarbingerScene } from './data/scenes';
+import type { HarbingerScene } from './data/scenes/types';
 import { ALL_SIGIL_LOCATIONS, getLocationById, type SigilLocation } from './data/sigil-locations';
 import { isSigilScene } from './sigil-map/sigil-map-state';
 
@@ -23,12 +23,15 @@ export interface HarbingerHouseMacroAPI {
 	setLandingPage: () => Promise<void>;
 	openImportDialog: () => Promise<void>;
 	exportSceneData: () => Promise<void>;
-	exportSceneAmbienceData: () => Promise<void>;
 	calibrateSigilLocation: () => Promise<void>;
 	assignPlayerAlignments: () => Promise<void>;
 }
 
 export type HarbingerHouseMacroName = keyof HarbingerHouseMacroAPI;
+
+interface LegacyHarbingerHouseMacroAPI {
+	exportSceneAmbienceData: () => Promise<void>;
+}
 
 function getDialogRoot(html: HTMLElement | JQuery): HTMLElement {
 	return html instanceof HTMLElement ? html : ((html as unknown as HTMLElement[])[0] ?? document.body);
@@ -107,6 +110,21 @@ type SceneEnvironmentOverride = NonNullable<HarbingerScene['environment']>;
 type SceneEnvironmentLightOverride = NonNullable<SceneEnvironmentOverride['base']>;
 
 const ENVIRONMENT_LIGHT_KEYS = ['hue', 'intensity', 'luminosity', 'saturation', 'shadows'] as const;
+const DEFAULT_GRID_STYLE = 'solidLines';
+const DEFAULT_GRID_THICKNESS = 1;
+const DEFAULT_GRID_COLOR = '#000000';
+const DEFAULT_GRID_ALPHA = 0.2;
+
+interface LegacySceneGridData {
+	grid?: SceneData['grid'] | number;
+	gridType?: number;
+	gridDistance?: number;
+	gridUnits?: string;
+	gridColor?: string;
+	gridAlpha?: number;
+	gridStyle?: string;
+	gridThickness?: number;
+}
 
 function escapeHtml(value: string): string {
 	return value
@@ -258,6 +276,89 @@ function getSceneGlobalLightThreshold(sceneData: SceneData): number | undefined 
 	return typeof darknessMax === 'number' ? darknessMax : undefined;
 }
 
+function getSceneGridOverride(sceneData: SceneData): HarbingerScene['grid'] {
+	const legacySceneData = sceneData as LegacySceneGridData;
+	const gridField = legacySceneData.grid;
+	const grid =
+		gridField && typeof gridField === 'object'
+			? (gridField as Record<string, unknown>)
+			: undefined;
+
+	const type =
+		typeof grid?.type === 'number'
+			? grid.type
+			: typeof legacySceneData.gridType === 'number'
+				? legacySceneData.gridType
+				: 1;
+	const size =
+		typeof grid?.size === 'number'
+			? grid.size
+			: typeof gridField === 'number'
+				? gridField
+				: 70;
+	const distance =
+		typeof grid?.distance === 'number'
+			? grid.distance
+			: typeof legacySceneData.gridDistance === 'number'
+				? legacySceneData.gridDistance
+				: 5;
+	const units =
+		typeof grid?.units === 'string'
+			? grid.units
+			: typeof legacySceneData.gridUnits === 'string'
+				? legacySceneData.gridUnits
+				: 'ft';
+
+	const exportGrid: HarbingerScene['grid'] = {
+		type,
+		size,
+		distance,
+		units,
+	};
+
+	const style =
+		typeof grid?.style === 'string'
+			? grid.style
+			: typeof legacySceneData.gridStyle === 'string'
+				? legacySceneData.gridStyle
+				: undefined;
+	if (style && style !== DEFAULT_GRID_STYLE) {
+		exportGrid.style = style;
+	}
+
+	const thickness =
+		typeof grid?.thickness === 'number'
+			? grid.thickness
+			: typeof legacySceneData.gridThickness === 'number'
+				? legacySceneData.gridThickness
+				: undefined;
+	if (typeof thickness === 'number' && thickness !== DEFAULT_GRID_THICKNESS) {
+		exportGrid.thickness = thickness;
+	}
+
+	const color =
+		typeof grid?.color === 'string'
+			? grid.color
+			: typeof legacySceneData.gridColor === 'string'
+				? legacySceneData.gridColor
+				: undefined;
+	if (color && color !== DEFAULT_GRID_COLOR) {
+		exportGrid.color = color;
+	}
+
+	const alpha =
+		typeof grid?.alpha === 'number'
+			? grid.alpha
+			: typeof legacySceneData.gridAlpha === 'number'
+				? legacySceneData.gridAlpha
+				: undefined;
+	if (typeof alpha === 'number' && alpha !== DEFAULT_GRID_ALPHA) {
+		exportGrid.alpha = alpha;
+	}
+
+	return exportGrid;
+}
+
 function resolveScenePlaylist(sceneData: SceneData): ScenePlaylistResolution {
 	const playlistId = typeof sceneData.playlist === 'string' && sceneData.playlist.length > 0 ? sceneData.playlist : undefined;
 	const playlistSoundId =
@@ -282,12 +383,6 @@ function resolveScenePlaylist(sceneData: SceneData): ScenePlaylistResolution {
 		...(typeof soundName === 'string' ? { playlistSoundName: soundName } : {}),
 		...(playlistSourceId ? { playlistSourceId } : {}),
 	};
-}
-
-function formatSceneFieldSnippet(data: Record<string, unknown>): string {
-	return Object.entries(data)
-		.map(([key, value]) => `${key}: ${formatTypeScriptLiteral(value, 1)},`)
-		.join('\n');
 }
 
 function buildHarbingerSceneAmbienceExport(scene: SceneClass): SceneAmbienceExportContext {
@@ -332,10 +427,15 @@ function buildHarbingerSceneAmbienceExport(scene: SceneClass): SceneAmbienceExpo
 	};
 }
 
-function buildHarbingerSceneExport(scene: SceneClass): HarbingerScene {
+function buildHarbingerSceneExport(
+	scene: SceneClass,
+	ambience: SceneAmbienceExportContext = buildHarbingerSceneAmbienceExport(scene),
+): HarbingerScene {
 	const sceneData = scene.toObject();
 	const backgroundSrc = sceneData.background?.src ?? sceneData.img ?? '';
 	const fogExploration = sceneData.fog?.exploration ?? sceneData.fogExploration;
+	const backgroundOffsetX = sceneData.background?.offsetX;
+	const backgroundOffsetY = sceneData.background?.offsetY;
 
 	const exportData: HarbingerScene = {
 		id: getSceneModuleFlagValue(scene, 'sourceId') ?? slugifySceneId(sceneData.name),
@@ -343,13 +443,10 @@ function buildHarbingerSceneExport(scene: SceneClass): HarbingerScene {
 		img: backgroundSrc,
 		background: {
 			src: backgroundSrc,
+			...(typeof backgroundOffsetX === 'number' ? { offsetX: backgroundOffsetX } : {}),
+			...(typeof backgroundOffsetY === 'number' ? { offsetY: backgroundOffsetY } : {}),
 		},
-		grid: {
-			type: sceneData.grid?.type ?? 1,
-			size: sceneData.grid?.size ?? 70,
-			distance: sceneData.grid?.distance ?? 5,
-			units: sceneData.grid?.units ?? 'ft',
-		},
+		grid: getSceneGridOverride(sceneData),
 		initial: {
 			x: sceneData.initial?.x ?? null,
 			y: sceneData.initial?.y ?? null,
@@ -376,6 +473,26 @@ function buildHarbingerSceneExport(scene: SceneClass): HarbingerScene {
 
 	if (typeof sceneData.sort === 'number') {
 		exportData.sort = sceneData.sort;
+	}
+
+	if (typeof ambience.exportData.darkness === 'number') {
+		exportData.darkness = ambience.exportData.darkness;
+	}
+
+	if (typeof ambience.exportData.globalLight === 'boolean') {
+		exportData.globalLight = ambience.exportData.globalLight;
+	}
+
+	if ('globalLightThreshold' in ambience.exportData) {
+		exportData.globalLightThreshold = ambience.exportData.globalLightThreshold ?? null;
+	}
+
+	if (ambience.exportData.environment) {
+		exportData.environment = ambience.exportData.environment;
+	}
+
+	if (ambience.exportData.playlistSourceId) {
+		exportData.playlistSourceId = ambience.exportData.playlistSourceId;
 	}
 
 	for (const field of PLACEABLE_FIELDS) {
@@ -414,56 +531,13 @@ async function exportSceneData(): Promise<void> {
 		return;
 	}
 
-	const exportData = buildHarbingerSceneExport(scene);
+	const ambience = buildHarbingerSceneAmbienceExport(scene);
+	const exportData = buildHarbingerSceneExport(scene, ambience);
 	const snippet = `${formatTypeScriptLiteral(exportData)},`;
 	const copied = await copyToClipboard(snippet);
 
-	log(`[Scene Export] ${exportData.id} (${exportData.name})`, exportData);
-
-	new Dialog(
-		{
-			title: `Scene Export: ${exportData.name}`,
-			content: `
-				<p>Paste this object into <code>src/data/scenes.ts</code> under <code>ALL_SCENES</code>.</p>
-				<p>${copied ? 'Copied to clipboard.' : 'Clipboard copy failed. Copy from the box below.'}</p>
-				<textarea style="width: 100%; min-height: 360px; font-family: monospace;">${escapeHtml(snippet)}</textarea>
-			`,
-			buttons: {
-				ok: {
-					icon: '<i class="fas fa-check"></i>',
-					label: 'Done',
-				},
-			},
-			default: 'ok',
-		},
-		{
-			width: 780,
-			classes: ['harbinger-house'],
-		},
-	).render(true);
-
-	ui.notifications.info(`Exported scene data for ${exportData.name}.`);
-}
-
-async function exportSceneAmbienceData(): Promise<void> {
-	if (!game.user?.isGM) {
-		ui.notifications.warn('Only a GM can export scene ambience data.');
-		return;
-	}
-
-	const scene = canvas.scene;
-	if (!scene) {
-		ui.notifications.warn('No active scene to export ambience from.');
-		return;
-	}
-
-	const ambience = buildHarbingerSceneAmbienceExport(scene);
-	const snippet = formatSceneFieldSnippet(ambience.exportData as Record<string, unknown>);
-	const output = snippet || '// No ambience overrides detected on this scene.';
-	const copied = await copyToClipboard(output);
-
-	log(`[Scene Ambience Export] ${scene.name}`, {
-		export: ambience.exportData,
+	log(`[Scene Export] ${exportData.id} (${exportData.name})`, {
+		export: exportData,
 		playlistId: ambience.playlistId ?? null,
 		playlistSourceId: ambience.exportData.playlistSourceId ?? null,
 	});
@@ -492,9 +566,10 @@ async function exportSceneAmbienceData(): Promise<void> {
 
 	new Dialog(
 		{
-			title: `Scene Ambience Export: ${scene.name}`,
+			title: `Scene Export: ${exportData.name}`,
 			content: `
-				<p>Paste this field snippet into the scene object in <code>src/data/scenes.ts</code>.</p>
+				<p>Paste this object into the appropriate scene array in <code>src/data/scenes/*.ts</code>.</p>
+				<p>This export includes ambience overrides and complete grid settings when present.</p>
 				${
 					playlistDetails.length > 0
 						? `<ul>${playlistDetails.join('')}</ul>`
@@ -506,7 +581,7 @@ async function exportSceneAmbienceData(): Promise<void> {
 						: ''
 				}
 				<p>${copied ? 'Copied to clipboard.' : 'Clipboard copy failed. Copy from the box below.'}</p>
-				<textarea style="width: 100%; min-height: 220px; font-family: monospace;">${escapeHtml(output)}</textarea>
+				<textarea style="width: 100%; min-height: 360px; font-family: monospace;">${escapeHtml(snippet)}</textarea>
 			`,
 			buttons: {
 				ok: {
@@ -517,12 +592,17 @@ async function exportSceneAmbienceData(): Promise<void> {
 			default: 'ok',
 		},
 		{
-			width: 760,
+			width: 780,
 			classes: ['harbinger-house'],
 		},
 	).render(true);
 
-	ui.notifications.info(`Exported ambience data for ${scene.name}.`);
+	ui.notifications.info(`Exported scene data for ${exportData.name}.`);
+}
+
+async function exportSceneAmbienceDataLegacy(): Promise<void> {
+	ui.notifications.info('Scene ambience export has been merged into Export Scene Data.');
+	await exportSceneData();
 }
 
 function chooseCalibrationLocation(): Promise<string | null> {
@@ -710,11 +790,11 @@ async function assignPlayerAlignments(): Promise<void> {
 	await requestAlignmentFromPlayers();
 }
 
-export const MACROS: HarbingerHouseMacroAPI = {
+export const MACROS: HarbingerHouseMacroAPI & Partial<LegacyHarbingerHouseMacroAPI> = {
 	setLandingPage,
 	openImportDialog,
 	exportSceneData,
-	exportSceneAmbienceData,
+	exportSceneAmbienceData: exportSceneAmbienceDataLegacy,
 	calibrateSigilLocation,
 	assignPlayerAlignments,
 };

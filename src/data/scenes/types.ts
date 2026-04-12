@@ -13,6 +13,10 @@ export interface HarbingerScene {
 	grid: {
 		type: number; // 1 = Square
 		size: number; // Pixels per grid square
+		style?: string; // Foundry grid line style key (e.g. solidLines)
+		thickness?: number; // Grid line thickness in pixels
+		color?: string; // Hex color used for grid lines
+		alpha?: number; // Grid opacity 0..1
 		distance: number; // 5 feet for PF2E
 		units: string; // 'ft'
 	};

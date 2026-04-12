@@ -37,7 +37,6 @@ interface HarbingerHouseAPI {
 	setLandingPage: HarbingerHouseMacroAPI['setLandingPage'];
 	openImportDialog: HarbingerHouseMacroAPI['openImportDialog'];
 	exportSceneData: HarbingerHouseMacroAPI['exportSceneData'];
-	exportSceneAmbienceData: HarbingerHouseMacroAPI['exportSceneAmbienceData'];
 	calibrateSigilLocation: HarbingerHouseMacroAPI['calibrateSigilLocation'];
 	assignPlayerAlignments: HarbingerHouseMacroAPI['assignPlayerAlignments'];
 }

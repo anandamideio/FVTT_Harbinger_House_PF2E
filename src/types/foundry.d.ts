@@ -1122,6 +1122,8 @@ declare global {
 		grid?: {
 			type: number;
 			size: number;
+			style?: string;
+			thickness?: number;
 			color?: string;
 			alpha?: number;
 			distance: number;

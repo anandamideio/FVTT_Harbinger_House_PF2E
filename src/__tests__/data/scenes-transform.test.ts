@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { MODULE_ID } from '../../config';
-import type { HarbingerScene } from '../../data/scenes';
+import type { HarbingerScene } from '../../data/scenes/types';
 import { sceneToDocumentData } from '../../data/to-foundry-data';
 
 const BASE_SCENE: HarbingerScene = {
@@ -46,6 +46,28 @@ describe('sceneToDocumentData', () => {
 		expect(doc.globalLight).toBe(false);
 		expect(doc.globalLightThreshold).toBeNull();
 		expect(doc.darkness).toBe(0);
+		expect(doc.grid?.style).toBe('solidLines');
+		expect(doc.grid?.thickness).toBe(1);
+		expect(doc.grid?.color).toBe('#000000');
+		expect(doc.grid?.alpha).toBe(0.2);
+	});
+
+	it('passes through explicit grid style overrides', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			grid: {
+				...BASE_SCENE.grid,
+				style: 'pointyHexes',
+				thickness: 3,
+				color: '#fef08a',
+				alpha: 0.45,
+			},
+		});
+
+		expect(doc.grid?.style).toBe('pointyHexes');
+		expect(doc.grid?.thickness).toBe(3);
+		expect(doc.grid?.color).toBe('#fef08a');
+		expect(doc.grid?.alpha).toBe(0.45);
 	});
 
 	it('applies scene darkness to environment and legacy fields', () => {
