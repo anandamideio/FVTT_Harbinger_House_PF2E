@@ -46,7 +46,7 @@ export interface HarbingerScene {
 	globalLightThreshold?: number | null;
 	/**
 	 * Partial override for Foundry v13's `environment` block.
-	 * Anything provided here is merged over the computed defaults, so you can set
+	 * Anything provided here is merged over the computed defaults, so I can set
 	 * a night cycle tint (`cycle: true`, `dark: { hue, luminosity }`) without
 	 * having to restate the rest of the environment object.
 	 */

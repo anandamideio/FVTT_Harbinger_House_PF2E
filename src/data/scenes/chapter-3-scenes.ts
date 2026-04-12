@@ -2,7 +2,8 @@ import type { HarbingerScene } from './types';
 
 /**
  * These could likely be broken down into multiple folders, but since this
- * is a tech demo I'm going to try and just plow forward
+ * is a tech demo I'm going to try and just plow forward. Were this a professional
+ * project, I'd be more thorough in my organization.
  */
 export const CHAPTER_3_SCENES: HarbingerScene[] = [
   {
