@@ -111,7 +111,7 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 
 			$classic.addClass('pf2e-rendered classic-view');
 
-			let pf2eHtml = '';
+			let pf2eHtml: string;
 			try {
 				pf2eHtml = formatPF2eStatblock(npc as HarbingerNPC);
 			} catch (err) {
@@ -463,13 +463,34 @@ function escapeClass(value: string): string {
 }
 
 async function enrichStatblockHtml(html: string): Promise<string> {
-	const g = globalThis as any;
+	type HtmlEnricher = {
+		enrichHTML?: (content: string, options: { async: true }) => string | Promise<string>;
+	};
+
+	const g = globalThis as {
+		game?: {
+			pf2e?: {
+				TextEditor?: HtmlEnricher;
+			};
+		};
+		foundry?: {
+			applications?: {
+				ux?: {
+					TextEditor?: {
+						implementation?: HtmlEnricher;
+					};
+				};
+			};
+		};
+		TextEditor?: HtmlEnricher;
+	};
+
 	const enricher =
 		g.game?.pf2e?.TextEditor ??
 		g.foundry?.applications?.ux?.TextEditor?.implementation ??
 		g.TextEditor;
 	if (!enricher?.enrichHTML) return html;
-	return enricher.enrichHTML(html, { async: true });
+	return Promise.resolve(enricher.enrichHTML(html, { async: true }));
 }
 
 interface HarbingerStatblockRoot extends HTMLElement {
