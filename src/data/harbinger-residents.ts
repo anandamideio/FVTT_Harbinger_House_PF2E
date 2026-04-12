@@ -108,7 +108,13 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('shortsword', { potency: 1, striking: 'striking' }),
+		createStrike(
+			'Shortsword +1',
+			22,
+			{ dice: 2, die: '6', type: 'piercing', modifier: 7 },
+			['agile', 'finesse', 'magical', 'versatile-s'],
+			`<p>+1 striking shortsword wielded with theatrical precision.</p>`,
+		),
 		createAction(
 			'Field of Fellowship',
 			'passive',
@@ -222,7 +228,23 @@ export const CRIMJAK: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('longsword', { potency: 1, striking: 'striking' }, undefined, 'Deals an additional 1d6 evil damage.'),
+		createStrike(
+			'Longsword +1',
+			20,
+			{ dice: 2, die: '8', type: 'slashing', modifier: 9 },
+			['magical', 'versatile-p'],
+			`<p>+1 striking longsword. Deals an additional @Damage[1d6[spirit]] damage.</p>`,
+			[
+				{
+					key: 'DamageDice',
+					selector: '{item|_id}-damage',
+					diceNumber: 1,
+					dieSize: 'd6',
+					damageType: 'spirit',
+					label: 'Fiendish Edge',
+				},
+			],
+		),
 		createAction(
 			'Never Surprised',
 			'passive',
@@ -320,7 +342,13 @@ export const NARCOVI: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('longsword', { potency: 1, striking: 'striking' }),
+		createStrike(
+			'Longsword +1',
+			20,
+			{ dice: 2, die: '8', type: 'slashing', modifier: 6 },
+			['magical', 'versatile-p'],
+			`<p>+1 striking longsword used by a seasoned Hardhead investigator.</p>`,
+		),
 		systemAction('attackOfOpportunity'),
 		createAction(
 			"Investigator's Eye",
@@ -567,7 +595,13 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('morningstar', { potency: 1, striking: 'striking' }),
+		createStrike(
+			'Morningstar +1',
+			23,
+			{ dice: 2, die: '8', type: 'piercing', modifier: 8 },
+			['magical'],
+			`<p>+1 striking morningstar. Browen treats this as an instrument of conversion as much as a weapon.</p>`,
+		),
 		createAction(
 			'Sermon of Madness',
 			2,
@@ -792,7 +826,13 @@ export const CHANCE_THE_BARMY: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('shortsword', { potency: 1, striking: 'striking' }),
+		createStrike(
+			'Shortsword +1',
+			19,
+			{ dice: 2, die: '6', type: 'piercing', modifier: 6 },
+			['agile', 'finesse', 'magical', 'versatile-s'],
+			`<p>+1 striking shortsword used for quick opportunistic cuts.</p>`,
+		),
 		createAction(
 			'Field of Bad Luck',
 			'passive',
@@ -1384,7 +1424,13 @@ export const TOMIN_THE_FIGMENT_MAKER: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('longsword', { potency: 1, striking: 'striking' }, 'Broad Sword +1', 'Tomin wields this enchanted broad sword in his off hand while commanding his figments.'),
+		createStrike(
+			'Broad Sword +1',
+			18,
+			{ dice: 2, die: '8', type: 'slashing', modifier: 6 },
+			['magical', 'versatile-p'],
+			'Tomin wields this enchanted broad sword in his off hand while commanding his figments.',
+		),
 		createAction(
 			'Charm and Illusion Immunity',
 			'passive',

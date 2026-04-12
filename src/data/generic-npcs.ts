@@ -87,11 +87,12 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 		},
 	},
 	items: [
-		createAction(
+		createStrike(
 			'Swarming Bites',
-			1,
+			14,
+			{ dice: 2, die: '8', type: 'piercing', modifier: 0 },
 			[],
-			`<p>Each creature in the swarm's space takes @Damage[2d8[piercing]] damage (@Check[type:reflex|dc:22] basic save).</p>`,
+			`<p>The swarm surges over creatures in its space, dealing @Damage[2d8[piercing]] damage (@Check[type:reflex|dc:22] basic save).</p>`,
 		),
 		createAction(
 			'Collective Intelligence',
@@ -108,7 +109,7 @@ export const CRANIUM_RAT_SWARM: HarbingerNPC = {
 };
 
 // Use the PF2e Gray Ooze directly from system compendium.
-export const GRAY_OOZE = systemActor('gray-ooze', 'fiend', 'grayOoze');
+export const GRAY_OOZE = systemActor('gray-ooze', 'fiend', 'grayOoze', 'Gray Ooze');
 
 // =============================================================================
 // GENERIC NPCs
@@ -275,7 +276,13 @@ export const HARMONIUM_AGENT: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('scimitar'),
+		createStrike(
+			'Scimitar',
+			14,
+			{ dice: 2, die: '6', type: 'slashing', modifier: 5 },
+			[],
+			`<p>Standard Harmonium sidearm for close-quarters arrests and skirmishes.</p>`,
+		),
 		systemAction('attackOfOpportunity'),
 		createAction(
 			'Hardhead Tactics',
@@ -351,7 +358,13 @@ export const ANARCHIST: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('shortsword'),
+		createStrike(
+			'Shortsword',
+			17,
+			{ dice: 2, die: '6', type: 'piercing', modifier: 6 },
+			['agile', 'finesse', 'versatile-s'],
+			`<p>An anarchist's preferred close weapon for quick, mobile strikes.</p>`,
+		),
 		createAction(
 			'Sneak Attack',
 			'passive',
@@ -445,8 +458,20 @@ export const XERO_BAOX: HarbingerNPC = {
 		},
 	},
 	items: [
-		systemWeapon('longsword', { potency: 1, striking: 'striking' }),
-		systemWeapon('compositeLongbow'),
+		createStrike(
+			'Longsword +1',
+			25,
+			{ dice: 3, die: '8', type: 'slashing', modifier: 10 },
+			['magical', 'versatile-p'],
+			`<p>+1 striking longsword carried by Xero for brutal close combat.</p>`,
+		),
+		createStrike(
+			'Composite Longbow',
+			23,
+			{ dice: 3, die: '8', type: 'piercing', modifier: 8 },
+			[],
+			`<p>Ranged bow strike (range increment 100 feet).</p>`,
+		),
 		systemAction('attackOfOpportunity'),
 		createAction(
 			'Bard Slaying Arrow',
