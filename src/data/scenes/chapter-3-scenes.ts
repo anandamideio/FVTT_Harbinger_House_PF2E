@@ -1,5 +1,9 @@
 import type { HarbingerScene } from './types';
 
+/**
+ * These could likely be broken down into multiple folders, but since this
+ * is a tech demo I'm going to try and just plow forward
+ */
 export const CHAPTER_3_SCENES: HarbingerScene[] = [
   {
     id: 'scene-first-floor',
