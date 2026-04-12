@@ -2251,11 +2251,11 @@ export const ALL_SCENES: HarbingerScene[] = [
 		darkness: 0.3,
 		globalLightThreshold: 1,
 		environment: {
-				dark: {
-					hue: 0.7138888888888889,
-					luminosity: -0.25,
-				},
+			dark: {
+				hue: 0.7138888888888889,
+				luminosity: -0.25,
 			},
+		},
 		lights: [
 			{
 				x: 1160,
@@ -2290,6 +2290,36 @@ export const ALL_SCENES: HarbingerScene[] = [
 					},
 				},
 				hidden: false,
+				flags: {},
+			},
+		],
+		notes: [
+			{
+				entryId: '5e1dd97104540956',
+				pageId: '3828eddf6f47b2f7',
+				global: false,
+				x: 1173,
+				y: 1071,
+				elevation: 0,
+				iconSize: 80,
+				texture: {
+					tint: '#ffffff',
+					src: 'icons/svg/book.svg',
+					anchorX: 0.5,
+					anchorY: 0.5,
+					offsetX: 0,
+					offsetY: 0,
+					fit: 'contain',
+					scaleX: 1,
+					scaleY: 1,
+					rotation: 0,
+					alphaThreshold: 0,
+				},
+				text: '',
+				fontFamily: 'Signika',
+				fontSize: 32,
+				textColor: '#ffffff',
+				textAnchor: 1,
 				flags: {},
 			},
 		],
