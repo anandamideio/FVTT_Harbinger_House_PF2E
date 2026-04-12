@@ -256,7 +256,7 @@ Factions always play some part in a Planescape adventure, as most PCs belong to 
 >
 > **Factol Rhys** won't command the Ciphers to become directly involved in the events surrounding Harbinger House. She has no interest in letting her faction interfere in the internal politics of the Lower Ward and The Lady's Ward. The right action, in this case, is no action — it'll keep her and hers alive. 'Course, once the murderer moves on to
 
-# Chapter 1: The Streets of Sigil
+# Chapter I: The Streets of Sigil
 
 ## Trolan the Mad
 > [!statblock trolan-the-mad]
