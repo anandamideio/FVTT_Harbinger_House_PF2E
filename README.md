@@ -18,6 +18,8 @@ I started by setting up an OCR pipeline to extract the text from my PDF, and the
 - Sigil Faction Icons by [etherlad](https://www.deviantart.com/etherlad/gallery)
 - Sougad Lawshredder Art by [Kobold Press](https://koboldpress.com/subclass-warfare-the-anathema-paladin-consort-with-ultimate-evil-for-the-greater-good/)
 - Trolan the Mad's Art was the art for Sectol Jalar from [Mimir.net](https://mimir.net/culture/sects/society-of-pain/)
+- Anarchist Art by [Erick Celiz](https://www.reddit.com/r/DnD/comments/vxau3k/art_rogue_subclass_anarchist/)
+- Lady's Cultist Art by [woong seok Kim](https://www.artstation.com/artwork/6aLV5w)
 - Nari's Art comes from [Archives of Nethys](https://2e.aonprd.com/Monsters.aspx?ID=2897&Redirected=1)
 - Open RPG Icons by [Game-icons.net](https://game-icons.net/)
 - Maps by: [Reddit user u/Willerman](https://www.reddit.com/r/planescapesetting/comments/1p84ekn/maps_for_harbinger_house/)
