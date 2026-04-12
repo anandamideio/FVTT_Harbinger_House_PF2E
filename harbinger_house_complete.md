@@ -1776,11 +1776,11 @@ However, the House also contains various other beings, including Godsman caretak
 
 ## The Rooms of Harbinger House
 
-### 1. The Porch
+### The Porch
 
 A series of wooden steps lead up to a slightly elevated, open-air porch. This is the main entrance used by the Godsmen who care for the House and its inhabitants, and the only one currently available to the PCs. Two wooden pillars hold up the roof, and large bay windows frame each side of the plain front door.
 
-### 2. The Entrance Hall
+### The Entrance Hall
 
 The front door leads into a large entrance hall. A thick rug decorated with the icon of the Believers of the Source covers the floor, and various couches and chairs are set comfortably around the room. Two massive fireplaces cover much of the far wall, cheery fires burning brightly in each. A single door in each wall leads deeper into the House.
 
@@ -1796,7 +1796,7 @@ If the PCs approach the rocker, they can see who's sitting there. Read:
 
 This is one of the Godsmen (Pl/♂ human/0/Believers of the Source/LN) who helped care for Harbinger House, as the badge he wears on his tunic indicates (though it's currently hidden by the blanket). Nari has broken the faction members, turning them into even bigger barmies than the addle-coves they used to administer to. Those whose minds collapsed have been given easy chants to sing until the House slides over to the Abyss. If they can't actually join Nari, at least they'll pay lip service to the doctrine of her home plane.
 
-### 3. Godsmen Cells
+### Godsmen Cells
 
 The Godsmen who work at Harbinger House use these small cells as living quarters. Each one contains a bed, a small table, a chair, and a storage chest. Various belongings are still packed away, including spare clothes, weapons (a short sword and dagger in each chest), and a small amount of jink (10d4 cp each). None of the items are magical, though there is ample evidence that the people who occupy these rooms belong to the Believers of the Source (faction symbols are sewn into or otherwise adorn everything).
 
@@ -1804,7 +1804,7 @@ Two cells hold things of interest to the PCs. The cell marked "3A" on the map co
 
 The cell marked "3B" is the only one currently occupied by a living body. A matronly female (Pl/♀ elf/0/Believers of the Source/CG) lies curled in a ball atop the bed. Her mind has been shattered by Nari's attempts to win her over, and now only the barest hint of the woman she was remains. She doesn't respond to anything the PCs say or do; she just lies there with her eyes closed tight and her thumb in her mouth. It'll take a lot of time and effort to help this woman return to normal — something the PCs can't afford at the moment.
 
-### 4. Custodian's Corner
+### Custodian's Corner
 
 **Bereth**, the newest custodian to serve at Harbinger House, uses the larger room as an office and the smaller room beyond the door as her living quarters. Windows in the office provide a view of the street outside Harbinger House.
 
@@ -1824,7 +1824,7 @@ The journal picks up after the ripped-out pages with the first entries made by B
 >
 > "Of course, this might not be the safest place for them. It could be my imagination, but I have the feeling that something's wrong here. A few of the residents have mentioned a strange woman wandering the halls, and while I don't believe them, I can't help wondering where this shared delusion is coming from."
 
-### 4A. Meditation Chamber
+#### Meditation Chamber
 
 When the PCs enter the custodian's living quarters, Trolan locates and opens the secret door (marked on the map) and takes them through to a small, square, empty room.
 
@@ -1837,13 +1837,13 @@ The act of healing others tires Trolan; it only works while in the meditation ch
 
 **Slipping the Blinds:** If Trolan isn't with the PCs when they enter the custodian's living quarters (for example, if he was killed in Curst), they can't gain any healing benefits from the meditation chamber. They may still find the secret door, but only Trolan can gain the power to heal by meditating within.
 
-### 5. Storage
+### Storage
 
 This long, narrow storage room contains blankets and extra bedding, table cloths, nondescript clothing, and boxes full of wooden bowls. These are for the residents being cared for in the House. Windows high on the far wall are sealed up with stout boards. If the PCs remove the boards, they find that the windows look out not on Sigil but on the Elemental Plane of Water.
 
 A secret panel on the wall behind the blankets (which can be found if the PCs successfully search for a secret door) hides a small alcove. The alcove contains two potions of healing, one potion of extra healing, an elixir of health, and an elixir of madness. The elixir of health can be used to cure one of the barmies in the House, or any PC who drinks the elixir of madness. However, it does not heal wounds or restore lost hit points. Any barmy cured with the elixir loses his innate powers.
 
-### 6. Godsmen's Kitchen
+### Godsmen's Kitchen
 
 This kitchen provides meals for the faction members who live in the House while caring for the resident barmies. Windows in this room have been boarded up, though the boards have been removed from the window on the left side of the door. Light from Krigala, the first layer of the Beastlands, spills into the kitchen through the uncovered window. If the PCs look out, a lion wanders over and looks in.
 
@@ -1860,7 +1860,7 @@ These Godsmen have been driven to insanity by Nari's seductive urgings. She's ma
 
 These barmies aren't responsible for their actions. They were both respectable Godsmen before Nari began working her charms on them. The PCs' best bet is to leave the room. The barmies won't follow the PCs, as they must stay with their chaotic stews. If the PCs linger in the kitchen, both Godsmen attempt to add them to the stews.
 
-### 7. Godsmen's Dining Hall
+### Godsmen's Dining Hall
 
 This large chamber is the Godsmen's dining hall. All of the Godsmen working in Harbinger House take their daily meals here. Two massive fireplaces cover most of the side walls, and four large round tables are set in the center of the room. A number of comfortable chairs sit facing the fireplace on the left side of the hall.
 
@@ -1901,7 +1901,7 @@ During the encounter, Aztral keeps asking the PCs if any of them have a lawful o
 > - SA: innate ability (absorption)
 > Str 11, Dex 18, Con 13, Int 14, Wis 8, Cha 11.
 
-### 8. Hall of Doors
+### Hall of Doors
 
 This long, narrow hall contains many doors. While there's only one door on the wall the PCs enter through, the other walls are covered with them. There are a total of eight doors at ground level; the walls extend 50 feet to the ceiling, and every 10 feet up is another row of doors. If the PCs have some way of reaching the higher doors, they find that all of them are locked. Only the eight doors at ground level can be opened.
 
@@ -1909,11 +1909,11 @@ Each ground-level door has a letter assigned to it on the map on the gatefold sc
 
 If any of the PCs make a successful Wisdom check at -2, they notice a small creature wriggling on the floor between doors "E" and "F" — an Abyssal leech. Sougad dropped it from the pouch on his belt as he was heading toward Nari's chamber.
 
-### 9. The Endless Stairs
+### The Endless Stairs
 
 The door marked "B" leads to a spiral staircase that descends and ascends as far as the PCs can see. If they climb in either direction, the stairs just keep going. The PCs can wander forever on these stairs, and that's just what Nari hopes will happen. The door can't be seen from the inside, as it blends into the wall and becomes a secret portal. To find it again, the PCs have to search for it. This takes time (10 minutes for every 10-foot section of stairs) and requires a successful roll for finding secret doors. The DM must decide how far from the door the PCs wander before they try to exit back into the hall.
 
-### 10. Tower of Windows
+### Tower of Windows
 
 The door marked "I" opens into a tower room. A free-standing spiral staircase in the middle of the room climbs to a height of 30 feet and stops just beneath the ceiling. It doesn't lead to another level; it just stands alone in the center of the room.
 
@@ -1954,23 +1954,23 @@ If the PCs do calm Galkin down, he tells them what little he knows about Nari.
 > - SA: Strength bonus (+1 to damage rolls), innate ability (becomes a lightning bolt at will on a successful Constitution check; causes 6d6 points of damage per attack and moves at the speed of light)
 > Str 16, Dex 16, Con 14, Int 15, Wis 10, Cha 12.
 
-### 11A. The Twins
+### The Twins
 
 The twins **Vorina** and **Teela** reside in this wing of the House. These barmies see all things as they truly are, but in significantly different ways. Vorina sees everything as vital and alive, observing the growth of new flesh as it replaces old, the flowering of hair as it grows longer, and the energy of life that radiates from all living things. Consequently, she's happy and upbeat. Teela, on the other hand, sees everything as dying and decaying. She can see the life force ebbing with each heartbeat, the body wearing out with each passing moment. This makes Teela very moody and dark.
 
 The twins have other powers that go along with these perceptions. Vorina can heal and nurture the life forces around her; Teela can quicken the pace of death's eternal march. Vorina will help the PCs if they need it, for she doesn't share Nari's point of view. Her sister Teela, however, has embraced Nari's ideals, giving herself over completely to chaotic evil.
 
-### 11. Vorina's Den
+#### Vorina's Den
 
 This room contains a comfortable stuffed chair, a bookshelf full of cheerful books, a large potted plant that thrives in the corner, and a window looking out upon the restful plane of Elysium.
 
-### 12. Vorina's Kitchen
+#### Vorina's Kitchen
 
 This small kitchen has a cooking fire, a fine collection of pots and pans, a table and chair with a beautiful place setting, and a larder full of good food. Vorina cooks and eats her meals here most of the time. She used to venture out to the main dining hall twice a week or so to visit with the other residents, but she has given up this practice since Nari took over the House.
 
 The mirror hanging here reflects the best view of those who gaze into it. It amplifies the viewer's life force, making him appear more vibrant and alive than he may actually feel at the time. Fact is, if a viewer stares into the mirror for a full 10 minutes, he feels refreshed; the experience restores 1d4 lost hit points (up to the viewer's normal maximum).
 
-### 13. Vorina's Bath
+#### Vorina's Bath
 
 A beautiful bathtub with running water occupies much of this room. A fluffy rug, fluffy towels, and a variety of soft sponges and fragrant bath soaps complete the decor. Potted plants hang from the ceiling, giving the place a feeling of life and vitality.
 
@@ -2004,15 +2004,15 @@ Vorina has bright blond hair, blue eyes, and tanned, healthy skin. If the PCs ha
 > - SA: cleric spells (4 1st-level, 4 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level), innate abilities (*create food and water* [three times per day], *heal* [two times per day], *plant growth* [three times per day], *purify food and drink* [three times per day])
 > Str 9, Dex 16, Con 18, Int 12, Wis 16, Cha 17.
 
-### 14. Vorina's Bedchamber
+#### Vorina's Bedchamber
 
 Here, Vorina's soft, comfortable bed is piled high with blankets and silky sheets. Ruffles and veils hang from the bed posts, giving the bed a very feminine appearance. Dressers, a closet, a fireplace, and a shaggy rug make up the rest of the furnishings in this cozy chamber. The window looks out upon the stacked layers of Bytopia.
 
-### 15. Teela's Den
+#### Teela's Den
 
 The window here looks out upon the Negative Energy Plane. The skeleton of a dire wolf is mounted to a base on the floor, and a bare wooden chair sits facing the window. A bookshelf contains books of a depressing nature, including tomes on necromancy and burial techniques.
 
-### 16. Teela's Kitchen
+#### Teela's Kitchen
 
 Like a nightmare version of Vorina's kitchen, this area is a dark reflection of the worst sights and smells of cooking.
 
@@ -2047,7 +2047,7 @@ Teela won't say much about Nari, except to remark that opposing her is fruitless
 > - SA: wizard spells (4 1st-level, 3 2nd-level, 3 3rd-level, 2 4th-level, 1 5th-level); innate abilities (*cause light wounds* [three times per day], *energy drain* [two times per day], *harm* [reverse of heal, once per day], *vampiric touch* [three times per day])
 > Str 11, Dex 12, Con 8, Int 17, Wis 12, Cha 9.
 
-### 17. Teela's Bath
+#### Teela's Bath
 
 A sunken tub fills much of the tile-covered floor in this chamber. The entire place looks like a swamp, as molds and slimes grow across the tiles, over the walls and ceiling, and atop the foul, stagnant water. If the PCs poke around in here, they encounter Teela's pets — a gray ooze and a brown mold.
 
@@ -2076,15 +2076,15 @@ A sunken tub fills much of the tile-covered floor in this chamber. The entire pl
 **Brown Mold (1):**
 AC 9; MV 0; SA Freezing (drains heat equal to 4d8 points of damage per round from victims within 5 feet); SD absorbs heat (a torch makes it double in size, flaming oil makes it quadruple, fireball-like spells make it grow eightfold); SZ S (2-foot-wide patch); Int non (0); AL N; XP 15.
 
-### 18. Teela's Bedchamber
+#### Teela's Bedchamber
 
 This place looks more like a mortuary than a bedchamber. A fireplace stands in the corner. Six skulls hang from the mantle, reflecting the firelight from their bone-white surfaces. Instead of a soft bed, a large stone slab occupies a portion of the room. Cobwebs hang like curtains throughout the area, and the smell of freshly turned dirt permeates the stale air. The window in this chamber looks out upon a cemetery on the Gray Waste, where the PCs can see ghouls and other low-level undead wandering about.
 
-### 19. Hall of Statues
+### Hall of Statues
 
 This wide hall features odd statues of monstrous beasts. One's a weird version of a medusa, complete with three snake-covered heads and a lizard's tail. Another has the body of an owlbear and the head of a mind flayer. One is a beholder with the body of a stone giant, while another is a winged wolf with six legs instead of four. Windows on each end of the hall look out upon the caves of Pandemonium, and the constant wind rattles the panes of glass.
 
-### 20. Statue Forest
+### Statue Forest
 
 This large chamber features a well-tended miniature forest, complete with trees, bushes, and a carpet of grass. The ceiling, about 20 feet off the floor, has skylights built into it that let in the light of Arborea's sun. Several statues stand among the trees, though none have bases and all look amazingly lifelike. This is the domain of the barmy named **Gorg Redeyes**, a bariaur with the ability to turn living creatures to stone.
 
@@ -2114,7 +2114,7 @@ When the PCs arrive, Gorg approaches them in manic glee and tries to turn as man
 > - SA: wizard spells (2 1st-level), innate ability (gaze turns flesh creatures to stone [three times per day])
 > Str 14, Dex 12, Con 13, Int 13, Wis 10, Cha 16.
 
-### 21. The Rock Garden
+### The Rock Garden
 
 Pathways of colorful stone wind through this garden room. Flowers of all descriptions grow in neat little rows among the paths, and skylights in the ceiling provide sunlight from the Arcadian sky.
 
@@ -2213,7 +2213,7 @@ If Trolan is present, Tomin laughs hysterically.
 > **Special Abilities**
 > - SD: +2 weapons or better to hit
 
-### 22. Corridor of Doors
+### Corridor of Doors
 
 When the PCs step through one of the portals that leads to this corridor of doors, they see Nari in the form of a beautiful, young, human female. She stands near the locked door farthest from their entry point. Read:
 
@@ -2231,7 +2231,7 @@ Beyond the door on the opposite wall, a staircase leads up to a landing just out
 
 **Slipping the Blinds:** If any PCs were charmed by Nari when she watched them in Bloodgem Park (at the start of Chapter II), those characters now feel friendly toward the succubus and protective of her. While they won't yet attack their companions, they may take action to prevent Nari from being harmed — tripping a PC who rushes to attack Nari, shoving a crossbow aside just as a PC fires, and so on.
 
-### 23. Mind Trap
+### Mind Trap
 
 The door to this room opens into darkness. If the PCs provide a light source, they see a large, featureless chamber. An older woman lies face down on the floor right inside the door, while a teenaged girl lies curled up asleep in the center of the room. After all of the PCs have entered the room, the door closes and disappears. They've entered the domain of **Kaydi**, a teenaged human female who's been in a catatonic state almost constantly since her eighth birthday. Her claim to the state of power-in-the-making is that her catatonia extends to the physical world around her, affecting those within its area of influence.
 
@@ -2273,7 +2273,7 @@ Kaydi becomes a demipower of sleep with the following spell-like abilities: *dee
 > - SA: innate ability (stupor field)
 > Str 7, Dex 8, Con 8, Int 11, Wis 9, Cha 13.
 
-### 24. Common Hall
+### Common Hall
 
 This hall, with its soft chairs and low tables, serves as a common room where the barmies get together to socialize under the supervision of the Godsmen caretakers.
 
@@ -2282,19 +2282,19 @@ A barmy (Pl/♂ gnome/0/Believers of the Source/LN) hides rather badly behind a 
 > [!read-aloud]
 > "The pretty woman with bat wings is taking all the lawfuls. She's going to kill them and drink their blood! But she won't get me! She won't!"
 
-### 25. Laundry
+### Laundry
 
 This long room with its basin of running water is where the Godsmen caretakers wash the clothes and bedding used by the barmies residing in the House. Colored dyes have been added to the water, and sheets and clothing hanging from lines around the room have been washed in the rainbow water. Now they look like chaotic flags, much in keeping with Nari's world view.
 
 The other significant feature of this room is the dead body floating in the water — a female Godsman, Sougad's twelfth victim. Her face has the now-familiar cast of fear, and she was killed by 12 slashes of a large blade. In addition to the usual parchment note, he used her blood to scrawl a message across one of the rainbow-stained sheets. It reads: "Chaos is the only power, purified in the blood of law."
 
-### 26. Barmy Dining Hall
+### Barmy Dining Hall
 
 The addle-coves who reside in the House (and aren't normally confined to their rooms) take their meals here. Currently, a dozen barmies are engaged in a winner-take-all food fight, spurred on by a pair of pathetic dretches. The PCs can try to break up the chaotic conflict or simply move on. If they enter the room, they become targets for whatever culinary delight is at hand. Most of the food doesn't cause any damage when it hits a target, though some heavy bowls could inflict as much as 1d2 points of damage if they hit.
 
 **DM Note:** There's a 10% chance that any particular bowl of food has been contaminated with a mild acid. If a PC is splattered with a bowl of acid-tinged food, he suffers 1d4 points of damage.
 
-### 27. Barmy Kitchen
+### Barmy Kitchen
 
 This kitchen is used by the Godsmen caretakers to prepare meals for the barmies under their care. Currently, one Godsman (Pl/♂ half-elf/0/Believers of the Source/LN) — charmed by Nari — and three dretches work to keep the food fight supplied with ammunition. Stopping the production of more meals will severely hamper the efforts of the food fight.
 
@@ -2302,7 +2302,7 @@ One of the dretches carries a barrel of mild acid, adding a small quantity to ev
 
 A locked cabinet in one corner of the room contains three scrolls. One features recipes that look particularly scrumptious. However, each of the other two contain one *stone to flesh* spell, which can be used to restore victims of Gorg Redeyes (see Area 20).
 
-### 28. Hall of Mirrors
+### Hall of Mirrors
 
 A barmy named **Chance** greets the PCs when they enter this room. He's a chaotic fellow by nature — paranoid, neurotic, plagued by indecision and fear — and he can't make any decisions without consulting the dice he always carries.
 
@@ -2337,7 +2337,7 @@ If the battle goes badly for Chance, he dives through the mirror to hide in his 
 > - SD: tumbling (AC reduced to -1 when this is the only action Chance takes in a round)
 > Str 15, Dex 18, Con 11, Int 14, Wis 8, Cha 15.
 
-### 29. Chance's Chamber
+#### Chance's Chamber
 
 Chance lives among all kinds of games of chance and decision-aiding devices. Card decks, dice, a gambling wheel, coins, divination sticks, rune stones, and similar objects fill table tops and shelves in this bedchamber. There are books on probability that appear more dense than the most convoluted theory of magic, parchment sheets with odds calculated to the last decimal, and all kinds of luck-inducing items from various cultures. Two of these items are actually magical (a lizard's claw and a bright blue feather) and work the same way as a *stone of good luck*. A jar on one table contains live Abyssal leeches, which Chance keeps on hand for Sougad Lawshredder. Alert PCs might notice it's half empty. There are also four potions of healing and two potions of extra healing hidden in a case beneath the bed.
 
@@ -2360,21 +2360,21 @@ If asked about the focrux, Chance says:
 
 **DM Note:** If the PCs don't follow Chance immediately through the secret door in the mirror, he gets to imbibe one of the potions of extra healing. If they delay for more than three rounds, Chance drinks another potion (if he needs it).
 
-### 30. The Last Hall
+### The Last Hall
 
 The PCs enter this hall through one of two unlocked doors on the long wall. There's a single door on the opposite wall. As soon as the first PC steps into the hall, a *magic mouth* on the floor to the far left says, "Halt! Turn back! No one may cross this room!" It then spits out a 13d6 fireball that rolls down the hall and explodes. PCs who successfully save vs. spell receive half damage. Each round that someone remains standing on the hallway floor, the magic mouth repeats its warning and spits another fireball at the PCs. A *dispel magic* cast at the mouth breaks the enchantment.
 
 Windows at either end of the hall look out onto the Plain of Infinite Portals, the desolate first layer of the Abyss.
 
-### 31. Dretch Room
+### Dretch Room
 
 Six dretches who work for Nari guard this room from intruders. In the dretches' minds, anyone but Nari and her cohorts is an intruder, so they attack the PCs when they enter.
 
-### 32. Nari's Bedchamber
+### Nari's Bedchamber
 
 Nari has decorated this chamber to her liking, filling it with plush pillows, willowy silks, and candles of all descriptions. She's here when the PCs enter Area 33, donning her most fiendishly regal garb in preparation for the upcoming ceremony.
 
-### 33. The Ritual Chamber
+### The Ritual Chamber
 
 This cross-shaped chamber has been prepared for Nari's version of Sougad's ritual. She believes it'll not only elevate her to powerhood, but also push Harbinger House into the Abyss.
 
