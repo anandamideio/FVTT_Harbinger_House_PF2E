@@ -1130,11 +1130,7 @@ Sougad climbed up to a wooden beam near the ceiling as soon as he saw the PCs ap
 
 Sougad's decided to play a game with the PCs, hoping to lead them on a merry chase. No matter how long it takes them to reach the window and climb onto the roof of the warehouse, the barmy's waiting two roofs away in plain sight. "Over here, you mite on a bebilith's rear," he calls cheerfully. "You can't stop me from way over there!" He waves, hops to a flat roof, and starts running.
 
-The DM should play the chase with as much excitement as the best chase scene from a favorite movie. Have the PCs make Dexterity checks to leap from roof to roof. A failed check indicates that a PC didn't quite make it; these
-
-# Chapter II: The Outlands
-
-Characters then have to make a second check to catch onto the side of a roof. Making the second check means that in the next round all that character can do is pull himself up to the roof. If the second check fails, the PC falls to the street below. The DM should roll 1d4 to determine how many stories the building has and calculate the damage from the fall (1d6 points for every story).
+The DM should play the chase with as much excitement as the best chase scene from a favorite movie. Have the PCs make Dexterity checks to leap from roof to roof. A failed check indicates that a PC didn't quite make it; these characters then have to make a second check to catch onto the side of a roof. Making the second check means that in the next round all that character can do is pull himself up to the roof. If the second check fails, the PC falls to the street below. The DM should roll 1d4 to determine how many stories the building has and calculate the damage from the fall (1d6 points for every story).
 
 **Sougad** starts this scene two roofs ahead of the PCs. To determine how close the PCs might be able to get to him, the DM should roll initiative each round. A character can move from one roof to another in one round. If a character wants to run at top speed, he can try to advance two roofs instead of one. This, however, can be dangerous. Because the PC isn't being cautious, the leap to the first roof is made with a -3 penalty to the Dexterity check, and the leap to the second roof is made with a -6 penalty.
 
@@ -1162,6 +1158,8 @@ Once Sougad escapes, the PCs can check on the cultists. Among the slashed corpse
 > Halelfar looks up at you, his eyes slowly losing the glow of life but his face shining with an expression of peace and happiness. He smiles at you, then whispers, "Did you see? She came to me. The Lady truly loves me." Then he dies.
 
 With the Lady's passing, dabus and faction officials arrive to clean up the mess. One of these officials is **Narcovi**, who has lots of questions about what happened. Proceed to Chapter II, which opens with the resolution of the events in Bloodgem Park.
+
+# Chapter II: The Outlands
 
 This part of the adventure takes the PCs to the Outlands in search of Sougad, the barmy who wants to become a power of chaos and murder. They might also be searching for **Trolan** and Those Who Court the Lady, especially if they accept a commission from **Factol Ambar**. In fact, Ambar could employ the PCs to solve both of the Godsmen's problems. If nothing else presents itself, **Kariana**, the sister of one of the dead cultists, approaches the PCs after she hears that they're going to the Outlands. She asks them to look for her younger brother, who's still following Trolan from gate-town to gate-town.
 
