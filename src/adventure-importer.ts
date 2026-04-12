@@ -75,6 +75,8 @@ interface ImportOptionDef {
  * Follows the same pattern as pf2e-abomination-vaults.
  */
 export class HarbingerHouseImporter extends foundry.applications.sheets.AdventureImporter {
+	#importSubmitted = false;
+
 	constructor(options?: Record<string, unknown>) {
 		super(options);
 		this.options.classes.push('harbinger-house');
@@ -92,6 +94,21 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		}
 
 		logDebug(`[Importer] ${message}`);
+	}
+
+	#lockImportSubmit(root?: ParentNode | null): void {
+		if (!root) return;
+
+		const submitControls = root.querySelectorAll<HTMLButtonElement | HTMLInputElement>(
+			'button[type="submit"], button[data-action="import"], input[type="submit"]',
+		);
+
+		for (const control of submitControls) {
+			control.disabled = true;
+			if (control instanceof HTMLButtonElement) {
+				control.setAttribute('aria-disabled', 'true');
+			}
+		}
 	}
 
 	/**
@@ -186,6 +203,10 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			hint.remove();
 		}
 
+		if (this.#importSubmitted) {
+			this.#lockImportSubmit(this.element);
+		}
+
 		this.#debug('_onRender complete', {
 			hintsConverted: hintCount,
 			rootClasses: this.options.classes,
@@ -204,6 +225,14 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	): Promise<void> {
 		void event;
 		void options;
+
+		if (this.#importSubmitted) {
+			this.#debug('_processSubmitData ignored duplicate submit');
+			return;
+		}
+
+		this.#importSubmitted = true;
+		this.#lockImportSubmit(form);
 
 		const processed = (formData.object ?? {}) as Record<string, unknown>;
 
