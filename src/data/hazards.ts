@@ -347,54 +347,6 @@ const FOCRUX_EXPLOSION: HarbingerHazard = {
 };
 
 // ============================================================================
-// NPC AURAS (Hazard-like effects)
-// ============================================================================
-
-const CHANCES_FIELD_OF_BAD_LUCK: HarbingerHazard = {
-	id: 'field-of-bad-luck',
-	category: 'aura',
-	location: "Area 29 (Chance's Chamber)",
-	data: {
-		name: "Chance's Field of Bad Luck",
-		type: 'hazard',
-		img: 'icons/commodities/currency/coin-engraved-four-leaf-clover-gold.webp',
-		system: {
-			description: {
-				value: `<p>Chance projects an aura of misfortune that affects everyone except himself.</p>
-<hr/>
-<h3>Bad Luck Aura</h3>
-<p><em>(aura, enchantment, misfortune) 15 feet</em></p>
-<p>Any creature except Chance that starts its turn in or enters the aura must attempt a @Check[type:will|dc:26] before taking any actions that round.</p>
-<p><strong>Critical Success:</strong> The creature is unaffected this round.</p>
-<p><strong>Success:</strong> The creature takes a <strong>-1 status penalty</strong> to all checks and DCs this round.</p>
-<p><strong>Failure:</strong> Something goes wrong with the creature's first action of the round. If it's a Strike, the weapon slips or misfires. If it's a spell, the wrong components are grabbed. If it's movement, they trip. The action is wasted.</p>
-<p><strong>Critical Failure:</strong> As failure, but the creature also falls <strong>prone</strong> and drops one held item.</p>
-<hr/>
-<h3>Extreme Luck</h3>
-<p>Chance himself gains a <strong>+4 item bonus</strong> to all checks and DCs while within his own aura. All effects targeting him specifically take a <strong>-4 penalty</strong>.</p>
-<hr/>
-<p><strong>Disable:</strong> The aura can only be disabled by rendering Chance unconscious, killing him, or moving him more than 30 feet away. The aura moves with Chance and cannot be separated from him.</p>`,
-			},
-			rules: [],
-			slug: 'field-of-bad-luck',
-			traits: {
-				value: ['magical'],
-				rarity: 'unique',
-			},
-			details: {
-				level: { value: 8 },
-				disable:
-					'The aura can only be disabled by rendering Chance unconscious, killing him, or moving him more than 30 feet away.',
-				isComplex: true,
-			},
-			attributes: {
-				stealth: { value: 18, dc: 28, details: '(expert) to notice the aura before entering' },
-			},
-		},
-	},
-};
-
-// ============================================================================
 // EXPORTS
 // ============================================================================
 
@@ -408,7 +360,7 @@ export const TRAP_HAZARDS: HarbingerHazard[] = [
 
 export const ENVIRONMENTAL_HAZARDS: HarbingerHazard[] = [THE_ENDLESS_STAIRS, BROWN_MOLD];
 
-export const AURA_HAZARDS: HarbingerHazard[] = [CHANCES_FIELD_OF_BAD_LUCK];
+export const AURA_HAZARDS: HarbingerHazard[] = [];
 
 // All hazards combined
 export const ALL_HAZARDS: HarbingerHazard[] = [...TRAP_HAZARDS, ...ENVIRONMENTAL_HAZARDS, ...AURA_HAZARDS];
