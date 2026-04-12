@@ -21,10 +21,6 @@ import type { SigilMapLayer } from './SigilMapLayer';
 
 /**
  * Investigation Board — the unified GM interface for managing all Sigil investigation map locations.
- *
- * Singleton app that wraps a Svelte component in a Foundry Dialog window.
- * State flows through the reactive `boardState` bridge so the UI updates
- * without unmount/remount cycles.
  */
 export class InvestigationBoardApp {
 	private static _instance: InvestigationBoardApp | null = null;

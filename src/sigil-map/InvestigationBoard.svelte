@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { SigilLocation, LocationCategory, RevealState, LocationClue } from '../data/sigil-locations';
+	import type { SigilLocation, LocationCategory, RevealState } from '../data/sigil-locations';
 	import type { LocationState } from '../types/module-flags';
 	import { CATEGORY_COLORS_CSS } from './constants';
 
