@@ -6,9 +6,8 @@ import type { AlignmentId } from './alignment';
 /**
  * Open the Alignment picker dialog.
  *
- * Renders a Planescape-themed 3×3 alignment grid as a Svelte component
- * inside a Foundry Dialog shell. Resolves to the selected AlignmentId
- * or `null` if the dialog was dismissed.
+ * Renders a 3×3 alignment grid inside a Dialog.
+ * Resolves to the selected AlignmentId or `null` if the dialog was dismissed.
  */
 export function openAlignmentPicker(
 	currentAlignment: AlignmentId | '',

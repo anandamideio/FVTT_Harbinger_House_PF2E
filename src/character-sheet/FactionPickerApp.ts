@@ -2,14 +2,6 @@ import { mount, unmount } from 'svelte';
 import { localize } from '../config';
 import FactionPickerDialog from './FactionPickerDialog.svelte';
 
-/**
- * Open the Sigil Faction picker dialog.
- *
- * Matches the PF2e deity picker UX: a small dialog with a search bar and
- * a scrollable list of factions. Resolves to the selected faction ID (empty
- * string = Unaffiliated), or `null` if the dialog was dismissed without a
- * selection.
- */
 export function openFactionPicker(currentFaction: string): Promise<string | null> {
 	return new Promise((resolve) => {
 		let svelteInstance: ReturnType<typeof mount> | null = null;
