@@ -298,7 +298,7 @@ export const ANARCHIST: HarbingerNPC = {
 	data: {
 		name: 'Anarchist',
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/anarchist.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/anarchist.webp',
 		system: {
 			abilities: {
 				str: { mod: 4 },
@@ -345,6 +345,9 @@ export const ANARCHIST: HarbingerNPC = {
 				sourceId: 'anarchist',
 				category: 'generic-npc',
 			},
+		},
+		prototypeToken: {
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/anarchist.png' },
 		},
 	},
 	items: [
@@ -466,7 +469,7 @@ export const LADYS_CULTIST: HarbingerNPC = {
 	data: {
 		name: "Lady's Cultist",
 		type: 'npc',
-		img: 'modules/harbinger-house-pf2e/dist/assets/tokens/cultist.webp',
+		img: 'modules/harbinger-house-pf2e/dist/assets/character-images/ladys-cultist.jpg',
 		system: {
 			abilities: {
 				str: { mod: 0 },
@@ -514,6 +517,9 @@ export const LADYS_CULTIST: HarbingerNPC = {
 				sourceId: 'ladys-cultist',
 				category: 'cultist',
 			},
+		},
+		prototypeToken: {
+			texture: { src: 'modules/harbinger-house-pf2e/dist/assets/tokens/ladys-cultist.png' },
 		},
 	},
 	items: [
