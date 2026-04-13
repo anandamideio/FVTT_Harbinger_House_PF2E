@@ -192,12 +192,9 @@ Hooks.once('ready', async () => {
 	});
 
 	if (!imported) {
-		const showDialog = game.settings.get(MODULE_ID, 'showImportDialog');
-		if (showDialog) {
-			setTimeout(() => {
-				openImporter();
-			}, 500);
-		}
+		setTimeout(() => {
+			openImporter();
+		}, 500);
 	}
 });
 

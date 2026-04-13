@@ -5,10 +5,6 @@
 			"importing": "Importing..."
 		},
 		"settings": {
-			"showImportDialog": {
-				"name": "Show Welcome Dialog",
-				"hint": "Show the welcome splash screen when loading a world. Disable this if you don't want to be prompted."
-			},
 			"debugMode": {
 				"name": "Debug Mode",
 				"hint": "Enable debug logging to the browser console."
@@ -16,6 +12,10 @@
 			"sigilMapEnabled": {
 				"name": "Sigil Investigation Map",
 				"hint": "Enable the interactive investigation map overlay on the Sigil scene."
+			},
+			"sigilMapHideOptionalFindingsUntilDiscovered": {
+				"name": "Hide Optional Findings Until Discovered",
+				"hint": "Hide the Optional Findings section from players until at least one optional finding has been discovered for that location."
 			},
 			"sigilMapSounds": {
 				"name": "Sigil Map Sound Effects",

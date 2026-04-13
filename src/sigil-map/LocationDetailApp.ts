@@ -1,5 +1,5 @@
 import { mount, unmount } from 'svelte';
-import { MODULE_ID } from '../config';
+import { MODULE_ID, SETTINGS } from '../config';
 import type { SigilLocation } from '../data/sigil-locations';
 import type { RevealState } from '../data/sigil-locations';
 import type { LocationState } from '../types/module-flags';
@@ -115,6 +115,15 @@ export class LocationDetailApp {
 		if (!this._element) return;
 
 		const isGM = game.user?.isGM ?? false;
+		const hideOptionalFindingsUntilDiscovered = (() => {
+			try {
+				return Boolean(
+					game.settings.get(MODULE_ID, SETTINGS.SIGIL_MAP_HIDE_OPTIONAL_FINDINGS_UNTIL_DISCOVERED)
+				);
+			} catch {
+				return true;
+			}
+		})();
 
 		this._svelteInstance = mount(LocationDetail, {
 			target: this._element,
@@ -122,6 +131,7 @@ export class LocationDetailApp {
 				location: this._location,
 				state: this._state,
 				isGM,
+				hideOptionalFindingsUntilDiscovered,
 				onToggleClue: (clueId: string) => this._handleToggleClue(clueId),
 				onAdvanceState: (newState: 'discovered' | 'investigated') => this._handleAdvanceState(newState),
 				onOpenJournal: () => this._handleOpenJournal(),

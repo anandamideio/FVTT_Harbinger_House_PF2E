@@ -65,7 +65,6 @@
 			"modules/pf2e-tokens-bestiaries/tokens/": "modules/pf2e-tokens-bestiaries/subjects/"
 		},
 		"harbinger-house-pf2e": {
-			"importPromptShown": false,
 			"adventureImporter": {
 				"Compendium.harbinger-house-pf2e.harbinger-house.Adventure.42cb37a38191040e": {
 					"initialSceneId": "851e935c54e67e62",

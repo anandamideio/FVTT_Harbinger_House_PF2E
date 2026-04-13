@@ -7,6 +7,7 @@
 		location: SigilLocation;
 		state: LocationState;
 		isGM: boolean;
+		hideOptionalFindingsUntilDiscovered: boolean;
 		onToggleClue?: (clueId: string) => void;
 		onAdvanceState?: (newState: 'discovered' | 'investigated') => void;
 		onOpenJournal?: () => void;
@@ -17,6 +18,7 @@
 		location,
 		state: locationState,
 		isGM,
+		hideOptionalFindingsUntilDiscovered,
 		onToggleClue,
 		onAdvanceState,
 		onOpenJournal,
@@ -34,6 +36,19 @@
 
 	let mandatoryClues = $derived(location.clues.filter((c: LocationClue) => !c.optional));
 	let optionalClues = $derived(location.clues.filter((c: LocationClue) => c.optional));
+	let discoveredOptionalClues = $derived(
+		optionalClues.filter((clue: LocationClue) => locationState.discoveredClues.includes(clue.id))
+	);
+	let discoveredOptionalClueCount = $derived(
+		discoveredOptionalClues.length
+	);
+	let optionalCluesForPlayers = $derived(
+		hideOptionalFindingsUntilDiscovered ? discoveredOptionalClues : optionalClues
+	);
+	let shouldShowOptionalSectionToPlayers = $derived(
+		!hideOptionalFindingsUntilDiscovered || discoveredOptionalClueCount > 0
+	);
+	let shouldShowOptionalSection = $derived(isGM || shouldShowOptionalSectionToPlayers);
 	let gmNotesValue = $derived(locationState.gmNotes ?? '');
 
 	function toAbsoluteAssetPath(path: string): string {
@@ -112,13 +127,13 @@
 			</section>
 		{/if}
 
-		{#if optionalClues.length > 0}
+		{#if optionalClues.length > 0 && shouldShowOptionalSection}
 			<section class="clues-section optional-section">
 				<h3>Optional Findings</h3>
 				<ul class="clue-list">
-					{#each optionalClues as clue (clue.id)}
-						<li class="clue-item optional">
-							{#if isGM}
+					{#if isGM}
+						{#each optionalClues as clue (clue.id)}
+							<li class="clue-item optional">
 								<label class="clue-checkbox">
 									<input
 										type="checkbox"
@@ -130,15 +145,19 @@
 								{#if clue.gmNote}
 									<span class="gm-note">{clue.gmNote}</span>
 								{/if}
-							{:else}
+							</li>
+						{/each}
+					{:else}
+						{#each optionalCluesForPlayers as clue (clue.id)}
+							<li class="clue-item optional">
 								{#if locationState.discoveredClues.includes(clue.id)}
 									<span class="clue-text discovered">{clue.text}</span>
 								{:else}
 									<span class="clue-text undiscovered">???</span>
 								{/if}
-							{/if}
-						</li>
-					{/each}
+							</li>
+						{/each}
+					{/if}
 				</ul>
 			</section>
 		{/if}

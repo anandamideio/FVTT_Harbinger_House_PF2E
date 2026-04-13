@@ -9,9 +9,9 @@ export const ADVENTURE_PACK = `${MODULE_ID}.harbinger-house`;
 
 // Settings keys
 export const SETTINGS = {
-	SHOW_IMPORT_DIALOG: 'showImportDialog',
 	DEBUG_MODE: 'debugMode',
 	SIGIL_MAP_ENABLED: 'sigilMapEnabled',
+	SIGIL_MAP_HIDE_OPTIONAL_FINDINGS_UNTIL_DISCOVERED: 'sigilMapHideOptionalFindingsUntilDiscovered',
 	SIGIL_MAP_SOUNDS: 'sigilMapSounds',
 	SIGIL_MAP_ANIMATIONS: 'sigilMapAnimations',
 } as const;
@@ -66,16 +66,6 @@ function isDevelopmentBuild(): boolean {
 }
 
 export function registerSettings(): void {
-	// Show welcome/import dialog on load
-	game.settings.register(MODULE_ID, SETTINGS.SHOW_IMPORT_DIALOG, {
-		name: localize('settings.showImportDialog.name'),
-		hint: localize('settings.showImportDialog.hint'),
-		scope: 'world',
-		config: true,
-		type: Boolean,
-		default: true,
-	});
-
 	// Debug mode
 	game.settings.register(MODULE_ID, SETTINGS.DEBUG_MODE, {
 		name: localize('settings.debugMode.name'),
@@ -90,6 +80,16 @@ export function registerSettings(): void {
 	game.settings.register(MODULE_ID, SETTINGS.SIGIL_MAP_ENABLED, {
 		name: localize('settings.sigilMapEnabled.name'),
 		hint: localize('settings.sigilMapEnabled.hint'),
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: true,
+	});
+
+	// Sigil Map - hide optional findings from players until at least one is discovered
+	game.settings.register(MODULE_ID, SETTINGS.SIGIL_MAP_HIDE_OPTIONAL_FINDINGS_UNTIL_DISCOVERED, {
+		name: localize('settings.sigilMapHideOptionalFindingsUntilDiscovered.name'),
+		hint: localize('settings.sigilMapHideOptionalFindingsUntilDiscovered.hint'),
 		scope: 'world',
 		config: true,
 		type: Boolean,
