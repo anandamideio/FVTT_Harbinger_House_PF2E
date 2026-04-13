@@ -1,9 +1,13 @@
 // @vitest-environment jsdom
 
 import jquery from 'jquery';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { HarbingerJournalSheet, resolveFactionIdFromCallout } from '../harbinger-journal-sheet';
+import {
+	HarbingerJournalSheet,
+	resolveFactionIdFromCallout,
+	scrollJournalNavigationToActivePage,
+} from '../harbinger-journal-sheet';
 
 const $ = jquery as unknown as JQueryStatic;
 
@@ -35,6 +39,20 @@ function containerNpcIds(html: JQuery): string[] {
 		.find('.statblock-container')
 		.toArray()
 		.map((element) => $(element).attr('data-npc-id') ?? '');
+}
+
+function renderNavigationHtml(activeIndex: number): JQuery {
+	const items = ['First Page', 'Second Page', 'Third Page']
+		.map((title, index) => `<li class="${index === activeIndex ? 'active' : ''}"><a class="page-title">${title}</a></li>`)
+		.join('');
+
+	return $(
+		`<section class="journal-sheet">
+			<aside class="sidebar">
+				<ol>${items}</ol>
+			</aside>
+		</section>`,
+	);
 }
 
 beforeEach(() => {
@@ -100,5 +118,25 @@ describe('decorateStatblocks', () => {
 
 		expect(renderedText).toContain('Creature 10');
 		expect(renderedText).toContain('Creature 9');
+	});
+});
+
+describe('scrollJournalNavigationToActivePage', () => {
+	it('scrolls the active page entry into view', () => {
+		const html = renderNavigationHtml(1);
+		const activePage = html.find('li.active').get(0) as HTMLElement;
+		const scrollSpy = vi.fn();
+		activePage.scrollIntoView = scrollSpy as unknown as typeof activePage.scrollIntoView;
+
+		const didScroll = scrollJournalNavigationToActivePage(html);
+
+		expect(didScroll).toBe(true);
+		expect(scrollSpy).toHaveBeenCalledWith({ block: 'nearest', inline: 'nearest' });
+	});
+
+	it('returns false when there is no active page entry', () => {
+		const html = renderNavigationHtml(-1);
+
+		expect(scrollJournalNavigationToActivePage(html)).toBe(false);
 	});
 });

@@ -12,6 +12,21 @@ const KNOWN_NPC_IDS = new Set(
 	ALL_NPCS.filter((npc) => !isSystemActorReference(npc)).map((npc) => (npc as HarbingerNPC).id),
 );
 
+const PAGE_NAV_CONTAINER_SELECTOR = [
+	'aside.sidebar',
+	'.journal-entry-pages > aside',
+	'nav.pages-list',
+	'.pages-list',
+	'.journal-sidebar',
+].join(', ');
+
+const ACTIVE_PAGE_SELECTOR = [
+	'li.active',
+	'.directory-item.active',
+	'[aria-current="page"]',
+	'[aria-selected="true"]',
+].join(', ');
+
 /**
  * Custom journal sheet used by Harbinger House journal entries.
  * Adds the themed root CSS class so module styles apply consistently.
@@ -50,6 +65,8 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 			HarbingerJournalSheet.decorateFactionCallouts(this.document, $root);
 			await HarbingerJournalSheet.decorateStatblocks(this.document, $root);
 		}
+
+		scheduleNavigationScrollToActivePage(this.document, $root);
 
 		logDebug('[JournalFaction] HarbingerJournalSheet _onRender complete', {
 			journalName: this.document?.name,
@@ -288,6 +305,53 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 			injectedCallouts,
 		});
 	}
+}
+
+function scheduleNavigationScrollToActivePage(journal: JournalEntryClass | undefined, html: JQuery): void {
+	const retryDelaysMs = [0, 50, 150];
+	let didScroll = false;
+
+	retryDelaysMs.forEach((delayMs, index) => {
+		globalThis.setTimeout(() => {
+			if (didScroll) return;
+
+			didScroll = scrollJournalNavigationToActivePage(html);
+			if (didScroll) {
+				logDebug('[JournalNavigation] Scrolled pages panel to active page', {
+					journalId: journal?.id,
+					journalName: journal?.name,
+					attempt: index + 1,
+				});
+				return;
+			}
+
+			if (index === retryDelaysMs.length - 1) {
+				logDebug('[JournalNavigation] Active page entry not found in navigation panel', {
+					journalId: journal?.id,
+					journalName: journal?.name,
+				});
+			}
+		}, delayMs);
+	});
+}
+
+export function scrollJournalNavigationToActivePage(html: JQuery): boolean {
+	const rootElement = html.get(0);
+	if (!(rootElement instanceof HTMLElement)) return false;
+
+	const $sheetRoot = $(rootElement).closest('.journal-sheet');
+	const $searchRoot = $sheetRoot.length > 0 ? $sheetRoot : $(rootElement);
+	const $navigationPanels = $searchRoot.find(PAGE_NAV_CONTAINER_SELECTOR).add($searchRoot.filter(PAGE_NAV_CONTAINER_SELECTOR));
+
+	for (const panel of $navigationPanels.toArray()) {
+		const activePage = $(panel).find(ACTIVE_PAGE_SELECTOR).first().get(0);
+		if (!(activePage instanceof HTMLElement)) continue;
+
+		activePage.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+		return true;
+	}
+
+	return false;
 }
 
 interface HarbingerJournalRootElement extends HTMLElement {
