@@ -530,6 +530,8 @@ function buildHarbingerSceneExport(
 ): HarbingerScene {
 	const sceneData = scene.toObject();
 	const backgroundSrc = sceneData.background?.src ?? sceneData.img ?? '';
+	const foregroundSrc =
+		typeof sceneData.foreground === 'string' && sceneData.foreground.length > 0 ? sceneData.foreground : undefined;
 	const fogExploration = sceneData.fog?.exploration ?? sceneData.fogExploration;
 	const backgroundOffsetX = sceneData.background?.offsetX;
 	const backgroundOffsetY = sceneData.background?.offsetY;
@@ -539,6 +541,7 @@ function buildHarbingerSceneExport(
 		id: getSceneModuleFlagValue(scene, 'sourceId') ?? slugifySceneId(sceneData.name),
 		name: sceneData.name,
 		img: backgroundSrc,
+		...(foregroundSrc ? { foreground: foregroundSrc } : {}),
 		background: {
 			src: backgroundSrc,
 			...(typeof backgroundOffsetX === 'number' ? { offsetX: backgroundOffsetX } : {}),
