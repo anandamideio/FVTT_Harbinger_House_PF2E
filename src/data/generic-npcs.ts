@@ -5,7 +5,6 @@ import {
 	createStrike,
 	systemAction,
 	systemActor,
-	systemWeapon,
 } from './utils';
 
 // =============================================================================

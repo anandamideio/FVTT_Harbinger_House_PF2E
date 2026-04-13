@@ -17,10 +17,14 @@ globalThis.foundry = {
 					options = { classes: [] };
 					document: { id?: string; name?: string } = {};
 					element: HTMLElement = document.createElement('div');
-					constructor(_doc?: unknown, _options?: unknown) {
+					constructor(doc?: unknown, options?: unknown) {
+						void doc;
+						void options;
 						// No-op test shim
 					}
-					async _onRender(_context?: unknown, _options?: unknown): Promise<void> {
+					async _onRender(context?: unknown, options?: unknown): Promise<void> {
+						void context;
+						void options;
 						// No-op test shim
 					}
 				},
