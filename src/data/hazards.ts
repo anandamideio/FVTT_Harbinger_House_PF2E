@@ -163,7 +163,7 @@ const MIRROR_OF_MORTALITY_TRAP: HarbingerHazard = {
 			rules: [],
 			slug: 'mirror-of-mortality-trap',
 			traits: {
-				value: ['magical', 'trap', 'emotion', 'visual'],
+				value: ['magical', 'trap', 'visual'],
 				rarity: 'unique',
 			},
 			details: {
