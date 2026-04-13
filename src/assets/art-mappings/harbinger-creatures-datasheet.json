@@ -1,0 +1,65 @@
+[
+  {
+    "label": "Pusk (Dretch)",
+    "key": "pusk-dretch",
+    "source": "Harbinger House",
+    "art": {
+      "portrait": "modules/pf2e-tokens-bestiaries/portraits/fiendish/demon/dretch.webp",
+      "thumb": "modules/pf2e-tokens-bestiaries/portraits/fiendish/demon/dretch.webp",
+      "token": "modules/pf2e-tokens-bestiaries/tokens/fiendish/demon/dretch.webp",
+      "subject": "modules/pf2e-tokens-bestiaries/subjects/fiendish/demon/dretch.webp",
+      "scale": 1
+    },
+    "tags": {
+      "category": [
+        "fiendish",
+        "demon"
+      ],
+      "family": [
+        "harbinger-house"
+      ]
+    }
+  },
+  {
+    "label": "Quasit (Manes)",
+    "key": "quasit-manes",
+    "source": "Harbinger House",
+    "art": {
+      "portrait": "modules/pf2e-tokens-bestiaries/portraits/fiendish/demon/quasit.webp",
+      "thumb": "modules/pf2e-tokens-bestiaries/portraits/fiendish/demon/quasit.webp",
+      "token": "modules/pf2e-tokens-bestiaries/tokens/fiendish/demon/quasit.webp",
+      "subject": "modules/pf2e-tokens-bestiaries/subjects/fiendish/demon/quasit.webp",
+      "scale": 2
+    },
+    "tags": {
+      "category": [
+        "fiendish",
+        "demon"
+      ],
+      "family": [
+        "harbinger-house"
+      ]
+    }
+  },
+  {
+    "label": "Gray Ooze",
+    "key": "gray-ooze",
+    "source": "Harbinger House",
+    "art": {
+      "portrait": "modules/pf2e-tokens-bestiaries/portraits/aberrant/ooze/gray-ooze.webp",
+      "thumb": "modules/pf2e-tokens-bestiaries/portraits/aberrant/ooze/gray-ooze.webp",
+      "token": "modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/gray-ooze.webp",
+      "subject": "modules/pf2e-tokens-bestiaries/subjects/aberrant/ooze/gray-ooze.webp",
+      "scale": 1
+    },
+    "tags": {
+      "category": [
+        "aberrant",
+        "ooze"
+      ],
+      "family": [
+        "harbinger-house"
+      ]
+    }
+  }
+]

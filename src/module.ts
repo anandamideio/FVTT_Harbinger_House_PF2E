@@ -1,4 +1,5 @@
 import { HarbingerHouseImporter } from './adventure-importer';
+import { PF2E_BESTIARY_TOKENS_MODULE_ID } from './bestiary-art';
 import { registerAlignmentSockets } from './character-sheet/alignment-sockets';
 import { registerCharacterSheetHooks } from './character-sheet/sigil-faction';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, logWarn, MODULE_ID, registerSettings } from './config';
@@ -12,7 +13,6 @@ const ADVENTURE_ID = '42cb37a38191040e';
 
 /** Full compendium UUID for the Adventure document */
 const ADVENTURE_UUID = `Compendium.${ADVENTURE_PACK}.Adventure.${ADVENTURE_ID}`;
-const PF2E_BESTIARY_MODULE_ID = 'pf2e-tokens-bestiaries';
 
 function getAdventureImporterKeys(): string[] {
 	const manifestFlags = game.modules.get(MODULE_ID)?.flags as Record<string, unknown> | undefined;
@@ -28,12 +28,12 @@ function getAdventureImporterKeys(): string[] {
 }
 
 function warnIfBestiaryModuleInactive(): void {
-	const bestiaryModule = game.modules.get(PF2E_BESTIARY_MODULE_ID);
+	const bestiaryModule = game.modules.get(PF2E_BESTIARY_TOKENS_MODULE_ID);
 	if (!bestiaryModule || bestiaryModule.active) return;
 
 	ui.notifications?.warn(localize('warnings.activateBestiaryBeforeImport'));
 	logWarn('PF2E Bestiary token module is installed but inactive', {
-		moduleId: PF2E_BESTIARY_MODULE_ID,
+		moduleId: PF2E_BESTIARY_TOKENS_MODULE_ID,
 	});
 }
 

@@ -48,6 +48,22 @@
 		}
 	],
 	"flags": {
+		"galleryDatasheets": {
+			"harbinger-house-creatures": {
+				"label": "Harbinger House Creature Art Datasheet",
+				"hint": "Artwork mappings used for Harbinger House creature and token presentation.",
+				"sheet": "modules/harbinger-house-pf2e/dist/assets/art-mappings/harbinger-creatures-datasheet.json"
+			}
+		},
+		"compendiumArtMappings": {
+			"pf2e": {
+				"mapping": "modules/harbinger-house-pf2e/dist/assets/art-mappings/harbinger-creature-art-map.json",
+				"credit": "<em>Portrait, token, and subject artwork from Harbinger House and Pathfinder Tokens: Bestiaries-compatible mappings.</em>"
+			}
+		},
+		"tokenRingSubjectMappings": {
+			"modules/pf2e-tokens-bestiaries/tokens/": "modules/pf2e-tokens-bestiaries/subjects/"
+		},
 		"harbinger-house-pf2e": {
 			"importPromptShown": false,
 			"adventureImporter": {

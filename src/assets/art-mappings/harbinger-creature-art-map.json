@@ -1,0 +1,62 @@
+{
+  "pf2e.pathfinder-monster-core": {
+    "OoUrk7aHE5wq9nLs": {
+      "actor": "modules/pf2e-tokens-bestiaries/portraits/fiendish/demon/dretch.webp",
+      "token": {
+        "randomImg": false,
+        "texture": {
+          "src": "modules/pf2e-tokens-bestiaries/tokens/fiendish/demon/dretch.webp",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        "ring": {
+          "enabled": true,
+          "subject": {
+            "texture": "modules/pf2e-tokens-bestiaries/subjects/fiendish/demon/dretch.webp",
+            "scale": 1
+          }
+        }
+      }
+    }
+  },
+  "pf2e.pathfinder-bestiary": {
+    "9jF564DF6ylEovna": {
+      "actor": "modules/pf2e-tokens-bestiaries/portraits/fiendish/demon/quasit.webp",
+      "token": {
+        "randomImg": false,
+        "texture": {
+          "src": "modules/pf2e-tokens-bestiaries/tokens/fiendish/demon/quasit.webp",
+          "scaleX": 2,
+          "scaleY": 2
+        },
+        "ring": {
+          "enabled": true,
+          "subject": {
+            "texture": "modules/pf2e-tokens-bestiaries/subjects/fiendish/demon/quasit.webp",
+            "scale": 2
+          }
+        }
+      }
+    }
+  },
+  "pf2e.pathfinder-bestiary-2": {
+    "V6OBYa51VcehPj22": {
+      "actor": "modules/pf2e-tokens-bestiaries/portraits/aberrant/ooze/gray-ooze.webp",
+      "token": {
+        "randomImg": false,
+        "texture": {
+          "src": "modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/gray-ooze.webp",
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        "ring": {
+          "enabled": true,
+          "subject": {
+            "texture": "modules/pf2e-tokens-bestiaries/subjects/aberrant/ooze/gray-ooze.webp",
+            "scale": 1
+          }
+        }
+      }
+    }
+  }
+}
