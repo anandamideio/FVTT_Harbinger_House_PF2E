@@ -1021,9 +1021,9 @@ export const GORG_STATUE_CACHE: HarbingerNPC = {
 	id: 'gorg-statue-cache',
 	category: 'loot',
 	data: {
-		name: "Gorg's Statue Cache (Area 27)",
+		name: "Gorg's Statue Cache",
 		type: 'loot',
-		img: 'icons/containers/chest/chest-reinforced-steel.webp',
+		img: 'icons/containers/chest/chest-reinforced-stone.webp',
 		system: {
 			attributes: {
 				hp: { value: 1, max: 1, temp: 0, details: '' },
@@ -1066,13 +1066,14 @@ export const GORG_STATUE_CACHE: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: 0,
-			texture: { src: 'icons/containers/chest/chest-reinforced-steel.webp' },
+			texture: { src: 'icons/containers/chest/chest-reinforced-stone.webp' },
 		},
 	},
 	items: [
 		// The two stone to flesh scrolls are referenced by slug so the importer
 		// wires them to the module's own Scroll of Stone to Flesh item entry.
 		{
+			_id: '0aaaf0369a7d480d',
 			name: 'Scroll of Stone to Flesh',
 			type: 'consumable',
 			img: 'icons/sundries/scrolls/scroll-bound-sealed-brown.webp',
@@ -1098,6 +1099,114 @@ export const GORG_STATUE_CACHE: HarbingerNPC = {
 			},
 		},
 		{
+			_id: '48a512db8b4c67a0',
+			name: 'Scroll of Stone to Flesh',
+			type: 'consumable',
+			img: 'icons/sundries/scrolls/scroll-bound-sealed-brown.webp',
+			system: {
+				description: {
+					value: `<p>This scroll contains a 6th-level <em>stone to flesh</em> spell. Activate it to cast the spell at 6th level, targeting one petrified creature (Fortitude save DC 27 by the target):</p>
+<ul>
+<li><strong>Critical Success:</strong> The creature is fully restored.</li>
+<li><strong>Success:</strong> The creature is restored but slowed 1 for 24 hours.</li>
+<li><strong>Failure:</strong> The creature is restored but slowed 1 for 1 week and permanently drained 1.</li>
+<li><strong>Critical Failure:</strong> The creature remains petrified.</li>
+</ul>
+<p><em>See the module's full <strong>Scroll of Stone to Flesh</strong> item entry for detailed activation rules.</em></p>`,
+				},
+				rules: [],
+				slug: 'scroll-of-stone-to-flesh',
+				level: { value: 11 },
+				price: { value: { gp: 300 } },
+				traits: { value: ['consumable', 'magical', 'scroll'], rarity: 'common' },
+				consumableType: { value: 'scroll' },
+				bulk: { value: 'L' },
+				uses: { value: 1, max: 1, autoDestroy: true },
+			},
+		},
+	],
+};
+
+export const CABINET_STASH: HarbingerNPC = {
+	id: 'cabinet-stash',
+	category: 'loot',
+	data: {
+		name: 'Cabinet Stash',
+		type: 'loot',
+		img: 'icons/containers/chest/chest-simple-box-red.webp',
+		system: {
+			attributes: {
+				hp: { value: 1, max: 1, temp: 0, details: '' },
+				ac: { value: 10, details: '' },
+				speed: { value: 0, otherSpeeds: [] },
+			},
+			details: {
+				level: { value: 11 },
+				alignment: { value: 'N' },
+				source: { value: 'Harbinger House — Locked Cabinet Stash' },
+				blurb: 'A locked cabinet stash containing emergency anti-petrification scrolls',
+				publicNotes: `<p>A locked cabinet in the room hides a compact stash of arcane scrolls intended for emergencies.</p>
+<p><strong>Contents:</strong></p>
+<ul>
+<li>2× <em>scroll of stone to flesh</em> (6th-level) — a contingency supply for restoring petrified victims.</li>
+</ul>`,
+				privateNotes: `<p>GM note: This stash contains two additional <em>scrolls of stone to flesh</em> beyond the pair found in Gorg's area.</p>`,
+			},
+			saves: {
+				fortitude: { value: 0, saveDetail: '' },
+				reflex: { value: 0, saveDetail: '' },
+				will: { value: 0, saveDetail: '' },
+			},
+			traits: {
+				value: [],
+				rarity: 'unique',
+				size: { value: 'med' },
+				languages: { value: [], details: '' },
+			},
+		},
+		flags: {
+			'harbinger-house-pf2e': {
+				sourceId: 'cabinet-stash',
+				category: 'loot',
+			},
+		},
+		prototypeToken: {
+			name: 'Cabinet Stash',
+			displayName: 20,
+			actorLink: true,
+			disposition: 0,
+			texture: { src: 'icons/containers/chest/chest-simple-box-red.webp' },
+		},
+	},
+	items: [
+		{
+			_id: '8dc65a2470587ff2',
+			name: 'Scroll of Stone to Flesh',
+			type: 'consumable',
+			img: 'icons/sundries/scrolls/scroll-bound-sealed-brown.webp',
+			system: {
+				description: {
+					value: `<p>This scroll contains a 6th-level <em>stone to flesh</em> spell. Activate it to cast the spell at 6th level, targeting one petrified creature (Fortitude save DC 27 by the target):</p>
+<ul>
+<li><strong>Critical Success:</strong> The creature is fully restored.</li>
+<li><strong>Success:</strong> The creature is restored but slowed 1 for 24 hours.</li>
+<li><strong>Failure:</strong> The creature is restored but slowed 1 for 1 week and permanently drained 1.</li>
+<li><strong>Critical Failure:</strong> The creature remains petrified.</li>
+</ul>
+<p><em>See the module's full <strong>Scroll of Stone to Flesh</strong> item entry for detailed activation rules.</em></p>`,
+				},
+				rules: [],
+				slug: 'scroll-of-stone-to-flesh',
+				level: { value: 11 },
+				price: { value: { gp: 300 } },
+				traits: { value: ['consumable', 'magical', 'scroll'], rarity: 'common' },
+				consumableType: { value: 'scroll' },
+				bulk: { value: 'L' },
+				uses: { value: 1, max: 1, autoDestroy: true },
+			},
+		},
+		{
+			_id: '2ce34f0f9466bc8e',
 			name: 'Scroll of Stone to Flesh',
 			type: 'consumable',
 			img: 'icons/sundries/scrolls/scroll-bound-sealed-brown.webp',
@@ -1131,7 +1240,7 @@ export const STORAGE_ALCOVE_CACHE: HarbingerNPC = {
 	data: {
 		name: 'Hidden Storage Alcove',
 		type: 'loot',
-		img: 'icons/containers/kitchenware/vase-clay-painted-pink.webp',
+		img: 'icons/containers/boxes/crate-heavy-brown.webp',
 		system: {
 			attributes: {
 				hp: { value: 1, max: 1, temp: 0, details: '' },
@@ -1177,7 +1286,7 @@ export const STORAGE_ALCOVE_CACHE: HarbingerNPC = {
 			displayName: 20,
 			actorLink: true,
 			disposition: 0,
-			texture: { src: 'icons/containers/kitchenware/vase-clay-painted-pink.webp' },
+			texture: { src: 'icons/containers/boxes/crate-heavy-brown.webp' },
 		},
 	},
 	items: [
@@ -1284,7 +1393,7 @@ export const STORAGE_ALCOVE_CACHE: HarbingerNPC = {
 };
 
 export const FIGMENTS: HarbingerNPC[] = [FIGMENT_SMALL, FIGMENT_MEDIUM, FIGMENT_LARGE];
-export const LOOT_NPCS: HarbingerNPC[] = [GORG_STATUE_CACHE, STORAGE_ALCOVE_CACHE];
+export const LOOT_NPCS: HarbingerNPC[] = [GORG_STATUE_CACHE, CABINET_STASH, STORAGE_ALCOVE_CACHE];
 
 export const FIENDS: NPCEntry[] = [DRETCH, MANES, CRANIUM_RAT_SWARM, GRAY_OOZE];
 
