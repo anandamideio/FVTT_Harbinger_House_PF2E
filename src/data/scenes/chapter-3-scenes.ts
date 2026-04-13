@@ -13728,7 +13728,7 @@ export const CHAPTER_3_SCENES: HarbingerScene[] = [
         width: 1,
         height: 1,
         texture: {
-          src: 'icons/containers/chest/chest-reinforced-steel.webp',
+          src: 'icons/containers/chest/chest-reinforced-stone.webp',
           anchorX: 0.5,
           anchorY: 0.5,
           offsetX: 0,
