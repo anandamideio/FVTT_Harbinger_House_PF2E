@@ -355,6 +355,14 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 	const maxInitialY = Math.max(0, scene.height - 1);
 	const initialX = scene.initial.x == null ? null : Math.max(0, Math.min(maxInitialX, scene.initial.x));
 	const initialY = scene.initial.y == null ? null : Math.max(0, Math.min(maxInitialY, scene.initial.y));
+	const isVideoPath = (path: string): boolean => /\.(webm|mp4|m4v|mov)$/i.test(path);
+	const foreground = scene.foreground ?? null;
+	const thumb =
+		isVideoPath(scene.img) || isVideoPath(scene.background.src)
+			? foreground && !isVideoPath(foreground)
+				? foreground
+				: undefined
+			: scene.img;
 
 	return {
 		name: scene.name,
@@ -366,8 +374,8 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 			scaleX: scene.background.scaleX ?? 1,
 			scaleY: scene.background.scaleY ?? 1,
 		},
-		foreground: scene.foreground ?? null,
-		thumb: scene.img,
+		foreground,
+		thumb,
 		width: scene.width,
 		height: scene.height,
 		padding: 0,

@@ -62,6 +62,32 @@ describe('sceneToDocumentData', () => {
 		expect(doc.foreground).toBe('modules/harbinger-house-pf2e/dist/assets/maps/Test-foreground.webp');
 	});
 
+	it('uses an image foreground as thumb when the scene image is a video', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			img: 'modules/harbinger-house-pf2e/dist/assets/maps/Test-background.webm',
+			background: {
+				src: 'modules/harbinger-house-pf2e/dist/assets/maps/Test-background.webm',
+			},
+			foreground: 'modules/harbinger-house-pf2e/dist/assets/maps/Test-foreground.webp',
+		});
+
+		expect(doc.thumb).toBe('modules/harbinger-house-pf2e/dist/assets/maps/Test-foreground.webp');
+	});
+
+	it('emits an undefined thumb when a video-backed scene has no image fallback', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			img: 'modules/harbinger-house-pf2e/dist/assets/maps/Test-background.webm',
+			background: {
+				src: 'modules/harbinger-house-pf2e/dist/assets/maps/Test-background.webm',
+			},
+			foreground: null,
+		});
+
+		expect(doc.thumb).toBeUndefined();
+	});
+
 	it('passes through explicit grid style overrides', () => {
 		const doc = sceneToDocumentData({
 			...BASE_SCENE,

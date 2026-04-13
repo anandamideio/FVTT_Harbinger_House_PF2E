@@ -4,7 +4,9 @@ export interface HarbingerScene {
 	/** Path to the map image */
 	img: string;
 	/** Optional foreground image path rendered above the background */
-	foreground?: string | null;
+	foreground?: {
+	src: string;
+	}
 	/** Background image configuration */
 	background: {
 		src: string;
