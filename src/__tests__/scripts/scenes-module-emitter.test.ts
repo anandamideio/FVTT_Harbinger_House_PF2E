@@ -3,8 +3,8 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { ScenesModuleEmitter } from '../../../scripts/dd2vtt-importer/scenes-module-emitter.ts';
-import type { GeneratedScene, SceneDefaults } from '../../../scripts/dd2vtt-importer/types.ts';
+import { ScenesModuleEmitter } from '../../../scripts/dd2vtt-importer/scenes-module-emitter';
+import type { GeneratedScene, SceneDefaults } from '../../../scripts/dd2vtt-importer/types';
 import { createTempDir } from '../helpers/dd2vtt-fixtures';
 
 const sceneDefaults: SceneDefaults = {

@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { ScenePlaceableConverter } from '../../../scripts/dd2vtt-importer/scene-placeable-converter.ts';
+import { ScenePlaceableConverter } from '../../../scripts/dd2vtt-importer/scene-placeable-converter';
 import type {
 	LightDefaults,
 	SceneDefaults,
 	SceneImportSpec,
 	WallDefaults,
-} from '../../../scripts/dd2vtt-importer/types.ts';
+} from '../../../scripts/dd2vtt-importer/types';
 import { createSampleDD2VTT } from '../helpers/dd2vtt-fixtures';
 
 const sceneDefaults: SceneDefaults = {

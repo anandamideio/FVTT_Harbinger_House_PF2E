@@ -3,8 +3,8 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { DD2VTTImportPipeline } from '../../../scripts/dd2vtt-importer/dd2vtt-import-pipeline.ts';
-import type { ImporterLogger, SceneImportSpec } from '../../../scripts/dd2vtt-importer/types.ts';
+import { DD2VTTImportPipeline } from '../../../scripts/dd2vtt-importer/dd2vtt-import-pipeline';
+import type { ImporterLogger, SceneImportSpec } from '../../../scripts/dd2vtt-importer/types';
 import {
 	createSampleDD2VTT,
 	createTempDir,

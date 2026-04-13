@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { DD2VTTImportConfigLoader } from '../../../scripts/dd2vtt-importer/config-loader.ts';
+import { DD2VTTImportConfigLoader } from '../../../scripts/dd2vtt-importer/config-loader';
 import { createTempDir } from '../helpers/dd2vtt-fixtures';
 
 function writeConfig(filePath: string, body: string): void {

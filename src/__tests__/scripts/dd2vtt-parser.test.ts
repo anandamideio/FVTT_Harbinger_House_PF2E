@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { DD2VTTParser } from '../../../scripts/dd2vtt-importer/dd2vtt-parser.ts';
+import { DD2VTTParser } from '../../../scripts/dd2vtt-importer/dd2vtt-parser';
 import { createSampleDD2VTT, createTempDir, writeDD2VTTFile } from '../helpers/dd2vtt-fixtures';
 
 describe('DD2VTTParser', () => {

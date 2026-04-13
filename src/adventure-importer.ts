@@ -108,7 +108,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			'button[type="submit"], button[data-action="import"], input[type="submit"]',
 		);
 
-		for (const control of submitControls) {
+		for (const control of Array.from(submitControls)) {
 			control.disabled = true;
 			if (control instanceof HTMLInputElement && control.type === 'submit') {
 				control.value = importingLabel;

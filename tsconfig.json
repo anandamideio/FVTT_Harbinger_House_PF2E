@@ -12,7 +12,7 @@
     "declarationMap": false,
     "sourceMap": true,
     "outDir": "./scripts",
-    "rootDir": "./src",
+    "rootDir": ".",
     "paths": {"*": ["./*"]},
     "types": ["node", "@league-of-foundry-developers/foundry-vtt-types"],
     "noEmit": true
