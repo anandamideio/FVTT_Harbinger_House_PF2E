@@ -1331,22 +1331,64 @@ span.page-title {
 
 /* ---- Left Sidebar / Pages Nav ---- */
 /*
- * Target every likely Foundry selector for the pages sidebar so we look
- * consistent whether the sheet is rendered with AppV1 or AppV2. The
- * sidebar sits on the parchment background so we give it a faint aged
- * vellum tone and a soft gradient divider on the right edge instead of
- * the default harsh line.
+ * Build the pages sidebar as a dark Planescape codex panel so it feels
+ * closer to the Sigil investigation tooling: layered backgrounds, subtle
+ * ornament lines, stronger hierarchy, and a clearer active state.
  */
 .journal-sheet.harbinger-journal aside.sidebar,
 .journal-sheet.harbinger-journal .journal-entry-pages > aside,
 .journal-sheet.harbinger-journal nav.pages-list,
 .journal-sheet.harbinger-journal .pages-list,
 .journal-sheet.harbinger-journal .journal-sidebar {
+	--hh-nav-bg-top: #24180f;
+	--hh-nav-bg-bottom: #161008;
+	--hh-nav-ink: #dbc8a8;
+	--hh-nav-ink-muted: #b89f79;
+	--hh-nav-border: rgba(212, 160, 23, 0.25);
+	--hh-nav-accent: #d4a017;
+	--hh-nav-crimson: #6e0000;
 	position: relative;
-	background: linear-gradient(180deg, rgba(26, 14, 6, 0.05) 0%, rgba(26, 14, 6, 0.02) 100%);
-	padding: 0.75rem 0.5rem;
+	background:
+		radial-gradient(120% 50% at 100% 0%, rgba(212, 160, 23, 0.2) 0%, transparent 62%),
+		linear-gradient(180deg, rgba(110, 0, 0, 0.2) 0%, rgba(110, 0, 0, 0) 26%),
+		linear-gradient(180deg, var(--hh-nav-bg-top) 0%, var(--hh-nav-bg-bottom) 100%),
+		url("../dist/assets/style/old-paper.jpg") center / cover;
+	padding: 0.75rem 0.5rem 0.8rem;
 	border-right: none;
-	box-shadow: none;
+	box-shadow:
+		inset 0 1px 0 rgba(212, 160, 23, 0.2),
+		inset 0 -1px 0 rgba(110, 0, 0, 0.45),
+		inset -1px 0 0 rgba(212, 160, 23, 0.2),
+		2px 0 10px rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+}
+
+.journal-sheet.harbinger-journal aside.sidebar > *,
+.journal-sheet.harbinger-journal .journal-entry-pages > aside > *,
+.journal-sheet.harbinger-journal nav.pages-list > *,
+.journal-sheet.harbinger-journal .pages-list > *,
+.journal-sheet.harbinger-journal .journal-sidebar > * {
+	position: relative;
+	z-index: 1;
+}
+
+/* Razorvine top and bottom trim so the nav reads like a carved panel */
+.journal-sheet.harbinger-journal aside.sidebar::before,
+.journal-sheet.harbinger-journal .journal-entry-pages > aside::before,
+.journal-sheet.harbinger-journal nav.pages-list::before,
+.journal-sheet.harbinger-journal .pages-list::before,
+.journal-sheet.harbinger-journal .journal-sidebar::before {
+	content: "";
+	position: absolute;
+	left: 0.3rem;
+	right: 0.3rem;
+	top: 0.12rem;
+	bottom: 0.12rem;
+	background:
+		url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12' preserveAspectRatio='none'><g fill='none' stroke='%23d4a017' stroke-width='1' stroke-linecap='round'><path d='M0 6 Q12 0 24 6 T48 6 T72 6 T96 6' opacity='0.72'/><path d='M0 6 Q12 12 24 6 T48 6 T72 6 T96 6' opacity='0.42'/><path d='M12 6 l-2 -3 M24 6 l2 -4 M36 6 l-2 -3 M48 6 l2 -4 M60 6 l-2 -3 M72 6 l2 -4 M84 6 l-2 -3' stroke='%236e0000' opacity='0.65'/></g></svg>") top / 90px 12px repeat-x,
+		url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12' preserveAspectRatio='none'><g fill='none' stroke='%23d4a017' stroke-width='1' stroke-linecap='round'><path d='M0 6 Q12 0 24 6 T48 6 T72 6 T96 6' opacity='0.72'/><path d='M0 6 Q12 12 24 6 T48 6 T72 6 T96 6' opacity='0.42'/><path d='M12 6 l-2 -3 M24 6 l2 -4 M36 6 l-2 -3 M48 6 l2 -4 M60 6 l-2 -3 M72 6 l2 -4 M84 6 l-2 -3' stroke='%236e0000' opacity='0.65'/></g></svg>") bottom / 90px 12px repeat-x;
+	opacity: 0.55;
+	pointer-events: none;
 }
 
 /* Soft razorvine divider replacing the harsh nav/content border */
@@ -1357,18 +1399,18 @@ span.page-title {
 .journal-sheet.harbinger-journal .journal-sidebar::after {
 	content: "";
 	position: absolute;
-	top: 1.5rem;
-	bottom: 1.5rem;
+	top: 1rem;
+	bottom: 1rem;
 	right: 0;
 	width: 2px;
 	background: linear-gradient(
 		180deg,
 		transparent 0%,
-		rgba(110, 0, 0, 0.05) 8%,
-		rgba(110, 0, 0, 0.45) 30%,
-		rgba(212, 160, 23, 0.35) 50%,
-		rgba(110, 0, 0, 0.45) 70%,
-		rgba(110, 0, 0, 0.05) 92%,
+		rgba(110, 0, 0, 0.1) 8%,
+		rgba(110, 0, 0, 0.55) 30%,
+		rgba(212, 160, 23, 0.45) 50%,
+		rgba(110, 0, 0, 0.55) 70%,
+		rgba(110, 0, 0, 0.1) 92%,
 		transparent 100%
 	);
 	pointer-events: none;
@@ -1378,26 +1420,38 @@ span.page-title {
 .journal-sheet.harbinger-journal aside.sidebar header,
 .journal-sheet.harbinger-journal .pages-list header,
 .journal-sheet.harbinger-journal .journal-sidebar header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
 	font-family: "Exocet Blizzard Light", "Georgia", serif;
 	font-size: 0.85rem;
 	text-transform: uppercase;
 	letter-spacing: 1.5px;
-	color: var(--harbinger-primary);
-	padding: 0.35rem 0.5rem;
-	border-bottom: 1px solid rgba(110, 0, 0, 0.25);
-	margin-bottom: 0.5rem;
-	background: transparent;
+	color: var(--hh-nav-accent);
+	padding: 0.4rem 0.6rem;
+	border: 1px solid rgba(212, 160, 23, 0.25);
+	border-radius: 3px;
+	margin: 0.2rem 0.25rem 0.55rem;
+	background: linear-gradient(180deg, rgba(42, 26, 10, 0.95) 0%, rgba(28, 18, 8, 0.88) 100%);
+	box-shadow:
+		inset 0 1px 0 rgba(212, 160, 23, 0.18),
+		0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* Page list items */
 .journal-sheet.harbinger-journal aside.sidebar ol,
 .journal-sheet.harbinger-journal aside.sidebar ul,
 .journal-sheet.harbinger-journal nav.pages-list ol,
+.journal-sheet.harbinger-journal nav.pages-list ul,
 .journal-sheet.harbinger-journal .pages-list ol,
+.journal-sheet.harbinger-journal .pages-list ul,
 .journal-sheet.harbinger-journal .journal-sidebar ol {
 	list-style: none;
-	padding: 0;
+	padding: 0 0.2rem 0 0;
 	margin: 0;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(212, 160, 23, 0.45) transparent;
 }
 
 .journal-sheet.harbinger-journal aside.sidebar li,
@@ -1405,7 +1459,7 @@ span.page-title {
 .journal-sheet.harbinger-journal .pages-list li,
 .journal-sheet.harbinger-journal .journal-sidebar li {
 	position: relative;
-	margin: 0;
+	margin: 0.1rem 0;
 	padding: 0;
 	border: none;
 	background: transparent;
@@ -1413,56 +1467,156 @@ span.page-title {
 
 .journal-sheet.harbinger-journal aside.sidebar li a,
 .journal-sheet.harbinger-journal aside.sidebar li .page-title,
+.journal-sheet.harbinger-journal aside.sidebar li h4.page-title,
 .journal-sheet.harbinger-journal nav.pages-list li a,
+.journal-sheet.harbinger-journal nav.pages-list li .page-title,
+.journal-sheet.harbinger-journal nav.pages-list li h4.page-title,
 .journal-sheet.harbinger-journal .pages-list li a,
+.journal-sheet.harbinger-journal .pages-list li .page-title,
+.journal-sheet.harbinger-journal .pages-list li h4.page-title,
+.journal-sheet.harbinger-journal .journal-sidebar li .page-title,
+.journal-sheet.harbinger-journal .journal-sidebar li h4.page-title,
 .journal-sheet.harbinger-journal .journal-sidebar li a {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
-	padding: 0.4rem 0.6rem 0.4rem 1rem;
+	position: relative;
+	padding: 0.42rem 0.6rem 0.42rem 1.35rem;
 	font-family: "Rotis Serif", "Georgia", serif;
 	font-size: 13px;
-	color: var(--harbinger-text);
+	color: var(--hh-nav-ink);
 	text-decoration: none;
 	border-left: 2px solid transparent;
-	border-radius: 2px 0 0 2px;
-	transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+	border-radius: 3px 1px 1px 3px;
+	line-height: 1.3;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+	transition: background 130ms ease, border-color 130ms ease, color 130ms ease, transform 130ms ease;
+}
+
+.journal-sheet.harbinger-journal aside.sidebar li > a::before,
+.journal-sheet.harbinger-journal aside.sidebar li > .page-title::before,
+.journal-sheet.harbinger-journal aside.sidebar li > h4.page-title::before,
+.journal-sheet.harbinger-journal nav.pages-list li > a::before,
+.journal-sheet.harbinger-journal nav.pages-list li > .page-title::before,
+.journal-sheet.harbinger-journal nav.pages-list li > h4.page-title::before,
+.journal-sheet.harbinger-journal .pages-list li > a::before,
+.journal-sheet.harbinger-journal .pages-list li > .page-title::before,
+.journal-sheet.harbinger-journal .pages-list li > h4.page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li > .page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li > h4.page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li > a::before {
+	content: "";
+	position: absolute;
+	left: 0.55rem;
+	top: 50%;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	transform: translateY(-50%);
+	background: radial-gradient(circle at 35% 35%, var(--hh-nav-accent) 0%, rgba(212, 160, 23, 0.15) 75%);
+	box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.35);
+	opacity: 0.75;
 }
 
 .journal-sheet.harbinger-journal aside.sidebar li a:hover,
+.journal-sheet.harbinger-journal aside.sidebar li .page-title:hover,
+.journal-sheet.harbinger-journal aside.sidebar li h4.page-title:hover,
 .journal-sheet.harbinger-journal nav.pages-list li a:hover,
+.journal-sheet.harbinger-journal nav.pages-list li .page-title:hover,
+.journal-sheet.harbinger-journal nav.pages-list li h4.page-title:hover,
 .journal-sheet.harbinger-journal .pages-list li a:hover,
+.journal-sheet.harbinger-journal .pages-list li .page-title:hover,
+.journal-sheet.harbinger-journal .pages-list li h4.page-title:hover,
+.journal-sheet.harbinger-journal .journal-sidebar li .page-title:hover,
+.journal-sheet.harbinger-journal .journal-sidebar li h4.page-title:hover,
 .journal-sheet.harbinger-journal .journal-sidebar li a:hover {
-	background: rgba(110, 0, 0, 0.08);
-	border-left-color: var(--harbinger-accent);
-	color: var(--harbinger-primary);
-	text-shadow: 0 0 1px rgba(110, 0, 0, 0.2);
+	background: linear-gradient(90deg, rgba(212, 160, 23, 0.2) 0%, rgba(212, 160, 23, 0.03) 100%);
+	border-left-color: var(--hh-nav-accent);
+	color: #f2e6d1;
+	transform: translateX(1px);
+	text-shadow: 0 0 4px rgba(212, 160, 23, 0.2);
 }
 
 .journal-sheet.harbinger-journal aside.sidebar li.active > a,
 .journal-sheet.harbinger-journal aside.sidebar li.active .page-title,
+.journal-sheet.harbinger-journal aside.sidebar li.active h4.page-title,
 .journal-sheet.harbinger-journal nav.pages-list li.active > a,
+.journal-sheet.harbinger-journal nav.pages-list li.active .page-title,
+.journal-sheet.harbinger-journal nav.pages-list li.active h4.page-title,
 .journal-sheet.harbinger-journal .pages-list li.active > a,
+.journal-sheet.harbinger-journal .pages-list li.active .page-title,
+.journal-sheet.harbinger-journal .pages-list li.active h4.page-title,
+.journal-sheet.harbinger-journal .journal-sidebar li.active .page-title,
+.journal-sheet.harbinger-journal .journal-sidebar li.active h4.page-title,
 .journal-sheet.harbinger-journal .journal-sidebar li.active > a {
 	background: linear-gradient(
 		90deg,
-		rgba(110, 0, 0, 0.18) 0%,
-		rgba(110, 0, 0, 0.04) 100%
+		rgba(110, 0, 0, 0.42) 0%,
+		rgba(110, 0, 0, 0.12) 68%,
+		rgba(212, 160, 23, 0.05) 100%
 	);
-	border-left-color: var(--harbinger-primary);
-	color: var(--harbinger-primary);
+	border-left-color: var(--hh-nav-accent);
+	color: #f6ebd6;
 	font-weight: 600;
-	text-shadow: 0 0 2px rgba(212, 160, 23, 0.25);
+	text-shadow: 0 0 6px rgba(212, 160, 23, 0.28);
+	box-shadow:
+		inset 0 1px 0 rgba(212, 160, 23, 0.18),
+		0 0 0 1px rgba(110, 0, 0, 0.25);
+}
+
+.journal-sheet.harbinger-journal aside.sidebar li.active > a::before,
+.journal-sheet.harbinger-journal aside.sidebar li.active > .page-title::before,
+.journal-sheet.harbinger-journal aside.sidebar li.active > h4.page-title::before,
+.journal-sheet.harbinger-journal nav.pages-list li.active > a::before,
+.journal-sheet.harbinger-journal nav.pages-list li.active > .page-title::before,
+.journal-sheet.harbinger-journal nav.pages-list li.active > h4.page-title::before,
+.journal-sheet.harbinger-journal .pages-list li.active > a::before,
+.journal-sheet.harbinger-journal .pages-list li.active > .page-title::before,
+.journal-sheet.harbinger-journal .pages-list li.active > h4.page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li.active > .page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li.active > h4.page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li.active > a::before {
+	background: radial-gradient(circle at 35% 35%, #f0ddba 0%, var(--hh-nav-accent) 70%);
+	box-shadow:
+		0 0 0 1px rgba(212, 160, 23, 0.45),
+		0 0 8px rgba(212, 160, 23, 0.35);
+	opacity: 1;
 }
 
 /* Nested / indented pages */
 .journal-sheet.harbinger-journal aside.sidebar li li a,
+.journal-sheet.harbinger-journal aside.sidebar li li .page-title,
+.journal-sheet.harbinger-journal aside.sidebar li li h4.page-title,
 .journal-sheet.harbinger-journal nav.pages-list li li a,
+.journal-sheet.harbinger-journal nav.pages-list li li .page-title,
+.journal-sheet.harbinger-journal nav.pages-list li li h4.page-title,
 .journal-sheet.harbinger-journal .pages-list li li a,
+.journal-sheet.harbinger-journal .pages-list li li .page-title,
+.journal-sheet.harbinger-journal .pages-list li li h4.page-title,
+.journal-sheet.harbinger-journal .journal-sidebar li li .page-title,
+.journal-sheet.harbinger-journal .journal-sidebar li li h4.page-title,
 .journal-sheet.harbinger-journal .journal-sidebar li li a {
-	padding-left: 1.75rem;
+	padding-left: 2rem;
 	font-size: 12px;
-	opacity: 0.9;
+	color: var(--hh-nav-ink-muted);
+}
+
+.journal-sheet.harbinger-journal aside.sidebar li li > a::before,
+.journal-sheet.harbinger-journal aside.sidebar li li > .page-title::before,
+.journal-sheet.harbinger-journal aside.sidebar li li > h4.page-title::before,
+.journal-sheet.harbinger-journal nav.pages-list li li > a::before,
+.journal-sheet.harbinger-journal nav.pages-list li li > .page-title::before,
+.journal-sheet.harbinger-journal nav.pages-list li li > h4.page-title::before,
+.journal-sheet.harbinger-journal .pages-list li li > a::before,
+.journal-sheet.harbinger-journal .pages-list li li > .page-title::before,
+.journal-sheet.harbinger-journal .pages-list li li > h4.page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li li > .page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li li > h4.page-title::before,
+.journal-sheet.harbinger-journal .journal-sidebar li li > a::before {
+	left: 1.15rem;
+	width: 4px;
+	height: 4px;
+	opacity: 0.58;
 }
 
 /* Sidebar search box if rendered */
@@ -1470,12 +1624,82 @@ span.page-title {
 .journal-sheet.harbinger-journal aside.sidebar input[type="text"],
 .journal-sheet.harbinger-journal .pages-list input[type="search"],
 .journal-sheet.harbinger-journal .journal-sidebar input[type="search"] {
-	background: rgba(244, 232, 208, 0.55);
-	border: 1px solid rgba(110, 0, 0, 0.3);
-	color: var(--harbinger-text);
+	background: rgba(18, 12, 8, 0.72);
+	border: 1px solid rgba(212, 160, 23, 0.28);
+	color: #e8d8bc;
 	border-radius: 2px;
 	padding: 0.3rem 0.5rem;
 	font-family: "Rotis Serif", "Georgia", serif;
+}
+
+.journal-sheet.harbinger-journal aside.sidebar input[type="search"]::placeholder,
+.journal-sheet.harbinger-journal aside.sidebar input[type="text"]::placeholder,
+.journal-sheet.harbinger-journal .pages-list input[type="search"]::placeholder,
+.journal-sheet.harbinger-journal .journal-sidebar input[type="search"]::placeholder {
+	color: rgba(216, 188, 140, 0.65);
+}
+
+.journal-sheet.harbinger-journal aside.sidebar input[type="search"]:focus,
+.journal-sheet.harbinger-journal aside.sidebar input[type="text"]:focus,
+.journal-sheet.harbinger-journal .pages-list input[type="search"]:focus,
+.journal-sheet.harbinger-journal .journal-sidebar input[type="search"]:focus {
+	outline: none;
+	border-color: var(--hh-nav-accent);
+	box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.35);
+}
+
+.journal-sheet.harbinger-journal aside.sidebar ol::-webkit-scrollbar,
+.journal-sheet.harbinger-journal aside.sidebar ul::-webkit-scrollbar,
+.journal-sheet.harbinger-journal nav.pages-list ol::-webkit-scrollbar,
+.journal-sheet.harbinger-journal nav.pages-list ul::-webkit-scrollbar,
+.journal-sheet.harbinger-journal .pages-list ol::-webkit-scrollbar,
+.journal-sheet.harbinger-journal .pages-list ul::-webkit-scrollbar,
+.journal-sheet.harbinger-journal .journal-sidebar ol::-webkit-scrollbar {
+	width: 7px;
+}
+
+.journal-sheet.harbinger-journal aside.sidebar ol::-webkit-scrollbar-thumb,
+.journal-sheet.harbinger-journal aside.sidebar ul::-webkit-scrollbar-thumb,
+.journal-sheet.harbinger-journal nav.pages-list ol::-webkit-scrollbar-thumb,
+.journal-sheet.harbinger-journal nav.pages-list ul::-webkit-scrollbar-thumb,
+.journal-sheet.harbinger-journal .pages-list ol::-webkit-scrollbar-thumb,
+.journal-sheet.harbinger-journal .pages-list ul::-webkit-scrollbar-thumb,
+.journal-sheet.harbinger-journal .journal-sidebar ol::-webkit-scrollbar-thumb {
+	background: linear-gradient(180deg, rgba(212, 160, 23, 0.8) 0%, rgba(110, 0, 0, 0.75) 100%);
+	border-radius: 999px;
+	border: 1px solid rgba(16, 10, 7, 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.journal-sheet.harbinger-journal aside.sidebar li a,
+	.journal-sheet.harbinger-journal aside.sidebar li .page-title,
+	.journal-sheet.harbinger-journal aside.sidebar li h4.page-title,
+	.journal-sheet.harbinger-journal nav.pages-list li a,
+	.journal-sheet.harbinger-journal nav.pages-list li .page-title,
+	.journal-sheet.harbinger-journal nav.pages-list li h4.page-title,
+	.journal-sheet.harbinger-journal .pages-list li a,
+	.journal-sheet.harbinger-journal .pages-list li .page-title,
+	.journal-sheet.harbinger-journal .pages-list li h4.page-title,
+	.journal-sheet.harbinger-journal .journal-sidebar li .page-title,
+	.journal-sheet.harbinger-journal .journal-sidebar li h4.page-title,
+	.journal-sheet.harbinger-journal .journal-sidebar li a {
+		transition: none;
+	}
+
+	.journal-sheet.harbinger-journal aside.sidebar li a:hover,
+	.journal-sheet.harbinger-journal aside.sidebar li .page-title:hover,
+	.journal-sheet.harbinger-journal aside.sidebar li h4.page-title:hover,
+	.journal-sheet.harbinger-journal nav.pages-list li a:hover,
+	.journal-sheet.harbinger-journal nav.pages-list li .page-title:hover,
+	.journal-sheet.harbinger-journal nav.pages-list li h4.page-title:hover,
+	.journal-sheet.harbinger-journal .pages-list li a:hover,
+	.journal-sheet.harbinger-journal .pages-list li .page-title:hover,
+	.journal-sheet.harbinger-journal .pages-list li h4.page-title:hover,
+	.journal-sheet.harbinger-journal .journal-sidebar li .page-title:hover,
+	.journal-sheet.harbinger-journal .journal-sidebar li h4.page-title:hover,
+	.journal-sheet.harbinger-journal .journal-sidebar li a:hover {
+		transform: none;
+	}
 }
 
 /* ================================
