@@ -61,6 +61,7 @@ export class PF2EStatblockFormatter {
 		const itemIndex = this.buildItemIndex(npc.items);
 		const out: string[] = [];
 
+		out.push(this.renderSubject(npc));
 		out.push(this.renderDescriptor(system));
 		out.push(this.renderTraitStrip(system));
 		out.push(this.renderPerceptionAndLanguages(system));
@@ -73,6 +74,11 @@ export class PF2EStatblockFormatter {
 		out.push(this.renderPublicNotes(system));
 
 		return out.filter(Boolean).join('\n');
+	}
+
+	private renderSubject(npc: HarbingerNPC): string {
+		const name = npc.data.name?.trim() || npc.id || 'Unknown Creature';
+		return `<h1 class="pf2e-statblock-name">${this.esc(name)}</h1>`;
 	}
 
 	private buildItemIndex(items: NPCItemEntry[]): FormatterItemIndex {

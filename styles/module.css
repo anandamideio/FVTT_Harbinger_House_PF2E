@@ -1046,6 +1046,21 @@ span.page-title {
 	bottom: 4px;
 }
 
+.journal-sheet.harbinger-journal .statblock .pf2e-statblock-name {
+	color: var(--harbinger-primary);
+	font-family: "Exocet Blizzard Light", "Exocet Blizzard", "Georgia", serif;
+	font-size: 1.05rem;
+	font-weight: 600;
+	letter-spacing: 1px;
+	line-height: 1.15;
+	margin: 0 0 0.45rem 0;
+	padding: 0.1rem 0 0.3rem 0;
+	text-align: center;
+	text-transform: none;
+	border-bottom: 1px solid rgba(110, 0, 0, 0.3);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
 /* NPC descriptor line (italic) */
 .journal-sheet.harbinger-journal .statblock > p:first-of-type {
 	font-family: "Rotis Serif Italic", "Rotis Serif", "Georgia", serif;

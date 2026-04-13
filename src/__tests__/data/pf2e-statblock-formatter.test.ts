@@ -127,6 +127,7 @@ describe('formatPF2eStatblock', () => {
 
 		const html = formatPF2eStatblock(npc);
 
+		expect(html).toContain('<h1 class="pf2e-statblock-name">Test NPC</h1>');
 		expect(html).toContain('<em>Creature 7 — Medium Humanoid — CG');
 		expect(html).toContain('<br>Clever investigator');
 		expect(html).toContain('<p class="pf2e-traits">');
@@ -171,7 +172,7 @@ describe('formatPF2eStatblock', () => {
 		expect(html).not.toContain('pf2e-notes');
 	});
 
-	it('returns an inner fragment and keeps the descriptor as the first paragraph', () => {
+	it('returns an inner fragment and keeps the name header before descriptor', () => {
 		const html = formatPF2eStatblock(
 			makeNpc({
 				details: {
@@ -183,7 +184,7 @@ describe('formatPF2eStatblock', () => {
 			}),
 		);
 
-		expect(html.startsWith('<p><em>Creature 1 — Medium Humanoid — N')).toBe(true);
+		expect(html.startsWith('<h1 class="pf2e-statblock-name">Test NPC</h1>\n<p><em>Creature 1 — Medium Humanoid — N')).toBe(true);
 		expect(html).not.toMatch(/^<div[^>]*>/i);
 		expect(html).not.toContain('class="statblock-container"');
 		expect(html).not.toContain('class="statblock pf2e"');
