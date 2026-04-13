@@ -8,15 +8,12 @@ export const CHAPTER_2_SCENES: HarbingerScene[] = [
   "foreground": "modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-foreground.webp",
   "background": {
     "src": "modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-background.webm",
-    "offsetX": 0,
-    "offsetY": 0
   },
   "grid": {
     "type": 1,
     "size": 100,
     "distance": 5,
     "units": "ft",
-    "alpha": 0.15
   },
   "initial": {
     "x": 3037,
@@ -26,9 +23,9 @@ export const CHAPTER_2_SCENES: HarbingerScene[] = [
   "width": 3000,
   "height": 3000,
   "navigation": true,
-  "navOrder": 1000000,
+  "navOrder": 1,
   "folder": "Chapter 2",
-  "sort": 532,
+  "sort": 0,
   "globalLightThreshold": 1,
   "environment": {
     "cycle": true,
@@ -37,496 +34,496 @@ export const CHAPTER_2_SCENES: HarbingerScene[] = [
       "luminosity": -0.25
     }
   },
-  "sounds": [
-    {
-      "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
-      "x": 1350,
-      "y": 3400,
-      "radius": 36,
-      "easing": true,
-      "walls": true,
-      "volume": 0.35,
-      "darkness": {
-        "min": 0,
-        "max": 1
-      },
-      "repeat": false,
-      "hidden": false,
-      "flags": {},
-      "elevation": 0,
-      "effects": {
-        "base": {
-          "intensity": 5
-        },
-        "muffled": {
-          "intensity": 5
-        }
-      }
-    },
-    {
-      "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river1.ogg",
-      "x": 1570,
-      "y": 3191,
-      "radius": 18,
-      "easing": true,
-      "walls": true,
-      "volume": 0.2,
-      "darkness": {
-        "min": 0,
-        "max": 1
-      },
-      "repeat": false,
-      "hidden": false,
-      "flags": {},
-      "elevation": 0,
-      "effects": {
-        "base": {
-          "intensity": 5
-        },
-        "muffled": {
-          "intensity": 5
-        }
-      }
-    },
-    {
-      "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
-      "x": 1449,
-      "y": 2692,
-      "radius": 30,
-      "easing": true,
-      "walls": true,
-      "volume": 0.3,
-      "darkness": {
-        "min": 0,
-        "max": 1
-      },
-      "repeat": false,
-      "hidden": false,
-      "flags": {},
-      "elevation": 0,
-      "effects": {
-        "base": {
-          "intensity": 5
-        },
-        "muffled": {
-          "intensity": 5
-        }
-      }
-    },
-    {
-      "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
-      "x": 1350,
-      "y": 1750,
-      "radius": 27.14,
-      "easing": true,
-      "walls": true,
-      "volume": 0.3,
-      "darkness": {
-        "min": 0,
-        "max": 1
-      },
-      "repeat": false,
-      "hidden": false,
-      "flags": {},
-      "elevation": 0,
-      "effects": {
-        "base": {
-          "intensity": 5
-        },
-        "muffled": {
-          "intensity": 5
-        }
-      }
-    },
-    {
-      "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
-      "x": 1150,
-      "y": 1250,
-      "radius": 20.96,
-      "easing": true,
-      "walls": true,
-      "volume": 0.3,
-      "darkness": {
-        "min": 0,
-        "max": 1
-      },
-      "repeat": false,
-      "hidden": false,
-      "flags": {},
-      "elevation": 0,
-      "effects": {
-        "base": {
-          "intensity": 5
-        },
-        "muffled": {
-          "intensity": 5
-        }
-      }
-    }
-  ],
-  "tiles": [
-    {
-      "width": 600,
-      "height": 300,
-      "x": 1500,
-      "y": 800,
-      "rotation": 0,
-      "alpha": 1,
-      "hidden": false,
-      "locked": false,
-      "occlusion": {
-        "mode": 1,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {},
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree2.webp",
-        "tint": "#ffffff",
-        "scaleX": 1,
-        "scaleY": 1,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "elevation": 20,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      }
-    },
-    {
-      "width": 600,
-      "height": 800,
-      "x": 1500,
-      "y": 1000,
-      "rotation": 0,
-      "alpha": 1,
-      "hidden": false,
-      "locked": false,
-      "occlusion": {
-        "mode": 1,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {},
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree3.webp",
-        "tint": "#ffffff",
-        "scaleX": 1,
-        "scaleY": 1,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "elevation": 20,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      }
-    },
-    {
-      "width": 600,
-      "height": 600,
-      "x": 800,
-      "y": 1400,
-      "rotation": 0,
-      "alpha": 1,
-      "hidden": false,
-      "locked": false,
-      "occlusion": {
-        "mode": 1,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {},
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree1.webp",
-        "tint": "#ffffff",
-        "scaleX": 1,
-        "scaleY": 1,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "elevation": 20,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      }
-    },
-    {
-      "width": 700,
-      "height": 700,
-      "x": 2100,
-      "y": 2600,
-      "rotation": 0,
-      "alpha": 1,
-      "hidden": false,
-      "locked": false,
-      "occlusion": {
-        "mode": 1,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {},
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree4.webp",
-        "tint": "#ffffff",
-        "scaleX": 1,
-        "scaleY": 1,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "elevation": 20,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      }
-    },
-    {
-      "width": 600,
-      "height": 800,
-      "x": 3200,
-      "y": 2500,
-      "rotation": 0,
-      "alpha": 1,
-      "hidden": false,
-      "locked": false,
-      "occlusion": {
-        "mode": 1,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {},
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree5.webp",
-        "tint": "#ffffff",
-        "scaleX": 1,
-        "scaleY": 1,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "elevation": 20,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      }
-    },
-    {
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/beehive.webm",
-        "scaleX": 1,
-        "scaleY": 1,
-        "tint": "#ffffff",
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "x": 2485,
-      "y": 2534,
-      "width": 200,
-      "height": 200,
-      "rotation": 240,
-      "alpha": 1,
-      "occlusion": {
-        "mode": 0,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {
-        "monks-active-tiles": {
-          "active": true,
-          "record": false,
-          "restriction": "all",
-          "controlled": "all",
-          "trigger": [
-            "enter"
-          ],
-          "allowpaused": false,
-          "usealpha": false,
-          "pointer": false,
-          "pertoken": false,
-          "minrequired": 0,
-          "chance": 100,
-          "fileindex": 0,
-          "actions": [],
-          "files": []
-        }
-      },
-      "hidden": false,
-      "locked": false,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      },
-      "elevation": 0
-    },
-    {
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bees.webm",
-        "scaleX": 1,
-        "scaleY": 1,
-        "tint": "#ffffff",
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "x": 2650,
-      "y": 2550,
-      "width": 200,
-      "height": 200,
-      "rotation": 0,
-      "alpha": 1,
-      "occlusion": {
-        "mode": 0,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {
-        "monks-active-tiles": {
-          "active": true,
-          "record": false,
-          "restriction": "all",
-          "controlled": "all",
-          "trigger": [
-            "enter"
-          ],
-          "allowpaused": false,
-          "usealpha": false,
-          "pointer": false,
-          "pertoken": false,
-          "minrequired": 0,
-          "chance": 100,
-          "fileindex": -1,
-          "actions": [],
-          "files": []
-        }
-      },
-      "hidden": false,
-      "locked": false,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      },
-      "elevation": 0
-    },
-    {
-      "texture": {
-        "src": "modules/harbinger-house-pf2e/dist/assets/tiles/smokeLite.webm",
-        "scaleX": 1,
-        "scaleY": 1,
-        "tint": "#ffffff",
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "fill",
-        "alphaThreshold": 0.75
-      },
-      "x": 3000,
-      "y": 2200,
-      "width": 100,
-      "height": 100,
-      "rotation": 0,
-      "alpha": 1,
-      "occlusion": {
-        "mode": 0,
-        "alpha": 0
-      },
-      "video": {
-        "loop": true,
-        "autoplay": true,
-        "volume": 0
-      },
-      "flags": {
-        "monks-active-tiles": {
-          "active": true,
-          "record": false,
-          "restriction": "all",
-          "controlled": "all",
-          "trigger": [
-            "enter"
-          ],
-          "allowpaused": false,
-          "usealpha": false,
-          "pointer": false,
-          "pertoken": false,
-          "minrequired": 0,
-          "chance": 100,
-          "fileindex": -1,
-          "actions": [],
-          "files": []
-        }
-      },
-      "hidden": false,
-      "locked": false,
-      "restrictions": {
-        "light": false,
-        "weather": false
-      },
-      "elevation": 0
-    }
-  ],
+  // "sounds": [
+  //   {
+  //     "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
+  //     "x": 1350,
+  //     "y": 3400,
+  //     "radius": 36,
+  //     "easing": true,
+  //     "walls": true,
+  //     "volume": 0.35,
+  //     "darkness": {
+  //       "min": 0,
+  //       "max": 1
+  //     },
+  //     "repeat": false,
+  //     "hidden": false,
+  //     "flags": {},
+  //     "elevation": 0,
+  //     "effects": {
+  //       "base": {
+  //         "intensity": 5
+  //       },
+  //       "muffled": {
+  //         "intensity": 5
+  //       }
+  //     }
+  //   },
+  //   {
+  //     "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river1.ogg",
+  //     "x": 1570,
+  //     "y": 3191,
+  //     "radius": 18,
+  //     "easing": true,
+  //     "walls": true,
+  //     "volume": 0.2,
+  //     "darkness": {
+  //       "min": 0,
+  //       "max": 1
+  //     },
+  //     "repeat": false,
+  //     "hidden": false,
+  //     "flags": {},
+  //     "elevation": 0,
+  //     "effects": {
+  //       "base": {
+  //         "intensity": 5
+  //       },
+  //       "muffled": {
+  //         "intensity": 5
+  //       }
+  //     }
+  //   },
+  //   {
+  //     "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
+  //     "x": 1449,
+  //     "y": 2692,
+  //     "radius": 30,
+  //     "easing": true,
+  //     "walls": true,
+  //     "volume": 0.3,
+  //     "darkness": {
+  //       "min": 0,
+  //       "max": 1
+  //     },
+  //     "repeat": false,
+  //     "hidden": false,
+  //     "flags": {},
+  //     "elevation": 0,
+  //     "effects": {
+  //       "base": {
+  //         "intensity": 5
+  //       },
+  //       "muffled": {
+  //         "intensity": 5
+  //       }
+  //     }
+  //   },
+  //   {
+  //     "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
+  //     "x": 1350,
+  //     "y": 1750,
+  //     "radius": 27.14,
+  //     "easing": true,
+  //     "walls": true,
+  //     "volume": 0.3,
+  //     "darkness": {
+  //       "min": 0,
+  //       "max": 1
+  //     },
+  //     "repeat": false,
+  //     "hidden": false,
+  //     "flags": {},
+  //     "elevation": 0,
+  //     "effects": {
+  //       "base": {
+  //         "intensity": 5
+  //       },
+  //       "muffled": {
+  //         "intensity": 5
+  //       }
+  //     }
+  //   },
+  //   {
+  //     "path": "modules/harbinger-house-pf2e/dist/assets/sounds/Paizo/river2.ogg",
+  //     "x": 1150,
+  //     "y": 1250,
+  //     "radius": 20.96,
+  //     "easing": true,
+  //     "walls": true,
+  //     "volume": 0.3,
+  //     "darkness": {
+  //       "min": 0,
+  //       "max": 1
+  //     },
+  //     "repeat": false,
+  //     "hidden": false,
+  //     "flags": {},
+  //     "elevation": 0,
+  //     "effects": {
+  //       "base": {
+  //         "intensity": 5
+  //       },
+  //       "muffled": {
+  //         "intensity": 5
+  //       }
+  //     }
+  //   }
+  // ],
+  // "tiles": [
+  //   {
+  //     "width": 600,
+  //     "height": 300,
+  //     "x": 1500,
+  //     "y": 800,
+  //     "rotation": 0,
+  //     "alpha": 1,
+  //     "hidden": false,
+  //     "locked": false,
+  //     "occlusion": {
+  //       "mode": 1,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {},
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree2.webp",
+  //       "tint": "#ffffff",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "elevation": 20,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     }
+  //   },
+  //   {
+  //     "width": 600,
+  //     "height": 800,
+  //     "x": 1500,
+  //     "y": 1000,
+  //     "rotation": 0,
+  //     "alpha": 1,
+  //     "hidden": false,
+  //     "locked": false,
+  //     "occlusion": {
+  //       "mode": 1,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {},
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree3.webp",
+  //       "tint": "#ffffff",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "elevation": 20,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     }
+  //   },
+  //   {
+  //     "width": 600,
+  //     "height": 600,
+  //     "x": 800,
+  //     "y": 1400,
+  //     "rotation": 0,
+  //     "alpha": 1,
+  //     "hidden": false,
+  //     "locked": false,
+  //     "occlusion": {
+  //       "mode": 1,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {},
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree1.webp",
+  //       "tint": "#ffffff",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "elevation": 20,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     }
+  //   },
+  //   {
+  //     "width": 700,
+  //     "height": 700,
+  //     "x": 2100,
+  //     "y": 2600,
+  //     "rotation": 0,
+  //     "alpha": 1,
+  //     "hidden": false,
+  //     "locked": false,
+  //     "occlusion": {
+  //       "mode": 1,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {},
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree4.webp",
+  //       "tint": "#ffffff",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "elevation": 20,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     }
+  //   },
+  //   {
+  //     "width": 600,
+  //     "height": 800,
+  //     "x": 3200,
+  //     "y": 2500,
+  //     "rotation": 0,
+  //     "alpha": 1,
+  //     "hidden": false,
+  //     "locked": false,
+  //     "occlusion": {
+  //       "mode": 1,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {},
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bridge-tile-tree5.webp",
+  //       "tint": "#ffffff",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "elevation": 20,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     }
+  //   },
+  //   {
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/beehive.webm",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "tint": "#ffffff",
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "x": 2485,
+  //     "y": 2534,
+  //     "width": 200,
+  //     "height": 200,
+  //     "rotation": 240,
+  //     "alpha": 1,
+  //     "occlusion": {
+  //       "mode": 0,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {
+  //       "monks-active-tiles": {
+  //         "active": true,
+  //         "record": false,
+  //         "restriction": "all",
+  //         "controlled": "all",
+  //         "trigger": [
+  //           "enter"
+  //         ],
+  //         "allowpaused": false,
+  //         "usealpha": false,
+  //         "pointer": false,
+  //         "pertoken": false,
+  //         "minrequired": 0,
+  //         "chance": 100,
+  //         "fileindex": 0,
+  //         "actions": [],
+  //         "files": []
+  //       }
+  //     },
+  //     "hidden": false,
+  //     "locked": false,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     },
+  //     "elevation": 0
+  //   },
+  //   {
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/bees.webm",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "tint": "#ffffff",
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "x": 2650,
+  //     "y": 2550,
+  //     "width": 200,
+  //     "height": 200,
+  //     "rotation": 0,
+  //     "alpha": 1,
+  //     "occlusion": {
+  //       "mode": 0,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {
+  //       "monks-active-tiles": {
+  //         "active": true,
+  //         "record": false,
+  //         "restriction": "all",
+  //         "controlled": "all",
+  //         "trigger": [
+  //           "enter"
+  //         ],
+  //         "allowpaused": false,
+  //         "usealpha": false,
+  //         "pointer": false,
+  //         "pertoken": false,
+  //         "minrequired": 0,
+  //         "chance": 100,
+  //         "fileindex": -1,
+  //         "actions": [],
+  //         "files": []
+  //       }
+  //     },
+  //     "hidden": false,
+  //     "locked": false,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     },
+  //     "elevation": 0
+  //   },
+  //   {
+  //     "texture": {
+  //       "src": "modules/harbinger-house-pf2e/dist/assets/tiles/smokeLite.webm",
+  //       "scaleX": 1,
+  //       "scaleY": 1,
+  //       "tint": "#ffffff",
+  //       "offsetX": 0,
+  //       "offsetY": 0,
+  //       "rotation": 0,
+  //       "anchorX": 0.5,
+  //       "anchorY": 0.5,
+  //       "fit": "fill",
+  //       "alphaThreshold": 0.75
+  //     },
+  //     "x": 3000,
+  //     "y": 2200,
+  //     "width": 100,
+  //     "height": 100,
+  //     "rotation": 0,
+  //     "alpha": 1,
+  //     "occlusion": {
+  //       "mode": 0,
+  //       "alpha": 0
+  //     },
+  //     "video": {
+  //       "loop": true,
+  //       "autoplay": true,
+  //       "volume": 0
+  //     },
+  //     "flags": {
+  //       "monks-active-tiles": {
+  //         "active": true,
+  //         "record": false,
+  //         "restriction": "all",
+  //         "controlled": "all",
+  //         "trigger": [
+  //           "enter"
+  //         ],
+  //         "allowpaused": false,
+  //         "usealpha": false,
+  //         "pointer": false,
+  //         "pertoken": false,
+  //         "minrequired": 0,
+  //         "chance": 100,
+  //         "fileindex": -1,
+  //         "actions": [],
+  //         "files": []
+  //       }
+  //     },
+  //     "hidden": false,
+  //     "locked": false,
+  //     "restrictions": {
+  //       "light": false,
+  //       "weather": false
+  //     },
+  //     "elevation": 0
+  //   }
+  // ],
   "walls": [
     {
       "c": [

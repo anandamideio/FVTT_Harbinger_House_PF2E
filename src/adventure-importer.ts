@@ -1,15 +1,28 @@
-import { HARBINGER_JOURNAL_SHEET_CLASS, log, logDebug, logError, logWarn, MODULE_ID } from './config';
+import { ADVENTURE_PACK, HARBINGER_JOURNAL_SHEET_CLASS, log, logDebug, logError, logWarn, MODULE_ID } from './config';
 
 /**
  * Pre-computed deterministic IDs matching build-packs.ts output.
  * Generated via: MD5(sourceId).substring(0, 16)
  */
-const STARTING_SCENE_ID = '851e935c54e67e62'; // scene-sigil
-const STARTING_SCENE_SOURCE_ID = 'scene-sigil';
-const GETTING_STARTED_JOURNAL_ID = '373d8b09682157da'; // journal-1
+const ADVENTURE_ID = '42cb37a38191040e';
+const ADVENTURE_UUID = `Compendium.${ADVENTURE_PACK}.Adventure.${ADVENTURE_ID}`;
 
-/** Background image for login screen customization */
-const LOGIN_BACKGROUND = `modules/${MODULE_ID}/dist/assets/art/LadyOfPain.jpg`;
+type ImportBootstrapConfig = {
+	initialSceneId: string;
+	initialSceneSourceId: string;
+	initialSceneName: string;
+	initialJournalEntryId: string;
+	initialLoginScreenBackground: string;
+};
+
+const DEFAULT_IMPORT_BOOTSTRAP: ImportBootstrapConfig = {
+	initialSceneId: '851e935c54e67e62', // scene-sigil
+	initialSceneSourceId: 'scene-sigil',
+	initialSceneName: 'Sigil',
+	initialJournalEntryId: '373d8b09682157da', // journal-1
+	initialLoginScreenBackground: `modules/${MODULE_ID}/dist/assets/art/LadyOfPain.jpg`,
+};
+
 const MAP_FOLDER_ROOT = 'Harbinger House Maps';
 const MAP_ROOT_HINT_ALIASES = new Set(['Maps', MAP_FOLDER_ROOT]);
 const MAP_CHAPTER_FOLDERS = ['Chapter 1', 'Chapter 2', 'Chapter 3'] as const;
@@ -46,6 +59,10 @@ function summarizeDocumentCounts(record: unknown): Record<string, number> {
 	return Object.fromEntries(
 		Object.entries(record as Record<string, unknown>).map(([type, docs]) => [type, Array.isArray(docs) ? docs.length : 0]),
 	);
+}
+
+function asStringOrUndefined(value: unknown): string | undefined {
+	return typeof value === 'string' && value.trim().length > 0 ? value : undefined;
 }
 
 /**
@@ -137,6 +154,36 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			this.#actorFolderHierarchyDeferred = false;
 			void this.#safeStep('ensureActorFolderHierarchy:deferred-canvas-ready', () => this.#ensureActorFolderHierarchy());
 		});
+	}
+
+	#getImportBootstrapConfig(): ImportBootstrapConfig {
+		const manifestFlags = game.modules.get(MODULE_ID)?.flags as Record<string, unknown> | undefined;
+		const moduleFlags = manifestFlags?.[MODULE_ID] as Record<string, unknown> | undefined;
+		const importerMap = moduleFlags?.adventureImporter as Record<string, unknown> | undefined;
+		const adventureKey = this.document?.id
+			? `Compendium.${ADVENTURE_PACK}.Adventure.${this.document.id}`
+			: ADVENTURE_UUID;
+		const rawConfig = importerMap?.[adventureKey] as Record<string, unknown> | undefined;
+
+		const config: ImportBootstrapConfig = {
+			initialSceneId: asStringOrUndefined(rawConfig?.initialSceneId) ?? DEFAULT_IMPORT_BOOTSTRAP.initialSceneId,
+			initialSceneSourceId:
+				asStringOrUndefined(rawConfig?.initialSceneSourceId) ?? DEFAULT_IMPORT_BOOTSTRAP.initialSceneSourceId,
+			initialSceneName: asStringOrUndefined(rawConfig?.initialSceneName) ?? DEFAULT_IMPORT_BOOTSTRAP.initialSceneName,
+			initialJournalEntryId:
+				asStringOrUndefined(rawConfig?.initialJournalEntryId) ?? DEFAULT_IMPORT_BOOTSTRAP.initialJournalEntryId,
+			initialLoginScreenBackground:
+				asStringOrUndefined(rawConfig?.initialLoginScreenBackground) ??
+				DEFAULT_IMPORT_BOOTSTRAP.initialLoginScreenBackground,
+		};
+
+		this.#debug('Resolved importer bootstrap config', {
+			adventureKey,
+			source: rawConfig ? 'manifest-flags' : 'defaults',
+			config,
+		});
+
+		return config;
 	}
 
 	/**
@@ -1007,6 +1054,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 		try {
 			const module = game.modules.get(MODULE_ID);
 			if (!module) return;
+			const bootstrap = this.#getImportBootstrapConfig();
 
 			const adventureDescription =
 				typeof this.document?.description === 'string' && this.document.description.trim().length > 0
@@ -1018,7 +1066,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 				action: 'editWorld',
 				id: game.world.id,
 				description: loginDescription,
-				background: LOGIN_BACKGROUND,
+				background: bootstrap.initialLoginScreenBackground,
 			};
 
 			this.#debug('customizeLoginScreen description source', {
@@ -1049,11 +1097,12 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 */
 	async #displayGettingStartedJournal() {
 		try {
+			const bootstrap = this.#getImportBootstrapConfig();
 			let lookupStrategy: 'deterministic-id' | 'module-flag' | 'any-module-flag' | 'none' = 'none';
 
 			// Try to find by deterministic ID first
 			let journal = game.journal?.find(
-				(j: FoundryDocument) => j.id === GETTING_STARTED_JOURNAL_ID,
+				(j: FoundryDocument) => j.id === bootstrap.initialJournalEntryId,
 			);
 			if (journal) lookupStrategy = 'deterministic-id';
 
@@ -1094,6 +1143,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 */
 	async #activateStartingScene() {
 		try {
+			const bootstrap = this.#getImportBootstrapConfig();
 			let lookupStrategy:
 				| 'deterministic-id'
 				| 'module-source-id'
@@ -1103,14 +1153,14 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 
 			// Try to find by deterministic ID first
 			let scene = game.scenes?.find(
-				(s: FoundryDocument) => s.id === STARTING_SCENE_ID,
+				(s: FoundryDocument) => s.id === bootstrap.initialSceneId,
 			);
 			if (scene) lookupStrategy = 'deterministic-id';
 
 			// Prefer a stable sourceId lookup in case imported world IDs differ.
 			if (!scene) {
 				scene = game.scenes?.find(
-					(s: FoundryDocument) => s.flags?.[MODULE_ID]?.sourceId === STARTING_SCENE_SOURCE_ID,
+					(s: FoundryDocument) => s.flags?.[MODULE_ID]?.sourceId === bootstrap.initialSceneSourceId,
 				);
 				if (scene) lookupStrategy = 'module-source-id';
 			}
@@ -1118,7 +1168,7 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 			// Additional fallback for legacy worlds or migrated imports.
 			if (!scene) {
 				scene = game.scenes?.find(
-					(s: FoundryDocument) => s.flags?.[MODULE_ID] !== undefined && s.name === 'Sigil',
+					(s: FoundryDocument) => s.flags?.[MODULE_ID] !== undefined && s.name === bootstrap.initialSceneName,
 				);
 				if (scene) lookupStrategy = 'scene-name';
 			}

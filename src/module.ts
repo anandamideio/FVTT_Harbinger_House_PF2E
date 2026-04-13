@@ -14,6 +14,19 @@ const ADVENTURE_ID = '42cb37a38191040e';
 const ADVENTURE_UUID = `Compendium.${ADVENTURE_PACK}.Adventure.${ADVENTURE_ID}`;
 const PF2E_BESTIARY_MODULE_ID = 'pf2e-tokens-bestiaries';
 
+function getAdventureImporterKeys(): string[] {
+	const manifestFlags = game.modules.get(MODULE_ID)?.flags as Record<string, unknown> | undefined;
+	const moduleFlags = manifestFlags?.[MODULE_ID] as Record<string, unknown> | undefined;
+	const importerMap = moduleFlags?.adventureImporter as Record<string, unknown> | undefined;
+
+	if (!importerMap || typeof importerMap !== 'object') {
+		return [ADVENTURE_UUID];
+	}
+
+	const keys = Object.keys(importerMap).filter((key) => key.startsWith('Compendium.'));
+	return keys.length > 0 ? keys : [ADVENTURE_UUID];
+}
+
 function warnIfBestiaryModuleInactive(): void {
 	const bestiaryModule = game.modules.get(PF2E_BESTIARY_MODULE_ID);
 	if (!bestiaryModule || bestiaryModule.active) return;
@@ -170,7 +183,13 @@ Hooks.once('ready', async () => {
 
 	// Check if the adventure has already been imported (core tracks this)
 	const adventureImports = game.settings.get('core', 'adventureImports') as Record<string, boolean> | undefined;
-	const imported = !!adventureImports?.[ADVENTURE_UUID];
+	const importerKeys = getAdventureImporterKeys();
+	const imported = importerKeys.some((key) => !!adventureImports?.[key]);
+
+	logDebug('[Importer] Resolved adventure import status', {
+		importerKeys,
+		imported,
+	});
 
 	if (!imported) {
 		const showDialog = game.settings.get(MODULE_ID, 'showImportDialog');

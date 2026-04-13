@@ -49,7 +49,16 @@
 	],
 	"flags": {
 		"harbinger-house-pf2e": {
-			"importPromptShown": false
+			"importPromptShown": false,
+			"adventureImporter": {
+				"Compendium.harbinger-house-pf2e.harbinger-house.Adventure.42cb37a38191040e": {
+					"initialSceneId": "851e935c54e67e62",
+					"initialSceneSourceId": "scene-sigil",
+					"initialSceneName": "Sigil",
+					"initialJournalEntryId": "373d8b09682157da",
+					"initialLoginScreenBackground": "modules/harbinger-house-pf2e/dist/assets/art/LadyOfPain.jpg"
+				}
+			}
 		}
 	},
 	"socket": true,
