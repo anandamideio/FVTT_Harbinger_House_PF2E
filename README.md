@@ -30,3 +30,6 @@ I started by setting up an OCR pipeline to extract the text from my PDF, and the
 - Rotis Serif font: [Fonts Geek](https://fontsgeek.com/rotis-serif-std-font)
 - Discovery Sound Effect are chopped up from [IENBA's excellent sound effect](https://freesound.org/people/IENBA/sounds/752275/)
 - Music From [Michael Ghelfi](https://www.michaelghelfistudios.com/), [Ivan Duch](https://ivanduch.com/), and [Tabletop RPG Music](https://www.patreon.com/cw/tabletoprpgmusic)
+- Beehive / Bee / Smoke animations from [Jinker's Animated Art](https://www.patreon.com/jinker)
+- Bridge and Castle map originally from [Narchy, via the Troubles in Otari Maps Remake](https://foundryvtt.com/packages/troubles-in-otari-remade-maps), though I did add the animation to the river
+- River Sound Effect from The Abomination Vault's Module
