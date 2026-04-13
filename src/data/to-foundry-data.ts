@@ -362,7 +362,7 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 			scaleX: scene.background.scaleX ?? 1,
 			scaleY: scene.background.scaleY ?? 1,
 		},
-		foreground: null,
+		foreground: scene.foreground ?? null,
 		thumb: scene.img,
 		width: scene.width,
 		height: scene.height,

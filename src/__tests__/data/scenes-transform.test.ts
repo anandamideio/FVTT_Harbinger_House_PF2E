@@ -45,11 +45,21 @@ describe('sceneToDocumentData', () => {
 		expect(doc.environment.globalLight.bright).toBe(false);
 		expect(doc.globalLight).toBe(false);
 		expect(doc.globalLightThreshold).toBeNull();
+		expect(doc.foreground).toBeNull();
 		expect(doc.darkness).toBe(0);
 		expect(doc.grid?.style).toBe('solidLines');
 		expect(doc.grid?.thickness).toBe(1);
 		expect(doc.grid?.color).toBe('#000000');
 		expect(doc.grid?.alpha).toBe(0.2);
+	});
+
+	it('passes through explicit scene foreground image path', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			foreground: 'modules/harbinger-house-pf2e/dist/assets/maps/Test-foreground.webp',
+		});
+
+		expect(doc.foreground).toBe('modules/harbinger-house-pf2e/dist/assets/maps/Test-foreground.webp');
 	});
 
 	it('passes through explicit grid style overrides', () => {

@@ -3,6 +3,8 @@ export interface HarbingerScene {
 	name: string;
 	/** Path to the map image */
 	img: string;
+	/** Optional foreground image path rendered above the background */
+	foreground?: string | null;
 	/** Background image configuration */
 	background: {
 		src: string;

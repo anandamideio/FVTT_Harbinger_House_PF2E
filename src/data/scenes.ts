@@ -1,4 +1,5 @@
 import { CHAPTER_1_SCENES } from './scenes/chapter-1-scenes';
+import { CHAPTER_2_SCENES } from './scenes/chapter-2-scenes';
 import { CHAPTER_3_SCENES } from './scenes/chapter-3-scenes';
 import { IMPORTED_DD2VTT_SCENES } from './scenes/scenes-imported';
 import type { HarbingerScene } from './scenes/types';
@@ -7,6 +8,7 @@ import type { HarbingerScene } from './scenes/types';
 export const ALL_SCENES: HarbingerScene[] = [
 	...IMPORTED_DD2VTT_SCENES,
 	...CHAPTER_1_SCENES,
+	...CHAPTER_2_SCENES,
 	...CHAPTER_3_SCENES,
 ];
 
