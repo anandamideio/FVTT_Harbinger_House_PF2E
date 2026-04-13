@@ -170,6 +170,34 @@ describe('sceneToDocumentData', () => {
 		expect(doc.background?.scaleY).toBe(2);
 	});
 
+	it('clamps out-of-bounds initial camera coordinates to scene bounds', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			width: 3000,
+			height: 3000,
+			initial: {
+				x: 3037,
+				y: 3400,
+				scale: 0.5,
+			},
+		});
+
+		expect(doc.initial).toEqual({ x: 2999, y: 2999, scale: 0.5 });
+	});
+
+	it('preserves nullable initial camera coordinates', () => {
+		const doc = sceneToDocumentData({
+			...BASE_SCENE,
+			initial: {
+				x: null,
+				y: null,
+				scale: 1,
+			},
+		});
+
+		expect(doc.initial).toEqual({ x: null, y: null, scale: 1 });
+	});
+
 	it('passes through explicit embedded placeables', () => {
 		const walls = [{ c: [0, 0, 100, 0], move: 1, sense: 1, sound: 1, door: 0, ds: 0, dir: 0 }];
 		const lights = [{ x: 240, y: 320, config: { dim: 20, bright: 10, color: '#ffd680' } }];

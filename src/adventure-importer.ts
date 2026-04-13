@@ -76,6 +76,7 @@ interface ImportOptionDef {
  */
 export class HarbingerHouseImporter extends foundry.applications.sheets.AdventureImporter {
 	#importSubmitted = false;
+	#actorFolderHierarchyDeferred = false;
 
 	constructor(options?: Record<string, unknown>) {
 		super(options);
@@ -119,6 +120,23 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 				control.setAttribute('aria-label', importingLabel);
 			}
 		}
+	}
+
+	#deferActorFolderHierarchyUntilCanvasReady() {
+		if (this.#actorFolderHierarchyDeferred) return;
+
+		const hasCanvasGrid = Boolean(canvas?.scene?.toObject()?.grid);
+
+		this.#actorFolderHierarchyDeferred = true;
+		this.#debug('Deferring actor folder hierarchy reconciliation until canvas grid is ready', {
+			canvasReady: canvas?.ready ?? false,
+			hasCanvasGrid,
+		});
+
+		Hooks.once('canvasReady', () => {
+			this.#actorFolderHierarchyDeferred = false;
+			void this.#safeStep('ensureActorFolderHierarchy:deferred-canvas-ready', () => this.#ensureActorFolderHierarchy());
+		});
 	}
 
 	/**
@@ -758,6 +776,11 @@ export class HarbingerHouseImporter extends foundry.applications.sheets.Adventur
 	 */
 	async #ensureActorFolderHierarchy() {
 		if (!game.actors || !game.folders) return;
+		const hasCanvasGrid = Boolean(canvas?.scene?.toObject()?.grid);
+		if (!hasCanvasGrid) {
+			this.#deferActorFolderHierarchyUntilCanvasReady();
+			return;
+		}
 
 		const actors = game.actors.filter(
 			(a: ActorClass) => a.flags?.[MODULE_ID]?.sourceId !== undefined,

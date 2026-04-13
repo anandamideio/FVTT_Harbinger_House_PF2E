@@ -351,6 +351,10 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 	const darkness = Math.max(0, Math.min(1, scene.darkness ?? 0));
 	const globalLightEnabled = scene.globalLight ?? false;
 	const globalLightThreshold = scene.globalLightThreshold ?? null;
+	const maxInitialX = Math.max(0, scene.width - 1);
+	const maxInitialY = Math.max(0, scene.height - 1);
+	const initialX = scene.initial.x == null ? null : Math.max(0, Math.min(maxInitialX, scene.initial.x));
+	const initialY = scene.initial.y == null ? null : Math.max(0, Math.min(maxInitialY, scene.initial.y));
 
 	return {
 		name: scene.name,
@@ -368,8 +372,8 @@ export function sceneToDocumentData(scene: HarbingerScene): SceneData {
 		height: scene.height,
 		padding: 0,
 		initial: {
-			x: scene.initial.x,
-			y: scene.initial.y,
+			x: initialX,
+			y: initialY,
 			scale: scene.initial.scale,
 		},
 		backgroundColor: '#000000',
