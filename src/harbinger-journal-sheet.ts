@@ -187,34 +187,74 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 			return;
 		}
 
-		html.off('click.harbinger-statblock').on('click.harbinger-statblock', '.statblock-toggle', async (event) => {
-			event.preventDefault();
-			const $button = $(event.currentTarget as HTMLElement);
-			const $container = $button.closest('.statblock-container');
-			const current = ($container.attr('data-view') as StatblockView | undefined) ?? DEFAULT_STATBLOCK_VIEW;
-			const next: StatblockView = current === 'pf2e' ? 'classic' : 'pf2e';
+		html
+			.off('click.harbinger-statblock')
+			.off('keydown.harbinger-statblock')
+			.on('click.harbinger-statblock', '.statblock-toggle', async (event) => {
+				event.preventDefault();
+				const $button = $(event.currentTarget as HTMLElement);
+				const $container = $button.closest('.statblock-container');
+				const current = ($container.attr('data-view') as StatblockView | undefined) ?? DEFAULT_STATBLOCK_VIEW;
+				const next: StatblockView = current === 'pf2e' ? 'classic' : 'pf2e';
 
-			logDebug('[JournalStatblock] Toggle clicked', {
-				journalName: journal.name,
-				from: current,
-				to: next,
+				logDebug('[JournalStatblock] Toggle clicked', {
+					journalName: journal.name,
+					from: current,
+					to: next,
+				});
+
+				html.find('.statblock-container').each((_, el) => {
+					const $c = $(el);
+					$c.attr('data-view', next);
+					const $btn = $c.find('.statblock-toggle');
+					$btn.attr('aria-pressed', String(next === 'pf2e'));
+					$btn.find('.statblock-toggle-label').text(next === 'pf2e' ? 'Pathfinder 2e' : 'AD\u0026D 2e (Classic)');
+				});
+
+				try {
+					await journal.setFlag(MODULE_ID, STATBLOCK_VIEW_FLAG, next);
+					logDebug('[JournalStatblock] Persisted statblock view flag', { next });
+				} catch (err) {
+					logDebug('[JournalStatblock] Failed to persist statblock view preference', { error: String(err) });
+				}
+			})
+			.on('click.harbinger-statblock', '.pf2e-statblock-name-link', (event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				const $link = $(event.currentTarget as HTMLElement);
+				const npcId = ($link.attr('data-npc-id') ?? $link.closest('.statblock-container').attr('data-npc-id') ?? '').trim();
+				if (!npcId) return;
+
+				const actor = findImportedActorBySourceId(npcId);
+				if (!actor?.sheet) {
+					logDebug('[JournalStatblock] Name link clicked but actor sheet was not found', {
+						npcId,
+					});
+					return;
+				}
+
+				actor.sheet.render(true);
+			})
+			.on('keydown.harbinger-statblock', '.pf2e-statblock-name-link', (event) => {
+				const key = (event as JQuery.KeyDownEvent).key;
+				if (key !== 'Enter' && key !== ' ') return;
+				event.preventDefault();
+				event.stopPropagation();
+				const $link = $(event.currentTarget as HTMLElement);
+				const npcId = ($link.attr('data-npc-id') ?? $link.closest('.statblock-container').attr('data-npc-id') ?? '').trim();
+				if (!npcId) return;
+
+				const actor = findImportedActorBySourceId(npcId);
+				if (!actor?.sheet) {
+					logDebug('[JournalStatblock] Name link keypress but actor sheet was not found', {
+						npcId,
+						key,
+					});
+					return;
+				}
+
+				actor.sheet.render(true);
 			});
-
-			html.find('.statblock-container').each((_, el) => {
-				const $c = $(el);
-				$c.attr('data-view', next);
-				const $btn = $c.find('.statblock-toggle');
-				$btn.attr('aria-pressed', String(next === 'pf2e'));
-				$btn.find('.statblock-toggle-label').text(next === 'pf2e' ? 'Pathfinder 2e' : 'AD\u0026D 2e (Classic)');
-			});
-
-			try {
-				await journal.setFlag(MODULE_ID, STATBLOCK_VIEW_FLAG, next);
-				logDebug('[JournalStatblock] Persisted statblock view flag', { next });
-			} catch (err) {
-				logDebug('[JournalStatblock] Failed to persist statblock view preference', { error: String(err) });
-			}
-		});
 
 		logDebug('[JournalStatblock] Decoration pass complete', {
 			journalName: journal.name,
@@ -527,6 +567,15 @@ function resolveNPCIdFromStatblock($statblock: JQuery): string | null {
 		if (KNOWN_NPC_IDS.has(className)) return className;
 	}
 	return null;
+}
+
+function findImportedActorBySourceId(sourceId: string): ActorClass | null {
+	const actor = game.actors.find((candidate) => {
+		const imported = candidate.getFlag(MODULE_ID, 'imported');
+		const candidateSourceId = candidate.getFlag(MODULE_ID, 'sourceId');
+		return imported === true && candidateSourceId === sourceId;
+	});
+	return actor ?? null;
 }
 
 function escapeClass(value: string): string {

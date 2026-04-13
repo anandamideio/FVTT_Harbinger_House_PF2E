@@ -78,7 +78,7 @@ export class PF2EStatblockFormatter {
 
 	private renderSubject(npc: HarbingerNPC): string {
 		const name = npc.data.name?.trim() || npc.id || 'Unknown Creature';
-		return `<h1 class="pf2e-statblock-name">${this.esc(name)}</h1>`;
+		return `<h1 class="pf2e-statblock-name"><span class="pf2e-statblock-name-link" role="link" tabindex="0" data-npc-id="${this.esc(npc.id)}">${this.esc(name)}</span></h1>`;
 	}
 
 	private buildItemIndex(items: NPCItemEntry[]): FormatterItemIndex {

@@ -165,6 +165,37 @@ describe('decorateStatblocks', () => {
 		expect(html.find('.statblock.pf2e-view.pf2e-rendered').length).toBe(2);
 		expect(containerNpcIds(html)).toEqual(['xero-baox', 'anarchist']);
 	});
+
+	it('opens matching imported actor sheet when clicking the PF2e statblock name link', async () => {
+		const html = renderJournalHtml(['narcovi']);
+		const journal = makeJournalStub();
+		const renderSpy = vi.fn();
+		const actor = {
+			getFlag: (moduleId: string, key: string) => {
+				if (moduleId !== 'harbinger-house-pf2e') return undefined;
+				if (key === 'imported') return true;
+				if (key === 'sourceId') return 'narcovi';
+				return undefined;
+			},
+			sheet: { render: renderSpy },
+		} as unknown as ActorClass;
+
+		const previousFind = game.actors.find;
+		game.actors.find = ((predicate: (candidate: ActorClass) => boolean) =>
+			(predicate(actor) ? actor : null)) as typeof game.actors.find;
+
+		try {
+			await HarbingerJournalSheet.decorateStatblocks(journal, html);
+
+			const link = html.find('.pf2e-statblock-name-link').first();
+			expect(link.length).toBe(1);
+
+			link.trigger('click');
+			expect(renderSpy).toHaveBeenCalledWith(true);
+		} finally {
+			game.actors.find = previousFind;
+		}
+	});
 });
 
 describe('scrollJournalNavigationToActivePage', () => {

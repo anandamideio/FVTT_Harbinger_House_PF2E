@@ -1061,6 +1061,23 @@ span.page-title {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
+.journal-sheet.harbinger-journal .statblock .pf2e-statblock-name-link {
+	color: inherit;
+	text-decoration: none;
+	display: inline-block;
+	padding: 0 0.2rem;
+	border-radius: 2px;
+	cursor: pointer;
+	transition: color 120ms ease, background-color 120ms ease;
+}
+
+.journal-sheet.harbinger-journal .statblock .pf2e-statblock-name-link:hover,
+.journal-sheet.harbinger-journal .statblock .pf2e-statblock-name-link:focus-visible {
+	color: #7e0b0b;
+	background: rgba(110, 0, 0, 0.08);
+	outline: none;
+}
+
 /* NPC descriptor line (italic) */
 .journal-sheet.harbinger-journal .statblock > p:first-of-type {
 	font-family: "Rotis Serif Italic", "Rotis Serif", "Georgia", serif;
