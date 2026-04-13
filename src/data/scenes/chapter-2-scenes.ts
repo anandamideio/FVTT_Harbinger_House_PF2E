@@ -27,7 +27,7 @@ export const CHAPTER_2_SCENES: HarbingerScene[] = [
   "height": 3000,
   "navigation": true,
   "navOrder": 1000000,
-  "folder": "Near Otari",
+  "folder": "Chapter 2",
   "sort": 532,
   "globalLightThreshold": 1,
   "environment": {

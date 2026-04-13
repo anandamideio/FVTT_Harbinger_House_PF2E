@@ -1019,7 +1019,7 @@ export const KAYDI: HarbingerNPC = {
 					key: 'Aura',
 					slug: 'stupor-field',
 					radius: 15,
-					traits: ['enchantment', 'mental', 'sleep'],
+					traits: ['incapacitation', 'mental', 'sleep'],
 				},
 			],
 		),

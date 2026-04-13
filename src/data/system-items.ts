@@ -116,7 +116,7 @@ export const SYSTEM_SPELLS = {
 	command: 'Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf',
 	dizzyingColors: 'Compendium.pf2e.spells-srd.Item.UKsIOWmMx4hSpafl',
 	fear: 'Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D',
-	grease: 'Compendium.pf2e.spells-srd.Item.eDiDShJxD3uvVLBQ',
+	grease: 'Compendium.pf2e.spells-srd.Item.Wu0xFpewMKRK3HG8',
 	harm: 'Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz',
 	heal: 'Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs',
 	jump: 'Compendium.pf2e.spells-srd.Item.VMl5rHbz8LR03Gld',
@@ -137,7 +137,7 @@ export const SYSTEM_SPELLS = {
 	soundBurst: 'Compendium.pf2e.spells-srd.Item.4prsKlRu6KHqhhRe',
 
 	// Level 3
-	blindness: 'Compendium.pf2e.spells-srd.Item.KI6N3piL5o5oJMf0',
+	blindness: 'Compendium.pf2e.spells-srd.Item.VosLNn2M8S7JH67D',
 	fireball: 'Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd',
 	gustOfWind: 'Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1',
 	haste: 'Compendium.pf2e.spells-srd.Item.QO4p17HkbLjFLau2',
@@ -149,7 +149,7 @@ export const SYSTEM_SPELLS = {
 
 	// Level 4
 	airWalk: 'Compendium.pf2e.spells-srd.Item.M7tn5w1FGfKKlLmv',
-	confusion: 'Compendium.pf2e.spells-srd.Item.3x5BXC5aIW7IqRQO',
+	confusion: 'Compendium.pf2e.spells-srd.Item.LiGbewa9pO0yjbsY',
 	fly: 'Compendium.pf2e.spells-srd.Item.A2JfEKe6BZcTG1S8',
 	iceStorm: 'Compendium.pf2e.spells-srd.Item.kHyjQbibRGPNCixx',
 	suggestion: 'Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H',
@@ -157,9 +157,9 @@ export const SYSTEM_SPELLS = {
 
 	// Level 5
 	cloudkill: 'Compendium.pf2e.spells-srd.Item.j0CDZ7Gmmt0DhBSq',
-	coneOfCold: 'Compendium.pf2e.spells-srd.Item.OZ9kFqWwLRD3KXPY',
+	coneOfCold: 'Compendium.pf2e.spells-srd.Item.3puDanGfpEt6jK5k',
 	flameStrike: 'Compendium.pf2e.spells-srd.Item.E3X2RbzWHCdz7gsk',
-	phantasmalKiller: 'Compendium.pf2e.spells-srd.Item.YZKvlluzF2sQFRGN',
+	phantasmalKiller: 'Compendium.pf2e.spells-srd.Item.tlcrVRqW1MSKJ5IC',
 	synesthesia: 'Compendium.pf2e.spells-srd.Item.OAt2ZEns1gIOCgrn',
 	telekinesis: 'Compendium.pf2e.spells-srd.Item.clGvwIJiVJL0aJjD',
 	waveOfDespair: 'Compendium.pf2e.spells-srd.Item.GaRQlC9Yw1BGKHfN',
