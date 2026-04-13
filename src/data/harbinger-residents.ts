@@ -73,9 +73,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 				creatureType: 'Humanoid',
 				source: { value: 'Harbinger House' },
 				blurb: 'Tiefling bard who believes himself beloved by the Lady of Pain',
-				publicNotes: `<p>Once Trolan of Ecstasy, now <strong>Trolan the Mad</strong> (and later Trolan the Beloved), the bard has one great love in his life: the Lady of Pain. His natural charisma and innate abilities have attracted many followers to his cause.</p>
-<p><strong>Field of Fellowship:</strong> Creatures within 10 feet must succeed at a @Check[type:will|dc:29] or be unable to harm Trolan (as sanctuary). Critical failure makes the creature helpful toward him.</p>
-<p><strong>Regeneration 10:</strong> Trolan regains all lost hit points within 24 hours unless slain. This regeneration is deactivated by death effects.</p>`,
+				publicNotes: `<p>Once Trolan of Ecstasy, now <strong>Trolan the Mad</strong> (and later Trolan the Beloved), the bard has one great love in his life: the Lady of Pain. His natural charisma and innate abilities have attracted many followers to his cause.</p>`,
 			},
 			saves: {
 				fortitude: { value: 15, saveDetail: '' },
@@ -153,6 +151,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 			},
 		]),
 		...createSpellcastingEntryWithSpells('Occult Innate Spells', 'occult', 19, 29, [
+			['heal', 5],
 			['charm', 4],
 			['suggestion', 4],
 			['waveOfDespair', 5],
