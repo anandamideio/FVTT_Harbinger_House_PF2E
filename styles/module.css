@@ -722,22 +722,55 @@ span.page-title {
 
 /* ---- Content Block: Read Aloud ---- */
 .journal-sheet.harbinger-journal .read-aloud {
-	background: rgba(110, 0, 0, 0.04);
-	border: 2px double var(--harbinger-primary);
-	border-left: 5px solid var(--harbinger-primary);
+	position: relative;
+	background:
+		linear-gradient(180deg, rgba(245, 233, 210, 0.78) 0%, rgba(231, 212, 178, 0.68) 100%),
+		radial-gradient(140% 80% at 100% 0%, rgba(212, 160, 23, 0.14) 0%, transparent 58%);
+	border: 1px solid rgba(110, 0, 0, 0.26);
+	border-left: 3px solid rgba(212, 160, 23, 0.75);
+	border-right: 1px solid rgba(212, 160, 23, 0.32);
 	margin: 1.5rem 1rem;
-	padding: 1rem 1.5rem;
+	padding: 1rem 1.2rem 0.9rem 2.6rem;
 	font-family: "Rotis Serif Italic", "Rotis Serif", "Georgia", "Times New Roman", serif;
 	font-style: italic;
 	font-size: 14px;
-	line-height: 1.8;
-	color: #2a1a0a;
+	line-height: 1.75;
+	color: #342517;
 	box-shadow:
-		inset 0 0 20px rgba(110, 0, 0, 0.05),
-		2px 2px 6px rgba(0, 0, 0, 0.1);
+		inset 0 1px 0 rgba(255, 255, 255, 0.36),
+		inset 0 0 0 1px rgba(212, 160, 23, 0.1),
+		0 1px 5px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+}
+
+.journal-sheet.harbinger-journal .read-aloud::before {
+	content: "";
+	position: absolute;
+	left: 0.68rem;
+	top: 0.82rem;
+	width: 18px;
+	height: 18px;
+	opacity: 0.66;
+	background-color: var(--harbinger-primary);
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M11 7H5v6h4l-2 4h4l2-4V7zm8 0h-6v6h4l-2 4h4l2-4V7z'/></svg>") center / contain no-repeat;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M11 7H5v6h4l-2 4h4l2-4V7zm8 0h-6v6h4l-2 4h4l2-4V7z'/></svg>") center / contain no-repeat;
+	z-index: 1;
+}
+
+.journal-sheet.harbinger-journal .read-aloud::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(90deg, rgba(212, 160, 23, 0.62), transparent 55%) 2.25rem 0.42rem / calc(100% - 2.9rem) 1px no-repeat,
+		linear-gradient(90deg, transparent 45%, rgba(110, 0, 0, 0.45)) 2.25rem calc(100% - 0.42rem) / calc(100% - 2.9rem) 1px no-repeat;
+	opacity: 0.8;
+	pointer-events: none;
 }
 
 .journal-sheet.harbinger-journal .read-aloud p {
+	position: relative;
+	z-index: 1;
 	text-indent: 0;
 	margin-bottom: 0.75rem;
 }
