@@ -578,11 +578,11 @@ span.page-title {
 .journal-sheet.harbinger-journal .journal-entry-content h1 {
 	color: var(--harbinger-primary);
 	font-family: "Exocet Blizzard", "Georgia", serif;
-	font-size: 2rem;
+	font-size: 1.8rem;
 	font-weight: 700;
 	text-align: center;
 	text-transform: uppercase;
-	letter-spacing: 3px;
+	letter-spacing: 1px;
 	margin: 1.5rem 0 1rem 0;
 	padding-bottom: 0.5rem;
 	border-bottom: 3px double var(--harbinger-primary);
@@ -1109,7 +1109,7 @@ span.page-title {
 }
 
 .journal-sheet.harbinger-journal .statblock th {
-	background: rgba(110, 0, 0, 0.12);
+	background: linear-gradient(180deg, rgba(239, 224, 195, 0.95) 0%, rgba(217, 191, 151, 0.95) 100%);
 	color: var(--harbinger-primary);
 	font-family: "Exocet Blizzard Light", "Exocet Blizzard", "Georgia", serif;
 	font-size: 11px;

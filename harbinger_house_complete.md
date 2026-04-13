@@ -14,6 +14,7 @@ _A PLANESCAPE Adventure_
    - [Summary of the Adventure](#summary-of-the-adventure)
    - [Preparing for Play](#preparing-for-play)
    - [Factions in This Adventure](#factions-in-this-adventure)
+   - [Non-Player Characters](#non-player-characters)
 2. [Chapter 1: the Streets of Sigil](#chapter-1-the-streets-of-sigil)
    - [Trolan the Mad](#trolan-the-mad)
    - [Crimjak the Marquis Cambion](#crimjak-the-marquis-cambion)
@@ -49,7 +50,7 @@ _A PLANESCAPE Adventure_
 >
 > But what if something bad were to happen — something so foul and evil that even the dabus came to know fear? That's when cutters and bloods should pack up and head out, 'cause something that threatens the Lady and makes even the dabus nervous must be sodding awful — and everybody knows there's still plenty of room in the dead-book for the careless, the foolish, and the brave.
 
-### The Tale of Harbinger House
+## The Tale of Harbinger House
 
 > [!read-aloud]
 > "It shelters those who are still developing," **Factol Ambar** of the Godsmen explained to the new custodian as they walked along one of Sigil's cobbled streets. The woman beside him was **Bereth**, chosen from among the best the faction had to offer for the skills and compassion she possessed. "These are the forerunners of the next generation of powers," he continued, "a small group of individuals who have been mistaken for barmies by the rest of Sigil. We, however, know better."
@@ -76,7 +77,7 @@ _A PLANESCAPE Adventure_
 
 ### Background
 
-This section gives a Dungeon Master (DM) enough information to grasp what's really going on in the adventure. It includes an overview of Harbinger House; what's already happened to bring the story to the point at which the adventure begins; the dark of the planarity and the focrux, mysterious items of great power; and the roles played by the barmies Sougad and Trolan in the unfolding plot.
+This section gives a Game Master (GM) enough information to grasp what's really going on in the adventure. It includes an overview of Harbinger House; what's already happened to bring the story to the point at which the adventure begins; the dark of the planarity and the focrux, mysterious items of great power; and the roles played by the barmies Sougad and Trolan in the unfolding plot.
 
 > [!planar-note]
 > **The House**
@@ -89,7 +90,7 @@ This section gives a Dungeon Master (DM) enough information to grasp what's real
 >
 > As far as anyone knows, such an event hasn't happened — yet. But all of the barmies residing in the House do have a limited number of spell-like abilities that mark them — in the Godsmen's minds, anyway — as powers-in-the-making.
 >
-> Harbinger House itself is described in detail in Chapter III. The House is much larger on the inside than it appears to be from the outside; see the DM's screen for a partial map of the interior. It's a house of secrets, a place of mysteries hidden behind dark windows, a place as dangerous as it is alluring.
+> Harbinger House itself is described in detail in Chapter III. The House is much larger on the inside than it appears to be from the outside; see the GM's screen for a partial map of the interior. It's a house of secrets, a place of mysteries hidden behind dark windows, a place as dangerous as it is alluring.
 
 #### What Has Gone Before
 
@@ -140,7 +141,7 @@ Trolan, meanwhile, is to occupy the attention of the Lady of Pain and her servan
 
 Unfortunately for Nari, Old Favur retired before her plan could be set in motion. A new custodian, Bereth, was selected to oversee Harbinger House and its guests, an unforeseen event that forced the succubus to release Sougad and Trolan earlier than she'd planned.
 
-### Summary of the Adventure
+## Summary of the Adventure
 
 The player characters (PCs) begin Harbinger House in Sigil, engaged in some between-adventure activity. They may be relaxing and enjoying the wonders of the City of Doors, looking for work, or browsing the Cage's shops in search of bargains and rare planar items. The adventure is designed so the DM can involve the PCs in the story from almost anywhere in the Cage.
 
@@ -152,7 +153,7 @@ Once in Curst, the party finds not one barmy who's escaped from Harbinger House,
 
 In **Chapter III**, the PCs return to Sigil to explore Harbinger House, which seems to hold the key to the mysteries of the murders, the cult, and the dabus. The House has been darkly changed as a result of being under Nari's control; the heroes must work their way through its maddening rooms and dangerous barmies to find the new master of the House before she tries to ascend to the next level of existence. Though the PCs don't know it, Sougad still lives, and he's getting ready to make an ascension himself.
 
-### Preparing for Play
+## Preparing for Play
 
 The Dungeon Master must have copies of the AD&D Player's Handbook (PH), Dungeon Master Guide (DMG), and the Planescape Campaign Setting boxed set to properly run Harbinger House. Copies of the Planescape Monstrous Compendium Appendix, A Player's Primer to the Outlands, and In the Cage: A Guide to Sigil are also useful but not necessary to play this adventure.
 
@@ -168,7 +169,7 @@ In Harbinger House, the PCs run into several different types of tanar'ri. Most t
 
 Finally, the DM is encouraged to read the entire adventure before attempting to run it.
 
-### Factions in This Adventure
+## Factions in This Adventure
 
 Factions always play some part in a Planescape adventure, as most PCs belong to one philosophical fraternity or another. Because so much of this adventure revolves around Harbinger House, the Believers of the Source have a vested interest in the unfolding events. Their general reaction to the events of the story — along with that of the other factions — is outlined below.
 
@@ -256,8 +257,6 @@ Factions always play some part in a Planescape adventure, as most PCs belong to 
 >
 > **Factol Rhys** won't command the Ciphers to become directly involved in the events surrounding Harbinger House. She has no interest in letting her faction interfere in the internal politics of the Lower Ward and The Lady's Ward. The right action, in this case, is no action — it'll keep her and hers alive. 'Course, once the murderer moves on to
 
-# Chapter I: The Streets of Sigil
-
 ## Trolan the Mad
 > [!statblock trolan-the-mad]
 > *Male tiefling planar, 10th-level bard*
@@ -311,7 +310,6 @@ To gain Trolan's help, **Nari**—who's taken command of the House—appeared to
 ---
 
 ## Crimjak the Marquis Cambion
-
 > [!statblock crimjak-marquis-cambion]
 > ### Ability Scores
 > | Str | Dex | Con | Int | Wis | Cha |
@@ -383,6 +381,8 @@ Chapter 1 follows a number of paths that take the PCs throughout the **Lower War
 This chapter ends with a confrontation with **Sougad**, the barmy committing the murders. The PCs and Sougad battle over the rooftops of Sigil, finally winding up across from a small park where a group of Those Who Court the Lady prepare to offer homage to Sigil's high-up. The PCs, locked in battle with Sougad, catch glimpses of the moving ceremony of love and devotion. But Sougad escapes through a portal before he can be defeated, and at that moment the PCs witness the arrival of the Lady of Pain. Her shadow passes over the park, and every barmy it touches receives bloody wounds from the outline of her bladed countenance.
 
 ---
+
+# Chapter I: The Streets of Sigil
 
 ## Quick Start I: Return Trip
 
