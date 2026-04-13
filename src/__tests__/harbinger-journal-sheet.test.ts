@@ -119,6 +119,52 @@ describe('decorateStatblocks', () => {
 		expect(renderedText).toContain('Creature 10');
 		expect(renderedText).toContain('Creature 9');
 	});
+
+	it('does not duplicate wrappers when decoration runs concurrently', async () => {
+		const html = renderJournalHtml(['xero-baox', 'anarchist']);
+		const journal = makeJournalStub();
+
+		const g = globalThis as {
+			TextEditor?: {
+				enrichHTML?: (content: string, options: { async: true }) => string | Promise<string>;
+			};
+		};
+		const previousTextEditor = g.TextEditor;
+		let releaseGate: (() => void) | undefined;
+		const gate = new Promise<void>((resolve) => {
+			releaseGate = resolve;
+		});
+
+		g.TextEditor = {
+			enrichHTML: async (content: string) => {
+				await gate;
+				return content;
+			},
+		};
+
+		try {
+			const firstPass = HarbingerJournalSheet.decorateStatblocks(journal, html);
+			await Promise.resolve();
+			const secondPass = HarbingerJournalSheet.decorateStatblocks(journal, html);
+
+			releaseGate?.();
+
+			await Promise.all([firstPass, secondPass]);
+		} finally {
+			if (previousTextEditor) {
+				g.TextEditor = previousTextEditor;
+			} else {
+				delete g.TextEditor;
+			}
+		}
+
+		expect(html.find('.statblock-container').length).toBe(2);
+		expect(html.find('.statblock-container .statblock-container').length).toBe(0);
+		expect(html.find('.statblock-toggle').length).toBe(2);
+		expect(html.find('.statblock.classic-view.pf2e-rendered').length).toBe(2);
+		expect(html.find('.statblock.pf2e-view.pf2e-rendered').length).toBe(2);
+		expect(containerNpcIds(html)).toEqual(['xero-baox', 'anarchist']);
+	});
 });
 
 describe('scrollJournalNavigationToActivePage', () => {

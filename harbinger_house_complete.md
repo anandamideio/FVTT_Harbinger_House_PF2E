@@ -595,7 +595,7 @@ Rake took Sougad in as a young pup, recognizing the innate abilities that marked
 
 ---
 
-### Narcovi's Notebook
+## Narcovi's Notebook
 
 *These notes might help me see something new. I hope so.*
 

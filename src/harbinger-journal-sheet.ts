@@ -83,7 +83,7 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 		ensureStatblockObserver(journal, html);
 
 		const $allStatblocks = html.find('.statblock');
-		const $statblocks = $allStatblocks.not('.pf2e-rendered');
+		const $statblocks = $allStatblocks.not('.pf2e-rendered, .pf2e-rendering');
 		logDebug('[JournalStatblock] Statblock DOM query result', {
 			journalName: journal.name,
 			totalFound: $allStatblocks.length,
@@ -95,6 +95,10 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 			logDebug('[JournalStatblock] No undecorated statblocks present; exiting early');
 			return;
 		}
+
+		// Claim all pending statblocks before any async work to avoid duplicate decoration
+		// when multiple decorate passes run concurrently.
+		$statblocks.addClass('pf2e-rendering');
 
 		const view = (journal.getFlag(MODULE_ID, STATBLOCK_VIEW_FLAG) as StatblockView | undefined) ?? DEFAULT_STATBLOCK_VIEW;
 		logDebug('[JournalStatblock] Resolved initial view from flag', { view });
@@ -110,6 +114,7 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 			const npcId = resolveNPCIdFromStatblock($classic);
 
 			if (!npcId) {
+				$classic.removeClass('pf2e-rendering');
 				skippedNoId++;
 				perElement.push({ classAttr, outcome: 'skip:no-matching-id' });
 				logDebug('[JournalStatblock] Skipping statblock: no known NPC id in class list', {
@@ -121,17 +126,17 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 
 			const npc = getNPCById(npcId);
 			if (!npc || isSystemActorReference(npc)) {
+				$classic.removeClass('pf2e-rendering');
 				skippedUnknownNPC++;
 				perElement.push({ classAttr, npcId, outcome: 'skip:npc-lookup-failed' });
 				continue;
 			}
 
-			$classic.addClass('pf2e-rendered classic-view');
-
 			let pf2eHtml: string;
 			try {
 				pf2eHtml = formatPF2eStatblock(npc as HarbingerNPC);
 			} catch (err) {
+				$classic.removeClass('pf2e-rendering');
 				logDebug('[JournalStatblock] formatPF2eStatblock threw', {
 					npcId,
 					error: String(err),
@@ -148,6 +153,8 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 					error: String(err),
 				});
 			}
+
+			$classic.addClass('pf2e-rendered classic-view').removeClass('pf2e-rendering');
 
 			const $pf2e = $(`<div class="statblock pf2e-view pf2e-rendered ${escapeClass(npcId)}"></div>`).html(pf2eHtml);
 
@@ -603,8 +610,8 @@ function mutationTouchesStatblocks(mutation: MutationRecord): boolean {
 	const nodes = [...Array.from(mutation.addedNodes), ...Array.from(mutation.removedNodes)];
 	for (const node of nodes) {
 		if (!(node instanceof Element)) continue;
-		if (node.classList.contains('statblock') && !node.classList.contains('pf2e-rendered')) return true;
-		const fresh = node.querySelector('.statblock:not(.pf2e-rendered)');
+		if (node.classList.contains('statblock') && !node.classList.contains('pf2e-rendered') && !node.classList.contains('pf2e-rendering')) return true;
+		const fresh = node.querySelector('.statblock:not(.pf2e-rendered):not(.pf2e-rendering)');
 		if (fresh) return true;
 	}
 	return false;
