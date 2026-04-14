@@ -243,6 +243,7 @@ declare global {
 		name: string;
 		type: string;
 		img?: string;
+		sheet?: { render(force?: boolean): void };
 		system: PF2eActorSystem;
 		items: Collection<ItemClass>;
 		flags: Record<string, Record<string, unknown>>;
