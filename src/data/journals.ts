@@ -397,6 +397,55 @@ import MARKDOWN_CONTENT from 'virtual:harbinger-markdown';
 // This happens once when the module loads
 const JOURNAL_DATA: HarbingerJournal[] = MARKDOWN_CONTENT ? parseMarkdownToJournals(MARKDOWN_CONTENT) : [];
 
+const MODULE_INTRO_PAGES = {
+	welcome: `Welcome to **Harbinger House** for Pathfinder 2e.
+
+First, I just want to say thank you for checking out my project. This module has been a labor of love, and I'm thrilled to share it with you.
+While I hope you enjoy the adventure over-all, there is one main feature I want to highlight as it might be particularly useful, and that is the sigil investigation board. 
+
+The Investigation Board is a GM tool for tracking discoveries in Sigil.
+
+1. While you have the **Sigil** scene active.
+2. Click the **Sigil Investigation** control button on the left sidebar (below the journal notes button)
+3. Here you can choose what locations you want reveal, keep track of clues and locations, and all of it makes interactive markers for you players, helping them keep track of their discoveries in the city.`,
+};
+
+function createTextPage(name: string, markdown: string): JournalPage {
+	return {
+		name,
+		type: 'text',
+		title: {
+			show: true,
+			level: 1,
+		},
+		text: {
+			content: markdownToHTML(markdown),
+			format: 1,
+			markdown,
+		},
+	};
+}
+
+function prependModuleCoversheetToIntroduction(journals: HarbingerJournal[]): HarbingerJournal[] {
+	return journals.map((journal) => {
+		if (journal.name !== 'Introduction') {
+			return journal;
+		}
+
+		const hasCoversheetPage = journal.pages.some((page) => page.name === 'Start Here');
+		if (hasCoversheetPage) {
+			return journal;
+		}
+
+		return {
+			...journal,
+			pages: [createTextPage('Welcome', MODULE_INTRO_PAGES.welcome), ...journal.pages],
+		};
+	});
+}
+
+const JOURNAL_DATA_WITH_COVERSHEET = prependModuleCoversheetToIntroduction(JOURNAL_DATA);
+
 /**
  * Handouts Journal with Image Assets
  * Contains all handout images and artwork for the adventure
@@ -465,9 +514,9 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
 };
 
 // Combine parsed journals with handouts journal
-export const ALL_JOURNALS = [...JOURNAL_DATA, HANDOUTS_JOURNAL];
+export const ALL_JOURNALS = [...JOURNAL_DATA_WITH_COVERSHEET, HANDOUTS_JOURNAL];
 
-export const JOURNALS_BY_FOLDER = JOURNAL_DATA.reduce(
+export const JOURNALS_BY_FOLDER = JOURNAL_DATA_WITH_COVERSHEET.reduce(
 	(acc, journal) => {
 		const folder = journal.folder || 'Reference';
 		if (!acc[folder]) {

@@ -24,7 +24,7 @@ const DEFAULT_IMPORT_BOOTSTRAP: ImportBootstrapConfig = {
 	initialSceneId: '851e935c54e67e62', // scene-sigil
 	initialSceneSourceId: 'scene-sigil',
 	initialSceneName: 'Sigil',
-	initialJournalEntryId: '373d8b09682157da', // journal-1
+	initialJournalEntryId: '373d8b09682157da', // journal-1 (Introduction)
 	initialLoginScreenBackground: `modules/${MODULE_ID}/dist/assets/art/LadyOfPain.jpg`,
 };
 

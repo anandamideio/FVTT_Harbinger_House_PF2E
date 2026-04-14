@@ -32,8 +32,8 @@
 				"hint": "Update the world login page with Harbinger House artwork and description"
 			},
 			"displayJournal": {
-				"label": "Display Intro Journal",
-				"hint": "Open the adventure's introductory journal after import"
+				"label": "Load Intro Journal",
+				"hint": "Open the Introduction journal (with feature coversheet) after import"
 			},
 			"activateScene": {
 				"label": "Activate Starting Scene",
