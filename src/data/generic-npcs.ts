@@ -445,7 +445,7 @@ export const XERO_BAOX: HarbingerNPC = {
 				value: ['unique', 'tiefling', 'humanoid'],
 				rarity: 'unique',
 				size: { value: 'med' },
-				languages: { value: ['common', 'infernal'], details: '' },
+				languages: { value: ['common', 'diabolic'], details: '' },
 				senses: [{ type: 'darkvision' }],
 			},
 		},

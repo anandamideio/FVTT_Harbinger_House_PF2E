@@ -234,19 +234,14 @@ const FACTION_LANDMARKS: SigilLocation[] = [
 		category: 'landmark',
 		x: 3126,
 		y: 2509,
-		description: 'A mysterious building on a dead-end street in the Lower Ward. Nexus of planar energy and central to the adventure.',
+		description: 'A mysterious building on a dead-end street in the Lower Ward.',
 		chapter: 2,
 		clues: [
 			{
 				id: 'harbinger-planar-energy',
 				text: 'The house sits at a nexus of planar energy -- those with magical sensitivity can feel it.',
-				optional: false,
-			},
-			{
-				id: 'harbinger-residents-info',
-				text: 'The residents are all individuals touched by the planes in unusual ways.',
-				optional: false,
-			},
+				optional: true,
+			}
 		],
 	},
 	{
@@ -255,19 +250,13 @@ const FACTION_LANDMARKS: SigilLocation[] = [
 		category: 'faction-hq',
 		x: 3723,
 		y: 2094,
-		description: 'Headquarters of the Believers of the Source. Godsmen patrols have increased since the murders began.',
+		description: 'Headquarters of the Believers of the Source.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'foundry-patrols',
 				text: 'Godsmen patrols have doubled since the murders began. They\'re nervous about threats to their members.',
-				optional: false,
-			},
-			{
-				id: 'foundry-harbinger-connection',
-				text: 'The Godsmen have a connection to Harbinger House -- some residents are former Godsmen candidates.',
 				optional: true,
-				gmNote: 'This connection becomes important in Chapter 2.',
 			},
 		],
 	},
@@ -277,21 +266,9 @@ const FACTION_LANDMARKS: SigilLocation[] = [
 		category: 'landmark',
 		x: 4605,
 		y: 2188,
-		description: 'Ruins sacred to the Athar. Two murders occurred in its vicinity.',
+		description: 'Ruins sacred to the Athar.',
 		chapter: 1,
-		clues: [
-			{
-				id: 'shattered-athar-territory',
-				text: 'Athar territory -- they\'re suspicious of outsiders investigating near their sanctum.',
-				optional: false,
-			},
-			{
-				id: 'shattered-two-murders',
-				text: 'Two of the six murders happened nearby, suggesting the killer is comfortable in this area.',
-				optional: true,
-				gmNote: 'The proximity to Keluk\'s murder at the Parted Veil is significant.',
-			},
-		],
+		clues: [],
 	},
 	{
 		id: 'city-barracks',
@@ -301,19 +278,7 @@ const FACTION_LANDMARKS: SigilLocation[] = [
 		y: 1508,
 		description: 'Harmonium headquarters. Narcovi operates from here, running the official murder investigation.',
 		chapter: 1,
-		clues: [
-			{
-				id: 'barracks-narcovi',
-				text: 'Narcovi is the lead investigator and can share (or withhold) official findings.',
-				optional: false,
-			},
-			{
-				id: 'barracks-tenskor-colleague',
-				text: 'Tenskor was a well-liked Harmonium officer -- his murder has the barracks on edge.',
-				optional: true,
-				gmNote: 'Narcovi may be more forthcoming if the PCs share their own findings first.',
-			},
-		],
+		clues: [],
 	},
 	{
 		id: 'city-court',
@@ -323,14 +288,7 @@ const FACTION_LANDMARKS: SigilLocation[] = [
 		y: 1982,
 		description: 'Seat of the Fraternity of Order. Factol Hashkar rules here with rigid adherence to law.',
 		chapter: 1,
-		clues: [
-			{
-				id: 'court-guvner-resources',
-				text: 'The Guvners\' records may contain information about divine ascension rituals.',
-				optional: true,
-				gmNote: 'Requires a favor or successful Diplomacy check to access restricted materials.',
-			},
-		],
+		clues: [],
 	},
 	{
 		id: 'the-prison',
@@ -338,13 +296,13 @@ const FACTION_LANDMARKS: SigilLocation[] = [
 		category: 'faction-hq',
 		x: 2042,
 		y: 2165,
-		description: 'Mercykiller stronghold. Geldab\'s Bakery sits across the street -- site of the 7th murder attempt.',
+		description: 'Mercykiller stronghold.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'prison-seventh-murder',
-				text: 'The 7th murder (attempted) takes place at Geldab\'s Bakery across the street, targeting Kolz the Mercykiller.',
-				optional: false,
+				text: 'The 7th murder took place at Geldab\'s Bakery across the street, targeting Kolz the Mercykiller.',
+				optional: true,
 			},
 		],
 	},
@@ -354,19 +312,13 @@ const FACTION_LANDMARKS: SigilLocation[] = [
 		category: 'landmark',
 		x: 3014,
 		y: 2185,
-		description: 'A dangerous public space near Grossif\'s warehouse. Site of cult gatherings and the Lady of Pain ceremony.',
+		description: 'A once charming public space.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'bloodgem-cult',
 				text: 'Cult gatherings have been spotted here at night. The park is avoided by most sensible Cagers.',
-				optional: false,
-			},
-			{
-				id: 'bloodgem-warehouse-proximity',
-				text: 'Grossif\'s Paints warehouse is very close -- the cult may have a connection.',
 				optional: true,
-				gmNote: 'This proximity is the key link to finding Sougad\'s lair.',
 			},
 		],
 	},
@@ -383,21 +335,9 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'shop',
 		x: 2775,
 		y: 2335,
-		description: 'A\'kin\'s curiosity shop. The fiend merchant sells spell components and knows more than he lets on.',
+		description: 'A\'kin\'s curiosity shop.',
 		chapter: 1,
-		clues: [
-			{
-				id: 'fiend-akin-info',
-				text: 'A\'kin can identify unusual spell components and may know who has been buying them in bulk.',
-				optional: false,
-			},
-			{
-				id: 'fiend-quick-start',
-				text: 'This is a possible opening location for Quick Start III -- A\'kin can direct the party toward the investigation.',
-				optional: true,
-				gmNote: 'A\'kin is always helpful... suspiciously so.',
-			},
-		],
+		clues: [],
 	},
 	{
 		id: 'grossifs-paints',
@@ -405,24 +345,18 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'hideout',
 		x: 3125,
 		y: 2226,
-		description: 'Sougad\'s hidden lair in a talc warehouse near Bloodgem Park. The climax of Chapter 1\'s investigation.',
+		description: 'A paint warehouse across from Bloodgem Park.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'grossifs-lair',
 				text: 'This is Sougad\'s base of operations. Evidence of ritual preparation is everywhere.',
-				optional: false,
+				optional: true,
 			},
 			{
 				id: 'grossifs-talc',
 				text: 'Mountains of white talc powder -- the source of the footprints found at murder scenes.',
-				optional: false,
-			},
-			{
-				id: 'grossifs-ritual-notes',
-				text: 'Sougad\'s notes on the divine ascension ritual, written on fine parchment.',
 				optional: true,
-				gmNote: 'These notes reveal the full scope of the murder plan and the connection to Harbinger House.',
 			},
 		],
 	},
@@ -432,19 +366,13 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'encounter',
 		x: 1828,
 		y: 2031,
-		description: 'A talc warehouse in the Lady\'s Ward. Infested with cranium rats.',
+		description: 'A talc warehouse in the Lady\'s Ward.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'penbrums-cranium-rats',
-				text: 'A nest of cranium rats lurks inside -- they attack intruders with psychic blasts.',
-				optional: false,
-			},
-			{
-				id: 'penbrums-dead-end',
-				text: 'No direct connection to the murders, but the cranium rats may have observed suspicious activity nearby.',
+				text: 'A nest of cranium rats lurked inside',
 				optional: true,
-				gmNote: 'This is a red herring / combat encounter. The rats know nothing useful.',
 			},
 		],
 	},
@@ -454,19 +382,13 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'encounter',
 		x: 3144,
 		y: 1671,
-		description: 'A talc warehouse near the Armory. Baskix Three-Fingers squats here with stolen evidence.',
+		description: 'A talc warehouse near the Armory.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'logus-baskix',
-				text: 'Baskix Three-Fingers is squatting here with Lini\'s stolen purse and a vrock feather.',
-				optional: false,
-			},
-			{
-				id: 'logus-stolen-evidence',
-				text: 'The stolen items connect to the Ascension Hall murder -- Baskix is a thief, not the killer.',
+				text: 'Baskix Three-Fingers was squatting here with Lini\'s stolen purse and a vrock feather.',
 				optional: true,
-				gmNote: 'Baskix picked Lini\'s pocket before or after the murder. He saw Sougad but is too scared to talk freely.',
 			},
 		],
 	},
@@ -476,12 +398,12 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'hideout',
 		x: 2796,
 		y: 2500,
-		description: 'A candy shop with a Xaositect hideout in the basement. Near Harbinger House.',
+		description: 'A candy shop with some extremely chaotic clientele.',
 		chapter: 2,
 		clues: [
 			{
 				id: 'happy-xaositects',
-				text: 'Xaositects use the basement as a meeting place. They have unpredictable information about local events.',
+				text: 'Xaositects use this basement as a meeting place.',
 				optional: true,
 				gmNote: 'The Xaositects may know about Harbinger House\'s true nature, but their information is scrambled and unreliable.',
 			},
@@ -493,20 +415,9 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'encounter',
 		x: 3538,
 		y: 2062,
-		description: 'A blacksmith\'s forge where Sougad had his killing sword prepared.',
+		description: 'A blacksmith\'s forge where the smith recently died under mysterious circumstances.',
 		chapter: 1,
 		clues: [
-			{
-				id: 'dirks-sword',
-				text: 'Sougad commissioned special work on a sword here -- the weapon used in the first non-ritual kill.',
-				optional: false,
-			},
-			{
-				id: 'dirks-description',
-				text: 'Sod Dirk can describe Sougad\'s appearance and demeanor.',
-				optional: true,
-				gmNote: 'Dirk remembers Sougad as intense and focused -- paid well and didn\'t haggle.',
-			},
 		],
 	},
 	{
@@ -515,19 +426,13 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'shop',
 		x: 1627,
 		y: 2258,
-		description: 'An arcane supplies shop where Sougad purchased 13 sheets of fine parchment.',
+		description: 'An arcane supplies shop, supplier of various magical components.',
 		chapter: 1,
 		clues: [
 			{
 				id: 'untras-parchment',
 				text: 'Sougad bought exactly 13 sheets of fine parchment -- one for each planned victim.',
-				optional: false,
-			},
-			{
-				id: 'untras-description',
-				text: 'The shopkeeper remembers Sougad and can provide a physical description.',
 				optional: true,
-				gmNote: 'The number 13 is significant -- it matches the total number of planned murders.',
 			},
 		],
 	},
@@ -537,19 +442,13 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'shop',
 		x: 4444,
 		y: 2049,
-		description: 'An arcane shop robbed of ritual components: vrock feathers, nutshells, bronze discs, and iron rods.',
+		description: 'An arcane shop robbed of spell components recently',
 		chapter: 1,
 		clues: [
 			{
 				id: 'wizards-mark-robbery',
 				text: 'Robbed of 12 vrock feathers, 12 nutshells, 5 bronze discs, and 5 iron rods -- all chaos spell components.',
-				optional: false,
-			},
-			{
-				id: 'wizards-mark-connection',
-				text: 'The stolen components match those found at the murder scenes exactly.',
 				optional: true,
-				gmNote: 'Connecting the robbery to the murders is a key investigative breakthrough.',
 			},
 		],
 	},
@@ -559,17 +458,17 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		category: 'shop',
 		x: 3432,
 		y: 2335,
-		description: 'A gem shop robbed of four black pearls worth 1000gp each.',
+		description: 'A gem shop on the edge of the Lower Ward',
 		chapter: 1,
 		clues: [
 			{
 				id: 'sleepy-dwarf-robbery',
-				text: 'Four black pearls worth 1000gp each were stolen. Black pearl dust was found at the Powers Row murder.',
-				optional: false,
+				text: 'Four black pearls worth 1000gp each were stolen recently',
+				optional: true,
 			},
 			{
 				id: 'sleepy-dwarf-description',
-				text: 'The dwarf shopkeeper remembers Sougad and gives a detailed description.',
+				text: 'The dwarf shopkeeper remembered the murdered and gave us a detailed description.',
 				optional: true,
 				gmNote: 'The dwarf is angry and eager to help catch the thief.',
 			},
@@ -586,7 +485,7 @@ const SHOPS_ENCOUNTERS: SigilLocation[] = [
 		clues: [
 			{
 				id: 'geldabs-ambush',
-				text: 'This is where Sougad attempts the 7th ritual murder -- targeting Kolz, a Mercykiller patrol officer.',
+				text: 'This is where the 7th ritual murder took place -- targeting Kolz, a Mercykiller patrol officer.',
 				optional: true,
 				gmNote: 'If the PCs follow the clue in time, they can potentially prevent the murder.',
 			},

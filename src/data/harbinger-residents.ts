@@ -85,7 +85,7 @@ export const TROLAN_THE_MAD: HarbingerNPC = {
 				rarity: 'unique',
 				size: { value: 'med' },
 				languages: {
-					value: ['common', 'infernal'],
+					value: ['common', 'diabolic'],
 					details: 'Planar Trade',
 				},
 				senses: [{ type: 'darkvision' }],
@@ -206,7 +206,7 @@ export const CRIMJAK: HarbingerNPC = {
 				rarity: 'unique',
 				size: { value: 'med' },
 				languages: {
-					value: ['abyssal', 'common', 'infernal'],
+					value: ['chthonian', 'common', 'diabolic'],
 					details: 'telepathy 100 feet',
 				},
 				senses: [{ type: 'darkvision' }],
@@ -320,7 +320,7 @@ export const NARCOVI: HarbingerNPC = {
 				rarity: 'unique',
 				size: { value: 'med' },
 				languages: {
-					value: ['common', 'dwarven', 'infernal'],
+					value: ['common', 'diabolic', 'dwarven'],
 					details: '',
 				},
 				senses: [{ type: 'darkvision' }],
@@ -439,7 +439,7 @@ export const SOUGAD_LAWSHREDDER: HarbingerNPC = {
 				rarity: 'unique',
 				size: { value: 'med' },
 				languages: {
-					value: ['common', 'abyssal'],
+					value: ['chthonian', 'common'],
 					details: '',
 				},
 			},
@@ -574,7 +574,7 @@ export const PASTOR_BROWEN: HarbingerNPC = {
 				rarity: 'unique',
 				size: { value: 'med' },
 				languages: {
-					value: ['common', 'abyssal'],
+					value: ['chthonian', 'common'],
 					details: '',
 				},
 			},
@@ -680,7 +680,7 @@ export const NARI_THE_SCHEMER: HarbingerNPC = {
 				rarity: 'unique',
 				size: { value: 'med' },
 				languages: {
-					value: ['abyssal', 'celestial', 'common', 'draconic', 'infernal'],
+					value: ['chthonian', 'common', 'diabolic', 'draconic', 'empyrean'],
 					details: 'telepathy 100 feet, tongues',
 				},
 				senses: [{ type: 'darkvision' }],
@@ -1629,7 +1629,7 @@ export const TEELA: HarbingerNPC = {
 				value: ['unique', 'human', 'humanoid'],
 				rarity: 'unique',
 				size: { value: 'med' },
-				languages: { value: ['common'], details: 'Planar Trade, Necril' },
+				languages: { value: ['common', 'necril'], details: 'Planar Trade' },
 			},
 		},
 		flags: {
