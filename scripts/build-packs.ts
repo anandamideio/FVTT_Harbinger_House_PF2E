@@ -466,7 +466,7 @@ async function writeAdventurePack(): Promise<void> {
 		name: 'Harbinger House',
 		img: `modules/${MODULE_ID}/dist/assets/art/Harbinger_House_Exterior.jpg`,
 		description:
-			'<p>In Sigil six souls have been silenced. One by one, the lawful are falling, and the murders pulse with a red, hungry light.</p><p>The Harmonium has a name: Sougad Lawshredder. But names are cheap in the Cage. What they don\'t have, and what no one yet understands, is the ritual. Thirteen victims. Thirteen transfers of planar energy. At the end of the tally, a mortal man ascends.</p><p>He means to become a god.</p><p>Someone has to stop him. That someone might be you.</p><p>Harbinger House is a full PF2e conversion of the classic Planescape adventure. Navigate the wards of Sigil, interrogate witnesses before their memories are silenced, trace bloodstained footprints to warehouses and faction halls, and unravel a conspiracy that reaches from the gutters of the Hive to a mysterious building on a dead-end street, where berks whisper of the mad becoming gods.</p>',
+			'<p>In Sigil six souls have been silenced. One by one, the lawful are falling, and the murders pulse with a red, hungry light.</p><p>There\'s whispers of a ritual.. one that if complete would allow a mortal to ascend.</p><p>Someone means to become a god.</p><p>Harbinger House is a full PF2e conversion of the classic Planescape adventure. Navigate the wards of Sigil, interrogate witnesses before their memories are silenced, trace bloodstained footprints before it\'s too late',
 		caption: 'In the Cage, berks whisper of a house where the mad become gods...',
 		actors,
 		combats: [],
