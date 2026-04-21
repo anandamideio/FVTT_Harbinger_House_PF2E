@@ -206,8 +206,9 @@ export class InvestigationBoardApp {
 			const isFirstDiscovery =
 				result.previousRevealState === 'hidden'
 				&& result.state.revealState === 'discovered';
+			const isReveal = result.previousRevealState !== result.state.revealState;
 
-			const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+			const soundSrc = isReveal ? await pickNextDiscoverySound(scene) : undefined;
 
 			boardState.states[locationId] = result.state;
 			if (isFirstDiscovery) {
@@ -238,7 +239,7 @@ export class InvestigationBoardApp {
 		};
 
 		await scene.setFlag(MODULE_ID, `locationStates.${locationId}`, newState);
-		const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+		const soundSrc = await pickNextDiscoverySound(scene);
 		boardState.states[locationId] = newState;
 		if (isFirstDiscovery) {
 			void this._getLayer()?.focusOnLocation(locationId);
@@ -293,11 +294,11 @@ export class InvestigationBoardApp {
 		if (!scene) return;
 
 		const updates: Record<string, LocationState> = {};
-		let anyFirstDiscovery = false;
+		let anyReveal = false;
 		for (const id of locationIds) {
 			const current = boardState.states[id] ?? createDefaultState();
-			if (targetState === 'discovered' && current.revealState === 'hidden') {
-				anyFirstDiscovery = true;
+			if (current.revealState !== targetState) {
+				anyReveal = true;
 			}
 			updates[id] = {
 				...current,
@@ -307,7 +308,7 @@ export class InvestigationBoardApp {
 		}
 
 		await setBulkLocationStates(scene, updates);
-		const soundSrc = anyFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+		const soundSrc = anyReveal ? await pickNextDiscoverySound(scene) : undefined;
 
 		// Update boardState and broadcast. Attach the shared sound to the first update only
 		// so remote clients play it a single time for the batch.

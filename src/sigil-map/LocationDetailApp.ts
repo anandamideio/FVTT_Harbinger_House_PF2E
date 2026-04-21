@@ -173,8 +173,9 @@ export class LocationDetailApp {
 			const isFirstDiscovery =
 				previousRevealState === 'hidden'
 				&& newState.revealState === 'discovered';
+			const isReveal = previousRevealState !== newState.revealState;
 
-			const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+			const soundSrc = isReveal ? await pickNextDiscoverySound(scene) : undefined;
 
 			// Update the canvas marker
 			const layer = canvas.sigilMap as SigilMapLayer | undefined;

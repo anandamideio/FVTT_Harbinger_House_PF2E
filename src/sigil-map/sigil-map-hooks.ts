@@ -1,7 +1,7 @@
 import { log, logDebug, MODULE_ID, SETTINGS } from '../config';
 import type { SigilLocation } from '../data/sigil-locations';
 import type { LocationState } from '../types/module-flags';
-import { DISCOVERY_SOUNDS, SOUNDS, SOUND_VOLUME } from './constants';
+import { DISCOVERY_SOUNDS, SOUND_VOLUME } from './constants';
 import { InvestigationBoardApp } from './InvestigationBoardApp';
 import { LocationDetailApp } from './LocationDetailApp';
 import type { SigilMapLayer } from './SigilMapLayer';
@@ -171,13 +171,14 @@ function onMarkerContext(marker: SigilMapMarker): void {
 					const isFirstDiscovery =
 						result.previousRevealState === 'hidden'
 						&& result.state.revealState === 'discovered';
+					const isReveal = result.previousRevealState !== result.state.revealState;
 
 					if (isFirstDiscovery) {
 						const layer = canvas.sigilMap as SigilMapLayer | undefined;
 						void layer?.focusOnLocation(marker.location.id);
 					}
 
-					const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+					const soundSrc = isReveal ? await pickNextDiscoverySound(scene) : undefined;
 
 					marker.setState(result.state, true);
 					broadcastLocationStateChange(marker.location.id, result.state, {
@@ -257,25 +258,25 @@ function onOpenLocationDetail(location: SigilLocation, state: LocationState): vo
 
 /**
  * GM-only: pick the next discovery sound and persist the rotation index on the scene
- * so every client plays the same sound in the same order.
+ * so every client plays the same sound in the same order. Used for both `discovered`
+ * and `investigated` reveals so each reveal advances the same cycle.
  */
 export async function pickNextDiscoverySound(scene: SceneClass): Promise<string> {
 	const index = await consumeNextDiscoveryCycleIndex(scene, DISCOVERY_SOUNDS.length);
 	return DISCOVERY_SOUNDS[index];
 }
 
-function playRevealSound(state: string, overrideSrc?: string): void {
+function playRevealSound(_state: string, overrideSrc?: string): void {
 	try {
 		if (!game.settings.get(MODULE_ID, SETTINGS.SIGIL_MAP_SOUNDS)) return;
 	} catch {
 		return;
 	}
 
-	const src = overrideSrc ?? (state === 'investigated' ? SOUNDS.INVESTIGATE : undefined);
-	if (!src) return;
+	if (!overrideSrc) return;
 
 	foundry.audio.AudioHelper.play({
-		src,
+		src: overrideSrc,
 		volume: SOUND_VOLUME,
 		autoplay: true,
 		loop: false,

@@ -167,11 +167,7 @@ export const FALLBACK_ICON = 'icons/svg/book.svg';
 // Sound Paths
 // ============================================================================
 
-export const SOUNDS = {
-	INVESTIGATE: `${ASSET_BASE}/sounds/reveal-investigate.ogg`,
-} as const;
-
-/** Discovery sounds played in rotation on each new location discovery. */
+/** Discovery sounds played in rotation on each reveal (discovered or investigated). */
 export const DISCOVERY_SOUNDS = [
 	`${ASSET_BASE}/sounds/discoveries/Discovery_1.ogg`,
 	`${ASSET_BASE}/sounds/discoveries/Discovery_2.ogg`,
