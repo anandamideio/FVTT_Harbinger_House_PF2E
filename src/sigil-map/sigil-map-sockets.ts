@@ -18,7 +18,10 @@ interface UpdateLocationMessage {
 	locationId: string;
 	newState: LocationState;
 	focusCamera?: boolean;
-	focusInitiatorId?: string;
+	/** User who triggered the state change, used to skip re-playing animations/sounds on the initiator. */
+	initiatorId?: string;
+	/** Sound file to play for this transition (picked by the GM so all clients stay in sync). */
+	soundSrc?: string;
 }
 
 interface RequestRefreshMessage {
@@ -36,6 +39,7 @@ type SocketMessage = UpdateLocationMessage | RequestRefreshMessage | FullStateSy
 
 interface BroadcastLocationOptions {
 	focusCamera?: boolean;
+	soundSrc?: string;
 }
 
 const SOCKET_NAME = `module.${MODULE_ID}`;
@@ -86,13 +90,17 @@ function handleUpdateLocation(message: UpdateLocationMessage): void {
 		const shouldFocusCamera =
 			message.focusCamera === true
 			&& message.newState.revealState === 'discovered'
-			&& message.focusInitiatorId !== game.user?.id;
+			&& message.initiatorId !== game.user?.id;
 
 		if (shouldFocusCamera) {
 			void layer.focusOnLocation(message.locationId);
 		}
 
 		layer.updateMarkerState(message.locationId, message.newState, true);
+	}
+
+	if (message.soundSrc && message.initiatorId !== game.user?.id) {
+		Hooks.call('harbinger-house.playRevealSound', message.newState.revealState, message.soundSrc);
 	}
 }
 
@@ -141,14 +149,14 @@ export function broadcastLocationStateChange(
 	options?: BroadcastLocationOptions,
 ): void {
 	const focusCamera = options?.focusCamera === true;
-	const focusInitiatorId = focusCamera ? game.user?.id : undefined;
 
 	emitSocket({
 		type: 'updateLocationState',
 		locationId,
 		newState,
 		focusCamera,
-		focusInitiatorId,
+		initiatorId: game.user?.id,
+		soundSrc: options?.soundSrc,
 	});
 }
 

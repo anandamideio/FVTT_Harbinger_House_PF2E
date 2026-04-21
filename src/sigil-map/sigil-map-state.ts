@@ -166,6 +166,34 @@ export async function toggleClueDiscovered(
 	return clues;
 }
 
+// ============================================================================
+// Discovery Sound Cycle
+// ============================================================================
+
+/**
+ * Read the current discovery-sound rotation index from scene flags.
+ * Returns 0 if the flag is unset or invalid.
+ */
+export function getDiscoveryCycleIndex(scene: SceneClass): number {
+	const raw = scene.flags?.[MODULE_ID]?.discoveryCycleIndex;
+	return typeof raw === 'number' && Number.isFinite(raw) && raw >= 0 ? Math.floor(raw) : 0;
+}
+
+/**
+ * Consume the next discovery-sound index (GM-only).
+ * Reads the current index, persists `(index + 1) mod cycleLength`, and returns the index that was just consumed.
+ */
+export async function consumeNextDiscoveryCycleIndex(
+	scene: SceneClass,
+	cycleLength: number,
+): Promise<number> {
+	if (cycleLength <= 0) return 0;
+	const current = getDiscoveryCycleIndex(scene) % cycleLength;
+	const next = (current + 1) % cycleLength;
+	await scene.setFlag(MODULE_ID, 'discoveryCycleIndex', next);
+	return current;
+}
+
 /**
  * Write multiple location states in a single flag update.
  * Used by the Investigation Board for bulk operations.

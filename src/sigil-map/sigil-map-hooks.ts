@@ -1,13 +1,14 @@
 import { log, logDebug, MODULE_ID, SETTINGS } from '../config';
 import type { SigilLocation } from '../data/sigil-locations';
 import type { LocationState } from '../types/module-flags';
-import { SOUNDS, SOUND_VOLUME } from './constants';
+import { DISCOVERY_SOUNDS, SOUNDS, SOUND_VOLUME } from './constants';
 import { InvestigationBoardApp } from './InvestigationBoardApp';
 import { LocationDetailApp } from './LocationDetailApp';
 import type { SigilMapLayer } from './SigilMapLayer';
 import { SigilMapMarker } from './SigilMapMarker';
 import {
 	advanceLocationState,
+	consumeNextDiscoveryCycleIndex,
 	isSigilScene,
 	resetLocationState,
 } from './sigil-map-state';
@@ -40,7 +41,7 @@ export function registerSigilMapHooks(): void {
 		onMarkerContext(args[0] as SigilMapMarker);
 	});
 	Hooks.on('harbinger-house.playRevealSound', (...args: unknown[]) => {
-		playRevealSound(args[0] as string);
+		playRevealSound(args[0] as string, args[1] as string | undefined);
 	});
 
 	log('Sigil map hooks registered');
@@ -176,11 +177,14 @@ function onMarkerContext(marker: SigilMapMarker): void {
 						void layer?.focusOnLocation(marker.location.id);
 					}
 
+					const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+
 					marker.setState(result.state, true);
 					broadcastLocationStateChange(marker.location.id, result.state, {
 						focusCamera: isFirstDiscovery,
+						soundSrc,
 					});
-					playRevealSound(result.state.revealState);
+					playRevealSound(result.state.revealState, soundSrc);
 					InvestigationBoardApp.instance?.refreshFromFlags();
 				}
 			},
@@ -251,14 +255,24 @@ function onOpenLocationDetail(location: SigilLocation, state: LocationState): vo
 // Sound Effects
 // ============================================================================
 
-function playRevealSound(state: string): void {
+/**
+ * GM-only: pick the next discovery sound and persist the rotation index on the scene
+ * so every client plays the same sound in the same order.
+ */
+export async function pickNextDiscoverySound(scene: SceneClass): Promise<string> {
+	const index = await consumeNextDiscoveryCycleIndex(scene, DISCOVERY_SOUNDS.length);
+	return DISCOVERY_SOUNDS[index];
+}
+
+function playRevealSound(state: string, overrideSrc?: string): void {
 	try {
 		if (!game.settings.get(MODULE_ID, SETTINGS.SIGIL_MAP_SOUNDS)) return;
 	} catch {
 		return;
 	}
 
-	const src = state === 'discovered' ? SOUNDS.DISCOVER : SOUNDS.INVESTIGATE;
+	const src = overrideSrc ?? (state === 'investigated' ? SOUNDS.INVESTIGATE : undefined);
+	if (!src) return;
 
 	foundry.audio.AudioHelper.play({
 		src,

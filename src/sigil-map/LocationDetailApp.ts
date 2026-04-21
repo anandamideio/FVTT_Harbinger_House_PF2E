@@ -11,6 +11,7 @@ import {
 	toggleClueDiscovered,
 } from './sigil-map-state';
 import { broadcastLocationStateChange } from './sigil-map-sockets';
+import { pickNextDiscoverySound } from './sigil-map-hooks';
 import type { SigilMapLayer } from './SigilMapLayer';
 
 /** open detail apps by location ID */
@@ -173,6 +174,8 @@ export class LocationDetailApp {
 				previousRevealState === 'hidden'
 				&& newState.revealState === 'discovered';
 
+			const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+
 			// Update the canvas marker
 			const layer = canvas.sigilMap as SigilMapLayer | undefined;
 			if (isFirstDiscovery) {
@@ -180,10 +183,15 @@ export class LocationDetailApp {
 			}
 			layer?.updateMarkerState(this._location.id, newState, true);
 
-			// Broadcast to other clients
+			// Broadcast to other clients (carries the shared discovery sound)
 			broadcastLocationStateChange(this._location.id, newState, {
 				focusCamera: isFirstDiscovery,
+				soundSrc,
 			});
+
+			if (soundSrc) {
+				Hooks.call('harbinger-house.playRevealSound', newState.revealState, soundSrc);
+			}
 
 			// Refresh our panel
 			this.updateState(newState);

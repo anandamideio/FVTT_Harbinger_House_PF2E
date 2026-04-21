@@ -17,6 +17,7 @@ import {
 	toggleClueDiscovered,
 } from './sigil-map-state';
 import { broadcastLocationStateChange } from './sigil-map-sockets';
+import { pickNextDiscoverySound } from './sigil-map-hooks';
 import type { SigilMapLayer } from './SigilMapLayer';
 
 /**
@@ -187,9 +188,9 @@ export class InvestigationBoardApp {
 		return canvas.sigilMap as SigilMapLayer | undefined;
 	}
 
-	private _playRevealSound(state: RevealState): void {
+	private _playRevealSound(state: RevealState, soundSrc?: string): void {
 		// Dispatch to the hook-based sound player
-		Hooks.call('harbinger-house.playRevealSound', state);
+		Hooks.call('harbinger-house.playRevealSound', state, soundSrc);
 	}
 
 	// ========================================================================
@@ -206,6 +207,8 @@ export class InvestigationBoardApp {
 				result.previousRevealState === 'hidden'
 				&& result.state.revealState === 'discovered';
 
+			const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
+
 			boardState.states[locationId] = result.state;
 			if (isFirstDiscovery) {
 				void this._getLayer()?.focusOnLocation(locationId);
@@ -213,8 +216,9 @@ export class InvestigationBoardApp {
 			this._getLayer()?.updateMarkerState(locationId, result.state, true);
 			broadcastLocationStateChange(locationId, result.state, {
 				focusCamera: isFirstDiscovery,
+				soundSrc,
 			});
-			this._playRevealSound(result.state.revealState);
+			this._playRevealSound(result.state.revealState, soundSrc);
 		}
 	}
 
@@ -234,6 +238,7 @@ export class InvestigationBoardApp {
 		};
 
 		await scene.setFlag(MODULE_ID, `locationStates.${locationId}`, newState);
+		const soundSrc = isFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
 		boardState.states[locationId] = newState;
 		if (isFirstDiscovery) {
 			void this._getLayer()?.focusOnLocation(locationId);
@@ -241,8 +246,9 @@ export class InvestigationBoardApp {
 		this._getLayer()?.updateMarkerState(locationId, newState, true);
 		broadcastLocationStateChange(locationId, newState, {
 			focusCamera: isFirstDiscovery,
+			soundSrc,
 		});
-		this._playRevealSound(targetState);
+		this._playRevealSound(targetState, soundSrc);
 	}
 
 	private async _handleResetLocation(locationId: string): Promise<void> {
@@ -287,8 +293,12 @@ export class InvestigationBoardApp {
 		if (!scene) return;
 
 		const updates: Record<string, LocationState> = {};
+		let anyFirstDiscovery = false;
 		for (const id of locationIds) {
 			const current = boardState.states[id] ?? createDefaultState();
+			if (targetState === 'discovered' && current.revealState === 'hidden') {
+				anyFirstDiscovery = true;
+			}
 			updates[id] = {
 				...current,
 				revealState: targetState,
@@ -297,15 +307,19 @@ export class InvestigationBoardApp {
 		}
 
 		await setBulkLocationStates(scene, updates);
+		const soundSrc = anyFirstDiscovery ? await pickNextDiscoverySound(scene) : undefined;
 
-		// Update boardState and broadcast
+		// Update boardState and broadcast. Attach the shared sound to the first update only
+		// so remote clients play it a single time for the batch.
+		let remainingSoundSrc = soundSrc;
 		for (const [id, state] of Object.entries(updates)) {
 			boardState.states[id] = state;
-			broadcastLocationStateChange(id, state);
+			broadcastLocationStateChange(id, state, remainingSoundSrc ? { soundSrc: remainingSoundSrc } : undefined);
+			remainingSoundSrc = undefined;
 		}
 
 		this._getLayer()?.refreshFromFlags();
-		this._playRevealSound(targetState);
+		this._playRevealSound(targetState, soundSrc);
 		logDebug(`Bulk revealed ${locationIds.length} locations as ${targetState}`);
 	}
 

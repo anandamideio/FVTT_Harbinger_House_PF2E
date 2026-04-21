@@ -28,6 +28,8 @@ export interface LocationState {
 /** Flags stored on the Sigil scene document */
 export interface SigilLocationFlags {
 	locationStates: Record<string, LocationState>;
+	/** Round-robin index for the discovery sound rotation (0-based). */
+	discoveryCycleIndex?: number;
 }
 
 /** Flags stored on individual Note documents embedded in the Sigil scene */

@@ -168,9 +168,16 @@ export const FALLBACK_ICON = 'icons/svg/book.svg';
 // ============================================================================
 
 export const SOUNDS = {
-	DISCOVER: `${ASSET_BASE}/sounds/reveal-discover.ogg`,
 	INVESTIGATE: `${ASSET_BASE}/sounds/reveal-investigate.ogg`,
 } as const;
+
+/** Discovery sounds played in rotation on each new location discovery. */
+export const DISCOVERY_SOUNDS = [
+	`${ASSET_BASE}/sounds/discoveries/Discovery_1.ogg`,
+	`${ASSET_BASE}/sounds/discoveries/Discovery_2.ogg`,
+	`${ASSET_BASE}/sounds/discoveries/Discovery_3.ogg`,
+	`${ASSET_BASE}/sounds/discoveries/Discovery_4.ogg`,
+] as const;
 
 export const SOUND_VOLUME = 0.5;
 
