@@ -12,9 +12,9 @@ export const IMPORTED_DD2VTT_SCENES: HarbingerScene[] = [
 	{
 		id: 'scene-rooftop-chase-day',
 		name: 'Rooftop Chase (Day)',
-		img: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Day.png',
+		img: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Day.webp',
 		background: {
-			src: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Day.png',
+			src: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Day.webp',
 			offsetX: 6,
 			offsetY: 2,
 		},
@@ -345,9 +345,9 @@ export const IMPORTED_DD2VTT_SCENES: HarbingerScene[] = [
 	{
 		id: 'scene-rooftop-chase-night',
 		name: 'Rooftop Chase (Night)',
-		img: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Night.png',
+		img: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Night.webp',
 		background: {
-			src: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Night.png',
+			src: 'modules/harbinger-house-pf2e/dist/assets/maps/Rooftop Chase - Night.webp',
 			offsetX: 6,
 			offsetY: 2,
 		},

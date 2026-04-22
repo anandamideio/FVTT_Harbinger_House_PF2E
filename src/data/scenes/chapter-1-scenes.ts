@@ -4,9 +4,9 @@ export const CHAPTER_1_SCENES: HarbingerScene[] = [
   {
 		id: 'scene-sigil',
 		name: 'Sigil',
-		img: 'modules/harbinger-house-pf2e/dist/assets/maps/Sigil.jpg',
+		img: 'modules/harbinger-house-pf2e/dist/assets/maps/Sigil.webp',
 		background: {
-			src: 'modules/harbinger-house-pf2e/dist/assets/maps/Sigil.jpg',
+			src: 'modules/harbinger-house-pf2e/dist/assets/maps/Sigil.webp',
 		},
 		grid: {
 			type: 1,

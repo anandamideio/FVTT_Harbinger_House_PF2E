@@ -47,7 +47,7 @@ export default defineDD2VTTImporterConfig({
 	imports: [
 		{
 			input: path.join(DD_SOURCE_DIR, 'RooftopChase_05_SummerAutumn_120x30_Day_FVTT.dd2vtt'),
-			imageName: 'Rooftop Chase - Day.png',
+			imageName: 'Rooftop Chase - Day.webp',
 			sceneId: 'scene-rooftop-chase-day',
 			sceneName: 'Rooftop Chase (Day)',
 			navOrder: 10,
@@ -57,7 +57,7 @@ export default defineDD2VTTImporterConfig({
 		},
 		{
 			input: path.join(DD_SOURCE_DIR, 'RooftopChase_05_SummerAutumn_120x30_Night_FVTT.dd2vtt'),
-			imageName: 'Rooftop Chase - Night.png',
+			imageName: 'Rooftop Chase - Night.webp',
 			sceneId: 'scene-rooftop-chase-night',
 			sceneName: 'Rooftop Chase (Night)',
 			navOrder: 11,
