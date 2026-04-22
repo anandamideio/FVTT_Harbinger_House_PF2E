@@ -35,7 +35,7 @@ The importer is strict by default.
 
 If any configured source file is missing, it fails fast before writing output.
 
-Use --allow-missing only when you intentionally want partial output.
+Use `--allow-missing` only when you intentionally want partial output.
 
 ## Config File
 
@@ -122,10 +122,4 @@ Run only importer tests:
 
 ```bash
 pnpm vitest run src/__tests__/scripts
-```
-
-Run full test suite:
-
-```bash
-pnpm test
 ```
