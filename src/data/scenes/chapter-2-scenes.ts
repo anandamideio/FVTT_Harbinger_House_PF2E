@@ -4,10 +4,10 @@ export const CHAPTER_2_SCENES: HarbingerScene[] = [
   {
     id: 'scene-bridge-castle',
     name: 'Near Ecstasy',
-    img: 'modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-background.webm',
+    img: 'modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-background-poster.webp',
     foreground: 'modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-foreground.webp',
     background: {
-      src: 'modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-background.webm',
+      src: 'modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-background-poster.webp',
       offsetX: 0,
       offsetY: 0,
     },
@@ -199,6 +199,45 @@ export const CHAPTER_2_SCENES: HarbingerScene[] = [
       },
     ],
     tiles: [
+      {
+        width: 3000,
+        height: 3000,
+        x: 0,
+        y: 0,
+        rotation: 0,
+        alpha: 1,
+        hidden: false,
+        locked: false,
+        sort: -1000,
+        occlusion: {
+          mode: 1,
+          alpha: 0,
+        },
+        video: {
+          loop: true,
+          autoplay: true,
+          volume: 0,
+        },
+        flags: {},
+        texture: {
+          src: 'modules/harbinger-house-pf2e/dist/assets/maps/bridge-and-castle-map-background.webm',
+          tint: '#ffffff',
+          scaleX: 1,
+          scaleY: 1,
+          offsetX: 0,
+          offsetY: 0,
+          rotation: 0,
+          anchorX: 0.5,
+          anchorY: 0.5,
+          fit: 'fill',
+          alphaThreshold: 0,
+        },
+        elevation: -1,
+        restrictions: {
+          light: false,
+          weather: false,
+        },
+      },
       {
         width: 600,
         height: 300,
