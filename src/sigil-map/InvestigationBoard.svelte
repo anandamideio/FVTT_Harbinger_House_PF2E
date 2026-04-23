@@ -1,6 +1,6 @@
 <script lang="ts">
     import { SvelteSet } from 'svelte/reactivity';
-	import type { SigilLocation, LocationCategory, RevealState } from '../data/sigil-locations';
+	import type { SigilLocation, LocationCategory, RevealState } from '../data/content/sigil-locations';
 	import type { LocationState } from '../types/module-flags';
 	import { CATEGORY_COLORS_CSS } from './constants';
 
@@ -55,17 +55,27 @@
 		'hideout': 'Hideouts',
 	};
 
-	const STATE_LABELS: Record<RevealState, string> = {
-		hidden: 'Hidden',
-		discovered: 'Discovered',
-		investigated: 'Investigated',
-	};
+	function getStateLabel(state: RevealState): string {
+		switch (state) {
+			case 'hidden':
+				return 'Hidden';
+			case 'discovered':
+				return 'Discovered';
+			case 'investigated':
+				return 'Investigated';
+		}
+	}
 
-	const NEXT_STATE: Record<RevealState, RevealState | null> = {
-		hidden: 'discovered',
-		discovered: 'investigated',
-		investigated: null,
-	};
+	function getNextState(state: RevealState): RevealState | null {
+		switch (state) {
+			case 'hidden':
+				return 'discovered';
+			case 'discovered':
+				return 'investigated';
+			case 'investigated':
+				return null;
+		}
+	}
 
 	// ========================================================================
 	// Internal UI State
@@ -316,7 +326,8 @@
 
 				{#each group.locations as location (location.id)}
 					{@const locState = getState(location.id)}
-					{@const nextState = NEXT_STATE[locState.revealState]}
+					{@const nextState = getNextState(locState.revealState)}
+					{@const nextStateLabel = nextState ? getStateLabel(nextState) : ''}
 					{@const isExpanded = expandedId === location.id}
 					{@const clueCount = getClueCount(location)}
 
@@ -358,7 +369,7 @@
 
 							<!-- State badge -->
 							<span class="state-badge {locState.revealState}">
-								{STATE_LABELS[locState.revealState]}
+								{getStateLabel(locState.revealState)}
 							</span>
 
 							<!-- Quick action buttons -->
@@ -366,7 +377,7 @@
 								{#if nextState}
 									<button
 										class="quick-btn advance-btn"
-										title="Advance to {STATE_LABELS[nextState]}"
+										title="Advance to {nextStateLabel}"
 										onclick={() => onAdvanceState(location.id)}
 									>
 										<i class="fas fa-arrow-right"></i>
