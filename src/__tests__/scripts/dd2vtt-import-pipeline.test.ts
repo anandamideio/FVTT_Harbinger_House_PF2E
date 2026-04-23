@@ -10,7 +10,7 @@ import {
 	createTempDir,
 	createTestConfig,
 	writeDD2VTTFile,
-} from '../helpers/dd2vtt-fixtures';
+} from '../data/fixtures/dd2vtt-fixtures';
 
 function createLoggerCapture(): {
 	logger: ImporterLogger;

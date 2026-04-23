@@ -6,7 +6,7 @@ import type {
 	DD2VTTFile,
 	DD2VTTImporterConfig,
 	SceneImportSpec,
-} from '../../../scripts/dd2vtt-importer/types';
+} from '../../../../scripts/dd2vtt-importer/types';
 
 export function createTempDir(prefix = 'dd2vtt-test-'): string {
 	return fs.mkdtempSync(path.join(os.tmpdir(), prefix));

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 import { ScenesModuleEmitter } from '../../../scripts/dd2vtt-importer/scenes-module-emitter';
 import type { GeneratedScene, SceneDefaults } from '../../../scripts/dd2vtt-importer/types';
-import { createTempDir } from '../helpers/dd2vtt-fixtures';
+import { createTempDir } from '../data/fixtures/dd2vtt-fixtures';
 
 const sceneDefaults: SceneDefaults = {
 	gridDistance: 5,
