@@ -1,4 +1,4 @@
-import { MODULE_ID } from '../config';
+import { MODULE_ID } from '../../config';
 
 export interface HarbingerPlaylistSound {
 	id: string;

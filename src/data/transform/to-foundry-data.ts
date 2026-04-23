@@ -1,16 +1,16 @@
-import { HARBINGER_JOURNAL_SHEET_CLASS, MODULE_ID } from '../config';
-import type { ActorData, ItemData, JournalEntryData, MacroData, PlaylistData, PlaylistSoundData, SceneData } from '../types/foundry';
-import type { HarbingerNPC, NPCCategory, NPCEntry, NPCItemEntry } from './harbinger-residents';
-import { isSystemActorReference } from './harbinger-residents';
-import type { HarbingerHazard, HazardCategory } from './hazards';
-import type { HarbingerItem, ItemCategory } from './items';
-import type { HarbingerJournal } from './journals';
-import type { HarbingerMacro } from './macros';
-import type { HarbingerPlaylist } from './playlists';
-import type { HarbingerScene } from './scenes/types';
-import type { HarbingerSpell } from './spells';
-import type { SystemActorReference } from './system-items';
-import { isSystemItemReference } from './utils';
+import { HARBINGER_JOURNAL_SHEET_CLASS, MODULE_ID } from '../../config';
+import type { ActorData, ItemData, JournalEntryData, MacroData, PlaylistData, PlaylistSoundData, SceneData } from '../../types/foundry';
+import type { HarbingerNPC, NPCCategory, NPCEntry, NPCItemEntry } from '../schema/harbinger-npc';
+import { isSystemActorReference } from '../schema/harbinger-npc';
+import type { HarbingerHazard, HazardCategory } from '../content/hazards';
+import type { HarbingerItem, ItemCategory } from '../schema/harbinger-item';
+import type { HarbingerJournal } from '../content/journals';
+import type { HarbingerMacro } from '../content/macros';
+import type { HarbingerPlaylist } from '../content/playlists';
+import type { HarbingerScene } from '../content/scenes/types';
+import type { HarbingerSpell } from '../schema/harbinger-spell';
+import type { SystemActorReference } from '../schema/system-items';
+import { isSystemItemReference } from '../utils';
 
 /**
  * Pure Data Transformation Functions

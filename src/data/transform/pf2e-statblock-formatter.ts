@@ -1,5 +1,5 @@
-import type { ItemData } from '../types/foundry.d.ts';
-import type { HarbingerNPC, NPCItemEntry } from './harbinger-residents';
+import type { ItemData } from '../../types/foundry.d.ts';
+import type { HarbingerNPC, NPCItemEntry } from '../schema/harbinger-npc';
 import {
 	SYSTEM_ACTIONS,
 	SYSTEM_SPELLS,
@@ -7,13 +7,13 @@ import {
 	type SystemActionReference,
 	type SystemSpellReference,
 	type SystemWeaponReference,
-} from './system-items';
+} from '../schema/system-items';
 import {
 	isSystemActionReference,
 	isSystemItemReference,
 	isSystemSpellReference,
 	isSystemWeaponReference,
-} from './utils';
+} from '../utils';
 
 type NPCSystemData = Partial<PF2eActorSystem>;
 type TypeListEntry = {

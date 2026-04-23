@@ -1,5 +1,5 @@
-import { MODULE_ID } from '../config';
-import type { HarbingerHouseMacroName } from '../macros';
+import { MODULE_ID } from '../../config';
+import type { HarbingerHouseMacroName } from '../../macros';
 
 export interface HarbingerMacro {
 	id: string;

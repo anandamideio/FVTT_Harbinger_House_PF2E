@@ -1,4 +1,4 @@
-import type { PF2eHazardSystem } from '../types/foundry';
+import type { PF2eHazardSystem } from '../../types/foundry';
 
 // Hazard categories for organization
 export type HazardCategory = 'trap' | 'environmental' | 'haunt' | 'aura';

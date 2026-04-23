@@ -1,13 +1,6 @@
-import type { ItemData } from '../types/foundry';
+import type { HarbingerItem, ItemCategory } from '../schema/harbinger-item';
 
-// Item categories for organization
-export type ItemCategory = 'artifact' | 'weapon' | 'armor' | 'equipment' | 'consumable';
-
-export interface HarbingerItem {
-	id: string;
-	category: ItemCategory;
-	data: ItemData;
-}
+export type { HarbingerItem, ItemCategory } from '../schema/harbinger-item';
 
 // ============================================================================
 // MAJOR ARTIFACTS

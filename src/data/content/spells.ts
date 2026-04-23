@@ -1,9 +1,6 @@
-import type { ItemData } from '../types/foundry';
+import type { HarbingerSpell } from '../schema/harbinger-spell';
 
-export interface HarbingerSpell {
-	id: string;
-	data: ItemData;
-}
+export type { HarbingerSpell } from '../schema/harbinger-spell';
 
 // ============================================================================
 // CUSTOM SPELLS
