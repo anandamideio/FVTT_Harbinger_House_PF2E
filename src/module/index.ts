@@ -13,7 +13,9 @@ export class HarbingerHouseModule {
 		private readonly canvas: CanvasLayerRegistrar,
 		private readonly hooks: HookRegistrar,
 		private readonly api: ApiRegistrar,
-	) {}
+	) {
+		
+	}
 
 	init(): void {
 		log('Initializing Harbinger House module');
