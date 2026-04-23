@@ -1,5 +1,5 @@
 import { log, logDebug, logWarn, MODULE_ID } from '../config';
-import { openAlignmentPicker } from './AlignmentPickerApp';
+import { AlignmentPickerApp } from './pickers/AlignmentPickerApp';
 import { ALIGNMENT_FLAG, getAlignmentName, syncAlignmentEffect, type AlignmentId } from './alignment';
 
 /**
@@ -80,7 +80,7 @@ async function handleAlignmentPickRequest(message: RequestAlignmentPickMessage):
 	}
 
 	const current = (actor.getFlag(MODULE_ID, ALIGNMENT_FLAG) as AlignmentId | undefined) ?? '';
-	const selected = await openAlignmentPicker(current, actor.name);
+	const selected = await new AlignmentPickerApp(current, actor.name).open();
 
 	if (selected === null) {
 		logDebug(`[Alignment] Player dismissed alignment picker for ${actor.name}`);

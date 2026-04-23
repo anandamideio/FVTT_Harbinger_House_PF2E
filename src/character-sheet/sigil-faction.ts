@@ -1,5 +1,5 @@
 import { localize, log, logDebug, MODULE_ID } from '../config';
-import { openFactionPicker } from './FactionPickerApp';
+import { FactionPickerApp } from './pickers/FactionPickerApp';
 import { injectAlignmentSelector } from './alignment';
 import { FACTION_FLAG, getSigilFactionName } from './factions';
 export { FACTION_FLAG, SIGIL_FACTIONS, type SigilFaction } from './factions';
@@ -56,7 +56,7 @@ function injectFactionSelector(app: any, html: JQuery): void {
 		if (event.type === 'keydown' && (event as KeyboardEvent).key !== 'Enter') return;
 
 		const current = (actor.getFlag(MODULE_ID, FACTION_FLAG) as string | undefined) ?? '';
-		const selected = await openFactionPicker(current);
+		const selected = await new FactionPickerApp(current).open();
 
 		if (selected === null) return; // dialog dismissed
 

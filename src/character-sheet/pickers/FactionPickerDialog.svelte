@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SIGIL_FACTIONS } from './sigil-faction';
+	import { SIGIL_FACTIONS } from '../factions';
 
 	interface Props {
 		currentFaction: string;

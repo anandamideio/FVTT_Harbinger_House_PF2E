@@ -1,5 +1,5 @@
 import { localize, log, logDebug, MODULE_ID } from '../config';
-import { openAlignmentPicker } from './AlignmentPickerApp';
+import { AlignmentPickerApp } from './pickers/AlignmentPickerApp';
 
 // ============================================================================
 // Alignment Definitions
@@ -298,7 +298,7 @@ export function injectAlignmentSelector(app: any, html: JQuery): void {
 		if (event.type === 'keydown' && (event as KeyboardEvent).key !== 'Enter') return;
 
 		const current = (actor.getFlag(MODULE_ID, ALIGNMENT_FLAG) as string | undefined) ?? '';
-		const selected = await openAlignmentPicker(current as AlignmentId | '', actor.name);
+		const selected = await new AlignmentPickerApp(current as AlignmentId | '', actor.name).open();
 
 		if (selected === null) return; // dialog dismissed
 

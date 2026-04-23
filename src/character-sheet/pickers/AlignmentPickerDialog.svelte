@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type AlignmentId, getAlignmentById } from './alignment';
+	import { type AlignmentId, getAlignmentById } from '../alignment';
 
 	interface Props {
 		currentAlignment: AlignmentId | '';
