@@ -54,7 +54,7 @@ export async function exportActiveSceneDataMacro(): Promise<void> {
 		{
 			title: `Scene Export: ${exportData.name}`,
 			content: `
-							 <p>Paste this object into the appropriate scene array in <code>src/data/content/scenes/*.ts</code>.</p>
+							<p>Paste this object into the appropriate scene array in <code>src/data/content/scenes/*.ts</code>.</p>
 				<p>This export includes ambience overrides and complete grid settings when present.</p>
 				${
 					playlistDetails.length > 0
