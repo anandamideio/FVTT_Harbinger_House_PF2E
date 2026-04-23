@@ -1,5 +1,4 @@
-import { HarbingerHouseImporter } from './adventure-importer';
-import { PF2E_BESTIARY_TOKENS_MODULE_ID } from './bestiary-art';
+import { HarbingerHouseImporter, PF2E_BESTIARY_TOKENS_MODULE_ID } from './importer';
 import { registerAlignmentSockets } from './character-sheet/alignment-sockets';
 import { registerCharacterSheetHooks } from './character-sheet/sigil-faction';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, logWarn, MODULE_ID, registerSettings } from './config';

@@ -9,7 +9,7 @@ import {
 	isBestiaryArtPath,
 	resolveBestiaryTokenTextureFallback,
 	shouldClearBestiarySubjectTexture,
-} from '../../bestiary-art';
+} from '../../importer/helpers/bestiary-tokens';
 import { SYSTEM_ACTORS } from '../../data/system-items';
 
 function parseCompendiumActorUuid(uuid: string): { pack: string; actorId: string } {
