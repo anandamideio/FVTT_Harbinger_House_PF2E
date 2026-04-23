@@ -1,5 +1,5 @@
 import { MODULE_ID } from '../../config';
-import type { HarbingerScene } from '../../data/scenes/types';
+import type { HarbingerScene } from '../../data/content/scenes/types';
 
 const PLACEABLE_FIELDS = [
 	'drawings',
