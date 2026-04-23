@@ -73,9 +73,9 @@
 	font-display: swap;
 }
 
-/* ================================
-   harbinger-house-dialog (inline dialog wrapper class)
-   ================================ */
+/* =======================================================
+    harbinger-house-dialog (inline dialog wrapper class)
+   ======================================================= */
 
 .harbinger-house-dialog {
 	background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -239,8 +239,8 @@
 }
 
 /* ================================
-   Import Dialog
-   ================================ */
+            Import Dialog
+  ================================ */
 
 .harbinger-dialog {
 	--harbinger-primary: #6e0000;
