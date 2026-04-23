@@ -671,10 +671,13 @@ span.page-title {
 
 /* Links - like references to other entries */
 .journal-sheet.harbinger-journal a {
-	background: antiquewhite;
 	color: var(--harbinger-primary);
 	text-decoration: underline;
 	font-weight: 500;
+}
+
+.journal-sheet.harbinger-journal a.content-link {
+	background: antiquewhite;
 }
 
 .journal-sheet.harbinger-journal a:hover {
