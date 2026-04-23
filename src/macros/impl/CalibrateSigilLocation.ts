@@ -1,5 +1,5 @@
 import { log, logWarn } from '../../config';
-import { ALL_SIGIL_LOCATIONS, getLocationById, type SigilLocation } from '../../data/sigil-locations';
+import { ALL_SIGIL_LOCATIONS, getLocationById, type SigilLocation } from '../../data/content/sigil-locations';
 import { isSigilScene } from '../../sigil-map/sigil-map-state';
 import { HarbingerMacro } from '../Macro';
 import { copyToClipboard } from '../helpers/clipboard';
@@ -141,7 +141,7 @@ async function showCalibrationResult(location: SigilLocation, x: number, y: numb
 			title: `Captured Coordinates: ${location.name}`,
 			content: `
 				<p><strong>${location.name}</strong> captured at <strong>x: ${x}</strong>, <strong>y: ${y}</strong>.</p>
-				<p>Paste this snippet into <code>src/data/sigil-locations.ts</code>:</p>
+							<p>Paste this snippet into <code>src/data/content/sigil-locations.ts</code>:</p>
 				<textarea style="width: 100%; min-height: 120px; font-family: monospace;">${snippet}</textarea>
 				<p>${copied ? 'Snippet copied to clipboard.' : 'Clipboard copy failed; snippet is ready above.'}</p>
 			`,
