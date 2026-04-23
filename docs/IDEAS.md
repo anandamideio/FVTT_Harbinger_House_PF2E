@@ -1,8 +1,8 @@
 # Ideas
 
-1. [] We need the journals to correctly link the items / actors that are mentioned
+1. [X] We need the journals to correctly link the items / actors that are mentioned
    -> [X] Character Sheet inserts should open said NPC sheet
-   -> [] Loot Sheets need to open said document
+   -> [X] Item mentions should also open said item document
 
 2. [] Narcovi's Notebook should be a custom Journal class that has cursive on parchment paper
    -> [] This could be made a journal that has a macro the GM presses and it changes the permission to be viewable for the players and shows the logged in players
