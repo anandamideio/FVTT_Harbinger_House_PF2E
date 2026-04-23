@@ -148,10 +148,9 @@ export function isValidAlignment(id: string): id is AlignmentId {
 //
 // PF2e rule elements run off of "roll options" — predicates like
 // `target:harbinger:lawful` only resolve if the targeted actor exposes that
-// option. The cleanest way to publish a roll option derived from external
-// state (our alignment flag) is to drop a hidden Effect item on the actor
-// whose only job is to hold a RollOption rule element. PF2e automatically
-// processes Effects for rule elements, so this is framework-native.
+// option. The cleanest way I've found to publish a roll option derived from an
+// external state (such as our alignment flag) is to drop a hidden Effect item on
+// the actor whose only job is to hold a RollOption rule element.
 // ============================================================================
 
 /** Marker flag set on the synthetic Effect so we can find and replace it. */
