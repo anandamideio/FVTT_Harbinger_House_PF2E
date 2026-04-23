@@ -1,7 +1,6 @@
 export const PF2E_BESTIARY_TOKENS_MODULE_ID = 'pf2e-tokens-bestiaries';
 export const PF2E_BESTIARY_TOKENS_PREFIX = `modules/${PF2E_BESTIARY_TOKENS_MODULE_ID}/tokens/`;
 export const PF2E_BESTIARY_SUBJECTS_PREFIX = `modules/${PF2E_BESTIARY_TOKENS_MODULE_ID}/subjects/`;
-
 export const DEFAULT_TOKEN_TEXTURE_FALLBACK = 'icons/svg/mystery-man.svg';
 
 function isNonEmptyString(value: unknown): value is string {
