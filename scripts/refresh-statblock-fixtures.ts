@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { NARCOVI, TROLAN_THE_MAD } from '../src/data/harbinger-residents';
-import { formatPF2eStatblock } from '../src/data/pf2e-statblock-formatter';
+import { NARCOVI, TROLAN_THE_MAD } from '../src/data/content/npcs/harbinger-residents';
+import { formatPF2eStatblock } from '../src/data/transform/pf2e-statblock-formatter';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const fixturesDir = path.join(rootDir, 'src', '__tests__', 'data', 'fixtures', 'pf2e-statblock-formatter');

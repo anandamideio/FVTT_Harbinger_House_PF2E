@@ -6,7 +6,7 @@ This tool:
 1. Reads one or more .dd2vtt files from a TypeScript config file.
 2. Decodes each embedded base64 image into src/assets/maps.
 3. Converts walls, portals, and lights into scene placeables.
-4. Writes generated scene data to src/data/scenes-imported.ts.
+4. Writes generated scene data to src/data/content/scenes/scenes-imported.ts.
 
 ## Commands
 
@@ -46,7 +46,7 @@ export default defineDD2VTTImporterConfig({
   paths: {
     repoRoot: "/absolute/or/relative/root",
     mapsDir: "src/assets/maps",
-    outputFile: "src/data/scenes-imported.ts",
+    outputFile: "src/data/content/scenes/scenes-imported.ts",
     modulePrefix: "modules/harbinger-house-pf2e/dist/assets/maps"
   },
   defaults: {
