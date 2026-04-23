@@ -13,6 +13,7 @@
 		"typecheck": "tsc --noEmit",
 		"lint": "pnpm eslint ./src --fix",
 		"lint:ci": "pnpm eslint ./src",
+		"link": "./scripts/link.fish",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:refresh:statblock-fixtures": "tsx scripts/refresh-statblock-fixtures.ts"
