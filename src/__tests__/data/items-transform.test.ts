@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { GORG_STATUE_CACHE } from '../../data/generic-npcs';
-import { getItemById } from '../../data/items';
-import { itemToDocumentData, npcToDocumentData } from '../../data/to-foundry-data';
+import { GORG_STATUE_CACHE } from '../../data/content/npcs/generic-npcs';
+import { getItemById } from '../../data/content/items';
+import { itemToDocumentData, npcToDocumentData } from '../../data/transform/to-foundry-data';
 
 function getPhysicalFields(system: unknown): { bulkValue: unknown; quantity: unknown } {
 	const typed = (system ?? {}) as Record<string, unknown>;

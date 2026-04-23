@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { MODULE_ID } from '../../config';
-import type { HarbingerScene } from '../../data/scenes/types';
-import { sceneToDocumentData } from '../../data/to-foundry-data';
+import type { HarbingerScene } from '../../data/content/scenes/types';
+import { sceneToDocumentData } from '../../data/transform/to-foundry-data';
 
 const BASE_SCENE: HarbingerScene = {
 	id: 'scene-test',

@@ -4,10 +4,10 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
-import { NARCOVI, TROLAN_THE_MAD } from '../../data/harbinger-residents';
-import type { HarbingerNPC, NPCItemEntry } from '../../data/harbinger-residents';
-import { formatPF2eStatblock } from '../../data/pf2e-statblock-formatter';
-import { SYSTEM_ACTIONS, SYSTEM_SPELLS, SYSTEM_WEAPONS } from '../../data/system-items';
+import { NARCOVI, TROLAN_THE_MAD } from '../../data/content/npcs/harbinger-residents';
+import type { HarbingerNPC, NPCItemEntry } from '../../data/schema/harbinger-npc';
+import { formatPF2eStatblock } from '../../data/transform/pf2e-statblock-formatter';
+import { SYSTEM_ACTIONS, SYSTEM_SPELLS, SYSTEM_WEAPONS } from '../../data/schema/system-items';
 
 const FIXTURES_DIR = path.resolve(
 	path.dirname(fileURLToPath(import.meta.url)),

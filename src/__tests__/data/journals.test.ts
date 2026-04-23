@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseMarkdownToJournals } from '../../data/journals';
+import { parseMarkdownToJournals } from '../../data/content/journals';
 
 describe('parseMarkdownToJournals', () => {
 	it('returns empty array for empty input', () => {
