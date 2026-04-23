@@ -4,7 +4,16 @@ import { registerCharacterSheetHooks } from './character-sheet/sigil-faction';
 import { ADVENTURE_PACK, localize, log, logDebug, logError, logWarn, MODULE_ID, registerSettings } from './config';
 import { getContentSummary } from './data';
 import { HarbingerJournalSheet } from './harbinger-journal-sheet';
-import { MACROS, type HarbingerHouseMacroAPI } from './macros';
+import {
+	AssignPlayerAlignments,
+	CalibrateSigilLocation,
+	ExportSceneData,
+	MacroRegistry,
+	OpenImportDialog,
+	SetLandingPage,
+	type HarbingerHouseMacroAPI,
+	withLegacyMacroAliases,
+} from './macros';
 import { SigilMapLayer, registerSigilMapHooks, registerSigilMapSockets } from './sigil-map';
 
 /** Pre-computed Adventure document ID (MD5 of 'harbinger-house-adventure', first 16 hex chars) */
@@ -12,6 +21,16 @@ const ADVENTURE_ID = '42cb37a38191040e';
 
 /** Full compendium UUID for the Adventure document */
 const ADVENTURE_UUID = `Compendium.${ADVENTURE_PACK}.Adventure.${ADVENTURE_ID}`;
+
+const MACROS = withLegacyMacroAliases(
+	new MacroRegistry()
+		.register(new SetLandingPage())
+		.register(new OpenImportDialog())
+		.register(new ExportSceneData())
+		.register(new CalibrateSigilLocation())
+		.register(new AssignPlayerAlignments())
+		.toAPI(),
+);
 
 function getAdventureImporterKeys(): string[] {
 	const manifestFlags = game.modules.get(MODULE_ID)?.flags as Record<string, unknown> | undefined;
