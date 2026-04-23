@@ -1,6 +1,6 @@
 import { log, logDebug, MODULE_ID, SETTINGS } from '../config';
-import { ALL_SIGIL_LOCATIONS } from '../data/sigil-locations';
-import type { SigilLocation } from '../data/sigil-locations';
+import { ALL_SIGIL_LOCATIONS } from '../data/content/sigil-locations';
+import type { SigilLocation } from '../data/content/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import { CAMERA_FOCUS } from './constants';
 import { SigilMapMarker } from './SigilMapMarker';

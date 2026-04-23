@@ -1,7 +1,7 @@
 import { mount, unmount } from 'svelte';
 import { MODULE_ID, SETTINGS } from '../config';
-import type { SigilLocation } from '../data/sigil-locations';
-import type { RevealState } from '../data/sigil-locations';
+import type { SigilLocation } from '../data/content/sigil-locations';
+import type { RevealState } from '../data/content/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import LocationDetail from './LocationDetail.svelte';
 import {

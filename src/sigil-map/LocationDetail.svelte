@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { SigilLocation, LocationClue } from '../data/sigil-locations';
+	import type { SigilLocation, LocationClue } from '../data/content/sigil-locations';
 	import type { LocationState } from '../types/module-flags';
 	import { CATEGORY_ICONS, FALLBACK_ICON, LOCATION_ICONS } from './constants';
 

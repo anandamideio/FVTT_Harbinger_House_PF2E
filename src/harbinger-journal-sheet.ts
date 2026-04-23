@@ -1,8 +1,8 @@
 import { logDebug, MODULE_ID } from './config';
 import { FACTION_FLAG, SIGIL_FACTIONS } from './character-sheet/factions';
 import { ALL_NPCS, getNPCById } from './data';
-import { isSystemActorReference, type HarbingerNPC } from './data/harbinger-residents';
-import { formatPF2eStatblock } from './data/pf2e-statblock-formatter';
+import { isSystemActorReference, type HarbingerNPC } from './data/schema/harbinger-npc';
+import { formatPF2eStatblock } from './data/transform/pf2e-statblock-formatter';
 
 const STATBLOCK_VIEW_FLAG = 'statblockView';
 type StatblockView = 'pf2e' | 'classic';
