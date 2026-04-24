@@ -6,6 +6,7 @@ const REQUIRED_MACRO_NAMES: HarbingerHouseMacroName[] = [
 	'exportSceneData',
 	'calibrateSigilLocation',
 	'assignPlayerAlignments',
+	'revealNarcovisNotebook',
 ];
 
 export class MacroRegistry {
@@ -25,6 +26,7 @@ export class MacroRegistry {
 			exportSceneData: this.createRunner('exportSceneData'),
 			calibrateSigilLocation: this.createRunner('calibrateSigilLocation'),
 			assignPlayerAlignments: this.createRunner('assignPlayerAlignments'),
+			revealNarcovisNotebook: this.createRunner('revealNarcovisNotebook'),
 		};
 	}
 

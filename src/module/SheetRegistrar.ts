@@ -1,6 +1,7 @@
 import { MODULE_ID } from '../config';
 import { HarbingerJournalSheet } from '../harbinger-journal-sheet';
 import { HarbingerHouseImporter } from '../importer';
+import { NarcoviNotebookSheet } from '../narcovi-notebook-sheet';
 
 export class SheetRegistrar {
 	register(): void {
@@ -14,6 +15,14 @@ export class SheetRegistrar {
 		DocumentSheetConfig.registerSheet(JournalEntry, MODULE_ID, HarbingerJournalSheet, {
 			types: ['base'],
 			label: 'Harbinger House',
+			makeDefault: false,
+			canConfigure: true,
+			canBeDefault: false,
+		});
+
+		DocumentSheetConfig.registerSheet(JournalEntry, MODULE_ID, NarcoviNotebookSheet, {
+			types: ['base'],
+			label: "Narcovi's Notebook",
 			makeDefault: false,
 			canConfigure: true,
 			canBeDefault: false,

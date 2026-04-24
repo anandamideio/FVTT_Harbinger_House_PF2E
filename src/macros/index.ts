@@ -21,4 +21,5 @@ export { AssignPlayerAlignments } from './impl/AssignPlayerAlignments';
 export { CalibrateSigilLocation } from './impl/CalibrateSigilLocation';
 export { ExportSceneData } from './impl/ExportSceneData';
 export { OpenImportDialog } from './impl/OpenImportDialog';
+export { RevealNarcovisNotebook } from './impl/RevealNarcovisNotebook';
 export { SetLandingPage } from './impl/SetLandingPage';

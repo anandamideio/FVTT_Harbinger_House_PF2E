@@ -4,6 +4,7 @@ export interface HarbingerHouseMacroAPI {
 	exportSceneData: () => Promise<void>;
 	calibrateSigilLocation: () => Promise<void>;
 	assignPlayerAlignments: () => Promise<void>;
+	revealNarcovisNotebook: () => Promise<void>;
 }
 
 export type HarbingerHouseMacroName = keyof HarbingerHouseMacroAPI;

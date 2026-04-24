@@ -327,13 +327,14 @@ export function journalToDocumentData(journal: HarbingerJournal): JournalEntryDa
 		sort: journal.sort || 0,
 		flags: {
 			core: {
-				sheetClass: HARBINGER_JOURNAL_SHEET_CLASS,
+				sheetClass: journal.sheetClass ?? HARBINGER_JOURNAL_SHEET_CLASS,
 			},
 			[MODULE_ID]: {
 				imported: true,
 				sourceId: journal.id,
 				folder: journal.folder || 'Reference',
 				importedAt: Date.now(),
+				...(journal.moduleFlags ?? {}),
 			},
 		},
 	};

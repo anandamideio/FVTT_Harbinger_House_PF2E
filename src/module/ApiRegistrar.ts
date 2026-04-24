@@ -7,6 +7,7 @@ import {
 	ExportSceneData,
 	MacroRegistry,
 	OpenImportDialog,
+	RevealNarcovisNotebook,
 	SetLandingPage,
 	type HarbingerHouseMacroAPI,
 	withLegacyMacroAliases,
@@ -25,6 +26,7 @@ const MACROS = withLegacyMacroAliases(
 		.register(new ExportSceneData())
 		.register(new CalibrateSigilLocation())
 		.register(new AssignPlayerAlignments())
+		.register(new RevealNarcovisNotebook())
 		.toAPI(),
 );
 
@@ -37,6 +39,7 @@ export interface HarbingerHouseAPI {
 	exportSceneData: HarbingerHouseMacroAPI['exportSceneData'];
 	calibrateSigilLocation: HarbingerHouseMacroAPI['calibrateSigilLocation'];
 	assignPlayerAlignments: HarbingerHouseMacroAPI['assignPlayerAlignments'];
+	revealNarcovisNotebook: HarbingerHouseMacroAPI['revealNarcovisNotebook'];
 }
 
 declare global {

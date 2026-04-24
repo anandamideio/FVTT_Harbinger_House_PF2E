@@ -49,6 +49,13 @@ export const ALL_MACROS: HarbingerMacro[] = [
 		command: createMacroCommand('assignPlayerAlignments'),
 		img: 'icons/svg/sun.svg',
 	},
+	{
+		id: 'reveal-narcovis-notebook',
+		name: "Reveal Narcovi's Notebook",
+		type: 'script',
+		command: createMacroCommand('revealNarcovisNotebook'),
+		img: 'icons/svg/book.svg',
+	},
 ];
 
 export function getMacroById(id: string): HarbingerMacro | undefined {

@@ -25,6 +25,10 @@ export interface HarbingerJournal {
 	pages: JournalPage[];
 	folder?: string; // Folder name for organization
 	sort?: number;
+	/** Override the journal sheet class (defaults to HarbingerJournalSheet). */
+	sheetClass?: string;
+	/** Extra module flags merged into flags[MODULE_ID]. */
+	moduleFlags?: Record<string, unknown>;
 }
 
 /**
@@ -513,8 +517,12 @@ const HANDOUTS_JOURNAL: HarbingerJournal = {
 	],
 };
 
-// Combine parsed journals with handouts journal
-export const ALL_JOURNALS = [...JOURNAL_DATA_WITH_COVERSHEET, HANDOUTS_JOURNAL];
+import { NARCOVI_NOTEBOOK_JOURNAL } from './narcovi-notebook';
+
+// Combine parsed journals with handouts journal and one-off custom handouts
+export const ALL_JOURNALS = [...JOURNAL_DATA_WITH_COVERSHEET, HANDOUTS_JOURNAL, NARCOVI_NOTEBOOK_JOURNAL];
+
+export { NARCOVI_NOTEBOOK_JOURNAL, NARCOVI_NOTEBOOK_SOURCE_ID, NARCOVI_NOTEBOOK_FLAG } from './narcovi-notebook';
 
 export const JOURNALS_BY_FOLDER = JOURNAL_DATA_WITH_COVERSHEET.reduce(
 	(acc, journal) => {
