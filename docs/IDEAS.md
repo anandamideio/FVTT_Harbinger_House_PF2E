@@ -4,9 +4,9 @@
    -> [X] Character Sheet inserts should open said NPC sheet
    -> [X] Item mentions should also open said item document
 
-2. [] Narcovi's Notebook should be a custom Journal class that has cursive on parchment paper
-   -> [] This could be made a journal that has a macro the GM presses and it changes the permission to be viewable for the players and shows the logged in players
-   -> [] The journal should have a switch to turn off cursive for the reader for readability
+2. [X] Narcovi's Notebook should be a custom Journal class that has cursive on parchment paper
+   -> [X] This could be made a journal that has a macro the GM presses and it changes the permission to be viewable for the players and shows the logged in players
+   -> [X] The journal should have a switch to turn off cursive for the reader for readability
 
 3. [] Fix the webm map that's loading in weird
    -> [X] I've made a temporary image so that the map still work but we need to figure out why it's not playing
