@@ -7,7 +7,7 @@ import type {
 	SceneImportSpec,
 	WallDefaults,
 } from '../../../scripts/dd2vtt-importer/types';
-import { createSampleDD2VTT } from '../helpers/dd2vtt-fixtures';
+import { createSampleDD2VTT } from '../data/fixtures/dd2vtt-fixtures';
 
 const sceneDefaults: SceneDefaults = {
 	gridDistance: 5,

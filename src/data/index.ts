@@ -3,28 +3,26 @@
 // ============================================================================
 
 // Re-export types
-export type { HarbingerNPC, NPCCategory, NPCEntry } from './harbinger-residents';
-export { isSystemActorReference } from './harbinger-residents';
+export type { HarbingerNPC, NPCCategory, NPCEntry } from './schema/harbinger-npc';
+export { isSystemActorReference } from './schema/harbinger-npc';
 
-import { FIENDS, FIGMENTS, GENERIC_NPCS, LOOT_NPCS } from './generic-npcs';
-import type { NPCEntry } from './harbinger-residents';
+import { FIENDS, FIGMENTS, GENERIC_NPCS, LOOT_NPCS } from './content/npcs/generic-npcs';
+import type { NPCEntry } from './schema/harbinger-npc';
 // Import all NPC groups (assuming these files exist in your project)
 // If they don't exist, you'll need to create them or import from a single file
-import { HARBINGER_RESIDENTS } from './harbinger-residents';
-import { ALL_HAZARDS } from './hazards';
-import { ALL_ITEMS } from './items';
-import { ALL_JOURNALS } from './journals';
-import { ALL_MACROS } from './macros';
-import { ALL_PLAYLISTS } from './playlists';
-import { ALL_SCENES } from './scenes';
-import { ALL_SPELLS } from './spells';
+import { HARBINGER_RESIDENTS } from './content/npcs/harbinger-residents';
+import { ALL_HAZARDS } from './content/hazards';
+import { ALL_ITEMS } from './content/items';
+import { ALL_JOURNALS } from './content/journals';
+import { ALL_MACROS } from './content/macros';
+import { ALL_PLAYLISTS } from './content/playlists';
+import { ALL_SCENES } from './content/scenes';
+import { ALL_SPELLS } from './content/spells';
 
-export * from './generic-npcs';
+export * from './content/npcs';
 // Re-export individual NPCs for direct access
-export * from './harbinger-residents';
-
 // Re-export scenes
-export * from './scenes';
+export * from './content/scenes';
 // Combined NPC exports
 export { ALL_SCENES, FIENDS, FIGMENTS, GENERIC_NPCS, HARBINGER_RESIDENTS, LOOT_NPCS };
 
@@ -71,7 +69,7 @@ export function getNPCById(id: string) {
 // Item Data
 // ============================================================================
 
-export type { HarbingerItem, ItemCategory } from './items';
+export type { HarbingerItem, ItemCategory } from './schema/harbinger-item';
 
 export {
 	ALL_ITEMS,
@@ -83,25 +81,25 @@ export {
 	getItemCategoryLabel,
 	ITEMS_BY_CATEGORY,
 	WEAPON_ITEMS,
-} from './items';
+} from './content/items';
 
 // ============================================================================
 // Spell Data
 // ============================================================================
 
-export type { HarbingerSpell } from './spells';
+export type { HarbingerSpell } from './schema/harbinger-spell';
 
 export {
 	ALL_SPELLS,
 	getSpellById,
 	getSpellNames,
-} from './spells';
+} from './content/spells';
 
 // ============================================================================
 // Hazard Data
 // ============================================================================
 
-export type { HarbingerHazard, HazardCategory, HazardData } from './hazards';
+export type { HarbingerHazard, HazardCategory, HazardData } from './content/hazards';
 
 export {
 	ALL_HAZARDS,
@@ -112,41 +110,41 @@ export {
 	getHazardsByLocation,
 	HAZARDS_BY_CATEGORY,
 	TRAP_HAZARDS,
-} from './hazards';
+} from './content/hazards';
 
 // ============================================================================
 // Journal Data
 // ============================================================================
 
-export type { HarbingerJournal, JournalFolder, JournalPage } from './journals';
+export type { HarbingerJournal, JournalFolder, JournalPage } from './content/journals';
 
 export {
 	ALL_JOURNALS,
 	getFolderLabel,
 	JOURNALS_BY_FOLDER,
-} from './journals';
+} from './content/journals';
 
 // ============================================================================
 // Macro Data
 // ============================================================================
 
-export type { HarbingerMacro } from './macros';
+export type { HarbingerMacro } from './content/macros';
 
 export {
 	ALL_MACROS,
 	getMacroById,
-} from './macros';
+} from './content/macros';
 
 // ============================================================================
 // Playlist Data
 // ============================================================================
 
-export type { HarbingerPlaylist, HarbingerPlaylistSound } from './playlists';
+export type { HarbingerPlaylist, HarbingerPlaylistSound } from './content/playlists';
 
 export {
 	ALL_PLAYLISTS,
 	getPlaylistById,
-} from './playlists';
+} from './content/playlists';
 
 // ============================================================================
 // Summary Statistics
@@ -178,7 +176,7 @@ export function getContentSummary() {
 // Re-export utility functions and types from utils.ts
 // ============================================================================
 
-export type { NPCItemEntry } from './harbinger-residents';
+export type { NPCItemEntry } from './schema/harbinger-npc';
 export {
 	createSpellcastingEntry,
 	createSpellcastingEntryWithSpells,
@@ -199,5 +197,5 @@ export type {
 	SystemSpellReference,
 	SystemWeaponReference,
 	WeaponRuneConfig,
-} from './system-items';
-export { PROPERTY_RUNES } from './system-items';
+} from './schema/system-items';
+export { PROPERTY_RUNES } from './schema/system-items';

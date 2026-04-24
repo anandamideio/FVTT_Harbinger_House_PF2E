@@ -5,13 +5,13 @@ import { ClassicLevel } from 'classic-level';
 
 // Import data arrays
 import { ALL_NPCS } from '../src/data/index.ts';
-import { ALL_ITEMS } from '../src/data/items.ts';
-import { ALL_SPELLS } from '../src/data/spells.ts';
-import { ALL_HAZARDS } from '../src/data/hazards.ts';
-import { ALL_JOURNALS } from '../src/data/journals.ts';
-import { ALL_MACROS } from '../src/data/macros.ts';
-import { ALL_PLAYLISTS } from '../src/data/playlists.ts';
-import { ALL_SCENES } from '../src/data/scenes.ts';
+import { ALL_ITEMS } from '../src/data/content/items.ts';
+import { ALL_SPELLS } from '../src/data/content/spells.ts';
+import { ALL_HAZARDS } from '../src/data/content/hazards.ts';
+import { ALL_JOURNALS } from '../src/data/content/journals.ts';
+import { ALL_MACROS } from '../src/data/content/macros.ts';
+import { ALL_PLAYLISTS } from '../src/data/content/playlists.ts';
+import { ALL_SCENES } from '../src/data/content/scenes.ts';
 
 // Import pure transform functions
 import {
@@ -23,7 +23,7 @@ import {
 	playlistToDocumentData,
 	sceneToDocumentData,
 	npcEntryToDocumentData,
-} from '../src/data/to-foundry-data.ts';
+} from '../src/data/transform/to-foundry-data.ts';
 
 const PACKS_DIR = path.resolve(import.meta.dirname, '..', 'packs');
 

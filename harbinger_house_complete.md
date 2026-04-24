@@ -121,7 +121,7 @@ As for the focrux, Favur called it the heart of Harbinger House. "It looks like 
 > [!planar-note]
 > **The Planarity and the Focrux**
 >
-> At rest, the **planarity** appears to be a nondescript sphere of deep-blue stone, perfectly round and smooth, that fits in the palm of a hand. However, when it comes within 50 feet of a planar portal, the planarity reacts with excitement. It changes shape, and a storm of energy rises up from its depths to play along the inner surface of the stone. Spiky protrusions emerge from the smooth surface, jutting as much as three inches before plunging back into the stone. These protrusions extend and retract faster and faster as the planarity gets closer to a portal. At the same time, the inner storm intensifies into a raging dance of color.
+> At rest, the **planarity** appears to be a nondescript sphere of deep-blue stone, perfectly round and smooth, that fits in the palm of a hand. However, when it comes within 50 feet of a planar portal, @UUID[Item.0130ef5e0bf749fc]{the planarity} reacts with excitement. It changes shape, and a storm of energy rises up from its depths to play along the inner surface of the stone. Spiky protrusions emerge from the smooth surface, jutting as much as three inches before plunging back into the stone. These protrusions extend and retract faster and faster as the planarity gets closer to a portal. At the same time, the inner storm intensifies into a raging dance of color.
 >
 > The planarity is a gate key, but not in the normal sense. Unlike other gate keys, which are linked to specific planar doors, the planarity has the power to open any portal in Harbinger House. In addition, it's the only key that unlocks the sealed doors there (both mundane and planar). The Godsmen's factol keeps the planarity in his possession at all times, sure that it'll play an important, if not pivotal, role in the Final Ascension.
 >
@@ -530,7 +530,7 @@ With that, Halelfar strides toward the park.
 
 Back at the shop, if the PCs remind A'kin that he was about to show them some wondrous item, the arcanaloth's face lights up and he calls toward a curtained doorway. "Balaka, my dear, please bring out the long box on the work table." A moment later, a beautiful, red-haired female with feathery wings steps from behind the curtain, carrying an oblong box. **Balaka** (Pl/♀ fiend/0/—/LE), an erinyes, is a lesser baatezu who works for A'kin; shy and quiet, she's as unusual a fiend as her employer.
 
-The box contains a **long sword of the planes**, a blade with a black jewel in its pommel that glows with the energy of the multiverse. It looks as though a portion of space, complete with stars and glowing gases, has been trapped within the jewel. However, A'kin won't identify the sword for what it is, merely commenting on its beautiful workmanship and noting that it has some minor enchantments on it. After some haggling, the lowest price he'll accept is 4,000 gp. If the PCs can't afford his price now, he'll gladly hold the sword for them until later—for a small down payment of 100 gp.
+The box contains a **@UUID[Item.0b04cfe2b76b28fb]{long sword of the planes}**, a blade with a black jewel in its pommel that glows with the energy of the multiverse. It looks as though a portion of space, complete with stars and glowing gases, has been trapped within the jewel. However, A'kin won't identify the sword for what it is, merely commenting on its beautiful workmanship and noting that it has some minor enchantments on it. After some haggling, the lowest price he'll accept is 4,000 gp. If the PCs can't afford his price now, he'll gladly hold the sword for them until later—for a small down payment of 100 gp.
 
 The long sword of the planes has the following attack and damage roll bonuses when used on the specified planes or against opponents from those planes: Prime Material Plane, +1; Inner Planes, +2; Outer Planes, +3; Astral or Ethereal Planes, +4. However, the PCs must figure out how the sword works on their own; A'kin claims not to know.
 
@@ -596,6 +596,8 @@ Rake took Sougad in as a young pup, recognizing the innate abilities that marked
 ---
 
 ## Narcovi's Notebook
+
+You can reveal this to you players @UUID[Macro.ec3a062968c62a9b]{using the following macro}.
 
 *These notes might help me see something new. I hope so.*
 
@@ -1143,7 +1145,7 @@ Meanwhile, in Bloodgem Park across the street, 20 members of **Those Who Court t
 > [!read-aloud]
 > "Hear us, Lady, for your beauty and grace have attracted us from across the planes," the crowd chants in unison. "Accept our gifts and love, and in return show the love you feel for us!"
 
-The chant is repeated over and over as the battle rages on the rooftop; the PCs hear bits of it as their weapons clash with Sougad's law slayer blade.
+The chant is repeated over and over as the battle rages on the rooftop; the PCs hear bits of it as their weapons clash with Sougad's @UUID[Item.9030f1a0934f6bc4]{law slayer} blade.
 
 Before the PCs can kill the barmy, he decides to escape through the portal and seek a few victims elsewhere on the Outlands. When the time is right, Sougad leaps in front of the arch, yelling to the PCs, "When next we meet, you will bow down before me! I will be Sougad Lawshredder, power of murder and chaos!" The DM should let the PCs make an initiative roll; any who roll 3 or less can take one action before Sougad leaps through the arch. However, while the PCs should be made to feel as though they had a chance to stop the murderer, under no circumstances should they be allowed to kill him or prevent him from escaping through the portal. After the PCs take their actions, Sougad plunges through the arch. Instead of falling to his death, he disappears as the arch briefly crackles with light.
 
@@ -1207,7 +1209,7 @@ This power-to-be in the making came to my attention about a decade ago when he c
 
 Incidental evidence alerted me to the fact that we weren't dealing with an ordinary barmy. Some victims had been bound in a discharge of magical power, and the descriptions that the gray-woman of the Dustmen provided of outer shadows led me to the Believers of the Source. Our researchers tracked him for Harbinger House — even potential powers need a place to develop before they ascend. The trail led directly to Sougad, and I stumbled across him as he was about to enter a hostile house in the Hive.
 
-During my work to bring him the knowledge of ascension, I learned some important information about Sougad Lawshredder. He came from the prime world of Toril, where he was the ward of an evil wizard, and he came to Sigil for a specific purpose — to become a power of chaos and murder. Sougad has certain innate abilities that identify him as a power-to-be. He can cause fear, memory loss, and produce the effects of shocking grasp. He is resistant to magical effects, and any long sword he uses to commit a murder immediately becomes an enchanted law slayer weapon. His murders follow a definite pattern and are part of an elaborate ritual that he believes will elevate him to godhood. He refuses to provide details, but it appears that the ritual has granted additional abilities to Sougad, even though it went unfinished (he needed to complete 13 murders to complete the first cycle). Strangely enough, Sougad also likes to eat Abyssal leeches.
+During my work to bring him the knowledge of ascension, I learned some important information about Sougad Lawshredder. He came from the prime world of Toril, where he was the ward of an evil wizard, and he came to Sigil for a specific purpose — to become a power of chaos and murder. Sougad has certain innate abilities that identify him as a power-to-be. He can cause fear, memory loss, and produce the effects of shocking grasp. He is resistant to magical effects, and any long sword he uses to commit a murder immediately becomes an enchanted @UUID[Item.9030f1a0934f6bc4]{law slayer} weapon. His murders follow a definite pattern and are part of an elaborate ritual that he believes will elevate him to godhood. He refuses to provide details, but it appears that the ritual has granted additional abilities to Sougad, even though it went unfinished (he needed to complete 13 murders to complete the first cycle). Strangely enough, Sougad also likes to eat Abyssal leeches.
 
 In the decade since we started working with him, Sougad's innate abilities have grown stronger. His hatred for law and order has not faded either. I fear that he'll never develop into a benign power, but that isn't our concern. When he reaches the full state of powerhood, we'll release him to find his place in the multiverse.
 
@@ -1921,7 +1923,7 @@ These windows aren't portals; the PCs can't step through one and wind up, for ex
 
 When the PCs arrive, they don't notice Galkin at first. He's sitting on the stairs, about halfway up, staring at the images of Waterdeep scrolling behind one of the windows. Galkin hates to be disturbed, and the constant barrage of landscapes and societies that assault his senses give him a very bad temper. He also has a few powers available to make his temper dangerous. Galkin is what the Godsmen call "spell-touched." He embodies the living essence of one particular spell: *lightning bolt*. This doesn't give him the ability to cast a bolt from his fingertips; he actually becomes the bolt of lightning, cascading around the room and causing damage to whoever he touches.
 
-Galkin can become a lightning bolt at will, but he must make a successful Constitution check to actually transform. His energy form lasts for one action in a particular round and gives him all the attributes of a *lightning bolt* spell. In other words, he has a range of 100 yards, he causes 6d6 damage to all in line of the bolt (victims can save vs. spell for half damage), and he can travel from one point to another instantaneously. If he tries to transform and fails, he can't try again for 1d4 rounds. In the rounds when he can't transform, Galkin uses his short sword of quickness to automatically attack first.
+Galkin can become a lightning bolt at will, but he must make a successful Constitution check to actually transform. His energy form lasts for one action in a particular round and gives him all the attributes of a *lightning bolt* spell. In other words, he has a range of 100 yards, he causes 6d6 damage to all in line of the bolt (victims can save vs. spell for half damage), and he can travel from one point to another instantaneously. If he tries to transform and fails, he can't try again for 1d4 rounds. In the rounds when he can't transform, Galkin uses his @UUID[Item.33cb2286e97ac035]{short sword of quickness} to automatically attack first.
 
 Before they can speak with him, the PCs must calm Galkin down by helping him regain the concentration they disturbed by entering the room. Focusing his attention on one of the windows helps, as do soothing discussion and kind words. Shattering the windows makes Galkin go crazy, as the images he transferred to it come rushing back. This makes him more angry, and he redoubles his efforts to make the PCs leave.
 
@@ -2116,7 +2118,7 @@ When the PCs arrive, Gorg approaches them in manic glee and tries to turn as man
 
 Pathways of colorful stone wind through this garden room. Flowers of all descriptions grow in neat little rows among the paths, and skylights in the ceiling provide sunlight from the Arcadian sky.
 
-This is the chamber of **Tomin**, a tall, wiry, and cruel barmy with long, greasy hair. He wears what appears to be a black cloak but is actually a cloak of figments. Figments are tiny, humanoid shadow creatures — literally, figments of Tomin's imagination made real by the powers of his addle-coved mind. They hang together from Tomin's back and arms, forming a cloaklike cape of moving, chattering beings.
+This is the chamber of **Tomin**, a tall, wiry, and cruel barmy with long, greasy hair. He wears what appears to be a black cloak but is actually a @UUID[Item.d01319458c2792a0]{cloak of figments}. Figments are tiny, humanoid shadow creatures — literally, figments of Tomin's imagination made real by the powers of his addle-coved mind. They hang together from Tomin's back and arms, forming a cloaklike cape of moving, chattering beings.
 
 Tomin commands his figments, often sending them scurrying away from his body to take any shape he can imagine. If a PC fails to make a successful save vs. rod when attacked by a figment, the PC believes it to be real, and the figment can then cause real damage. Each PC must make his own saving throw; if even one PC fails the roll, the figment becomes real for all. If attacked by several figments, the PCs must save against each one separately.
 
@@ -2394,7 +2396,7 @@ After the PCs have looked around the chamber but before they head to any of the 
 >
 > "You berks are definitely in the wrong place at the wrong time," the tall creature growls bitterly, hefting his ornate sword and moving toward you.
 
-Crimjak wants to destroy the PCs or at least keep them busy while Nari completes her ritual, and he's brought enough manes from the Abyss to grab the group's attention. As soon as the fiends and the PCs start fighting, the commotion brings Nari, wearing her true form, out of her chamber. She hurries toward the focrux, a long sword in one hand and the planarity in the other. The planarity reacts to the larger globe and vice versa. Read:
+Crimjak wants to destroy the PCs or at least keep them busy while Nari completes her ritual, and he's brought enough manes from the Abyss to grab the group's attention. As soon as the fiends and the PCs start fighting, the commotion brings Nari, wearing her true form, out of her chamber. She hurries toward @UUID[Item.4ab2ba223e8c1881]{the focrux}, a long sword in one hand and the planarity in the other. The planarity reacts to the larger globe and vice versa. Read:
 
 > [!read-aloud]
 > As the succubus approaches the floating globe, a storm of energy rises to the surface of the globe and begins to dance within it. Spiky protrusions emerge from the surface, jut as far as two feet from the globe, then plunge back into the stormy depths. The smaller globe floating just above the succubus's hand reacts in the same manner, mirroring the actions of the larger globe.
@@ -2456,9 +2458,9 @@ The DM should finish up the third round and let everyone make a new initiative r
 
 ## Power Play
 
-If the PCs allow Sougad to strike Nari, the succubus takes a serious wound. Sougad grabs the planarity and moves toward the thirteenth victim to finish his ritual. If the PCs don't stop him, he kills the captive sod and quickly makes 12 more cuts in the body. This causes strange waves of energy to ripple from the dead sod to the focrux, from the focrux to the planarity, and from the planarity to Sougad. The energy grants Sougad another innate power — *chaos* (as per the 5th-level wizard spell, once per day) — and increases the enchantment of his sword to +3 (+5 vs. lawful opponents).
+If the PCs allow Sougad to strike Nari, the succubus takes a serious wound. Sougad grabs the planarity and moves toward the thirteenth victim to finish his ritual. If the PCs don't stop him, he kills the captive sod and quickly makes 12 more cuts in the body. This causes strange waves of energy to ripple from the dead sod to @UUID[Item.4ab2ba223e8c1881]{the focrux}, from the focrux to the planarity, and from the planarity to Sougad. The energy grants Sougad another innate power — *chaos* (as per the 5th-level wizard spell, once per day) — and increases the enchantment of his sword to +3 (+5 vs. lawful opponents).
 
-At this point, the PCs should realize that letting Sougad finish his ritual is a bad idea. The law slayer blade glows with cascading planar energy. If the barmy plunges the sword into himself, it'll open the conduit of spiritual energy necessary to elevate him to powerhood. However, Nari, no matter what else she may be doing, screams with rage when she sees the sword start to glow: "No!" she shouts. "I must become the power, not you!" She grabs at the sword, struggling with Sougad to possess it. Meanwhile, the planarity and the focrux continue to storm, sending explosions of color and strobing light throughout the chamber.
+At this point, the PCs should realize that letting Sougad finish his ritual is a bad idea. The @UUID[Item.9030f1a0934f6bc4]{law slayer} blade glows with cascading planar energy. If the barmy plunges the sword into himself, it'll open the conduit of spiritual energy necessary to elevate him to powerhood. However, Nari, no matter what else she may be doing, screams with rage when she sees the sword start to glow: "No!" she shouts. "I must become the power, not you!" She grabs at the sword, struggling with Sougad to possess it. Meanwhile, the planarity and the focrux continue to storm, sending explosions of color and strobing light throughout the chamber.
 
 ## Resolution
 
@@ -2466,7 +2468,7 @@ What happens next depends on what the PCs do — or don't do. The probable cours
 
 ### The Focrux is Destroyed
 
-Having seen Trolan attempt to destroy the focrux, the PCs might try to do it themselves. However, the focrux can only be destroyed by magical weapons. To strike it, a PC must hit an Armor Class of 4. No damage rolls are necessary; instead, the globe makes saving throws to see if it's shattered by the blow. The base saving throw is 4, modified by the weapon's enchantment. For example, if a +2 weapon hits the focrux, the saving throw is modified by 2, increasing from 4 to 6. With each successful hit, the DM must roll the focrux's saving throw number or higher for the globe to remain intact. A failed roll indicates that the focrux shatters.
+Having seen Trolan attempt to destroy @UUID[Item.4ab2ba223e8c1881]{the focrux}, the PCs might try to do it themselves. However, the focrux can only be destroyed by magical weapons. To strike it, a PC must hit an Armor Class of 4. No damage rolls are necessary; instead, the globe makes saving throws to see if it's shattered by the blow. The base saving throw is 4, modified by the weapon's enchantment. For example, if a +2 weapon hits the focrux, the saving throw is modified by 2, increasing from 4 to 6. With each successful hit, the DM must roll the focrux's saving throw number or higher for the globe to remain intact. A failed roll indicates that the focrux shatters.
 
 If the globe is destroyed, Harbinger House is no longer protected from scrying, and the Lady of Pain instantly becomes aware of the situation. Read:
 
@@ -2487,7 +2489,7 @@ The rest of the scene plays out as in "The Focrux is Destroyed," above.
 
 ### The Sword Slays Trolan
 
-Trolan's not going to wrest the glowing sword from anyone's grip and plunge it into himself. However, PCs who realize what's going on might choose to do so (or try to convince Trolan that it's necessary to prevent Sougad's ascension). In any case, if Trolan is killed with the law slayer, he becomes a lesser power of peace and love. (The details of the event are the same as in "The Sword Slays Sougad," above — his body dies, the focrux explodes, and the Lady arrives to kill the cross-traders and cast the new power out.)
+Trolan's not going to wrest the glowing sword from anyone's grip and plunge it into himself. However, PCs who realize what's going on might choose to do so (or try to convince Trolan that it's necessary to prevent Sougad's ascension). In any case, if Trolan is killed with the @UUID[Item.9030f1a0934f6bc4]{law slayer}, he becomes a lesser power of peace and love. (The details of the event are the same as in "The Sword Slays Sougad," above — his body dies, the focrux explodes, and the Lady arrives to kill the cross-traders and cast the new power out.)
 
 Before he leaves the Cage, Trolan uses his newfound abilities to smother the negative emotions and end the fighting; Crimjak and any surviving manes return peacefully to the Abyss. Trolan thanks the PCs for their aid and, with a sorrowful expression, departs Sigil. He knows the Lady won't tolerate his presence in her city, and he won't push the issue. Instead, he'll go in search of a plane where he can establish a realm and pine for the Lady in peace.
 

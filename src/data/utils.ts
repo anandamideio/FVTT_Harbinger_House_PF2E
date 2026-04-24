@@ -17,7 +17,7 @@ import {
 	type SystemWeaponKey,
 	type SystemWeaponReference,
 	type WeaponRuneConfig,
-} from './system-items';
+} from './schema/system-items';
 
 // Re-export types for convenience
 export type {
@@ -26,7 +26,7 @@ export type {
 	SystemEquipmentReference,
 	SystemSpellReference,
 	SystemWeaponReference,
-} from './system-items';
+} from './schema/system-items';
 
 /**
  * Action type parameter for createAction helper

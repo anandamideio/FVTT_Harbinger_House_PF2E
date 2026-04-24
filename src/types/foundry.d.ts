@@ -1022,15 +1022,15 @@ declare global {
 	type NPCCategory = 'major-npc' | 'harbinger-resident' | 'generic-npc' | 'fiend' | 'cultist';
 
 	// Note: SystemWeaponReference, SystemSpellReference, SystemActionReference types
-	// are defined in src/data/system-items.ts as the canonical source
-	// They are re-exported from src/data/harbinger-residents.ts as NPCItemEntry
+	// are defined in src/data/schema/system-items.ts as the canonical source
+	// They are re-exported from src/data/schema/harbinger-npc.ts as NPCItemEntry
 
 	interface HarbingerNPC {
 		id: string;
 		category: NPCCategory;
 		data: ActorData;
 		/** Items can be inline ItemData or references to system compendium items */
-		items: unknown[]; // Use unknown[] here - actual type is NPCItemEntry from harbinger-residents.ts
+		items: unknown[]; // Use unknown[] here - actual type is NPCItemEntry from schema/harbinger-npc.ts
 	}
 
 	// JournalEntry (V13 structure with pages)

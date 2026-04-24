@@ -9,8 +9,8 @@ import {
 	isBestiaryArtPath,
 	resolveBestiaryTokenTextureFallback,
 	shouldClearBestiarySubjectTexture,
-} from '../../bestiary-art';
-import { SYSTEM_ACTORS } from '../../data/system-items';
+} from '../../importer/helpers/bestiary-tokens';
+import { SYSTEM_ACTORS } from '../../data/schema/system-items';
 
 function parseCompendiumActorUuid(uuid: string): { pack: string; actorId: string } {
 	const match = /^Compendium\.pf2e\.([^.]+)\.Actor\.([A-Za-z0-9]+)$/.exec(uuid);

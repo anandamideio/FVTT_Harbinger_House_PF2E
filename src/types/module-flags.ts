@@ -1,4 +1,4 @@
-import type { RevealState } from '../data/sigil-locations';
+import type { RevealState } from '../data/content/sigil-locations';
 
 /** Flags stored on imported actors */
 export interface HarbingerHouseFlags {

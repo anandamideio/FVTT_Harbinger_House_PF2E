@@ -1,8 +1,10 @@
 import { logDebug, MODULE_ID } from './config';
 import { FACTION_FLAG, SIGIL_FACTIONS } from './character-sheet/factions';
 import { ALL_NPCS, getNPCById } from './data';
-import { isSystemActorReference, type HarbingerNPC } from './data/harbinger-residents';
-import { formatPF2eStatblock } from './data/pf2e-statblock-formatter';
+import { NARCOVI_NOTEBOOK_FLAG } from './data/content/narcovi-notebook';
+import { isSystemActorReference, type HarbingerNPC } from './data/schema/harbinger-npc';
+import { formatPF2eStatblock } from './data/transform/pf2e-statblock-formatter';
+import { applyNarcoviNotebookDecoration } from './narcovi-notebook-sheet';
 
 const STATBLOCK_VIEW_FLAG = 'statblockView';
 type StatblockView = 'pf2e' | 'classic';
@@ -56,6 +58,19 @@ export class HarbingerJournalSheet extends foundry.applications.sheets.journal.J
 		const $root = $(this.element);
 		if ($root.length === 0) {
 			logDebug('[JournalFaction] _onRender abort: no sheet root element found');
+			return;
+		}
+
+		// Documents imported before the NarcoviNotebookSheet sheet-class override
+		// landed still resolve to this sheet. Detect the flag and hand off to the
+		// notebook decoration path so the parchment styling and font toggle apply.
+		const isNarcoviNotebook = this.document?.getFlag(MODULE_ID, NARCOVI_NOTEBOOK_FLAG) === true;
+		if (isNarcoviNotebook) {
+			logDebug('[JournalFaction] Narcovi notebook flag detected on HarbingerJournalSheet; applying notebook decoration', {
+				journalId: this.document?.id,
+			});
+			applyNarcoviNotebookDecoration($root);
+			scheduleNavigationScrollToActivePage(this.document, $root);
 			return;
 		}
 

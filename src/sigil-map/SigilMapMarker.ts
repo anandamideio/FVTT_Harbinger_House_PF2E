@@ -1,4 +1,4 @@
-import type { RevealState, SigilLocation } from '../data/sigil-locations';
+import type { RevealState, SigilLocation } from '../data/content/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import {
 	ANIM,

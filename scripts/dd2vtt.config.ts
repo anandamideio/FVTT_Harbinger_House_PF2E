@@ -11,7 +11,7 @@ export default defineDD2VTTImporterConfig({
 	paths: {
 		repoRoot: REPO_ROOT,
 		mapsDir: path.resolve(REPO_ROOT, 'src/assets/maps'),
-		outputFile: path.resolve(REPO_ROOT, 'src/data/scenes/scenes-imported.ts'),
+			 outputFile: path.resolve(REPO_ROOT, 'src/data/content/scenes/scenes-imported.ts'),
 		modulePrefix: 'modules/harbinger-house-pf2e/dist/assets/maps',
 	},
 	defaults: {

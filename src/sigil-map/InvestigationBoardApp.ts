@@ -1,7 +1,7 @@
 import { mount, unmount } from 'svelte';
 import { log, logDebug, MODULE_ID } from '../config';
-import { ALL_SIGIL_LOCATIONS, getLocationById } from '../data/sigil-locations';
-import type { RevealState } from '../data/sigil-locations';
+import { ALL_SIGIL_LOCATIONS, getLocationById } from '../data/content/sigil-locations';
+import type { RevealState } from '../data/content/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import InvestigationBoard from './InvestigationBoard.svelte';
 import { boardState } from './investigation-board-state.svelte';

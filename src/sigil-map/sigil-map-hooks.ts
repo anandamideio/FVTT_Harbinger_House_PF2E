@@ -1,5 +1,5 @@
 import { log, logDebug, MODULE_ID, SETTINGS } from '../config';
-import type { SigilLocation } from '../data/sigil-locations';
+import type { SigilLocation } from '../data/content/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import { DISCOVERY_SOUNDS, SOUND_VOLUME } from './constants';
 import { InvestigationBoardApp } from './InvestigationBoardApp';

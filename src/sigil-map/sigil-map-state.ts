@@ -1,5 +1,5 @@
 import { MODULE_ID } from '../config';
-import type { RevealState } from '../data/sigil-locations';
+import type { RevealState } from '../data/content/sigil-locations';
 import type { LocationState } from '../types/module-flags';
 import { SIGIL_SCENE_ID } from './constants';
 

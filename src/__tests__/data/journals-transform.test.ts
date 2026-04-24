@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { HARBINGER_JOURNAL_SHEET_CLASS, MODULE_ID } from '../../config';
-import type { HarbingerJournal } from '../../data/journals';
-import { journalToDocumentData } from '../../data/to-foundry-data';
+import type { HarbingerJournal } from '../../data/content/journals';
+import { journalToDocumentData } from '../../data/transform/to-foundry-data';
 
 describe('journalToDocumentData', () => {
 	it('assigns the Harbinger custom sheet class to imported journals', () => {
