@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { SvelteSet } from 'svelte/reactivity';
-	import type { SigilLocation, LocationCategory, RevealState } from '../data/content/sigil-locations';
+  import { SvelteSet } from 'svelte/reactivity';
+	import type { SigilLocation, LocationCategory, RevealState } from '../data/content/sigil-locations.ts';
 	import type { LocationState } from '../types/module-flags';
 	import { CATEGORY_COLORS_CSS } from './constants';
 
