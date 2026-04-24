@@ -597,6 +597,8 @@ Rake took Sougad in as a young pup, recognizing the innate abilities that marked
 
 ## Narcovi's Notebook
 
+You can reveal this to you players @UUID[Macro.ec3a062968c62a9b]{using the following macro}.
+
 *These notes might help me see something new. I hope so.*
 
 **Night, six days past**
